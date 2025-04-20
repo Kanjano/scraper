@@ -24,70 +24,78 @@ def cerca_gear4music(prodotto):
     driver = setup_driver()
     driver.get(url)
 
-    # Scroll dinamico per caricare tutti i prodotti
     for i in range(5):
         driver.execute_script("window.scrollBy(0, document.body.scrollHeight / 5);")
-        print(f"🕒 Attendo caricamento contenuti... round {i+1}")
-        time.sleep(3)
+        print(f"🕒 Scroll step {i+1}")
+        time.sleep(2)
 
     html = driver.page_source
     soup = BeautifulSoup(html, "html.parser")
+    print("✅ HTML ricevuto. Inizio parsing...")
     driver.quit()
 
-    risultati = []
-
-    # 🔍 Mappiamo gli ID prodotto con immagine e link reali dal DOM
-    image_map = {}
-    link_map = {}
-    for card in soup.select(".df-card-product"):
-        link_el = card.select_one("a[href*='/product/']")
-        img_el = card.select_one("img")
-
-        if link_el and img_el:
-            href = link_el.get("href", "")
-            prod_id = href.split("/")[-1]
-            full_link = "https://www.gear4music.it" + href
-            image_url = img_el.get("src", "N/A")
-            image_map[prod_id] = image_url
-            link_map[prod_id] = full_link
-
-    # 🧠 Analisi dati JS (analyticsVariable) per nome e prezzo
-    match = re.search(r"window\.analyticsVariable\s*=\s*(\{.*?\});", html, re.DOTALL)
-    if not match:
-        print("⚠ Blocco dati JS non trovato.")
+    # Estrai i prodotti dal blocco JavaScript analyticsVariable
+    script = soup.find("script", string=re.compile("analyticsVariable"))
+    if not script:
+        print("❌ analyticsVariable non trovato.")
         return []
 
-    try:
-        data_js = re.sub(r",\s*([}\]])", r"\1", match.group(1))  # trailing commas
-        data = json.loads(data_js)
-        products = data.get("products", [])
+    match = re.search(r"window\.analyticsVariable\s*=\s*(\{.*?\});", script.string, re.DOTALL)
+    if not match:
+        print("❌ Blocco JSON analyticsVariable non trovato.")
+        return []
 
-        for prod in products:
-            if isinstance(prod, list):
-                item = prod[1]
-                prod_id = str(item.get("id", ""))
-                nome = item.get("name", "N/A")
-                nome_lower = nome.lower()
+    data = json.loads(re.sub(r",\s*([}\]])", r"\1", match.group(1)))
+    prodotti = data.get("products", [])
+    risultati = []
 
-                # ✅ FILTRO parole chiave
-                if not all(p in nome_lower for p in parole_chiave):
-                    continue
+    # Estrai blocco dataLayer per info prodotto aggiuntive (immagine, link)
+    dataLayer_match = re.search(r"dataLayer\s*=\s*(\[\{.*?\}\]);", html, re.DOTALL)
+    image_map = {}
+    link_map = {}
 
+    if dataLayer_match:
+        try:
+            dataLayer = json.loads(dataLayer_match.group(1))
+            product_info = dataLayer[0].get("product", {})
+            image_map[str(product_info.get("id"))] = product_info.get("primary_image_url", "N/A")
+            link_map[str(product_info.get("id"))] = "https://www.gear4music.it" + product_info.get("url", "")
+        except Exception as e:
+            print(f"⚠️ Errore parsing dataLayer: {e}")
+
+    for prod in prodotti:
+        if isinstance(prod, list):
+            item = prod[1]
+            prod_id = str(item.get("id", ""))
+            nome = item.get("name", "N/A")
+            nome_lower = nome.lower()
+
+            if not all(p in nome_lower for p in parole_chiave):
+                continue
+
+            try:
                 price_gbp = float(item.get("price", 0))
                 price_eur = round(price_gbp * 1.17, 2)
+            except:
+                price_eur = "N/A"
 
-                risultati.append({
-                    "nome": nome,
-                    "prezzo": f"€ {price_eur}",
-                    "prezzo_numerico": price_eur,
-                    "link": link_map.get(prod_id, f"https://www.gear4music.it/it/product/{prod_id}"),
-                    "immagine": image_map.get(prod_id, "N/A"),
-                    "sito": "Gear4music"
-                })
+            risultati.append({
+                "nome": nome,
+                "prezzo": f"€ {price_eur}" if isinstance(price_eur, float) else "N/A",
+                "prezzo_numerico": price_eur if isinstance(price_eur, float) else 0,
+                "link": link_map.get(prod_id, "N/A"),
+                "immagine": image_map.get(prod_id, "N/A"),
+                "sito": "Gear4music"
+            })
 
-        print(f"📦 Gear4Music risultati trovati: {len(risultati)}")
-
-    except Exception as e:
-        print(f"❌ Errore parsing Gear4music: {e}")
+    print(f"✅ Risultati finali Gear4Music: {len(risultati)}")
+    for r in risultati:
+        print(f"🟢 {r['nome']}\n   💶 Prezzo: {r['prezzo']}\n   🔗 Link: {r['link']}\n   🖼️ Immagine: {r['immagine']}\n")
 
     return risultati
+
+if __name__ == "__main__":
+    prodotto = input("🔍 Cerca su Gear4Music: ")
+    risultati = cerca_gear4music(prodotto)
+    for r in risultati:
+        print(f"[Gear4music] {r['nome']} - {r['prezzo']} - {r['link']}")
