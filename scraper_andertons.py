@@ -24,9 +24,9 @@ def cerca_andertons(prodotto):
     time.sleep(5)
 
     html = driver.page_source
-    print("📄 HTML ricevuto, cerco `injectedContext`...")
+    print("📄 HTML ricevuto, cerco blocco BODL...")
 
-    match = re.search(r'const injectedContext = JSON\.parse\("(.+?)"\);', html, re.DOTALL)
+    match = re.search(r'BODL\s*=\s*JSON\.parse\(\s*"(.+?)"\s*\);', html, re.DOTALL)
 
     risultati = []
 
@@ -41,27 +41,23 @@ def cerca_andertons(prodotto):
                 nome = product.get("name", "N/A")
                 link = product.get("url", "N/A")
 
-                # Prezzo
-                prezzo_raw = product.get("price", {})
+                prezzo_raw = product.get("price", {}).get("with_tax", {})
                 price_formatted = prezzo_raw.get("formatted", "N/A")
                 prezzo_eur = "N/A"
-                prezzo_numerico = 0
+                rezzo_numerico = 0
 
                 if price_formatted != "N/A":
                     try:
-                        price_clean = price_formatted.replace("£", "").replace(",", "").strip()
+                        price_clean = re.sub(r"[^\d.]", "", price_formatted)
                         price_float = float(price_clean)
                         prezzo_eur = round(price_float * 1.17, 2)
                         prezzo_numerico = prezzo_eur
-                    except Exception as e:
-                        print(f"⚠️ Errore parsing prezzo: {e}")
 
-                # Immagine (sostituiamo {:size})
+                    except Exception as e:
+                        print(f"⚠️ Errore parsing prezzo: {e} — valore originale: {price_formatted}")
+
                 img_raw = product.get("image", {}).get("data", "")
-                if img_raw:
-                    immagine = img_raw.replace("{:size}", "500x500")
-                else:
-                    immagine = "N/A"
+                immagine = img_raw.replace("{:size}", "500x500") if img_raw else "N/A"
 
                 print(f"\n📦 Prodotto:")
                 print(f"  🔸 Nome: {nome}")
@@ -83,7 +79,7 @@ def cerca_andertons(prodotto):
         except Exception as e:
             print(f"❌ Errore nel parsing del JSON: {e}")
     else:
-        print("⚠️ Blocco `injectedContext` non trovato.")
+        print("⚠️ Blocco `BODL` non trovato.")
 
     driver.quit()
     return risultati
