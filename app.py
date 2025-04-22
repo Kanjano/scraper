@@ -98,6 +98,39 @@ def contatti():
 
         try:
             msg = MIMEMultipart()
+            msg['From'] = os.getenv('EMAIL_SENDER')  # oppure metti direttamente una email tipo "no-reply@tuaapp.com"
+            msg['To'] = "antonio.web2music@gmail.com"
+            msg['Subject'] = f'\U0001F4EC Nuovo messaggio da {nome}'
+
+            body = f"Nome: {nome}\nEmail: {email}\nMessaggio:\n{messaggio}"
+            msg.attach(MIMEText(body, 'plain'))
+
+            server = smtplib.SMTP('smtp.gmail.com', 587)
+            server.starttls()
+            server.login(os.getenv('EMAIL_SENDER'), os.getenv('EMAIL_PASSWORD'))
+            server.sendmail(msg['From'], msg['To'], msg.as_string())
+            server.quit()
+
+            flash("Messaggio inviato con successo!", "success")
+            return redirect('/contatti')
+
+        except Exception as e:
+            print(f"Errore invio email: {e}")
+            flash("Errore durante l'invio del messaggio. Riprova più tardi.", "danger")
+            return redirect('/contatti')
+
+    return render_template('contatti.html')
+    if request.method == 'POST':
+        nome = request.form.get('nome')
+        email = request.form.get('email')
+        messaggio = request.form.get('messaggio')
+
+        if not nome or not email or not messaggio:
+            flash("Tutti i campi sono obbligatori.", "warning")
+            return redirect('/contatti')
+
+        try:
+            msg = MIMEMultipart()
             msg['From'] = os.getenv('EMAIL_SENDER')
             msg['To'] = os.getenv('EMAIL_RECEIVER')
             msg['Subject'] = f'\U0001F4EC Nuovo messaggio da {nome}'
