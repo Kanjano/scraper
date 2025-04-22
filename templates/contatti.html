@@ -34,6 +34,18 @@
     .btn-azzurro:hover {
       background: #005f91;
     }
+    .alert-success-custom {
+      background-color: #38b000;
+      color: white;
+      border: none;
+      border-radius: 1rem;
+    }
+    .alert-danger-custom {
+      background-color: #d00000;
+      color: white;
+      border: none;
+      border-radius: 1rem;
+    }
   </style>
 </head>
 <body>
@@ -42,6 +54,26 @@
     <div class="logo">📬 Contattaci</div>
     <a href="/" class="btn btn-outline-secondary">🏠 Torna alla Home</a>
   </div>
+
+  <!-- ✅ Flash messages -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="mb-4">
+        {% for category, message in messages %}
+          {% if category == 'success' %}
+            <div class="alert alert-success-custom fw-semibold" role="alert">
+              {{ message }}
+            </div>
+          {% elif category == 'danger' %}
+            <div class="alert alert-danger-custom fw-semibold" role="alert">
+              {{ message }}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
   <form method="POST" action="/contatti">
     <div class="mb-3">
       <label for="nome" class="form-label">Nome</label>
