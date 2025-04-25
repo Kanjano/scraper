@@ -6,6 +6,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
+from multiprocessing import Pool
 
 def setup_driver():
     options = Options()
@@ -15,18 +16,16 @@ def setup_driver():
     options.add_argument("--disable-dev-shm-usage")
     return webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
-def estrai_immagine_prodotto(link_prodotto):
+def estrai_immagine_prodotto(driver, link_prodotto):
     try:
-        driver = setup_driver()
         driver.get(link_prodotto)
-        time.sleep(3)
+        time.sleep(2)
         soup = BeautifulSoup(driver.page_source, "html.parser")
-        driver.quit()
         img_tag = soup.select_one("img.main-image[data-src]")
         if img_tag:
             return img_tag["data-src"]
     except Exception as e:
-        print(f"❌ Errore estrazione immagine da {link_prodotto}: {e}")
+        print(f"❌ Errore immagine {link_prodotto}: {e}")
     return "N/A"
 
 def cerca_gear4music(prodotto):
@@ -40,18 +39,17 @@ def cerca_gear4music(prodotto):
 
     for i in range(5):
         driver.execute_script("window.scrollBy(0, document.body.scrollHeight / 5);")
-        print(f"🕒 Scroll step {i + 1}")
         time.sleep(2)
 
     html = driver.page_source
     soup = BeautifulSoup(html, "html.parser")
-    driver.quit()
 
     risultati = []
 
     match = re.search(r"window\.analyticsVariable\s*=\s*(\{.*?\});", html, re.DOTALL)
     if not match:
         print("❌ analyticsVariable non trovato.")
+        driver.quit()
         return []
 
     try:
@@ -72,7 +70,6 @@ def cerca_gear4music(prodotto):
                 price_gbp = float(item.get("price", 0))
                 price_eur = round(price_gbp * 1.17, 2)
 
-                # Cerca <a title="nome"> nel DOM
                 a_tag = soup.find("a", title=nome)
                 link = "N/A"
                 immagine = "N/A"
@@ -81,13 +78,7 @@ def cerca_gear4music(prodotto):
                     href = a_tag.get("href", "")
                     if href:
                         link = "https://www.gear4music.it" + href
-                        immagine = estrai_immagine_prodotto(link)
-
-                print("\n🟢 Prodotto trovato:")
-                print(f"   📛 Nome: {nome}")
-                print(f"   💶 Prezzo EUR: €{price_eur}")
-                print(f"   🔗 Link: {link}")
-                print(f"   🖼️ Immagine: {immagine}")
+                        immagine = estrai_immagine_prodotto(driver, link)
 
                 risultati.append({
                     "nome": nome,
@@ -98,9 +89,19 @@ def cerca_gear4music(prodotto):
                     "sito": "Gear4music"
                 })
 
-        print(f"\n📦 Gear4Music risultati totali: {len(risultati)}")
         return risultati
 
     except Exception as e:
         print(f"❌ Errore parsing Gear4music: {e}")
         return []
+    finally:
+        driver.quit()
+
+def cerca_multiprodotti(lista_prodotti, num_processi=4):
+    with Pool(processes=num_processi) as pool:
+        risultati_totali = pool.map(cerca_gear4music, lista_prodotti)
+
+    # Flatten dei risultati (ogni item è una lista)
+    flat = [item for sublist in risultati_totali for item in sublist]
+    print(f"\n✅ Totale prodotti trovati: {len(flat)}")
+    return flat
