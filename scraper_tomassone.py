@@ -34,15 +34,30 @@ def cerca_tomassone(prodotto):
             prezzo_raw = card.select_one(".price").get_text(strip=True)
             prezzo_num = float(re.sub(r"[^\d,]", "", prezzo_raw).replace(",", "."))
 
+            img_tag = card.select_one("img")
+            immagine = "N/A"
+            if img_tag:
+                immagine = img_tag.get("src") or img_tag.get("data-src") or "N/A"
+                if immagine and not immagine.startswith("http"):
+                    immagine = "https://www.tomassone.it" + immagine
+
+            print(f"\n🟢 Prodotto trovato:")
+            print(f"   💼 Nome: {nome}")
+            print(f"   💶 Prezzo: €{round(prezzo_num,2)}")
+            print(f"   🔗 Link: {link}")
+            print(f"   🖼️ Immagine: {immagine}")
+
             risultati.append({
                 "nome": nome,
                 "prezzo": f"€{round(prezzo_num, 2)}",
                 "prezzo_numerico": round(prezzo_num, 2),
                 "link": link,
-                "immagine": "N/A",  # Non disponibile nelle SERP
+                "immagine": immagine,
                 "sito": "Tomassone"
             })
-        except Exception:
+        except Exception as e:
+            print(f"⚠️ Errore parsing prodotto: {e}")
             continue
 
+    print(f"\n📦 Totale prodotti trovati su Tomassone: {len(risultati)}")
     return risultati
