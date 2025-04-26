@@ -52,6 +52,12 @@
       display: none;
       margin-top: 1.2rem;
       text-align: center;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    #loader.show {
+      display: block;
+      opacity: 1;
     }
     .spinner-border {
       width: 2rem;
@@ -61,6 +67,24 @@
       position: absolute;
       top: 20px;
       right: 30px;
+    }
+    .card-sito {
+      border: 2px solid #dee2e6;
+      border-radius: 0.6rem;
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+    }
+    .card-sito:hover {
+      background-color: #f1f9ff;
+      border-color: #0077b6;
+    }
+    .card-sito.active {
+      background-color: #e3f2fd;
+      border-color: #0077b6;
+      font-weight: 600;
     }
     @keyframes fadeInUp {
       from {
@@ -78,23 +102,70 @@
   <div class="instrinder-box">
     <a href="/contatti" class="btn btn-outline-secondary top-right">📬 Contatti</a>
     <div class="logo">🎸 Instrinder</div>
-    <form method="POST" action="/search" onsubmit="showLoader()">
+    <form method="POST" action="/search" onsubmit="return handleSubmit();">
       <div class="mb-3">
         <label for="prodotto" class="form-label">Cerca il tuo strumento, ovunque esso sia</label>
         <input type="text" class="form-control" id="prodotto" name="prodotto" placeholder="Es. Fender Stratocaster" required>
       </div>
+
+      <div class="mb-4">
+        <label class="form-label">Siti da includere:</label>
+        <div class="d-flex flex-wrap gap-2" id="siteCards">
+          <div class="card-sito" onclick="toggleAllSites()">Tutti</div>
+          {% for sito in ["Thomann", "Musik Produktiv", "Gear4music", "Andertons", "Centro Chitarre", "Tomassone"] %}
+          <div class="card-sito" data-value="{{ sito }}" onclick="toggleSite(this)">{{ sito }}</div>
+          {% endfor %}
+        </div>
+      </div>
+
       <div class="d-grid">
         <button type="submit" class="btn btn-azzurro">🔍 Trova offerte</button>
       </div>
+
+      <div id="loader">
+        <div class="spinner-border text-primary" role="status"></div>
+        <div class="mt-2">Caricamento in corso...</div>
+      </div>
+
+      <!-- Hidden input per inviare i siti -->
+      <div id="sitiInput"></div>
     </form>
-    <div id="loader">
-      <div class="spinner-border text-primary" role="status"></div>
-      <div class="mt-2">Caricamento in corso...</div>
-    </div>
   </div>
+
   <script>
+    function handleSubmit() {
+      prepareSites();
+      showLoader();
+      return true;
+    }
+
     function showLoader() {
-      document.getElementById("loader").style.display = "block";
+      const loader = document.getElementById("loader");
+      loader.classList.add("show");
+    }
+
+    function toggleSite(el) {
+      el.classList.toggle("active");
+    }
+
+    function toggleAllSites() {
+      const all = document.querySelectorAll(".card-sito[data-value]");
+      const activeCount = document.querySelectorAll(".card-sito[data-value].active").length;
+      const activate = activeCount !== all.length;
+      all.forEach(el => el.classList.toggle("active", activate));
+    }
+
+    function prepareSites() {
+      const selected = document.querySelectorAll(".card-sito.active[data-value]");
+      const hiddenDiv = document.getElementById("sitiInput");
+      hiddenDiv.innerHTML = '';
+      selected.forEach(el => {
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "siti";
+        input.value = el.getAttribute("data-value");
+        hiddenDiv.appendChild(input);
+      });
     }
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

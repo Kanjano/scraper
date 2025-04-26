@@ -4,20 +4,20 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import os
 from dotenv import load_dotenv
 
-# Import scraper
 from scraper_thomann import cerca_thomann
 from scraper_musik_produktiv import cerca_musik_produktiv
 from scraper_gear4music import cerca_gear4music
 from scraper_andertons import cerca_andertons
-from scraper_italia import cerca_tomassone, cerca_centrochitarre
+from scraper_italia import cerca_centrochitarre, cerca_tomassone
 
 load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = 'supersegreto'
+app.secret_key = 'supersegreto'  # per flash messages
 
 @app.route('/')
 def index():
@@ -27,43 +27,86 @@ def index():
 def search():
     if request.method == 'POST':
         prodotto = request.form.get('prodotto')
+        siti_selezionati = request.form.getlist('siti')
     else:
         prodotto = request.args.get('prodotto')
+        siti_selezionati = request.args.getlist('siti')
 
     if not prodotto:
         return render_template('results.html', risultati=[], siti=[])
+
+    def sito_attivo(nome):
+        return not siti_selezionati or nome in siti_selezionati
 
     client_ip = request.headers.get('X-Forwarded-For', request.remote_addr)
     geo = geocoder.ip(client_ip)
     paese = geo.country if geo.ok and geo.country else "IT"
     print(f"\U0001F30D IP: {client_ip}, Paese rilevato: {paese if geo.ok else 'N/D'}")
 
-    def timed_scraper(nome, func, *args):
-        try:
-            start = time.time()
-            result = func(*args)
-            elapsed = time.time() - start
-            print(f"⏱ Tempo per {nome}: {elapsed:.2f} secondi | Prodotti estratti: {len(result)}")
-            for r in result:
-                r["sito"] = nome
-            return result
-        except Exception as e:
-            print(f"❌ Errore scraping {nome}: {e}")
-            return []
+    def timed_scraper(func, *args):
+        start = time.time()
+        result = func(*args)
+        elapsed = time.time() - start
+        print(f"⏱ Tempo per {func.__name__}: {elapsed:.2f} secondi | Prodotti estratti: {len(result)}")
+        return result
 
-    # Eseguiamo uno alla volta
-    risultati = []
-    risultati += timed_scraper("Thomann", cerca_thomann, prodotto)
-    risultati += timed_scraper("Musik Produktiv", cerca_musik_produktiv, prodotto, paese)
-    risultati += timed_scraper("Centro Chitarre", cerca_centrochitarre, prodotto)
-    risultati += timed_scraper("Tomassone", cerca_tomassone, prodotto)
-    risultati += timed_scraper("Gear4music", cerca_gear4music, prodotto)
-    risultati += timed_scraper("Andertons", cerca_andertons, prodotto)
+    risultati = {}
 
-    # Filtro
+    def scraping_italia():
+        italia_scrapers = {
+            "Centro Chitarre": cerca_centrochitarre,
+            "Tomassone": cerca_tomassone,
+        }
+
+        local_risultati = {}
+        with ThreadPoolExecutor(max_workers=4) as pool:
+            future_to_site = {
+                pool.submit(timed_scraper, scraper, prodotto): sito
+                for sito, scraper in italia_scrapers.items() if sito_attivo(sito)
+            }
+            for future in as_completed(future_to_site):
+                sito = future_to_site[future]
+                try:
+                    local_risultati[sito] = future.result()
+                    for r in local_risultati[sito]:
+                        r["sito"] = sito
+                except Exception as e:
+                    print(f"❌ Errore scraping {sito}: {e}")
+                    local_risultati[sito] = []
+        return local_risultati
+
+    with ThreadPoolExecutor(max_workers=10) as executor:
+        futures = {}
+        if sito_attivo("Thomann"):
+            futures["Thomann"] = executor.submit(timed_scraper, cerca_thomann, prodotto)
+        if sito_attivo("Musik Produktiv"):
+            futures["Musik Produktiv"] = executor.submit(timed_scraper, cerca_musik_produktiv, prodotto, paese)
+        if sito_attivo("Gear4music"):
+            futures["Gear4music"] = executor.submit(timed_scraper, cerca_gear4music, prodotto)
+        if sito_attivo("Andertons"):
+            futures["Andertons"] = executor.submit(timed_scraper, cerca_andertons, prodotto)
+        if any(sito_attivo(s) for s in [
+            "RR Guitars", "Gino Musica", "Esse Music",
+            "Lucky Music", "Begnismusic", "Centro Chitarre", "Tomassone"]):
+            futures["Italia"] = executor.submit(scraping_italia)
+
+        for sito, future in futures.items():
+            try:
+                if sito == "Italia":
+                    risultati.update(future.result())
+                else:
+                    risultati[sito] = future.result()
+                    for r in risultati[sito]:
+                        r["sito"] = sito
+            except Exception as e:
+                print(f"❌ Errore scraping {sito}: {e}")
+                risultati[sito] = []
+
+    risultati_totali = sum(risultati.values(), [])
+
     filtro_sito = request.args.get("sito")
     if filtro_sito:
-        risultati = [r for r in risultati if r["sito"] == filtro_sito]
+        risultati_totali = [r for r in risultati_totali if r["sito"] == filtro_sito]
 
     sort = request.args.get("sort", "prezzo_desc")
     sort_options = {
@@ -72,9 +115,14 @@ def search():
         "sito": lambda x: x["sito"]
     }
     key_func = sort_options.get(sort, lambda x: -x["prezzo_numerico"])
-    risultati.sort(key=key_func)
+    risultati_totali.sort(key=key_func)
 
-    return render_template('results.html', risultati=risultati, siti=list(set(r["sito"] for r in risultati)), prodotto=prodotto)
+    return render_template(
+        'results.html',
+        risultati=risultati_totali,
+        siti=list(risultati.keys()),
+        prodotto=prodotto
+    )
 
 @app.route('/contatti', methods=['GET', 'POST'])
 def contatti():
