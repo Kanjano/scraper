@@ -41,12 +41,6 @@ def cerca_tomassone(prodotto):
                 if immagine and not immagine.startswith("http"):
                     immagine = "https://www.tomassone.it" + immagine
 
-            print(f"\n🟢 Prodotto trovato:")
-            print(f"   💼 Nome: {nome}")
-            print(f"   💶 Prezzo: €{round(prezzo_num,2)}")
-            print(f"   🔗 Link: {link}")
-            print(f"   🖼️ Immagine: {immagine}")
-
             risultati.append({
                 "nome": nome,
                 "prezzo": f"€{round(prezzo_num, 2)}",

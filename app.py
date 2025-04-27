@@ -1,11 +1,14 @@
 from flask import Flask, render_template, request, redirect, flash
 import geocoder
 import smtplib
+import time
+import os
+import re
+import difflib
+import json
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-import time
-from concurrent.futures import ThreadPoolExecutor, as_completed
-import os
 from dotenv import load_dotenv
 
 from scraper_thomann import cerca_thomann
@@ -17,7 +20,24 @@ from scraper_italia import cerca_centrochitarre, cerca_tomassone
 load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = 'supersegreto'  # per flash messages
+app.secret_key = 'supersegreto'
+
+# -- Utility fuzzy match per il filtro titolo --
+def parole_rilevanti(testo):
+    stopwords = {"il", "lo", "la", "i", "gli", "le", "di", "a", "da", "in", "su", "con", "per", "tra", "fra", "e"}
+    parole = re.findall(r'\b\w+\b', testo.lower())
+    return [p for p in parole if p not in stopwords]
+
+def match_fuzzy(nome, parole_chiave):
+    nome_words = parole_rilevanti(nome)
+    matched = 0
+
+    for parola in parole_chiave:
+        best_match = difflib.get_close_matches(parola, nome_words, n=1, cutoff=0.7)
+        if best_match:
+            matched += 1
+
+    return matched >= max(1, len(parole_chiave) - 1)
 
 @app.route('/')
 def index():
@@ -85,9 +105,7 @@ def search():
             futures["Gear4music"] = executor.submit(timed_scraper, cerca_gear4music, prodotto)
         if sito_attivo("Andertons"):
             futures["Andertons"] = executor.submit(timed_scraper, cerca_andertons, prodotto)
-        if any(sito_attivo(s) for s in [
-            "RR Guitars", "Gino Musica", "Esse Music",
-            "Lucky Music", "Begnismusic", "Centro Chitarre", "Tomassone"]):
+        if any(sito_attivo(s) for s in ["Centro Chitarre", "Tomassone"]):
             futures["Italia"] = executor.submit(scraping_italia)
 
         for sito, future in futures.items():
@@ -103,6 +121,10 @@ def search():
                 risultati[sito] = []
 
     risultati_totali = sum(risultati.values(), [])
+
+    # --- FILTRO FUZZY SU RISULTATI TOTALI ---
+    parole_chiave = parole_rilevanti(prodotto)
+    risultati_totali = [r for r in risultati_totali if match_fuzzy(r["nome"], parole_chiave)]
 
     filtro_sito = request.args.get("sito")
     if filtro_sito:
