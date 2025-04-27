@@ -11,11 +11,9 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from dotenv import load_dotenv
 
-from scraper_thomann import cerca_thomann
-from scraper_musik_produktiv import cerca_musik_produktiv
-from scraper_gear4music import cerca_gear4music
-from scraper_andertons import cerca_andertons
-from scraper_italia import cerca_centrochitarre, cerca_tomassone
+from scraper_italia import cerca_centrochitarre,cerca_tomassone
+from scraper_germania import cerca_musik_produktiv,cerca_thomann
+from scraper_inghilterra import cerca_andertons,cerca_gear4music
 
 load_dotenv()
 
