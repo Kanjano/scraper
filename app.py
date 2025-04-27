@@ -132,11 +132,11 @@ def search():
 
     sort = request.args.get("sort", "prezzo_desc")
     sort_options = {
-        "prezzo_asc": lambda x: x["prezzo_numerico"],
-        "prezzo_desc": lambda x: -x["prezzo_numerico"],
+        "prezzo_asc": lambda x: x["prezzo_numerico"] if x["prezzo_numerico"] is not None else float('inf'),
+        "prezzo_desc": lambda x: -(x["prezzo_numerico"] if x["prezzo_numerico"] is not None else 0),
         "sito": lambda x: x["sito"]
     }
-    key_func = sort_options.get(sort, lambda x: -x["prezzo_numerico"])
+    key_func = sort_options.get(sort, lambda x: -(x["prezzo_numerico"] if x["prezzo_numerico"] is not None else 0))
     risultati_totali.sort(key=key_func)
 
     return render_template(
