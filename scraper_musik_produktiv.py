@@ -49,23 +49,49 @@ def cerca_musik_produktiv(prodotto, paese="IT"):
         risultati = []
         for item in prodotti:
             try:
-                nome = item.get("name", "N/A")
-                netto = float(item.get("price", 0))
+                if not item or not isinstance(item, dict):
+                    print("⚠ Dati prodotto non validi, salto")
+                    continue
+                    
+                nome = item.get("name")
+                if not nome:
+                    print("⚠ Nome prodotto mancante, salto")
+                    continue
+                    
+                try:
+                    prezzo_str = str(item.get("price", "0")).replace(',', '.')
+                    netto = float(prezzo_str) if prezzo_str.replace('.', '').isdigit() else 0
+                except (ValueError, AttributeError):
+                    netto = 0
+                    
+                if netto <= 0:
+                    print(f"⚠ Prezzo non valido per {nome}, salto")
+                    continue
+                    
                 ivato = round(netto * (1 + iva_rate), 2)
+                
+                try:
+                    product_id = str(item.get('id', '')).strip()
+                    if not product_id:
+                        print(f"⚠ ID prodotto mancante per {nome}, salto")
+                        continue
+                        
+                    link = f"https://www.musik-produktiv.com/it/{product_id}.html"
+                    immagine = get_musikprodukt_image(link)
 
-                link = f"https://www.musik-produktiv.com/it/{item['id']}.html"
-                immagine = get_musikprodukt_image(link)
-
-                risultati.append({
-                    "nome": nome,
-                    "prezzo": f"€ {ivato:.2f}",
-                    "prezzo_numerico": ivato,
-                    "link": link,
-                    "immagine": immagine,
-                    "sito": "Musik Produktiv"
-                })
+                    risultati.append({
+                        "nome": nome,
+                        "prezzo": f"€ {ivato:.2f}",
+                        "prezzo_numerico": ivato,
+                        "link": link,
+                        "immagine": immagine,
+                        "sito": "Musik Produktiv"
+                    })
+                except Exception as e:
+                    print(f"⚠ Errore nel processare il prodotto {nome}: {str(e)}")
+                    
             except Exception as e:
-                print(f"⚠ Errore nel parsing di un prodotto: {e}")
+                print(f"⚠ Errore imprevisto durante l'elaborazione di un prodotto: {str(e)}")
                 continue
 
         return risultati
