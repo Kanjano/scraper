@@ -1,4 +1,8 @@
-from flask import Flask, render_template, request, redirect, flash
+import warnings
+# Disabilita tutti gli avvisi di urllib3
+warnings.filterwarnings("ignore", category=DeprecationWarning, module='urllib3')
+
+from flask import Flask, render_template, request, redirect, flash, session, url_for, g
 import geocoder
 import smtplib
 import time
@@ -10,6 +14,37 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from dotenv import load_dotenv
+from difflib import SequenceMatcher
+
+def similar(a: str, b: str) -> float:
+    """Calcola la similarità tra due stringhe (0-1)"""
+    return SequenceMatcher(None, a, b).ratio()
+
+def filtra_risultati(risultati: list, query: str = "", soglia_similarita: float = 0.6) -> list:
+    """
+    Restituisce i risultati ordinati per prezzo crescente.
+    
+    Args:
+        risultati: Lista di dizionari contenenti i risultati
+        query: Stringa di ricerca (opzionale, non utilizzata)
+        soglia_similarita: Parametro mantenuto per compatibilità (non utilizzato)
+        
+    Returns:
+        Lista ordinata per prezzo crescente
+    """
+    if not risultati:
+        return []
+    
+    def extract_price(price_str):
+        try:
+            # Rimuove punti, spazi, € e converte la virgola in punto
+            price_str = str(price_str).replace('€', '').replace('.', '').replace(',', '.').strip()
+            return float(price_str) if price_str else 999999
+        except (ValueError, AttributeError):
+            return 999999
+    
+    # Ordina i risultati per prezzo crescente
+    return sorted(risultati, key=lambda x: extract_price(x.get('prezzo')))
 
 from scraper_centrochitarre import cerca_centrochitarre
 from scraper_tomassone import cerca_tomassone
@@ -23,11 +58,61 @@ load_dotenv()
 app = Flask(__name__)
 app.secret_key = 'supersegreto'
 
+# Import translations after app is created
+try:
+    from translations import get_locale, get_translations, get_available_languages
+except ImportError:
+    # Fallback in case translations are not available
+    def get_locale():
+        return 'en'
+    
+    def get_translations(lang=None):
+        return {}
+    
+    def get_available_languages():
+        return {'en': 'English'}
+
+# Add context processor to make translations available in all templates
+@app.context_processor
+def inject_translations():
+    translations = get_translations()
+    def translate(key, **kwargs):
+        return translations.get(key, key).format(**kwargs)
+    return dict(_=translate)
+
+# Before request handler to set language
+@app.before_request
+def before_request():
+    if 'lang' not in session:
+        session['lang'] = get_locale()
+    g.current_lang = session['lang']
+    g.available_languages = get_available_languages()
+
+# Route to change language
+@app.route('/set_language/<lang>')
+def set_language(lang):
+    if lang in get_available_languages():
+        session['lang'] = lang
+    return redirect(request.referrer or url_for('index'))
+
 # -- Utility fuzzy match per il filtro titolo --
 def parole_rilevanti(testo):
+    # Assicurati che testo sia una stringa
+    if not isinstance(testo, str):
+        if isinstance(testo, dict):
+            # Se è un dizionario, prova a convertirlo in stringa
+            testo = str(testo)
+        else:
+            # Altrimenti restituisci una lista vuota
+            return []
+            
     stopwords = {"il", "lo", "la", "i", "gli", "le", "di", "a", "da", "in", "su", "con", "per", "tra", "fra", "e"}
-    parole = re.findall(r'\b\w+\b', testo.lower())
-    return [p for p in parole if p not in stopwords]
+    try:
+        parole = re.findall(r'\b\w+\b', testo.lower())
+        return [p for p in parole if p not in stopwords and len(p) > 1]  # Filtra anche le parole troppo corte
+    except Exception as e:
+        print(f"⚠️ Errore nell'elaborazione del testo '{testo}': {str(e)}")
+        return []
 
 def match_fuzzy(nome, parole_chiave):
     nome_words = parole_rilevanti(nome)
@@ -42,110 +127,336 @@ def match_fuzzy(nome, parole_chiave):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', current_lang=session.get('lang', 'en'))
+
+def sito_attivo(siti_selezionati, nome):
+    """
+    Verifica se un sito è attivo in base ai siti selezionati dall'utente.
+    
+    Args:
+        siti_selezionati (list): Lista dei siti selezionati dall'utente
+        nome (str): Nome del sito da verificare
+        
+    Returns:
+        bool: True se il sito è attivo, False altrimenti
+    """
+    # Mappa i nomi degli scraper ai valori del form
+    mappa_nomi = {
+        'thomann': 'Thomann',
+        'musik_produktiv': 'Musik Produktiv',
+        'gear4music': 'Gear4music',
+        'andertons': 'Andertons',
+        'centrochitarre': 'Centro Chitarre',
+        'tomassone': 'Tomassone'
+    }
+    
+    # Se nessun sito è selezionato, considera tutti attivi
+    if not siti_selezionati:
+        return True
+        
+    # Cerca il nome corrispondente nella mappa
+    for key, value in mappa_nomi.items():
+        if value in siti_selezionati and key == nome:
+            return True
+    return False
+
+def scraping_italia(prodotto, siti_selezionati):
+    """
+    Esegue lo scraping dei siti italiani in parallelo.
+    
+    Args:
+        prodotto (str): Prodotto da cercare
+        siti_selezionati (list): Lista dei siti selezionati dall'utente
+        
+    Returns:
+        dict: Dizionario con i risultati degli scraper italiani
+    """
+    print("\n🚀 Avvio scraping siti italiani...")
+    inizio = time.time()
+    
+    italia_scrapers = {
+        "centrochitarre": ("Centro Chitarre", cerca_centrochitarre),
+        "tomassone": ("Tomassone", cerca_tomassone),
+    }
+
+    local_risultati = {}
+    
+    # Filtra solo gli scraper attivi
+    scraper_attivi = {
+        key: value for key, value in italia_scrapers.items() 
+        if sito_attivo(siti_selezionati, key)
+    }
+    
+    if not scraper_attivi:
+        print("ℹ️ Nessuno scraper italiano attivo")
+        return {}
+        
+    print(f"🔍 Scraper italiani attivi: {', '.join([v[0] for v in scraper_attivi.values()])}")
+    
+    with ThreadPoolExecutor(max_workers=len(scraper_attivi)) as pool:
+        future_to_site = {}
+        
+        # Invia i lavori al thread pool
+        for key, (nome, scraper) in scraper_attivi.items():
+            future = pool.submit(scraper, prodotto)
+            future_to_site[future] = (key, nome)
+        
+        # Elabora i risultati
+        for future in as_completed(future_to_site):
+            key, nome = future_to_site[future]
+            tempo_inizio = time.time()
+            
+            try:
+                risultato = future.result()
+                tempo_impiegato = time.time() - tempo_inizio
+                
+                if not isinstance(risultato, list):
+                    print(f"⚠️ {nome}: risultato non valido (atteso lista, ottenuto {type(risultato)})")
+                    risultato = []
+                
+                # Aggiungi il sito a ogni risultato
+                for r in risultato:
+                    if isinstance(r, dict):
+                        r['sito'] = nome
+                
+                local_risultati[key] = risultato
+                
+                print(f"✅ {nome}: completato in {tempo_impiegato:.2f}s - Trovati {len(risultato)} risultati")
+                
+            except Exception as e:
+                tempo_impiegato = time.time() - tempo_inizio
+                errore = str(e)[:200]
+                print(f"❌ {nome}: errore dopo {tempo_impiegato:.2f}s - {errore}")
+                local_risultati[key] = []
+    
+    print(f"🏁 Scraping siti italiani completato in {time.time() - inizio:.2f} secondi")
+    return local_risultati
+
+def run_scraper(nome, funzione, *args):
+    """
+    Esegue una funzione di scraping e registra le statistiche.
+    
+    Args:
+        nome (str): Nome del sito da analizzare
+        funzione (callable): Funzione di scraping da eseguire
+        *args: Argomenti da passare alla funzione di scraping
+        
+    Returns:
+        list: Lista dei risultati dello scraping
+    """
+    inizio = time.time()
+    try:
+        print(f"\nAvvio scraping {nome}...")
+        risultato = funzione(*args)
+        tempo_impiegato = time.time() - inizio
+        num_oggetti = len(risultato) if isinstance(risultato, list) else 0
+
+        # Stampa i risultati
+        print(f"{nome}: completato in {tempo_impiegato:.2f}s")
+        print(f"   Trovati {num_oggetti} risultati")
+        if num_oggetti > 0 and isinstance(risultato, list):
+            print(f"   Primi 3 risultati: {[r.get('titolo', 'N/A')[:30] + '...' for r in risultato[:3]]}")
+
+        return risultato
+
+    except Exception as e:
+        tempo_impiegato = time.time() - inizio
+        print(f" {nome}: errore dopo {tempo_impiegato:.2f}s - {str(e)[:200]}")
+        return []
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
-    if request.method == 'POST':
-        prodotto = request.form.get('prodotto')
-        siti_selezionati = request.form.getlist('siti')
-    else:
-        prodotto = request.args.get('prodotto')
-        siti_selezionati = request.args.getlist('siti')
+    """
+    Gestisce le richieste di ricerca, coordina lo scraping dei vari siti
+    e restituisce i risultati formattati.
+    """
+    try:
+        print("\n=== NUOVA RICERCA ===")
+        print(f"Metodo: {request.method}")
+        
+        # Estrai i parametri della richiesta
+        if request.method == 'POST':
+            print("Dati form:", request.form)
+            search_query = request.form.get('prodotto', '').strip()
+            siti_selezionati = request.form.getlist('siti')
+        else:
+            print("Dati query:", request.args)
+            search_query = request.args.get('prodotto', '').strip()
+            siti_selezionati = request.args.getlist('siti')
 
-    if not prodotto:
-        return render_template('results.html', risultati=[], siti=[])
+        print(f"Query di ricerca: '{search_query}'")
+        print(f"Siti selezionati: {siti_selezionati}")
 
-    def sito_attivo(nome):
-        return not siti_selezionati or nome in siti_selezionati
+        # Se non c'è una query di ricerca, mostra risultati vuoti
+        if not search_query:
+            print("Nessuna query di ricerca specificata")
+            return render_template('results.html', risultati=[], siti=[], prodotto='')
 
-    client_ip = request.headers.get('X-Forwarded-For', request.remote_addr)
-    geo = geocoder.ip(client_ip)
-    paese = geo.country if geo.ok and geo.country else "IT"
-    print(f"\U0001F30D IP: {client_ip}, Paese rilevato: {paese if geo.ok else 'N/D'}")
-
-    def timed_scraper(func, *args):
-        start = time.time()
-        result = func(*args)
-        elapsed = time.time() - start
-        print(f"⏱ Tempo per {func.__name__}: {elapsed:.2f} secondi | Prodotti estratti: {len(result)}")
-        return result
-
-    risultati = {}
-
-    def scraping_italia():
-        italia_scrapers = {
-            "Centro Chitarre": cerca_centrochitarre,
-            "Tomassone": cerca_tomassone,
+        # Salva il termine di ricerca originale per il template
+        prodotto = search_query
+        
+        # Inizializza le variabili per i risultati
+        risultati = {}
+        risultati_totali = []
+        
+        # Ottieni l'IP del client per la geolocalizzazione
+        client_ip = request.headers.get('X-Forwarded-For', request.remote_addr)
+        geo = geocoder.ip(client_ip)
+        paese = geo.country if geo.ok and geo.country else "IT"
+        
+        # Inizializza le statistiche
+        stats = {
+            'inizio_totale': time.time(),
+            'siti': {}
         }
-
-        local_risultati = {}
-        with ThreadPoolExecutor(max_workers=4) as pool:
-            future_to_site = {
-                pool.submit(timed_scraper, scraper, prodotto): sito
-                for sito, scraper in italia_scrapers.items() if sito_attivo(sito)
-            }
-            for future in as_completed(future_to_site):
-                sito = future_to_site[future]
+        
+        # Esegui lo scraping dei vari siti
+        with ThreadPoolExecutor(max_workers=5) as executor:
+            futures = {}
+            
+            # Avvia gli scraper in parallelo
+            if sito_attivo(siti_selezionati, "thomann"):
+                futures["thomann"] = executor.submit(run_scraper, "Thomann", cerca_thomann, prodotto)
+                
+            if sito_attivo(siti_selezionati, "musik_produktiv"):
+                futures["musik_produktiv"] = executor.submit(run_scraper, "Musik Produktiv", cerca_musik_produktiv, prodotto, paese)
+                
+            if sito_attivo(siti_selezionati, "gear4music"):
+                futures["gear4music"] = executor.submit(run_scraper, "Gear4music", cerca_gear4music, prodotto)
+                
+            if sito_attivo(siti_selezionati, "andertons"):
+                futures["andertons"] = executor.submit(run_scraper, "Andertons", cerca_andertons, prodotto)
+                
+            # Gestisci gli scraper italiani in un unico worker
+            if any(sito_attivo(siti_selezionati, s) for s in ["centrochitarre", "tomassone"]):
+                futures["italia"] = executor.submit(scraping_italia, prodotto, siti_selezionati)
+            
+            # Raccogli i risultati
+            risultati = {}
+            for nome, future in futures.items():
                 try:
-                    local_risultati[sito] = future.result()
-                    for r in local_risultati[sito]:
-                        r["sito"] = sito
+                    if nome == "italia":
+                        # Aggiorna i risultati con quelli degli scraper italiani
+                        risultati_italia = future.result()
+                        risultati.update(risultati_italia)
+                    else:
+                        risultati[nome] = future.result()
+                        if isinstance(risultati[nome], list):
+                            for r in risultati[nome]:
+                                if isinstance(r, dict):
+                                    r["sito"] = nome
                 except Exception as e:
-                    print(f"❌ Errore scraping {sito}: {e}")
-                    local_risultati[sito] = []
-        return local_risultati
+                    print(f"❌ Errore durante l'elaborazione dei risultati di {nome}: {str(e)[:200]}")
+                    risultati[nome] = []
 
-    with ThreadPoolExecutor(max_workers=10) as executor:
-        futures = {}
-        if sito_attivo("Thomann"):
-            futures["Thomann"] = executor.submit(timed_scraper, cerca_thomann, prodotto)
-        if sito_attivo("Musik Produktiv"):
-            futures["Musik Produktiv"] = executor.submit(timed_scraper, cerca_musik_produktiv, prodotto, paese)
-        if sito_attivo("Gear4music"):
-            futures["Gear4music"] = executor.submit(timed_scraper, cerca_gear4music, prodotto)
-        if sito_attivo("Andertons"):
-            futures["Andertons"] = executor.submit(timed_scraper, cerca_andertons, prodotto)
-        if any(sito_attivo(s) for s in ["Centro Chitarre", "Tomassone"]):
-            futures["Italia"] = executor.submit(scraping_italia)
+        # Prepara la lista dei risultati
+        risultati_lista = []
+        for sito, prodotti in risultati.items():
+            if not isinstance(prodotti, list):
+                print(f"⚠️ {sito}: risultati non validi (non è una lista)")
+                continue
+                
+            print(f"📊 {sito}: {len(prodotti)} risultati")
+            
+            for p in prodotti:  # Cambiato 'prodotto' in 'p' per evitare conflitti
+                if not isinstance(p, dict):
+                    print(f"⚠️ {sito}: prodotto non valido (non è un dizionario)")
+                    continue
+                    
+                # Aggiungi il sito al prodotto se non è già presente
+                if 'sito' not in p:
+                    p['sito'] = sito
+                    
+                risultati_lista.append(p)
+        
+        # Applica il filtro di ricerca avanzato
+        risultati_filtrati = filtra_risultati(risultati_lista, prodotto)
+        print(f"🔍 Risultati dopo il filtro: {len(risultati_filtrati)}/{len(risultati_lista)}")
+        
+        # Ordina i risultati per punteggio di ricerca e prezzo
+        risultati_ordinati = sorted(
+            risultati_filtrati,
+            key=lambda x: (
+                -x.get('punteggio_ricerca', 0),  # Ordina per punteggio decrescente
+                float(x.get('prezzo', '999999').replace('.', '').replace(',', '.').replace('€', '').strip() or '999999')  # Poi per prezzo crescente
+            )
+        )
+        
+        # Raggruppa i risultati per sito
+        risultati_per_sito = {}
+        for r in risultati_ordinati:
+            sito = r.get('sito', 'Altro')
+            if sito not in risultati_per_sito:
+                risultati_per_sito[sito] = []
+            risultati_per_sito[sito].append(r)
+        
+        # Calcola il conteggio totale per sito
+        conteggio_per_sito = {}
+        for sito, risultati_sito in risultati_per_sito.items():
+            conteggio_per_sito[sito] = len(risultati_sito)
+        
+        # Stampa il riepilogo
+        print("\nRISULTATI PER SITO:")
+        for sito, conteggio in conteggio_per_sito.items():
+            print(f"- {sito}: {conteggio} risultati")
 
-        for sito, future in futures.items():
-            try:
-                if sito == "Italia":
-                    risultati.update(future.result())
-                else:
-                    risultati[sito] = future.result()
-                    for r in risultati[sito]:
-                        r["sito"] = sito
-            except Exception as e:
-                print(f"❌ Errore scraping {sito}: {e}")
-                risultati[sito] = []
+        filtro_sito = request.args.get("sito")
+        if filtro_sito:
+            risultati_ordinati = [r for r in risultati_ordinati if r.get('sito') == filtro_sito]
+            print(f"\nFiltrato per sito: {filtro_sito} ({len(risultati_ordinati)} risultati)")
+        
+        # Prepara i dati per la paginazione
+        pagina = request.args.get('pagina', 1, type=int)
+        risultati_per_pagina = 100  # Aumentato da 20 a 100 risultati per pagina
+        inizio = (pagina - 1) * risultati_per_pagina
+        fine = inizio + risultati_per_pagina
+        
+        risultati_pagina = risultati_ordinati[inizio:fine]
+        
+        # Calcola il numero totale di pagine
+        totale_pagine = (len(risultati_ordinati) + risultati_per_pagina - 1) // risultati_per_pagina
+        
+        # Calcola le statistiche finali
+        stats['tempo_totale'] = round(time.time() - stats['inizio_totale'], 2)
+        stats['totale_oggetti'] = len(risultati_ordinati)
+        
+        # Stampa il riepilogo
+        print(f"\n{'='*50}")
+        print("RIEPILOGO RICERCA")
+        print(f"{'='*50}")
+        
+        for sito, dati in stats['siti'].items():
+            if isinstance(dati, dict) and dati.get('stato') == 'errore':
+                print(f"❌ {sito}: 0 risultati in {dati.get('tempo', 0):.2f}s - {dati.get('errore', 'Errore sconosciuto')}")
+            elif isinstance(dati, dict):
+                print(f"✅ {sito}: {dati.get('oggetti', 0)} risultati in {dati.get('tempo', 0):.2f}s")
+        
+        print(f"\nTOTALE: {stats['totale_oggetti']} risultati in {stats['tempo_totale']} secondi")
+        print(f"{'='*50}\n")
+        
+        # Prepara i dati per il template
+        return render_template(
+            'results.html',
+            risultati=risultati_pagina,
+            pagina=pagina,
+            totale_pagine=totale_pagine,
+            siti=conteggio_per_sito,
+            prodotto=prodotto,
+            filtro_sito=filtro_sito,
+            current_lang=session.get('lang', 'en'),
+            stats=stats
+        )
 
-    risultati_totali = sum(risultati.values(), [])
-
-    # --- FILTRO FUZZY SU RISULTATI TOTALI ---
-    parole_chiave = parole_rilevanti(prodotto)
-    risultati_totali = [r for r in risultati_totali if match_fuzzy(r["nome"], parole_chiave)]
-
-    filtro_sito = request.args.get("sito")
-    if filtro_sito:
-        risultati_totali = [r for r in risultati_totali if r["sito"] == filtro_sito]
-
-    sort = request.args.get("sort", "prezzo_desc")
-    sort_options = {
-        "prezzo_asc": lambda x: x["prezzo_numerico"] if x["prezzo_numerico"] is not None else float('inf'),
-        "prezzo_desc": lambda x: -(x["prezzo_numerico"] if x["prezzo_numerico"] is not None else 0),
-        "sito": lambda x: x["sito"]
-    }
-    key_func = sort_options.get(sort, lambda x: -(x["prezzo_numerico"] if x["prezzo_numerico"] is not None else 0))
-    risultati_totali.sort(key=key_func)
-
-    return render_template(
-        'results.html',
-        risultati=risultati_totali,
-        siti=list(risultati.keys()),
-        prodotto=prodotto
-    )
+    except Exception as e:
+        print(f"❌ Errore durante la ricerca: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        return render_template(
+            'error.html',
+            error_message="Si è verificato un errore durante l'elaborazione della richiesta.",
+            error_details=str(e)[:500],
+            current_lang=session.get('lang', 'en')
+        ), 500
 
 @app.route('/contatti', methods=['GET', 'POST'])
 def contatti():
@@ -181,7 +492,7 @@ def contatti():
             flash("Errore durante l'invio del messaggio. Riprova più tardi.", "danger")
             return redirect('/contatti')
 
-    return render_template('contatti.html')
+    return render_template('contatti.html', current_lang=session.get('lang', 'en'))
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
