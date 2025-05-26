@@ -34,6 +34,10 @@ class BrowserManager:
     def _initialize_driver(cls, max_retries=3):
         for attempt in range(max_retries):
             try:
+                # Pulisci la cache prima di inizializzare
+                if attempt > 0:
+                    cls._cleanup_cache()
+                
                 # Configurazione minima essenziale
                 options = uc.ChromeOptions()
                 options.add_argument("--headless=new")
@@ -47,16 +51,17 @@ class BrowserManager:
                 
                 # Configura il driver con meno opzioni possibili
                 try:
+                    # Rimuovi version_main per lasciare che undetected_chromedriver rilevi automaticamente la versione
                     cls._driver = uc.Chrome(
                         options=options,
                         use_subprocess=True,
                         driver_executable_path=None,
-                        browser_executable_path=None,
-                        version_main=136  # Usa la versione 136 per Chrome 136
+                        browser_executable_path=None
                     )
                 except Exception as e:
+                    print(f"⚠️ Errore nell'inizializzazione del driver: {str(e)[:200]}")
                     # Se fallisce, prova a forzare il download
-                    print("⚠️ Errore nell'inizializzazione del driver, provo a forzare il download...")
+                    print("⚠️ Provo a forzare il download del driver...")
                     import shutil
                     import os
                     cache_dir = os.path.expanduser("~/Library/Application Support/undetected_chromedriver")

@@ -16,6 +16,9 @@ from email.mime.multipart import MIMEMultipart
 from dotenv import load_dotenv
 from difflib import SequenceMatcher
 
+# Importa il gestore della cache
+from cache_manager import cleanup_cache, cleanup_on_error
+
 def similar(a: str, b: str) -> float:
     """Calcola la similarità tra due stringhe (0-1)"""
     return SequenceMatcher(None, a, b).ratio()
@@ -248,25 +251,66 @@ def run_scraper(nome, funzione, *args):
     Returns:
         list: Lista dei risultati dello scraping
     """
+    print(f"\nAvvio scraping {nome}...")
+    
     inizio = time.time()
+    risultato = []
+    errore = None
+    
     try:
-        print(f"\nAvvio scraping {nome}...")
+        # Verifica se è necessario pulire la cache prima dell'esecuzione
+        cleanup_cache()
+        
+        # Esegui lo scraper
         risultato = funzione(*args)
-        tempo_impiegato = time.time() - inizio
-        num_oggetti = len(risultato) if isinstance(risultato, list) else 0
-
-        # Stampa i risultati
-        print(f"{nome}: completato in {tempo_impiegato:.2f}s")
-        print(f"   Trovati {num_oggetti} risultati")
-        if num_oggetti > 0 and isinstance(risultato, list):
-            print(f"   Primi 3 risultati: {[r.get('titolo', 'N/A')[:30] + '...' for r in risultato[:3]]}")
-
-        return risultato
-
+        if not isinstance(risultato, list):
+            risultato = []
     except Exception as e:
-        tempo_impiegato = time.time() - inizio
-        print(f" {nome}: errore dopo {tempo_impiegato:.2f}s - {str(e)[:200]}")
-        return []
+        errore = str(e)
+        print(f" {nome}: errore dopo {time.time() - inizio:.2f}s - {errore[:200]}")
+        
+        # Pulisci la cache se l'errore è correlato al driver
+        if cleanup_on_error(errore):
+            print(f"✅ Cache pulita dopo errore in {nome}")
+            # Prova a eseguire nuovamente lo scraper dopo la pulizia della cache
+            try:
+                print(f"🔄 Nuovo tentativo per {nome} dopo pulizia cache...")
+                risultato = funzione(*args)
+                if not isinstance(risultato, list):
+                    risultato = []
+                errore = None  # Resetta l'errore se il secondo tentativo ha successo
+            except Exception as e2:
+                errore = f"Anche dopo la pulizia della cache: {str(e2)}"
+                print(f"❌ {nome}: errore anche dopo pulizia cache - {errore[:200]}")
+                risultato = []
+        else:
+            risultato = []
+    
+    # Calcola le statistiche
+    tempo_impiegato = time.time() - inizio
+    num_oggetti = len(risultato) if isinstance(risultato, list) else 0
+    
+    # Registra le statistiche
+    stats = {
+        'tempo': tempo_impiegato,
+        'oggetti': num_oggetti,
+        'stato': 'completato' if errore is None else 'errore',
+    }
+    
+    if errore:
+        stats['errore'] = errore
+    
+    print(f"{nome}: completato in {tempo_impiegato:.2f}s")
+    print(f"   Trovati {num_oggetti} risultati")
+    if num_oggetti > 0 and isinstance(risultato, list):
+        # Mostra i nomi dei prodotti nei log (cerca in diverse chiavi possibili)
+        primi_risultati = []
+        for r in risultato[:3]:
+            nome_prodotto = r.get('nome') or r.get('titolo') or r.get('name') or 'N/A'
+            primi_risultati.append(f"{nome_prodotto[:50]}... - €{r.get('prezzo', 'N/A')}")
+        print(f"   Primi 3 risultati: {primi_risultati}")
+
+    return risultato
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():

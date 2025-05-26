@@ -356,20 +356,42 @@ def extract_product_details(driver, url):
         return None, None
 
 def clean_price(price_text):
-    """Pulisce e converte il testo del prezzo in un numero float."""
+    """Pulisce e converte il testo del prezzo in un numero float.
+    Gestisce sia il formato italiano (3.399,00 €) che il formato anglosassone (1,599.00 €).
+    """
     if not price_text:
         return 0.0
-        
-    # Rimuovi caratteri non numerici tranne virgola e punto
-    price = re.sub(r'[^\d,]', '', price_text)
-    
-    # Sostituisci la virgola con il punto per la conversione in float
-    price = price.replace(',', '.')
     
     try:
+        # Rimuovi tutto tranne numeri, virgole e punti
+        price = re.sub(r'[^\d,.]', '', price_text)
+        
+        # Determina il formato del prezzo
+        if ',' in price and '.' in price:
+            # Formato misto, determina quale è il separatore decimale
+            # In genere, il separatore decimale è l'ultimo
+            if price.rindex(',') > price.rindex('.'):
+                # Formato italiano con virgola come separatore decimale (3.399,00)
+                price = price.replace('.', '')  # Rimuovi i punti (separatori delle migliaia)
+                price = price.replace(',', '.')  # Sostituisci la virgola con il punto
+            else:
+                # Formato anglosassone con punto come separatore decimale (1,599.00)
+                price = price.replace(',', '')  # Rimuovi le virgole (separatori delle migliaia)
+        elif ',' in price:
+            # Solo virgole, assumiamo formato italiano
+            price = price.replace(',', '.')
+        elif '.' in price:
+            # Solo punti, dobbiamo determinare se è un separatore decimale o delle migliaia
+            # Se il punto è seguito da esattamente 2 cifre, è probabilmente un separatore decimale
+            # Altrimenti, è probabilmente un separatore delle migliaia
+            parts = price.split('.')
+            if len(parts) == 2 and len(parts[1]) != 2:
+                # Probabilmente un separatore delle migliaia (es. 1.599)
+                price = price.replace('.', '')
+        
         return float(price)
-    except (ValueError, TypeError):
-        print(f"⚠️ Impossibile convertire il prezzo: {price_text}")
+    except (ValueError, TypeError) as e:
+        logger.error(f"⚠️ Impossibile convertire il prezzo: {price_text} - Errore: {str(e)}")
         return 0.0
 
 def search_strumentimusicali(prodotto, max_results=10):
