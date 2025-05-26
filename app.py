@@ -35,8 +35,10 @@ def filtra_risultati(risultati: list, query: str = "", soglia_similarita: float 
     if not risultati:
         return []
     
-    def extract_price(price_str):
+    def extract_price(item):
         try:
+            # Estrae il prezzo dall'item
+            price_str = item.get('prezzo', '')
             # Rimuove punti, spazi, € e converte la virgola in punto
             price_str = str(price_str).replace('€', '').replace('.', '').replace(',', '.').strip()
             return float(price_str) if price_str else 999999
@@ -52,6 +54,7 @@ from scraper_musik_produktiv import cerca_musik_produktiv
 from scraper_thomann import cerca_thomann
 from scraper_andertons import cerca_andertons
 from scraper_gear4music import cerca_gear4music
+from scraper_strumentimusicali import search_strumentimusicali as cerca_strumentimusicali
 
 load_dotenv()
 
@@ -147,7 +150,8 @@ def sito_attivo(siti_selezionati, nome):
         'gear4music': 'Gear4music',
         'andertons': 'Andertons',
         'centrochitarre': 'Centro Chitarre',
-        'tomassone': 'Tomassone'
+        'tomassone': 'Tomassone',
+        'strumentimusicali': 'Strumenti Musicali'
     }
     
     # Se nessun sito è selezionato, considera tutti attivi
@@ -327,7 +331,11 @@ def search():
             if sito_attivo(siti_selezionati, "andertons"):
                 futures["andertons"] = executor.submit(run_scraper, "Andertons", cerca_andertons, prodotto)
                 
-            # Gestisci gli scraper italiani in un unico worker
+            # Gestisci lo scraper di Strumenti Musicali separatamente
+            if sito_attivo(siti_selezionati, "strumentimusicali"):
+                futures["strumentimusicali"] = executor.submit(run_scraper, "Strumenti Musicali", cerca_strumentimusicali, prodotto)
+                
+            # Gestisci gli altri scraper italiani in un unico worker
             if any(sito_attivo(siti_selezionati, s) for s in ["centrochitarre", "tomassone"]):
                 futures["italia"] = executor.submit(scraping_italia, prodotto, siti_selezionati)
             
