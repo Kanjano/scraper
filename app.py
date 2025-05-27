@@ -20,6 +20,31 @@ from difflib import SequenceMatcher
 # Importa il gestore della cache
 from cache_manager import cleanup_cache, cleanup_on_error
 
+def get_country_from_ip(ip_address: str) -> str:
+    """Ottiene il codice paese dall'indirizzo IP usando ipapi.co"""
+    print(f"\n=== DEBUG GEOCODING ===")
+    print(f"Indirizzo IP da analizzare: {ip_address}")
+    
+    try:
+        url = f'https://ipapi.co/{ip_address}/country/'
+        print(f"Richiesta a: {url}")
+        
+        response = requests.get(url, timeout=5)  # Timeout di 5 secondi
+        print(f"Stato risposta: {response.status_code}")
+        
+        if response.status_code == 200:
+            country = response.text.strip().upper() or 'IT'
+            print(f"Paese rilevato: {country}")
+            return country
+            
+    except requests.exceptions.RequestException as e:
+        print(f"Errore durante la richiesta a ipapi.co: {e}")
+    except Exception as e:
+        print(f"Errore imprevisto durante la geolocalizzazione: {e}")
+        
+    print("Utilizzo del paese predefinito: IT")
+    return 'IT'  # Fallback a Italia
+
 def similar(a: str, b: str) -> float:
     """Calcola la similarità tra due stringhe (0-1)"""
     return SequenceMatcher(None, a, b).ratio()
@@ -350,22 +375,12 @@ def search():
         
         # Ottieni l'IP del client per la geolocalizzazione
         client_ip = request.headers.get('X-Forwarded-For', request.remote_addr)
-        try:
-            # Usa l'API v4 di ipinfo.io con un token (opzionale ma consigliato per maggiore affidabilità)
-            # Se hai un token, puoi aggiungerlo come parametro: token='il_tuo_token_qui'
-            geo = geocoder.ipinfo(client_ip, key=None)  # Sostituisci None con il tuo token se ne hai uno
-            
-            # Se l'API non risponde, prova con una richiesta diretta all'API v4
-            if not geo.ok:
-                response = requests.get(f'https://ipinfo.io/{client_ip}/json')
-                if response.status_code == 200:
-                    data = response.json()
-                    geo = geocoder.ipinfo(location=data.get('loc', ''), key=None)
-                    
-        except Exception as e:
-            print(f"Errore durante la geolocalizzazione: {e}")
-            geo = None
-        paese = geo.country if geo.ok and geo.country else "IT"
+        # Se ci sono più IP (può succedere con proxy), prendi il primo
+        if ',' in client_ip:
+            client_ip = client_ip.split(',')[0].strip()
+        
+        # Usa il servizio ipapi.co per la geolocalizzazione
+        paese = get_country_from_ip(client_ip)
         
         # Inizializza le statistiche
         stats = {
