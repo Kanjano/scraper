@@ -5,3 +5,4 @@ selenium==4.10.0
 webdriver-manager==4.0.2
 undetected-chromedriver==3.5.4
 geocoder==1.38.1
+gunicorn==21.2.0
