@@ -4,6 +4,7 @@ warnings.filterwarnings("ignore", category=DeprecationWarning, module='urllib3')
 
 from flask import Flask, render_template, request, redirect, flash, session, url_for, g
 import geocoder
+import requests
 import smtplib
 import time
 import os
@@ -349,7 +350,21 @@ def search():
         
         # Ottieni l'IP del client per la geolocalizzazione
         client_ip = request.headers.get('X-Forwarded-For', request.remote_addr)
-        geo = geocoder.ip(client_ip)
+        try:
+            # Usa l'API v4 di ipinfo.io con un token (opzionale ma consigliato per maggiore affidabilità)
+            # Se hai un token, puoi aggiungerlo come parametro: token='il_tuo_token_qui'
+            geo = geocoder.ipinfo(client_ip, key=None)  # Sostituisci None con il tuo token se ne hai uno
+            
+            # Se l'API non risponde, prova con una richiesta diretta all'API v4
+            if not geo.ok:
+                response = requests.get(f'https://ipinfo.io/{client_ip}/json')
+                if response.status_code == 200:
+                    data = response.json()
+                    geo = geocoder.ipinfo(location=data.get('loc', ''), key=None)
+                    
+        except Exception as e:
+            print(f"Errore durante la geolocalizzazione: {e}")
+            geo = None
         paese = geo.country if geo.ok and geo.country else "IT"
         
         # Inizializza le statistiche
