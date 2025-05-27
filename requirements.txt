@@ -6,3 +6,6 @@ webdriver-manager==4.0.2
 undetected-chromedriver==3.5.4
 geocoder==1.38.1
 gunicorn==21.2.0
+fake-useragent==1.4.0
+python-dotenv==1.0.0
+pytest==7.4.0
