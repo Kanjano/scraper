@@ -79,10 +79,29 @@ def cerca_musik_produktiv(prodotto, paese="IT"):
                     link = f"https://www.musik-produktiv.com/it/{product_id}.html"
                     immagine = get_musikprodukt_image(link)
 
+                    # Estrazione prezzo originale (se presente nel JSON)
+                    prezzo_originale = "N/A"
+                    prezzo_originale_numerico = ivato # Default: nessun sconto
+
+                    try:
+                        # Cerca campi che potrebbero contenere il prezzo originale
+                        # Nota: senza un dump JSON esatto, proviamo i nomi comuni
+                        list_price_str = str(item.get("listPrice", item.get("oldPrice", item.get("rrp", "0")))).replace(',', '.')
+                        list_price_netto = float(list_price_str) if list_price_str.replace('.', '').isdigit() else 0
+                        
+                        if list_price_netto > netto:
+                            list_price_ivato = round(list_price_netto * (1 + iva_rate), 2)
+                            prezzo_originale = f"€ {list_price_ivato:.2f}"
+                            prezzo_originale_numerico = list_price_ivato
+                    except Exception:
+                        pass
+
                     risultati.append({
                         "nome": nome,
                         "prezzo": f"€ {ivato:.2f}",
                         "prezzo_numerico": ivato,
+                        "prezzo_originale": prezzo_originale,
+                        "prezzo_originale_numerico": prezzo_originale_numerico,
                         "link": link,
                         "immagine": immagine,
                         "sito": "Musik Produktiv"

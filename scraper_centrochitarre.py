@@ -55,10 +55,33 @@ def cerca_centrochitarre(prodotto):
                 prezzo_eur = round(float(prezzo_clean), 2)
                 prezzo_display = f"€ {prezzo_eur}"
 
+                # Estrazione prezzo originale
+                prezzo_originale = "N/A"
+                prezzo_originale_numerico = prezzo_eur
+
+                try:
+                    old_price_element = safe_find_element(prodotto, By.CSS_SELECTOR, ".old-price .price")
+                    if old_price_element:
+                        old_price_text = old_price_element.text.strip()
+                        old_price_clean = re.sub(r"[^\d,\.]", "", old_price_text)
+                        if '.' in old_price_clean and ',' in old_price_clean:
+                            old_price_clean = old_price_clean.replace('.', '').replace(',', '.')
+                        elif ',' in old_price_clean:
+                            old_price_clean = old_price_clean.replace(',', '.')
+                        
+                        old_price_val = float(old_price_clean)
+                        if old_price_val > prezzo_eur:
+                            prezzo_originale = f"€ {old_price_val:.2f}"
+                            prezzo_originale_numerico = old_price_val
+                except:
+                    pass
+
                 risultati.append({
                     "nome": nome,
                     "prezzo": prezzo_display,
                     "prezzo_numerico": prezzo_eur,
+                    "prezzo_originale": prezzo_originale,
+                    "prezzo_originale_numerico": prezzo_originale_numerico,
                     "immagine": immagine,
                     "link": link,
                     "sito": "Centro Chitarre"

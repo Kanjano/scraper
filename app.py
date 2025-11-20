@@ -528,6 +528,27 @@ def search():
         print(f"\nTOTALE: {stats['totale_oggetti']} risultati in {stats['tempo_totale']} secondi")
         print(f"{'='*50}\n")
         
+        # Calcola la percentuale di sconto per ogni prodotto
+        for r in risultati_ordinati:
+            try:
+                prezzo_attuale = float(r.get('prezzo_numerico', 0))
+                prezzo_originale = float(r.get('prezzo_originale_numerico', 0))
+                
+                if prezzo_originale > prezzo_attuale and prezzo_originale > 0:
+                    sconto = ((prezzo_originale - prezzo_attuale) / prezzo_originale) * 100
+                    r['sconto_percentuale'] = round(sconto)
+                else:
+                    r['sconto_percentuale'] = 0
+            except Exception:
+                r['sconto_percentuale'] = 0
+
+        # Identifica i Top 10 Sconti
+        top_sconti = sorted(
+            [r for r in risultati_ordinati if r.get('sconto_percentuale', 0) > 0],
+            key=lambda x: x['sconto_percentuale'],
+            reverse=True
+        )[:10]
+
         # Prepara i dati per il template
         return render_template(
             'results.html',
@@ -538,7 +559,8 @@ def search():
             prodotto=prodotto,
             filtro_sito=filtro_sito,
             current_lang=session.get('lang', 'en'),
-            stats=stats
+            stats=stats,
+            top_sconti=top_sconti
         )
 
     except Exception as e:
@@ -589,4 +611,4 @@ def contatti():
     return render_template('contatti.html', current_lang=session.get('lang', 'en'))
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0', port=5001)

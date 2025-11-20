@@ -73,10 +73,24 @@ def cerca_gear4music(prodotto):
                             link = "https://www.gear4music.it" + href
                             immagine = estrai_immagine_prodotto(driver, link)
 
+                    # Estrazione prezzo originale (RRP)
+                    rrp_gbp = float(item.get("rrp", 0))
+                    if rrp_gbp > 0:
+                        rrp_eur = round(rrp_gbp * 1.17, 2)
+                        prezzo_originale = f"€ {rrp_eur}"
+                        prezzo_originale_numerico = rrp_eur
+                    else:
+                        # Se non c'è RRP nel JSON, prova a cercare nel DOM se necessario, 
+                        # ma per ora assumiamo che se non c'è nel JSON non c'è sconto
+                        prezzo_originale = "N/A"
+                        prezzo_originale_numerico = price_eur
+
                     risultati.append({
                         "nome": nome,
                         "prezzo": f"€ {price_eur}",
                         "prezzo_numerico": price_eur,
+                        "prezzo_originale": prezzo_originale,
+                        "prezzo_originale_numerico": prezzo_originale_numerico,
                         "link": link,
                         "immagine": immagine,
                         "sito": "Gear4music"

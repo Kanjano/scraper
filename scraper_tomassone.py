@@ -60,10 +60,28 @@ def cerca_tomassone(prodotto):
                     if immagine and not immagine.startswith("http") and not immagine.startswith("data:"):
                         immagine = "https://www.tomassone.it" + ("" if immagine.startswith("/") else "/") + immagine
 
+                # Estrazione prezzo originale
+                prezzo_originale = "N/A"
+                prezzo_originale_numerico = prezzo_num
+
+                try:
+                    old_price_elem = card.select_one(".old-price .price")
+                    if old_price_elem:
+                        old_price_raw = old_price_elem.get_text(strip=True)
+                        old_price_num = float(re.sub(r"[^\d,]", "", old_price_raw).replace(",", "."))
+                        
+                        if old_price_num > prezzo_num:
+                            prezzo_originale = f"€{old_price_num:.2f}".replace(".", ",")
+                            prezzo_originale_numerico = old_price_num
+                except:
+                    pass
+
                 risultati.append({
                     "nome": nome,
                     "prezzo": f"€{prezzo_num:.2f}".replace(".", ","),
                     "prezzo_numerico": prezzo_num,
+                    "prezzo_originale": prezzo_originale,
+                    "prezzo_originale_numerico": prezzo_originale_numerico,
                     "link": link,
                     "immagine": immagine,
                     "sito": "Tomassone"

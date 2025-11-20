@@ -786,10 +786,43 @@ def search_strumentimusicali(prodotto, max_results=10):
                             break
                 
             # Aggiungi il prodotto ai risultati
+            
+            # Estrazione prezzo originale (se presente)
+            prezzo_originale = "N/A"
+            prezzo_originale_num = 0.0
+            
+            try:
+                # Cerca elementi che indicano un prezzo vecchio/barrato
+                old_price_selectors = [
+                    '.productOldPrice', '.old-price', '.regular-price', 
+                    'span[data-price-type="oldPrice"]', 'span.old-price',
+                    'strike', 'del', '.price-label'
+                ]
+                
+                old_price_elem = None
+                for selector in old_price_selectors:
+                    old_price_elem = item.select_one(selector)
+                    if old_price_elem:
+                        break
+                
+                if old_price_elem:
+                    old_price_text = old_price_elem.get_text(strip=True)
+                    prezzo_originale_num = clean_price(old_price_text)
+                    if prezzo_originale_num > 0:
+                        prezzo_originale = f"€{prezzo_originale_num:,.2f}".replace(".", "X").replace(",", ".").replace("X", ",")
+            except Exception as e:
+                logger.warning(f"⚠️ Errore estrazione prezzo originale: {str(e)}")
+
+            # Se non c'è prezzo originale o è 0, usa il prezzo attuale come base (nessuno sconto)
+            if prezzo_originale_num == 0:
+                prezzo_originale_num = prezzo_num
+
             prodotto_info = {
                 "nome": nome,
                 "prezzo": prezzo_formattato,  # Uniformato il nome della chiave agli altri scraper
                 "prezzo_numerico": prezzo_num,
+                "prezzo_originale": prezzo_originale,
+                "prezzo_originale_numerico": prezzo_originale_num,
                 "link": link,
                 "immagine": img_url or "N/A",
                 "descrizione": "",  # Possiamo estrarre la descrizione in un secondo momento se necessario

@@ -47,10 +47,32 @@ def cerca_andertons(prodotto):
                     img_raw = product.get("image", {}).get("data", "")
                     immagine = img_raw.replace("{:size}", "500x500") if img_raw else "N/A"
 
+                    # Estrazione prezzo originale (was_price)
+                    prezzo_originale = "N/A"
+                    prezzo_originale_numerico = prezzo_numerico # Default: nessun sconto
+
+                    was_price_raw = product.get("price", {}).get("was_price", {})
+                    was_price_formatted = was_price_raw.get("formatted", "N/A")
+                    
+                    if was_price_formatted != "N/A":
+                        try:
+                            was_price_clean = re.sub(r"[^\d.]", "", was_price_formatted)
+                            was_price_float = float(was_price_clean)
+                            # Se il prezzo originale è maggiore del prezzo attuale
+                            if was_price_float > 0:
+                                was_price_eur = round(was_price_float * 1.17, 2)
+                                if was_price_eur > prezzo_numerico:
+                                    prezzo_originale = f"€ {was_price_eur}"
+                                    prezzo_originale_numerico = was_price_eur
+                        except:
+                            pass
+
                     risultati.append({
                         "nome": nome,
                         "prezzo": f"€ {prezzo_eur}" if prezzo_eur != "N/A" else "N/A",
                         "prezzo_numerico": prezzo_numerico,
+                        "prezzo_originale": prezzo_originale,
+                        "prezzo_originale_numerico": prezzo_originale_numerico,
                         "immagine": immagine,
                         "link": link,
                         "sito": "Andertons"

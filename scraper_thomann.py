@@ -60,10 +60,27 @@ def cerca_thomann(prodotto):
             prezzo = prezzo_el.get_text(strip=True) if prezzo_el else "N/A"
             prezzo_numerico = estrai_float_prezzo(prezzo)
 
+            # Estrazione prezzo originale (se presente)
+            prezzo_originale_el = (
+                item.select_one(".product__price-secondary") or
+                item.select_one(".fx-price-group__secondary") or
+                item.select_one(".price--original") or
+                item.select_one("del") or
+                item.select_one(".product__price-original")
+            )
+            prezzo_originale = prezzo_originale_el.get_text(strip=True) if prezzo_originale_el else "N/A"
+            prezzo_originale_numerico = estrai_float_prezzo(prezzo_originale)
+            
+            # Se non c'è prezzo originale o è 0, usa il prezzo attuale come base (nessuno sconto)
+            if prezzo_originale_numerico == 0:
+                prezzo_originale_numerico = prezzo_numerico
+
             risultati.append({
                 "nome": nome,
                 "prezzo": prezzo,
                 "prezzo_numerico": prezzo_numerico,
+                "prezzo_originale": prezzo_originale,
+                "prezzo_originale_numerico": prezzo_originale_numerico,
                 "link": link,
                 "immagine": immagine,
                 "sito": "Thomann"
