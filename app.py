@@ -19,6 +19,8 @@ from difflib import SequenceMatcher
 
 # Importa il gestore della cache
 from cache_manager import cleanup_cache, cleanup_on_error
+# Importa il gestore dei referral link basato su database
+from referral_db_manager import ReferralDBManager
 
 def get_country_from_ip(ip_address: str) -> str:
     """Ottiene il codice paese dall'indirizzo IP usando ipapi.co"""
@@ -89,6 +91,10 @@ load_dotenv()
 
 app = Flask(__name__)
 app.secret_key = 'supersegreto'
+
+# Inizializza e registra lo stato del sistema di referral basato su database
+from referral_db_manager import ReferralDBManager
+ReferralDBManager.log_referral_status()
 
 # Import translations after app is created
 try:
@@ -486,6 +492,12 @@ def search():
         if filtro_sito:
             risultati_ordinati = [r for r in risultati_ordinati if r.get('sito') == filtro_sito]
             print(f"\nFiltrato per sito: {filtro_sito} ({len(risultati_ordinati)} risultati)")
+        
+        # Applica i referral link ai risultati usando il database di referral
+        for risultato in risultati_ordinati:
+            if 'link' in risultato:
+                # Cerca e applica il referral link dal database
+                risultato['link'] = ReferralDBManager.get_referral_link(risultato['link'])
         
         # Prepara i dati per la paginazione
         pagina = request.args.get('pagina', 1, type=int)

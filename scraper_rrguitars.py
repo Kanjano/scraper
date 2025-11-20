@@ -1,59 +1,55 @@
 import logging
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
 import time
+from browser_manager import BrowserManager
 
 # Configurazione logging: SOLO messaggio finale
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-
-def setup_driver():
-    options = Options()
-    options.add_argument("--headless=new")
-    options.add_argument("--disable-gpu")
-    options.add_argument("--no-sandbox")
-    options.add_argument("--disable-dev-shm-usage")
-    return webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
 def cerca_rrguitars(prodotto):
     query = prodotto.replace(" ", "+")
     url = f"https://www.rrguitars.it/search?q={query}"
 
-    driver = setup_driver()
-    driver.get(url)
-    time.sleep(5)
+    driver = BrowserManager.create_driver()
+    if not driver:
+        return []
 
-    soup = BeautifulSoup(driver.page_source, "html.parser")
     risultati = []
+    try:
+        driver.get(url)
+        time.sleep(5)
 
-    # 💡 Fix corretto: I prodotti sono dentro elementi <li class="product">
-    prodotti = soup.select("li.product")
+        soup = BeautifulSoup(driver.page_source, "html.parser")
+        
+        # 💡 Fix corretto: I prodotti sono dentro elementi <li class="product">
+        prodotti = soup.select("li.product")
 
-    for p in prodotti:
-        try:
-            nome_tag = p.select_one("h2.woocommerce-loop-product__title")
-            prezzo_tag = p.select_one("span.woocommerce-Price-amount")
-            link_tag = p.select_one("a")
-            immagine_tag = p.select_one("img")
+        for p in prodotti:
+            try:
+                nome_tag = p.select_one("h2.woocommerce-loop-product__title")
+                prezzo_tag = p.select_one("span.woocommerce-Price-amount")
+                link_tag = p.select_one("a")
+                immagine_tag = p.select_one("img")
 
-            nome = nome_tag.text.strip() if nome_tag else "N/A"
-            prezzo = prezzo_tag.text.strip() if prezzo_tag else "N/A"
-            link = link_tag["href"] if link_tag and link_tag.has_attr('href') else "#"
-            immagine = immagine_tag["src"] if immagine_tag and immagine_tag.has_attr('src') else "N/A"
+                nome = nome_tag.text.strip() if nome_tag else "N/A"
+                prezzo = prezzo_tag.text.strip() if prezzo_tag else "N/A"
+                link = link_tag["href"] if link_tag and link_tag.has_attr('href') else "#"
+                immagine = immagine_tag["src"] if immagine_tag and immagine_tag.has_attr('src') else "N/A"
 
-            risultati.append({
-                "nome": nome,
-                "prezzo": prezzo,
-                "link": link,
-                "immagine": immagine,
-                "sito": "RR Guitars"
-            })
-        except Exception:
-            continue
+                risultati.append({
+                    "nome": nome,
+                    "prezzo": prezzo,
+                    "link": link,
+                    "immagine": immagine,
+                    "sito": "RR Guitars"
+                })
+            except Exception:
+                continue
+    except Exception as e:
+        logging.error(f"⚠️ Errore RR Guitars: {e}")
+    finally:
+        BrowserManager.close_driver(driver)
 
-    driver.quit()
     logging.info(f"✅ Estrazione completata con {len(risultati)} risultati.")
     return risultati
 

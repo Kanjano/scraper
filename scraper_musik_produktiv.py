@@ -99,3 +99,9 @@ def cerca_musik_produktiv(prodotto, paese="IT"):
     except Exception as e:
         print(f"❌ Errore durante la richiesta o il parsing della pagina: {e}")
         return []
+
+if __name__ == "__main__":
+    prodotto = input("🔎 Prodotto da cercare su Musik Produktiv: ")
+    risultati = cerca_musik_produktiv(prodotto)
+    for r in risultati:
+        print(f"[Musik Produktiv] {r['nome']} - {r['prezzo']} - {r['link']}")

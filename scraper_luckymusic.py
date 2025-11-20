@@ -1,49 +1,103 @@
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
-from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
 import time
-
-def setup_driver():
-    options = Options()
-    options.add_argument("--headless=new")
-    options.add_argument("--disable-gpu")
-    options.add_argument("--no-sandbox")
-    options.add_argument("--disable-dev-shm-usage")
-    return webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+from browser_manager import BrowserManager
 
 def cerca_luckymusic(prodotto):
     query = prodotto.replace(" ", "+")
     url = f"https://www.luckymusic.com/it/search?controller=search&s={query}"
     print(f"🌐 Lucky Music: {url}")
 
-    driver = setup_driver()
-    driver.get(url)
-    time.sleep(2)
-    soup = BeautifulSoup(driver.page_source, "html.parser")
+    driver = BrowserManager.create_driver()
+    if not driver:
+        return []
+
     risultati = []
+    try:
+        driver.get(url)
+        time.sleep(3)
+        html = driver.page_source
+        soup = BeautifulSoup(html, "html.parser")
 
-    prodotti = soup.select(".product-miniature")
-    for p in prodotti:
-        try:
-            nome = p.select_one(".product-title").text.strip()
-            prezzo = p.select_one(".price").text.strip()
-            link = p.select_one("a").get("href")
-            img_tag = p.select_one("img")
-            immagine = img_tag.get("src") if img_tag else "N/A"
+        # Tentativo 1: Estrazione da dataLayer (più affidabile)
+        import re
+        import json
+        
+        match = re.search(r"let cdcDatalayer = ({.*?});", html, re.DOTALL)
+        if match:
+            try:
+                json_str = match.group(1)
+                # Debug: print first 100 chars
+                print(f"DEBUG JSON: {json_str[:100]}...")
+                data = json.loads(json_str)
+                items = data.get("ecommerce", {}).get("items", [])
+                
+                for item in items:
+                    nome = item.get("item_name", "N/A")
+                    prezzo = item.get("price", "0")
+                    
+                    # Il link e l'immagine non sono direttamente nel dataLayer, 
+                    # ma possiamo provare a trovarli nel DOM usando l'ID o il nome
+                    # Oppure costruire il link se c'è un pattern, ma LuckyMusic usa ID-nome.html
+                    
+                    # Cerchiamo nel DOM l'elemento che corrisponde a questo prodotto
+                    # Spesso i data-id o simili corrispondono
+                    
+                    # Fallback misto: dataLayer per prezzi/nomi, DOM per link/img
+                    # Ma se il DOM non c'è, questo non aiuta.
+                    # Guardando il dump, c'è anche <script type="application/ld+json"> con ItemList
+                    pass
+            except Exception as e:
+                print(f"⚠️ Errore parsing JSON dataLayer: {e}")
 
-            risultati.append({
-                "nome": nome,
-                "prezzo": prezzo,
-                "link": link,
-                "immagine": immagine,
-                "sito": "Lucky Music"
-            })
-        except Exception:
-            continue
+        # Parsing DOM classico (aggiornato con selettori dal dump)
+        prodotti = soup.select(".product-miniature")
+        
+        for p in prodotti:
+            try:
+                # Nome e Link
+                title_elem = p.select_one(".product-title a")
+                if not title_elem:
+                    continue
+                nome = title_elem.text.strip()
+                link = title_elem.get("href")
+                
+                # Prezzo
+                price_elem = p.select_one(".product-price")
+                prezzo = price_elem.text.strip() if price_elem else "Vedi sito"
+                
+                # Immagine
+                img_elem = p.select_one(".product-thumbnail img")
+                if img_elem:
+                    immagine = img_elem.get("data-src") or img_elem.get("src")
+                else:
+                    immagine = "N/A"
 
-    driver.quit()
+                risultati.append({
+                    "nome": nome,
+                    "prezzo": prezzo,
+                    "link": link,
+                    "immagine": immagine,
+                    "sito": "Lucky Music"
+                })
+            except Exception as e:
+                # print(f"Errore parsing prodotto: {e}")
+                continue
+                
+        # Se abbiamo usato JSON-LD, proviamo ad arricchire i dati (prezzo) visitando i link o cercando meglio
+        # Per ora ritorniamo quello che abbiamo
+        
+    except Exception as e:
+        print(f"⚠️ Errore Lucky Music: {e}")
+    finally:
+        if not risultati and driver:
+            print("⚠️ Nessun risultato trovato. Salvataggio HTML per debug...")
+            try:
+                with open("luckymusic_dump.html", "w", encoding="utf-8") as f:
+                    f.write(driver.page_source)
+            except:
+                pass
+        BrowserManager.close_driver(driver)
+
     return risultati
 
 def main():

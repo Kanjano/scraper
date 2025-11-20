@@ -8,16 +8,13 @@ from urllib.parse import urljoin, quote_plus
 # Importa il risolutore di CAPTCHA
 from captcha_solver import detect_and_solve_captcha
 from bs4 import BeautifulSoup
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
+from selenium.common.exceptions import TimeoutException, NoSuchElementException, WebDriverException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException, NoSuchElementException, WebDriverException
 from fake_useragent import UserAgent
-import undetected_chromedriver as uc
 import logging
+from browser_manager import BrowserManager
 
 # Configura il logging
 logging.basicConfig(level=logging.INFO)
@@ -26,57 +23,6 @@ logger = logging.getLogger(__name__)
 # Configura un user agent casuale
 ua = UserAgent()
 
-def setup_driver():
-    """Configura e restituisce un'istanza di Chrome con undetected_chromedriver."""
-    try:
-        # Usa il driver normale di Selenium invece di undetected_chromedriver
-        from selenium import webdriver
-        from selenium.webdriver.chrome.service import Service
-        from selenium.webdriver.chrome.options import Options
-        
-        options = Options()
-        
-        # Configurazione delle opzioni di Chrome
-        options.add_argument('--disable-blink-features=AutomationControlled')
-        options.add_argument('--disable-infobars')
-        options.add_argument('--disable-notifications')
-        options.add_argument('--no-sandbox')
-        options.add_argument('--disable-dev-shm-usage')
-        options.add_argument('--disable-extensions')
-        options.add_argument('--disable-gpu')
-        options.add_argument('--disable-software-rasterizer')
-        options.add_argument('--window-size=1920,1080')
-        options.add_argument('--start-maximized')
-        options.add_argument('--disable-popup-blocking')
-        
-        # Aggiungi argomenti per sembrare più un browser reale
-        options.add_argument('--disable-web-security')
-        options.add_argument('--allow-running-insecure-content')
-        options.add_argument('--disable-webgl')
-        options.add_argument('--disable-threaded-animation')
-        options.add_argument('--disable-threaded-scrolling')
-        options.add_argument('--disable-in-process-stack-traces')
-        options.add_argument('--disable-logging')
-        options.add_argument('--log-level=3')
-        
-        # Aggiungi un user agent realistico
-        options.add_argument(f'user-agent={ua.random}')
-        
-        # Inizializza il driver
-        driver = webdriver.Chrome(options=options)
-        return driver
-    except Exception as e:
-        logger.error(f"Errore nell'inizializzazione del driver Chrome: {str(e)}")
-        # Fallback a undetected_chromedriver con opzioni minime
-        try:
-            options = uc.ChromeOptions()
-            options.add_argument('--no-sandbox')
-            options.add_argument('--disable-dev-shm-usage')
-            driver = uc.Chrome(options=options)
-            return driver
-        except Exception as e:
-            logger.error(f"Anche il fallback a undetected_chromedriver è fallito: {str(e)}")
-            raise
 
 def make_request(url, max_retries=3, timeout=30):
     """Esegue una richiesta HTTP con Selenium per aggirare i controlli anti-bot."""
@@ -84,7 +30,10 @@ def make_request(url, max_retries=3, timeout=30):
     
     for attempt in range(max_retries):
         try:
-            driver = setup_driver()
+            driver = BrowserManager.create_driver()
+            if not driver:
+                logger.error("Impossibile creare il driver")
+                return []
             
             # Vai alla pagina di ricerca
             logger.info(f"🌍 Accesso alla pagina: {url}")
@@ -110,8 +59,7 @@ def make_request(url, max_retries=3, timeout=30):
                     
             except Exception as e:
                 logger.error(f"❌ Errore durante il caricamento della pagina: {str(e)}")
-                if driver:
-                    driver.quit()
+                BrowserManager.close_driver(driver)
                 return []
             
             # Aggiungi un ritardo casuale tra le richieste
@@ -132,8 +80,7 @@ def make_request(url, max_retries=3, timeout=30):
                 # Prova comunque a procedere con il contenuto caricato
             except Exception as e:
                 logger.error(f"❌ Errore durante l'attesa del caricamento: {str(e)}")
-                if driver:
-                    driver.quit()
+                BrowserManager.close_driver(driver)
                 return []
             
             # Scrolla la pagina per caricare i contenuti dinamici
@@ -199,11 +146,7 @@ def make_request(url, max_retries=3, timeout=30):
                 time.sleep(wait_time)
     
     # Chiudi il driver se è stato creato
-    if driver:
-        try:
-            driver.quit()
-        except:
-            pass
+    BrowserManager.close_driver(driver)
             
     return None
 
@@ -228,7 +171,8 @@ def extract_product_details(driver, url):
         except Exception as e:
             logger.error(f"❌ Errore durante l'attesa del caricamento: {str(e)}")
             if driver:
-                driver.quit()
+                # Non chiudiamo il driver qui perché è passato dall'esterno
+                pass
             return None, None
         
         # Scrolla la pagina per caricare i contenuti dinamici
@@ -434,23 +378,18 @@ def search_strumentimusicali(prodotto, max_results=10):
     risultati = []
     
     try:
-        logger.info("🚀 Inizializzazione del browser con undetected_chromedriver...")
+        logger.info("🚀 Inizializzazione del browser con BrowserManager...")
         
-        # Configurazione minima per undetected_chromedriver
-        options = uc.ChromeOptions()
-        options.add_argument('--no-sandbox')
-        options.add_argument('--disable-dev-shm-usage')
-        options.add_argument('--disable-blink-features=AutomationControlled')
-        options.add_argument('--disable-extensions')
-        options.add_argument('--start-maximized')
-        options.add_argument(f'user-agent={ua.random}')
-        
-        # Inizializza il driver con undetected_chromedriver
-        driver = uc.Chrome(options=options)
-        driver.set_page_load_timeout(30)
+        driver = BrowserManager.create_driver()
+        if not driver:
+            logger.error("❌ Impossibile inizializzare il browser")
+            return []
         
         # Esegui JavaScript per nascondere il fatto che il browser è controllato da WebDriver
-        driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
+        try:
+            driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
+        except:
+            pass
         
         logger.info("✅ Browser inizializzato con successo")
         logger.info(f"🌍 Accesso alla pagina: {search_url}")
@@ -651,8 +590,7 @@ def search_strumentimusicali(prodotto, max_results=10):
     
     except Exception as e:
         logger.error(f"❌ Errore durante la ricerca: {str(e)}")
-        if driver:
-            driver.quit()
+        BrowserManager.close_driver(driver)
         return []
     risultati = []
     processed = 0
@@ -866,13 +804,7 @@ def search_strumentimusicali(prodotto, max_results=10):
             continue
     
     # Chiudi il driver Chrome alla fine dell'esecuzione
-    try:
-        if driver:
-            logger.info("🔒 Chiusura del browser Chrome...")
-            driver.quit()
-            logger.info("✅ Browser Chrome chiuso con successo")
-    except Exception as e:
-        logger.error(f"❌ Errore durante la chiusura del browser: {str(e)}")
+    BrowserManager.close_driver(driver)
     
     logger.info(f"\n✅ Ricerca completata. Trovati {len(risultati)} risultati validi")
     return sorted(risultati, key=lambda x: x['prezzo_numerico'])

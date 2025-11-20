@@ -1,22 +1,9 @@
 import time
 import re
-from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
-import undetected_chromedriver as uc
-
-def setup_driver():
-    options = uc.ChromeOptions()
-    options.add_argument("--headless=new")
-    options.add_argument("--no-sandbox")
-    options.add_argument("--disable-dev-shm-usage")
-    options.add_argument("--disable-gpu")
-    options.add_argument("--window-size=1920,1080")
-    return uc.Chrome(options=options)
+from browser_manager import BrowserManager
 
 def safe_find_element(parent, by, selector):
     try:
@@ -28,12 +15,14 @@ def cerca_centrochitarre(prodotto):
     query = prodotto.replace(" ", "+")
     url = f"https://www.centrochitarre.com/catalogsearch/result/?q={query}"
 
-    driver = setup_driver()
-    driver.get(url)
+    driver = BrowserManager.create_driver()
+    if not driver:
+        return []
 
     risultati = []
 
     try:
+        driver.get(url)
         WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, ".product-item"))
         )
@@ -78,10 +67,16 @@ def cerca_centrochitarre(prodotto):
             except Exception:
                 continue  # Ignora eventuali errori su singoli prodotti
 
-    except Exception:
-        pass  # Ignora eventuali errori di caricamento pagina
+    except Exception as e:
+        print(f"⚠️ Errore Centro Chitarre: {e}")
 
     finally:
-        driver.quit()
+        BrowserManager.close_driver(driver)
 
     return risultati
+
+if __name__ == "__main__":
+    prodotto = input("🔎 Prodotto da cercare su Centro Chitarre: ")
+    risultati = cerca_centrochitarre(prodotto)
+    for r in risultati:
+        print(f"[Centro Chitarre] {r['nome']} - {r['prezzo']} - {r['link']}")
