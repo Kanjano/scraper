@@ -21,6 +21,10 @@ from difflib import SequenceMatcher
 from cache_manager import cleanup_cache, cleanup_on_error
 # Importa il gestore dei referral link basato su database
 from referral_db_manager import ReferralDBManager
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
+from flask_migrate import Migrate
+from models import db, User, SearchHistory
+from authlib.integrations.flask_client import OAuth
 
 def get_country_from_ip(ip_address: str) -> str:
     """Ottiene il codice paese dall'indirizzo IP usando ipapi.co"""
@@ -91,6 +95,60 @@ load_dotenv()
 
 app = Flask(__name__)
 app.secret_key = 'supersegreto'
+
+# Database Configuration
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///scraper.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db.init_app(app)
+migrate = Migrate(app, db)
+login_manager = LoginManager(app)
+login_manager.login_view = 'login'
+
+# OAuth Configuration
+oauth = OAuth(app)
+
+# Google
+oauth.register(
+    name='google',
+    client_id=os.getenv('GOOGLE_CLIENT_ID'),
+    client_secret=os.getenv('GOOGLE_CLIENT_SECRET'),
+    access_token_url='https://accounts.google.com/o/oauth2/token',
+    access_token_params=None,
+    authorize_url='https://accounts.google.com/o/oauth2/auth',
+    authorize_params=None,
+    api_base_url='https://www.googleapis.com/oauth2/v1/',
+    client_kwargs={'scope': 'openid email profile'},
+)
+
+# Facebook
+oauth.register(
+    name='facebook',
+    client_id=os.getenv('FACEBOOK_CLIENT_ID'),
+    client_secret=os.getenv('FACEBOOK_CLIENT_SECRET'),
+    access_token_url='https://graph.facebook.com/oauth/access_token',
+    access_token_params=None,
+    authorize_url='https://www.facebook.com/dialog/oauth',
+    authorize_params=None,
+    api_base_url='https://graph.facebook.com/',
+    client_kwargs={'scope': 'email'},
+)
+
+# Twitter (X)
+oauth.register(
+    name='twitter',
+    client_id=os.getenv('TWITTER_CLIENT_ID'),
+    client_secret=os.getenv('TWITTER_CLIENT_SECRET'),
+    api_base_url='https://api.twitter.com/2/',
+    request_token_url='https://api.twitter.com/oauth/request_token',
+    access_token_url='https://api.twitter.com/oauth/access_token',
+    authorize_url='https://api.twitter.com/oauth/authenticate',
+    client_kwargs=None,
+)
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 # Inizializza e registra lo stato del sistema di referral basato su database
 from referral_db_manager import ReferralDBManager
@@ -375,6 +433,18 @@ def search():
         # Salva il termine di ricerca originale per il template
         prodotto = search_query
         
+        # Salva la ricerca nella cronologia se l'utente è loggato
+        if current_user.is_authenticated and search_query:
+            try:
+                # Evita duplicati consecutivi
+                last_search = SearchHistory.query.filter_by(user_id=current_user.id).order_by(SearchHistory.timestamp.desc()).first()
+                if not last_search or last_search.search_term != search_query:
+                    new_search = SearchHistory(user_id=current_user.id, search_term=search_query, filters=json.dumps(request.form if request.method == 'POST' else request.args))
+                    db.session.add(new_search)
+                    db.session.commit()
+            except Exception as e:
+                print(f"Errore salvataggio cronologia: {e}")
+        
         # Inizializza le variabili per i risultati
         risultati = {}
         risultati_totali = []
@@ -457,13 +527,41 @@ def search():
                     
                 risultati_lista.append(p)
         
-        # Applica il filtro di ricerca avanzato
-        risultati_filtrati = filtra_risultati(risultati_lista, prodotto)
-        print(f"🔍 Risultati dopo il filtro: {len(risultati_filtrati)}/{len(risultati_lista)}")
+        # --- LOGICA DI RICERCA IBRIDA ---
         
-        # Ordina i risultati per punteggio di ricerca e prezzo
+        # 1. Filtro Rigoroso (Strict)
+        def filter_strict(items, query):
+            if not query:
+                return items
+            tokens = query.lower().split()
+            strict_items = []
+            for item in items:
+                nome = str(item.get('nome', '')).lower()
+                if all(token in nome for token in tokens):
+                    strict_items.append(item)
+            return strict_items
+
+        risultati_strict = filter_strict(risultati_lista, prodotto)
+
+        # 2. Decisione: Strict o Fallback?
+        search_mode = "strict"
+        risultati_finali = []
+
+        if len(risultati_strict) >= 5:
+            # Se abbiamo abbastanza risultati precisi, usiamo quelli
+            risultati_finali = risultati_strict
+            search_mode = "strict"
+        else:
+            # Altrimenti, fallback alla ricerca più ampia
+            risultati_finali = filtra_risultati(risultati_lista, prodotto)
+            search_mode = "fuzzy"
+            print(f"⚠️ Fallback a modalità FUZZY (trovati solo {len(risultati_strict)} strict)")
+        
+        print(f"🔍 Risultati finali ({search_mode}): {len(risultati_finali)}/{len(risultati_lista)}")
+        
+        # Ordina i risultati
         risultati_ordinati = sorted(
-            risultati_filtrati,
+            risultati_finali,
             key=lambda x: (
                 -x.get('punteggio_ricerca', 0),  # Ordina per punteggio decrescente
                 float(x.get('prezzo', '999999').replace('.', '').replace(',', '.').replace('€', '').strip() or '999999')  # Poi per prezzo crescente
@@ -560,7 +658,8 @@ def search():
             filtro_sito=filtro_sito,
             current_lang=session.get('lang', 'en'),
             stats=stats,
-            top_sconti=top_sconti
+            top_sconti=top_sconti,
+            search_mode=search_mode
         )
 
     except Exception as e:
@@ -609,6 +708,159 @@ def contatti():
             return redirect('/contatti')
 
     return render_template('contatti.html', current_lang=session.get('lang', 'en'))
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+        name = request.form.get('name')
+        surname = request.form.get('surname')
+        privacy_accepted = request.form.get('privacy_accepted') == 'on'
+        newsletter_opt_in = request.form.get('newsletter_opt_in') == 'on'
+
+        if not privacy_accepted:
+            flash('Devi accettare la privacy policy per registrarti.', 'warning')
+            return redirect(url_for('signup'))
+
+        user = User.query.filter_by(email=email).first()
+        if user:
+            flash('Email già registrata.', 'danger')
+            return redirect(url_for('signup'))
+
+        new_user = User(email=email, name=name, surname=surname, 
+                        privacy_accepted=privacy_accepted, newsletter_opt_in=newsletter_opt_in)
+        new_user.set_password(password)
+        db.session.add(new_user)
+        db.session.commit()
+        
+        login_user(new_user)
+        return redirect(url_for('index'))
+
+    return render_template('signup.html', current_lang=session.get('lang', 'en'))
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+        user = User.query.filter_by(email=email).first()
+
+        if user and user.check_password(password):
+            login_user(user)
+            return redirect(url_for('index'))
+        else:
+            flash('Email o password non validi.', 'danger')
+
+    return render_template('login.html', current_lang=session.get('lang', 'en'))
+
+@app.route('/login/<provider>')
+def login_oauth(provider):
+    # Check if provider credentials are configured
+    client_id = os.getenv(f'{provider.upper()}_CLIENT_ID')
+    client_secret = os.getenv(f'{provider.upper()}_CLIENT_SECRET')
+    
+    if not client_id or not client_secret:
+        flash(f'Configurazione mancante per {provider}. Inserisci CLIENT_ID e CLIENT_SECRET nel file .env.', 'danger')
+        return redirect(url_for('login'))
+
+    client = oauth.create_client(provider)
+    if not client:
+        flash(f'Provider {provider} non supportato.', 'danger')
+        return redirect(url_for('login'))
+    
+    redirect_uri = url_for('authorize_oauth', provider=provider, _external=True)
+    return client.authorize_redirect(redirect_uri)
+
+@app.route('/login/<provider>/callback')
+def authorize_oauth(provider):
+    client = oauth.create_client(provider)
+    if not client:
+        flash(f'Provider {provider} non supportato.', 'danger')
+        return redirect(url_for('login'))
+    
+    try:
+        token = client.authorize_access_token()
+        
+        user_info = None
+        if provider == 'google':
+            resp = client.get('userinfo')
+            user_info = resp.json()
+            email = user_info.get('email')
+            name = user_info.get('given_name')
+            surname = user_info.get('family_name')
+            oauth_id = user_info.get('id')
+            
+        elif provider == 'facebook':
+            resp = client.get('me?fields=id,name,email,first_name,last_name')
+            user_info = resp.json()
+            email = user_info.get('email')
+            name = user_info.get('first_name')
+            surname = user_info.get('last_name')
+            oauth_id = user_info.get('id')
+            
+        elif provider == 'twitter':
+            # Twitter API v2 logic might differ, using basic flow for now
+            # Note: Twitter often requires elevated access for email
+            resp = client.get('account/verify_credentials.json?include_email=true')
+            user_info = resp.json()
+            email = user_info.get('email')
+            name = user_info.get('name').split(' ')[0] if user_info.get('name') else 'Twitter'
+            surname = user_info.get('name').split(' ')[1] if user_info.get('name') and len(user_info.get('name').split(' ')) > 1 else 'User'
+            oauth_id = str(user_info.get('id'))
+
+        if not email:
+            flash('Impossibile recuperare l\'email dal provider social.', 'danger')
+            return redirect(url_for('login'))
+
+        # Check if user exists
+        user = User.query.filter_by(email=email).first()
+        
+        if not user:
+            # Create new user
+            user = User(
+                email=email,
+                name=name,
+                surname=surname,
+                oauth_provider=provider,
+                oauth_id=oauth_id,
+                privacy_accepted=True, # Implicit acceptance via social login
+                newsletter_opt_in=False
+            )
+            db.session.add(user)
+            db.session.commit()
+        else:
+            # Update existing user with oauth info if missing
+            if not user.oauth_provider:
+                user.oauth_provider = provider
+                user.oauth_id = oauth_id
+                db.session.commit()
+        
+        login_user(user)
+        return redirect(url_for('index'))
+        
+    except Exception as e:
+        print(f"OAuth Error: {e}")
+        flash(f'Errore durante il login con {provider}: {str(e)}', 'danger')
+        return redirect(url_for('login'))
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
+
+@app.route('/profile')
+@login_required
+def profile():
+    history = SearchHistory.query.filter_by(user_id=current_user.id).order_by(SearchHistory.timestamp.desc()).limit(20).all()
+    return render_template('profile.html', user=current_user, history=history, current_lang=session.get('lang', 'en'))
+
+@app.cli.command("send-newsletter")
+def send_newsletter_command():
+    """Invia la newsletter settimanale."""
+    from newsletter_manager import send_weekly_newsletter
+    send_weekly_newsletter()
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5001)

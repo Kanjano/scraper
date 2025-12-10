@@ -7,6 +7,7 @@ Instrinder è un'applicazione web che permette di confrontare i prezzi di strume
 
 - Ricerca prodotti su diversi negozi di strumenti musicali italiani e internazionali
 - Confronto prezzi in tempo reale
+- **Top 10 Sconti**: Visualizza le migliori offerte con la percentuale di sconto calcolata
 - Interfaccia web intuitiva e reattiva
 - Supporto multilingua (Italiano, Inglese, Tedesco, Francese, Spagnolo)
 - Gestione avanzata di reCAPTCHA e protezioni anti-bot
