@@ -1,10 +1,12 @@
 # Instrinder - Strumenti Musicali Price Scraper
 
 ## Descrizione
-Instrinder è un'applicazione web che permette di confrontare i prezzi di strumenti musicali e accessori tra diversi rivenditori online. Il sistema è in grado di effettuare ricerche su vari negozi online, estrarre informazioni sui prodotti e presentare i risultati in un'interfaccia unificata.
+Instrinder è uUn'applicazione web Flask per cercare e confrontare prezzi di strumenti musicali da diversi negozi online italiani ed europei.
 
-## Funzionalità
+## 🚀 Nuove Funzionalità (v2.0)
+È stata introdotta la gestione utenti, cronologia e newsletter. Per i dettagli completi, vedi **[NEW_FEATURES.md](NEW_FEATURES.md)**.
 
+## Funzionalità Principali
 - Ricerca prodotti su diversi negozi di strumenti musicali italiani e internazionali
 - Confronto prezzi in tempo reale
 - **Top 10 Sconti**: Visualizza le migliori offerte con la percentuale di sconto calcolata
