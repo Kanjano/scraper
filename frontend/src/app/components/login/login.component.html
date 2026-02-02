@@ -1,0 +1,29 @@
+<div class="auth-container">
+    <div class="auth-card">
+        <h2>Accesso</h2>
+
+        @if (error) {
+        <div class="alert error">{{ error }}</div>
+        }
+
+        <form (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" [(ngModel)]="email" name="email" required placeholder="tu@email.com">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" [(ngModel)]="password" name="password" required>
+            </div>
+
+            <button type="submit" class="btn-primary" [disabled]="loading">
+                {{ loading ? 'Accesso in corso...' : 'Accedi' }}
+            </button>
+        </form>
+
+        <div class="auth-footer">
+            <p>Non hai un account? <a routerLink="/signup">Registrati</a></p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,169 @@
+.home-container {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.hero {
+    text-align: center;
+    padding: 3rem 1rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.search-box {
+    margin: 2rem 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.search-box input {
+    padding: 15px;
+    width: 100%;
+    max-width: 500px;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    outline: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.search-box button {
+    padding: 15px 30px;
+    background-color: #ff9900;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.search-box button:hover {
+    background-color: #e68a00;
+    transform: translateY(-2px);
+}
+
+.sites-selector {
+    margin-top: 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 8px;
+    display: inline-block;
+}
+
+.sites-grid {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.site-checkbox {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9rem;
+}
+
+/* Results Grid Styles (reused) */
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    position: relative;
+    transition: transform 0.2s;
+    border: 1px solid #eee;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #ff4757;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+.card-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.card-body h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    color: #333;
+    flex-grow: 1;
+    /* Push bottom elements down */
+}
+
+.price-container {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.original-price {
+    text-decoration: line-through;
+    color: #999;
+    font-size: 0.9rem;
+}
+
+.current-price {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #2e86de;
+}
+
+.site-label {
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.btn-view {
+    display: block;
+    text-align: center;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.btn-view:hover {
+    background-color: #000;
+}

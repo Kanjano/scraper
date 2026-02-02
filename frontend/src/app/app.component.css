@@ -1,0 +1,61 @@
+
+/* Global Styles & Layout */
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar {
+  background-color: #333;
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.logo a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.nav-links a {
+  color: #ddd;
+  text-decoration: none;
+  margin-left: 1.5rem;
+  transition: color 0.3s;
+  cursor: pointer;
+}
+
+.nav-links a:hover, .nav-links a.active {
+  color: #fff;
+}
+
+.logout-btn {
+  background: none;
+  border: 1px solid #ddd;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.container {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.footer {
+  background-color: #f4f4f4;
+  text-align: center;
+  padding: 1rem;
+  border-top: 1px solid #ddd;
+  font-size: 0.9rem;
+  color: #666;
+}

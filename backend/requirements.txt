@@ -14,3 +14,4 @@ Flask-Login
 Flask-Migrate
 email_validator
 Authlib
+flask-cors

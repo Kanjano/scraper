@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5001:5001"
+    environment:
+      - MAX_WORKERS=1
+      - HEADLESS=true
+      - FLASK_DEBUG=0
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./backend/data:/app/data
+      - ./backend/instance:/app/instance
+    restart: unless-stopped
+    # Resource limits (optional, for documentation or if Docker supports it)
+    # mem_limit: 800m

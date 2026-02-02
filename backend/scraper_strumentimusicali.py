@@ -653,14 +653,15 @@ def search_strumentimusicali(prodotto, max_results=10):
                     
                     # Estrai il prezzo - cerca specificamente il formato del prezzo
                     price_text = item.get_text()
-                    price_matches = re.findall(r'€\s*(\d+[\.,]\d{2})', price_text)
+                    # Regex più robusta che cattura numeri con punti e virgole (es. 2.799,00 o 279,00)
+                    price_matches = re.findall(r'€\s*([\d\.,]+)', price_text)
                     
                     if price_matches:
                         # Prendi il primo prezzo trovato
                         prezzo_testo = price_matches[0]
                         try:
-                            # Converti in numero
-                            prezzo_num = float(prezzo_testo.replace('.', '').replace(',', '.'))
+                            # Utilizza la funzione clean_price che gestisce i formati corretti
+                            prezzo_num = clean_price(prezzo_testo)
                             
                             # Formatta il prezzo per la visualizzazione
                             prezzo_formattato = f"€{prezzo_num:,.2f}".replace(".", "X").replace(",", ".").replace("X", ",")

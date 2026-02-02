@@ -93,7 +93,11 @@ from scraper_strumentimusicali import search_strumentimusicali as cerca_strument
 
 load_dotenv()
 
+from flask_cors import CORS
+
 app = Flask(__name__)
+# Enable CORS for all domains on all routes (for development)
+CORS(app, resources={r"/api/*": {"origins": "*"}}, supports_credentials=True)
 app.secret_key = 'supersegreto'
 
 # Database Configuration
@@ -402,6 +406,25 @@ def run_scraper(nome, funzione, *args):
 
     return risultato
 
+
+@app.route('/test_sentry')
+def trigger_error():
+    division_by_zero = 1 / 0
+
+def filter_strict(items, query):
+    if not query:
+        return items
+    tokens = [t.lower() for t in query.split()]
+    strict_items = []
+    for item in items:
+        try:
+            nome = str(item.get('nome', '') or item.get('titolo', '') or item.get('name', '')).lower()
+            if all(token in nome for token in tokens):
+                strict_items.append(item)
+        except:
+            continue
+    return strict_items
+
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     """
@@ -444,102 +467,60 @@ def search():
                     db.session.commit()
             except Exception as e:
                 print(f"Errore salvataggio cronologia: {e}")
-        
-        # Inizializza le variabili per i risultati
-        risultati = {}
-        risultati_totali = []
-        
-        # Ottieni l'IP del client per la geolocalizzazione
-        client_ip = request.headers.get('X-Forwarded-For', request.remote_addr)
-        # Se ci sono più IP (può succedere con proxy), prendi il primo
-        if ',' in client_ip:
-            client_ip = client_ip.split(',')[0].strip()
-        
-        # Usa il servizio ipapi.co per la geolocalizzazione
-        paese = get_country_from_ip(client_ip)
-        
-        # Inizializza le statistiche
+
+        # --- INIZO SCRAPING ---
         stats = {
             'inizio_totale': time.time(),
             'siti': {}
         }
-        
-        # Esegui lo scraping dei vari siti
-        with ThreadPoolExecutor(max_workers=5) as executor:
-            futures = {}
-            
-            # Avvia gli scraper in parallelo
-            if sito_attivo(siti_selezionati, "thomann"):
-                futures["thomann"] = executor.submit(run_scraper, "Thomann", cerca_thomann, prodotto)
-                
-            if sito_attivo(siti_selezionati, "musik_produktiv"):
-                futures["musik_produktiv"] = executor.submit(run_scraper, "Musik Produktiv", cerca_musik_produktiv, prodotto, paese)
-                
-            if sito_attivo(siti_selezionati, "gear4music"):
-                futures["gear4music"] = executor.submit(run_scraper, "Gear4music", cerca_gear4music, prodotto)
-                
-            if sito_attivo(siti_selezionati, "andertons"):
-                futures["andertons"] = executor.submit(run_scraper, "Andertons", cerca_andertons, prodotto)
-                
-            # Gestisci lo scraper di Strumenti Musicali separatamente
-            if sito_attivo(siti_selezionati, "strumentimusicali"):
-                futures["strumentimusicali"] = executor.submit(run_scraper, "Strumenti Musicali", cerca_strumentimusicali, prodotto)
-                
-            # Gestisci gli altri scraper italiani in un unico worker
-            if any(sito_attivo(siti_selezionati, s) for s in ["centrochitarre", "tomassone"]):
-                futures["italia"] = executor.submit(scraping_italia, prodotto, siti_selezionati)
-            
-            # Raccogli i risultati
-            risultati = {}
-            for nome, future in futures.items():
-                try:
-                    if nome == "italia":
-                        # Aggiorna i risultati con quelli degli scraper italiani
-                        risultati_italia = future.result()
-                        risultati.update(risultati_italia)
-                    else:
-                        risultati[nome] = future.result()
-                        if isinstance(risultati[nome], list):
-                            for r in risultati[nome]:
-                                if isinstance(r, dict):
-                                    r["sito"] = nome
-                except Exception as e:
-                    print(f"❌ Errore durante l'elaborazione dei risultati di {nome}: {str(e)[:200]}")
-                    risultati[nome] = []
-
-        # Prepara la lista dei risultati
         risultati_lista = []
-        for sito, prodotti in risultati.items():
-            if not isinstance(prodotti, list):
-                print(f"⚠️ {sito}: risultati non validi (non è una lista)")
-                continue
-                
-            print(f"📊 {sito}: {len(prodotti)} risultati")
+        
+        # Mappa di tutti gli scraper disponibili
+        all_scrapers = {
+            'thomann': ('Thomann', cerca_thomann),
+            'musik_produktiv': ('Musik Produktiv', cerca_musik_produktiv),
+            'gear4music': ('Gear4music', cerca_gear4music),
+            'andertons': ('Andertons', cerca_andertons),
+            'centrochitarre': ('Centro Chitarre', cerca_centrochitarre),
+            'tomassone': ('Tomassone', cerca_tomassone),
+            'strumentimusicali': ('Strumenti Musicali', cerca_strumentimusicali)
+        }
+        
+        # Filtra solo quelli attivi
+        active_scrapers = {
+            k: v for k, v in all_scrapers.items() 
+            if sito_attivo(siti_selezionati, k)
+        }
+        
+        # Configura il numero massimo di worker (default 2 per ambienti con risorse limitate)
+        try:
+            max_workers = int(os.environ.get('MAX_WORKERS', 2))
+        except ValueError:
+            max_workers = 2
             
-            for p in prodotti:  # Cambiato 'prodotto' in 'p' per evitare conflitti
-                if not isinstance(p, dict):
-                    print(f"⚠️ {sito}: prodotto non valido (non è un dizionario)")
-                    continue
-                    
-                # Aggiungi il sito al prodotto se non è già presente
-                if 'sito' not in p:
-                    p['sito'] = sito
-                    
-                risultati_lista.append(p)
+        print(f"🚀 Avvio scraping su {len(active_scrapers)} siti (Max Workers: {max_workers})")
         
-        # --- LOGICA DI RICERCA IBRIDA ---
-        
-        # 1. Filtro Rigoroso (Strict)
-        def filter_strict(items, query):
-            if not query:
-                return items
-            tokens = query.lower().split()
-            strict_items = []
-            for item in items:
-                nome = str(item.get('nome', '')).lower()
-                if all(token in nome for token in tokens):
-                    strict_items.append(item)
-            return strict_items
+        with ThreadPoolExecutor(max_workers=min(max_workers, len(active_scrapers) or 1)) as executor:
+            future_to_site = {
+                executor.submit(run_scraper, name, func, search_query): (key, name)
+                for key, (name, func) in active_scrapers.items()
+            }
+            
+            for future in as_completed(future_to_site):
+                key, name = future_to_site[future]
+                try:
+                    res = future.result()
+                    if res and isinstance(res, list):
+                        for r in res:
+                            if 'sito' not in r:
+                                r['sito'] = name
+                        risultati_lista.extend(res)
+                        stats['siti'][name] = {'oggetti': len(res), 'tempo': 0, 'stato': 'ok'}
+                    else:
+                        stats['siti'][name] = {'oggetti': 0, 'tempo': 0, 'stato': 'ok'}
+                except Exception as exc:
+                    print(f'{name} generated an exception: {exc}')
+                    stats['siti'][name] = {'errore': str(exc), 'stato': 'errore'}
 
         risultati_strict = filter_strict(risultati_lista, prodotto)
 
@@ -861,6 +842,209 @@ def send_newsletter_command():
     """Invia la newsletter settimanale."""
     from newsletter_manager import send_weekly_newsletter
     send_weekly_newsletter()
+
+# --- API ENDPOINTS ---
+
+@app.route('/api/auth/me', methods=['GET'])
+def api_me():
+    if current_user.is_authenticated:
+        return {
+            "authenticated": True,
+            "user": {
+                "id": current_user.id,
+                "email": current_user.email,
+                "name": current_user.name,
+                "surname": current_user.surname
+            }
+        }
+    return {"authenticated": False}, 200
+
+@app.route('/api/auth/login', methods=['POST'])
+def api_login():
+    data = request.get_json() or {}
+    email = data.get('email')
+    password = data.get('password')
+    user = User.query.filter_by(email=email).first()
+
+    if user and user.check_password(password):
+        login_user(user)
+        return {"success": True, "user": {"email": user.email, "name": user.name}}, 200
+    
+    return {"success": False, "message": "Email o password non validi"}, 401
+
+@app.route('/api/auth/logout', methods=['POST'])
+@login_required
+def api_logout():
+    logout_user()
+    return {"success": True}, 200
+
+@app.route('/api/auth/signup', methods=['POST'])
+def api_signup():
+    data = request.get_json() or {}
+    email = data.get('email')
+    password = data.get('password')
+    name = data.get('name')
+    surname = data.get('surname')
+    privacy_accepted = data.get('privacy_accepted')
+    newsletter_opt_in = data.get('newsletter_opt_in')
+
+    if not privacy_accepted:
+        return {"success": False, "message": "Devi accettare la privacy policy"}, 400
+
+    if User.query.filter_by(email=email).first():
+        return {"success": False, "message": "Email già registrata"}, 400
+
+    new_user = User(email=email, name=name, surname=surname, 
+                    privacy_accepted=True, newsletter_opt_in=newsletter_opt_in)
+    new_user.set_password(password)
+    db.session.add(new_user)
+    db.session.commit()
+    
+    login_user(new_user)
+    return {"success": True, "user": {"email": email, "name": name}}, 200
+
+@app.route('/api/search', methods=['POST'])
+def api_search():
+    """
+    API Endpoint for search.
+    Expects JSON: { "prodotto": "...", "siti": [...] }
+    Returns JSON: { "results": [...], "stats": {...}, "top_discounts": [...] }
+    """
+    try:
+        data = request.get_json()
+        if not data:
+            return {"error": "No JSON data provided"}, 400
+            
+        search_query = data.get('prodotto', '').strip()
+        siti_selezionati = data.get('siti', [])
+        
+        # Handle case where 'siti' might be a comma-separated string if sent via FormData
+        if isinstance(siti_selezionati, str):
+             siti_selezionati = [s.strip() for s in siti_selezionati.split(',')]
+
+        print(f"API Search Query: '{search_query}'")
+        print(f"Siti selezionati: {siti_selezionati}")
+
+        if not search_query:
+            return {"results": [], "count": 0, "message": "No query provided"}, 200
+
+        # Save history if user is logged in
+        if current_user.is_authenticated:
+            try:
+                last_search = SearchHistory.query.filter_by(user_id=current_user.id).order_by(SearchHistory.timestamp.desc()).first()
+                if not last_search or last_search.search_term != search_query:
+                    new_search = SearchHistory(
+                        user_id=current_user.id, 
+                        search_term=search_query, 
+                        filters=json.dumps(data)
+                    )
+                    db.session.add(new_search)
+                    db.session.commit()
+            except Exception as e:
+                print(f"Error saving history: {e}")
+
+        # --- SCRAPING LOGIC (Copied/Adapted from search route) ---
+        stats = {'inizio_totale': time.time(), 'siti': {}}
+        risultati_lista = []
+        
+        all_scrapers = {
+            'thomann': ('Thomann', cerca_thomann),
+            'musik_produktiv': ('Musik Produktiv', cerca_musik_produktiv),
+            'gear4music': ('Gear4music', cerca_gear4music),
+            'andertons': ('Andertons', cerca_andertons),
+            'centrochitarre': ('Centro Chitarre', cerca_centrochitarre),
+            'tomassone': ('Tomassone', cerca_tomassone),
+            'strumentimusicali': ('Strumenti Musicali', cerca_strumentimusicali)
+        }
+        
+        active_scrapers = {
+            k: v for k, v in all_scrapers.items() 
+            if sito_attivo(siti_selezionati, k)
+        }
+        
+        try:
+            max_workers = int(os.environ.get('MAX_WORKERS', 2))
+        except ValueError:
+            max_workers = 2
+
+        with ThreadPoolExecutor(max_workers=min(max_workers, len(active_scrapers) or 1)) as executor:
+            future_to_site = {
+                executor.submit(run_scraper, name, func, search_query): (key, name)
+                for key, (name, func) in active_scrapers.items()
+            }
+            
+            for future in as_completed(future_to_site):
+                key, name = future_to_site[future]
+                try:
+                    res = future.result()
+                    if res and isinstance(res, list):
+                        for r in res:
+                            if 'sito' not in r: r['sito'] = name
+                        risultati_lista.extend(res)
+                        stats['siti'][name] = {'oggetti': len(res), 'tempo': 0, 'stato': 'ok'}
+                    else:
+                        stats['siti'][name] = {'oggetti': 0, 'tempo': 0, 'stato': 'ok'}
+                except Exception as exc:
+                    stats['siti'][name] = {'errore': str(exc), 'stato': 'errore'}
+
+        # Filtering logic
+        risultati_strict = filter_strict(risultati_lista, search_query)
+        search_mode = "strict"
+        risultati_finali = []
+
+        if len(risultati_strict) >= 5:
+            risultati_finali = risultati_strict
+        else:
+            risultati_finali = filtra_risultati(risultati_lista, search_query)
+            search_mode = "fuzzy"
+        
+        # Sorting
+        risultati_ordinati = sorted(
+            risultati_finali,
+            key=lambda x: (
+                -x.get('punteggio_ricerca', 0),
+                float(x.get('prezzo', '999999').replace('.', '').replace(',', '.').replace('€', '').strip() or '999999')
+            )
+        )
+
+        # Apply Referral Links
+        for r in risultati_ordinati:
+            if 'link' in r:
+                r['link'] = ReferralDBManager.get_referral_link(r['link'])
+        
+        # Calculate Discounts (Top 10)
+        for r in risultati_ordinati:
+            try:
+                curr = float(r.get('prezzo_numerico', 0))
+                orig = float(r.get('prezzo_originale_numerico', 0))
+                if orig > curr and orig > 0:
+                    r['sconto_percentuale'] = round(((orig - curr) / orig) * 100)
+                else:
+                    r['sconto_percentuale'] = 0
+            except:
+                r['sconto_percentuale'] = 0
+
+        top_sconti = sorted(
+            [r for r in risultati_ordinati if r.get('sconto_percentuale', 0) > 0],
+            key=lambda x: x['sconto_percentuale'],
+            reverse=True
+        )[:10]
+
+        stats['tempo_totale'] = round(time.time() - stats['inizio_totale'], 2)
+        stats['totale_oggetti'] = len(risultati_ordinati)
+
+        # Return JSON
+        return {
+            "results": risultati_ordinati,
+            "stats": stats,
+            "top_discounts": top_sconti,
+            "search_mode": search_mode,
+            "count": len(risultati_ordinati)
+        }, 200
+
+    except Exception as e:
+        print(f"API Error: {e}")
+        return {"error": str(e)}, 500
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5001)

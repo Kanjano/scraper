@@ -1,0 +1,48 @@
+<div class="home-container">
+    <div class="hero">
+        <h1>Trova il miglior prezzo per i tuoi strumenti musicali</h1>
+        <p>Confronta prezzi su Thomann, Musik Produktiv, Gear4music e molti altri.</p>
+
+        <div class="search-box">
+            <input type="text" placeholder="Cerca un prodotto (es. Fender Stratocaster)..." [(ngModel)]="searchQuery"
+                (keyup.enter)="onSearch()">
+            <button (click)="onSearch()">Cerca</button>
+        </div>
+
+        <div class="sites-selector">
+            <h3>Siti da includere:</h3>
+            <div class="sites-grid">
+                @for (site of availableSites; track site.id) {
+                <label class="site-checkbox">
+                    <input type="checkbox" [checked]="selectedSites.includes(site.id)" (change)="toggleSite(site.id)">
+                    {{ site.name }}
+                </label>
+                }
+            </div>
+        </div>
+    </div>
+
+    @if (topDiscounts.length > 0) {
+    <div class="top-discounts">
+        <h2>🔥 Top 10 Sconti del Momento</h2>
+        <div class="results-grid">
+            @for (item of topDiscounts; track item.link) {
+            <div class="card">
+                <div class="card-badge">-{{item.sconto_percentuale}}%</div>
+                <div class="card-body">
+                    <h3>{{ item.nome }}</h3>
+                    <div class="price-container">
+                        <span class="original-price" *ngIf="item.prezzo_originale_numerico > 0">
+                            € {{ item.prezzo_originale_numerico }}
+                        </span>
+                        <span class="current-price">€ {{ item.prezzo_numerico }}</span>
+                    </div>
+                    <p class="site-label">{{ item.sito }}</p>
+                    <a [href]="item.link" target="_blank" class="btn-view">Vedi Offerta</a>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+    }
+</div>

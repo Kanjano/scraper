@@ -1,0 +1,55 @@
+<div class="results-container">
+    @if (loading) {
+    <div class="loading-spinner">
+        <div class="spinner"></div>
+        <p>Ricerca in corso su {{ selectedSites.length }} siti...</p>
+    </div>
+    } @else {
+    <div class="results-header">
+        <h1>Risultati per: "{{ query }}"</h1>
+        <p class="stats">Trovati {{ results.length }} risultati in {{ stats?.tempo_totale }} secondi</p>
+
+        <div class="filters">
+            <button class="filter-btn" [class.active]="!currentSiteFilter" (click)="filterBySite(null)">
+                Tutti ({{ results.length }})
+            </button>
+            @for (site of Object.keys(sitesCount); track site) {
+            <button class="filter-btn" [class.active]="currentSiteFilter === site" (click)="filterBySite(site)">
+                {{ site }} ({{ sitesCount[site] }})
+            </button>
+            }
+        </div>
+    </div>
+
+    @if (error) {
+    <div class="error-message">
+        {{ error }}
+    </div>
+    }
+
+    <div class="results-grid">
+        @for (item of filteredResults; track item.link) {
+        <div class="card">
+            @if (item.sconto_percentuale > 0) {
+            <div class="card-badge">-{{item.sconto_percentuale}}%</div>
+            }
+            <div class="card-body">
+                <h3>{{ item.nome || item.titolo }}</h3>
+                <div class="price-container">
+                    @if (item.prezzo_originale_numerico > 0) {
+                    <span class="original-price">€ {{ item.prezzo_originale_numerico }}</span>
+                    }
+                    <span class="current-price">€ {{ item.prezzo || item.prezzo_numerico }}</span>
+                </div>
+                <p class="site-label">{{ item.sito }}</p>
+                <a [href]="item.link" target="_blank" class="btn-view">Vedi Offerta</a>
+            </div>
+        </div>
+        } @empty {
+        @if (!loading) {
+        <p class="no-results">Nessun risultato trovato.</p>
+        }
+        }
+    </div>
+    }
+</div>

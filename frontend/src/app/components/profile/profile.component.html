@@ -1,0 +1,19 @@
+<div class="profile-container">
+    @if (user) {
+    <div class="profile-header">
+        <div class="avatar">
+            {{ user.name?.charAt(0) }}{{ user.surname?.charAt(0) }}
+        </div>
+        <h1>Benvenuto, {{ user.name }} {{ user.surname }}</h1>
+        <p>{{ user.email }}</p>
+    </div>
+
+    <!-- Future: History Implementation -->
+    <div class="history-section">
+        <h2>Cronologia Ricerche</h2>
+        <p class="placeholder-text">La cronologia sarà disponibile a breve.</p>
+    </div>
+    } @else {
+    <p>Caricamento profilo...</p>
+    }
+</div>
