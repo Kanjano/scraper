@@ -19,7 +19,7 @@ class BrowserManager:
         options.add_argument("--disable-blink-features=AutomationControlled")
         
         try:
-            driver = uc.Chrome(options=options, use_subprocess=True)
+            driver = uc.Chrome(options=options, use_subprocess=True, version_main=145)
             driver.set_page_load_timeout(30)
             driver.set_script_timeout(30)
             return driver
@@ -38,7 +38,7 @@ class BrowserManager:
                 options.add_argument("--window-size=1920,1080")
                 options.add_argument("--disable-blink-features=AutomationControlled")
                 
-                driver = uc.Chrome(options=options, use_subprocess=True)
+                driver = uc.Chrome(options=options, use_subprocess=True, version_main=145)
                 driver.set_page_load_timeout(30)
                 driver.set_script_timeout(30)
                 return driver

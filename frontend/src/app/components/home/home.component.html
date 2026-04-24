@@ -1,48 +1,74 @@
 <div class="home-container">
-    <div class="hero">
-        <h1>Trova il miglior prezzo per i tuoi strumenti musicali</h1>
-        <p>Confronta prezzi su Thomann, Musik Produktiv, Gear4music e molti altri.</p>
+  <div class="hero">
+    <h1>Trova il miglior prezzo per i tuoi strumenti musicali</h1>
+    <p>Confronta prezzi su Thomann, Musik Produktiv, Gear4music e molti altri.</p>
 
-        <div class="search-box">
-            <input type="text" placeholder="Cerca un prodotto (es. Fender Stratocaster)..." [(ngModel)]="searchQuery"
-                (keyup.enter)="onSearch()">
-            <button (click)="onSearch()">Cerca</button>
-        </div>
+    <div class="search-wrapper">
+      <div class="search-box">
+        <input
+          type="text"
+          placeholder="Cerca un prodotto (es. Fender Stratocaster)..."
+          [(ngModel)]="searchQuery"
+          (ngModelChange)="onQueryChange()"
+          (keyup.enter)="onSearch()"
+          (blur)="hideSuggestions()"
+          aria-label="Cerca strumento musicale"
+          autocomplete="off"
+        />
+        <button (click)="onSearch()" aria-label="Avvia ricerca">Cerca</button>
+      </div>
 
-        <div class="sites-selector">
-            <h3>Siti da includere:</h3>
-            <div class="sites-grid">
-                @for (site of availableSites; track site.id) {
-                <label class="site-checkbox">
-                    <input type="checkbox" [checked]="selectedSites.includes(site.id)" (change)="toggleSite(site.id)">
-                    {{ site.name }}
-                </label>
-                }
-            </div>
-        </div>
+      @if (showSuggestions && suggestions.length > 0) {
+        <ul class="suggestions-dropdown" role="listbox">
+          @for (s of suggestions; track s) {
+            <li role="option" (mousedown)="selectSuggestion(s)">{{ s }}</li>
+          }
+        </ul>
+      }
     </div>
 
-    @if (topDiscounts.length > 0) {
+    <div class="sites-selector">
+      <h3>Siti da includere:</h3>
+      <div class="sites-grid">
+        @for (site of availableSites; track site.id) {
+          <label class="site-checkbox">
+            <input
+              type="checkbox"
+              [checked]="selectedSites.includes(site.id)"
+              (change)="toggleSite(site.id)"
+              [attr.aria-label]="'Includi ' + site.name"
+            />
+            {{ site.name }}
+          </label>
+        }
+      </div>
+    </div>
+  </div>
+
+  @if (topDiscounts.length > 0) {
     <div class="top-discounts">
-        <h2>🔥 Top 10 Sconti del Momento</h2>
-        <div class="results-grid">
-            @for (item of topDiscounts; track item.link) {
-            <div class="card">
-                <div class="card-badge">-{{item.sconto_percentuale}}%</div>
-                <div class="card-body">
-                    <h3>{{ item.nome }}</h3>
-                    <div class="price-container">
-                        <span class="original-price" *ngIf="item.prezzo_originale_numerico > 0">
-                            € {{ item.prezzo_originale_numerico }}
-                        </span>
-                        <span class="current-price">€ {{ item.prezzo_numerico }}</span>
-                    </div>
-                    <p class="site-label">{{ item.sito }}</p>
-                    <a [href]="item.link" target="_blank" class="btn-view">Vedi Offerta</a>
-                </div>
-            </div>
+      <h2>Top Sconti del Momento</h2>
+      <div class="results-grid">
+        @for (item of topDiscounts; track item.link) {
+          <div class="card">
+            <div class="card-badge">-{{ item.sconto_percentuale }}%</div>
+            @if (item.immagine && item.immagine !== 'N/A') {
+              <img [src]="item.immagine" [alt]="item.nome" class="card-img" loading="lazy" />
             }
-        </div>
+            <div class="card-body">
+              <h3>{{ item.nome }}</h3>
+              <div class="price-container">
+                @if (item.prezzo_originale_numerico > item.prezzo_numerico) {
+                  <span class="original-price">€ {{ item.prezzo_originale_numerico | number:'1.2-2' }}</span>
+                }
+                <span class="current-price">€ {{ item.prezzo_numerico | number:'1.2-2' }}</span>
+              </div>
+              <p class="site-label">{{ item.sito }}</p>
+              <a [href]="item.link" target="_blank" rel="noopener" class="btn-view">Vedi Offerta</a>
+            </div>
+          </div>
+        }
+      </div>
     </div>
-    }
+  }
 </div>

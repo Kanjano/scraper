@@ -1,55 +1,110 @@
 <div class="results-container">
-    @if (loading) {
-    <div class="loading-spinner">
-        <div class="spinner"></div>
-        <p>Ricerca in corso su {{ selectedSites.length }} siti...</p>
-    </div>
-    } @else {
-    <div class="results-header">
-        <h1>Risultati per: "{{ query }}"</h1>
-        <p class="stats">Trovati {{ results.length }} risultati in {{ stats?.tempo_totale }} secondi</p>
 
-        <div class="filters">
-            <button class="filter-btn" [class.active]="!currentSiteFilter" (click)="filterBySite(null)">
-                Tutti ({{ results.length }})
-            </button>
-            @for (site of Object.keys(sitesCount); track site) {
-            <button class="filter-btn" [class.active]="currentSiteFilter === site" (click)="filterBySite(site)">
-                {{ site }} ({{ sitesCount[site] }})
-            </button>
-            }
+  @if (loading) {
+    <div class="loading-spinner">
+      <div class="spinner"></div>
+      <p>Ricerca in corso su {{ selectedSites.length || 7 }} siti...</p>
+    </div>
+  } @else {
+
+    <div class="results-header">
+      <h1>Risultati per: "<span class="query-text">{{ query }}</span>"</h1>
+      <p class="stats">
+        Trovati <strong>{{ results.length }}</strong> risultati
+        @if (stats?._tempo_totale) { in {{ stats!._tempo_totale }} secondi }
+      </p>
+
+      @if (showFuzzyBanner) {
+        <div class="fuzzy-banner">
+          Stai cercando risultati per: <strong>{{ normalizedQuery }}</strong>
         </div>
+      }
+
+      <div class="filters">
+        <button class="filter-btn" [class.active]="!currentSiteFilter" (click)="filterBySite(null)">
+          Tutti ({{ results.length }})
+        </button>
+        @for (site of siteKeys(); track site) {
+          <button class="filter-btn" [class.active]="currentSiteFilter === site" (click)="filterBySite(site)">
+            {{ site }} ({{ sitesCount[site] }})
+          </button>
+        }
+      </div>
     </div>
 
     @if (error) {
-    <div class="error-message">
-        {{ error }}
-    </div>
+      <div class="error-message">{{ error }}</div>
+    }
+
+    @if (topDiscounts.length > 0) {
+      <div class="top-discounts-section">
+        <h2>Top Sconti</h2>
+        <div class="top-discounts-grid">
+          @for (item of topDiscounts; track item.link) {
+            <div class="card discount-card">
+              <div class="card-badge">-{{ item.sconto_percentuale }}%</div>
+              @if (item.immagine && item.immagine !== 'N/A') {
+                <img [src]="item.immagine" [alt]="item.nome" class="card-img" loading="lazy" />
+              }
+              <div class="card-body">
+                <h3>{{ item.nome }}</h3>
+                <div class="price-container">
+                  @if (item.prezzo_originale_numerico > item.prezzo_numerico) {
+                    <span class="original-price">€ {{ item.prezzo_originale_numerico | number:'1.2-2' }}</span>
+                  }
+                  <span class="current-price">€ {{ item.prezzo_numerico | number:'1.2-2' }}</span>
+                </div>
+                <p class="site-label">{{ item.sito }}</p>
+                <a [href]="item.link" target="_blank" rel="noopener" class="btn-view">Vedi Offerta</a>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
     }
 
     <div class="results-grid">
-        @for (item of filteredResults; track item.link) {
+      @for (item of paginatedResults; track item.link) {
         <div class="card">
-            @if (item.sconto_percentuale > 0) {
-            <div class="card-badge">-{{item.sconto_percentuale}}%</div>
-            }
-            <div class="card-body">
-                <h3>{{ item.nome || item.titolo }}</h3>
-                <div class="price-container">
-                    @if (item.prezzo_originale_numerico > 0) {
-                    <span class="original-price">€ {{ item.prezzo_originale_numerico }}</span>
-                    }
-                    <span class="current-price">€ {{ item.prezzo || item.prezzo_numerico }}</span>
-                </div>
-                <p class="site-label">{{ item.sito }}</p>
-                <a [href]="item.link" target="_blank" class="btn-view">Vedi Offerta</a>
+          @if (item.sconto_percentuale > 0) {
+            <div class="card-badge">-{{ item.sconto_percentuale }}%</div>
+          }
+          @if (item.immagine && item.immagine !== 'N/A') {
+            <img [src]="item.immagine" [alt]="item.nome" class="card-img" loading="lazy" />
+          }
+          <div class="card-body">
+            <h3>{{ item.nome }}</h3>
+            <div class="price-container">
+              @if (item.prezzo_originale_numerico > item.prezzo_numerico) {
+                <span class="original-price">€ {{ item.prezzo_originale_numerico | number:'1.2-2' }}</span>
+              }
+              <span class="current-price">€ {{ item.prezzo_numerico | number:'1.2-2' }}</span>
             </div>
+            <p class="site-label">{{ item.sito }}</p>
+            <a [href]="item.link" target="_blank" rel="noopener" class="btn-view">Vai al negozio</a>
+          </div>
         </div>
-        } @empty {
+      } @empty {
         @if (!loading) {
-        <p class="no-results">Nessun risultato trovato.</p>
+          <div class="no-results">
+            <p>Nessun risultato trovato per "<strong>{{ query }}</strong>".</p>
+            <p>Prova a controllare l'ortografia o usa termini più generici.</p>
+          </div>
         }
-        }
+      }
     </div>
+
+    @if (totalPages > 1) {
+      <div class="pagination">
+        <button class="page-btn" [disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)">
+          &larr; Prev
+        </button>
+        <span class="page-info">Pagina {{ currentPage }} di {{ totalPages }}</span>
+        <button class="page-btn" [disabled]="currentPage === totalPages" (click)="goToPage(currentPage + 1)">
+          Next &rarr;
+        </button>
+      </div>
     }
+
+  }
 </div>

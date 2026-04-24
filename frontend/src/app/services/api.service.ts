@@ -2,44 +2,53 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { SearchResponse } from '../models/search.models';
+import { AuthResponse, AuthState, LoginRequest, SignupRequest } from '../models/auth.models';
+import { SuggestionResponse } from '../models/suggestion.models';
+
+const API_OPTS = { withCredentials: true };
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  private baseUrl = 'http://localhost:5001/api';
+  private baseUrl = '/api';
 
   constructor(private http: HttpClient) { }
 
-  // Search
-  search(query: string, sites: string[]): Observable<any> {
-    return this.http.post(`${this.baseUrl}/search`, { prodotto: query, siti: sites });
+  search(query: string, sites: string[]): Observable<SearchResponse> {
+    return this.http.post<SearchResponse>(
+      `${this.baseUrl}/search`,
+      { prodotto: query, siti: sites },
+      API_OPTS
+    );
   }
 
-  // Auth
-  login(credentials: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/auth/login`, credentials);
+  getSuggestions(query: string): Observable<SuggestionResponse> {
+    return this.http.post<SuggestionResponse>(
+      `${this.baseUrl}/search/suggestions`,
+      { query },
+      API_OPTS
+    );
   }
 
-  signup(userData: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/auth/signup`, userData);
+  login(credentials: LoginRequest): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.baseUrl}/auth/login`, credentials, API_OPTS);
   }
 
-  logout(): Observable<any> {
-    return this.http.post(`${this.baseUrl}/auth/logout`, {});
+  signup(userData: SignupRequest): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.baseUrl}/auth/signup`, userData, API_OPTS);
   }
 
-  getCurrentUser(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/auth/me`);
+  logout(): Observable<{ success: boolean }> {
+    return this.http.post<{ success: boolean }>(`${this.baseUrl}/auth/logout`, {}, API_OPTS);
   }
 
-  // Contacts
-  sendMessage(data: any): Observable<any> {
-    // Note: backend expects form data for contacts usually, but let's assume JSON for API refactor
-    // or we might need to adjust backend contact route to accept JSON. 
-    // Plan assumed existing /contatti is for HTML form. 
-    // We might need to adjust app.py or use form data here.
-    // For now, let's implement the method.
-    return this.http.post(`${this.baseUrl}/contacts`, data);
+  getCurrentUser(): Observable<AuthState> {
+    return this.http.get<AuthState>(`${this.baseUrl}/auth/me`, API_OPTS);
+  }
+
+  sendMessage(data: { nome: string; email: string; message: string }): Observable<{ success: boolean; message: string }> {
+    return this.http.post<{ success: boolean; message: string }>(`${this.baseUrl}/contacts`, data, API_OPTS);
   }
 }
