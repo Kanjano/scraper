@@ -26,7 +26,7 @@ export class AuthService {
     this.api.getCurrentUser().subscribe({
       next: (res) => {
         if (res.authenticated) {
-          this.currentUser.set(res.user);
+          this.currentUser.set(res.user ?? null);
         } else {
           this.currentUser.set(null);
         }
