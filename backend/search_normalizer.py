@@ -18,7 +18,7 @@ except ImportError:
 
 _ACCENT_MAP = str.maketrans(
     "àáâãäåèéêëìíîïòóôõöùúûüýÿ",
-    "aaaaaaeeeeiiiioooooouuuuyy"
+    "aaaaaaeeeeiiiiooooouuuuyy"
 )
 
 _STOPWORDS = {"il", "lo", "la", "i", "gli", "le", "di", "a", "da", "in",
