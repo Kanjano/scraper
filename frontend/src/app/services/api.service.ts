@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { SearchResponse } from '../models/search.models';
-import { AuthResponse, AuthState, LoginRequest, SignupRequest } from '../models/auth.models';
+import { AuthResponse, AuthState, LoginRequest, OAuthProvidersResponse, SignupRequest } from '../models/auth.models';
 import { SuggestionResponse } from '../models/suggestion.models';
 
 const API_OPTS = { withCredentials: true };
@@ -46,6 +46,10 @@ export class ApiService {
 
   getCurrentUser(): Observable<AuthState> {
     return this.http.get<AuthState>(`${this.baseUrl}/auth/me`, API_OPTS);
+  }
+
+  getOAuthProviders(): Observable<OAuthProvidersResponse> {
+    return this.http.get<OAuthProvidersResponse>(`${this.baseUrl}/auth/oauth/providers`, API_OPTS);
   }
 
   sendMessage(data: { nome: string; email: string; message: string }): Observable<{ success: boolean; message: string }> {

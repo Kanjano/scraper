@@ -29,3 +29,7 @@ export interface AuthState {
   authenticated: boolean;
   user?: User;
 }
+
+export interface OAuthProvidersResponse {
+  providers: { [provider: string]: boolean };
+}
