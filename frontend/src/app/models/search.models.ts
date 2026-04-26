@@ -18,9 +18,7 @@ export interface SiteStats {
 }
 
 export interface SearchStats {
-  tempo_totale?: number;
-  totale_oggetti?: number;
-  siti: { [site: string]: SiteStats };
+  [key: string]: SiteStats | number | undefined;
   _tempo_totale?: number;
 }
 

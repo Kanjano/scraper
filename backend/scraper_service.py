@@ -28,7 +28,7 @@ ALL_SCRAPERS = {
     "andertons":         ("Andertons",           cerca_andertons),
     "centrochitarre":    ("Centro Chitarre",     cerca_centrochitarre),
     "tomassone":         ("Tomassone",           cerca_tomassone),
-    "strumentimusicali": ("Strumenti Musicali",  cerca_strumentimusicali),
+    "strumentimusicali": ("StrumentiMusicali.net", cerca_strumentimusicali),
 }
 
 _NAME_MAP = {k: v[0] for k, v in ALL_SCRAPERS.items()}
