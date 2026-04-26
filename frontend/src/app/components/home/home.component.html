@@ -1,13 +1,27 @@
-<div class="home-container">
-  <div class="hero">
-    <h1>Trova il miglior prezzo per i tuoi strumenti musicali</h1>
-    <p>Confronta prezzi su Thomann, Musik Produktiv, Gear4music e molti altri.</p>
+<section class="home">
+
+  <header class="hero">
+    <div class="hero-meta mono">
+      <span>01 — Search</span>
+      <span class="dot">/</span>
+      <span>Real-time price index</span>
+    </div>
+
+    <h1 class="hero-title">
+      Trova il <em>miglior prezzo</em><br />
+      per i tuoi strumenti.
+    </h1>
+
+    <p class="hero-sub">
+      Confronta in tempo reale 7 negozi italiani ed europei. Thomann, Musik Produktiv,
+      Gear4music, Andertons, Centro Chitarre, Tomassone, Strumenti Musicali.
+    </p>
 
     <div class="search-wrapper">
       <div class="search-box">
         <input
           type="text"
-          placeholder="Cerca un prodotto (es. Fender Stratocaster)..."
+          placeholder="es. Fender Jaguar, Heritage H 150, Strat ’62…"
           [(ngModel)]="searchQuery"
           (ngModelChange)="onQueryChange()"
           (keyup.enter)="onSearch()"
@@ -15,43 +29,53 @@
           aria-label="Cerca strumento musicale"
           autocomplete="off"
         />
-        <button (click)="onSearch()" aria-label="Avvia ricerca">Cerca</button>
+        <button (click)="onSearch()" aria-label="Avvia ricerca">
+          <span>Cerca</span>
+          <span class="arrow">→</span>
+        </button>
       </div>
 
       @if (showSuggestions && suggestions.length > 0) {
         <ul class="suggestions-dropdown" role="listbox">
           @for (s of suggestions; track s) {
-            <li role="option" (mousedown)="selectSuggestion(s)">{{ s }}</li>
+            <li role="option" (mousedown)="selectSuggestion(s)">
+              <span class="mono prefix">↳</span>
+              {{ s }}
+            </li>
           }
         </ul>
       }
     </div>
 
     <div class="sites-selector">
-      <h3>Siti da includere:</h3>
+      <h3 class="mono">Siti inclusi</h3>
       <div class="sites-grid">
         @for (site of availableSites; track site.id) {
-          <label class="site-checkbox">
+          <label class="site-checkbox" [class.checked]="selectedSites.includes(site.id)">
             <input
               type="checkbox"
               [checked]="selectedSites.includes(site.id)"
               (change)="toggleSite(site.id)"
               [attr.aria-label]="'Includi ' + site.name"
             />
+            <span class="checkmark"></span>
             {{ site.name }}
           </label>
         }
       </div>
     </div>
-  </div>
+  </header>
 
   @if (topDiscounts.length > 0) {
-    <div class="top-discounts">
-      <h2>Top Sconti del Momento</h2>
+    <section class="top-discounts">
+      <div class="section-head">
+        <span class="mono">02 — Top deals</span>
+        <h2>Sconti del momento</h2>
+      </div>
       <div class="results-grid">
         @for (item of topDiscounts; track item.link) {
-          <div class="card">
-            <div class="card-badge">-{{ item.sconto_percentuale }}%</div>
+          <article class="card">
+            <div class="card-badge mono">−{{ item.sconto_percentuale }}%</div>
             @if (item.immagine && item.immagine !== 'N/A') {
               <img [src]="item.immagine" [alt]="item.nome" class="card-img" loading="lazy" />
             }
@@ -63,12 +87,15 @@
                 }
                 <span class="current-price">€ {{ item.prezzo_numerico | number:'1.2-2' }}</span>
               </div>
-              <p class="site-label">{{ item.sito }}</p>
-              <a [href]="item.link" target="_blank" rel="noopener" class="btn-view">Vedi Offerta</a>
+              <p class="site-label mono">{{ item.sito }}</p>
+              <a [href]="item.link" target="_blank" rel="noopener" class="btn-view">
+                Vedi offerta <span class="arrow">→</span>
+              </a>
             </div>
-          </div>
+          </article>
         }
       </div>
-    </div>
+    </section>
   }
-</div>
+
+</section>

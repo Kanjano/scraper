@@ -1,102 +1,110 @@
-import time
 import re
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from browser_manager import BrowserManager
+import requests
+from bs4 import BeautifulSoup
 
-def safe_find_element(parent, by, selector):
+UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+      "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36")
+
+
+def _parse_price(raw: str) -> float:
     try:
-        return parent.find_element(by, selector)
-    except:
-        return None
+        clean = re.sub(r"[^\d,\.]", "", raw)
+        if '.' in clean and ',' in clean:
+            clean = clean.replace('.', '').replace(',', '.')
+        elif ',' in clean:
+            clean = clean.replace(',', '.')
+        return round(float(clean), 2) if clean else 0.0
+    except Exception:
+        return 0.0
+
 
 def cerca_centrochitarre(prodotto):
     query = prodotto.replace(" ", "+")
+    parole_chiave = [p.lower() for p in prodotto.split() if p.strip()]
     url = f"https://www.centrochitarre.com/catalogsearch/result/?q={query}"
-
-    driver = BrowserManager.create_driver()
-    if not driver:
-        return []
-
-    risultati = []
+    print(f"\n🌐 Centro Chitarre: {url}")
 
     try:
-        driver.get(url)
-        WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, ".product-item"))
-        )
-        time.sleep(2)
-
-        prodotti = driver.find_elements(By.CSS_SELECTOR, ".product-item")
-
-        for prodotto in prodotti:
-            try:
-                nome_element = safe_find_element(prodotto, By.CSS_SELECTOR, ".product-item-link")
-                link_element = nome_element
-                prezzo_element = safe_find_element(prodotto, By.CSS_SELECTOR, ".price")
-                immagine_element = safe_find_element(prodotto, By.CSS_SELECTOR, "img")
-
-                # Skippa se manca nome, link o prezzo
-                if not nome_element or not link_element or not prezzo_element:
-                    continue
-
-                nome = nome_element.text.strip()
-                link = link_element.get_attribute("href")
-                immagine = immagine_element.get_attribute("src") if immagine_element else None
-
-                prezzo_text = prezzo_element.text.strip()
-                prezzo_clean = re.sub(r"[^\d,\.]", "", prezzo_text)
-                if '.' in prezzo_clean and ',' in prezzo_clean:
-                    prezzo_clean = prezzo_clean.replace('.', '').replace(',', '.')
-                elif ',' in prezzo_clean:
-                    prezzo_clean = prezzo_clean.replace(',', '.')
-
-                prezzo_eur = round(float(prezzo_clean), 2)
-                prezzo_display = f"€ {prezzo_eur}"
-
-                # Estrazione prezzo originale
-                prezzo_originale = "N/A"
-                prezzo_originale_numerico = prezzo_eur
-
-                try:
-                    old_price_element = safe_find_element(prodotto, By.CSS_SELECTOR, ".old-price .price")
-                    if old_price_element:
-                        old_price_text = old_price_element.text.strip()
-                        old_price_clean = re.sub(r"[^\d,\.]", "", old_price_text)
-                        if '.' in old_price_clean and ',' in old_price_clean:
-                            old_price_clean = old_price_clean.replace('.', '').replace(',', '.')
-                        elif ',' in old_price_clean:
-                            old_price_clean = old_price_clean.replace(',', '.')
-                        
-                        old_price_val = float(old_price_clean)
-                        if old_price_val > prezzo_eur:
-                            prezzo_originale = f"€ {old_price_val:.2f}"
-                            prezzo_originale_numerico = old_price_val
-                except:
-                    pass
-
-                risultati.append({
-                    "nome": nome,
-                    "prezzo": prezzo_display,
-                    "prezzo_numerico": prezzo_eur,
-                    "prezzo_originale": prezzo_originale,
-                    "prezzo_originale_numerico": prezzo_originale_numerico,
-                    "immagine": immagine,
-                    "link": link,
-                    "sito": "Centro Chitarre"
-                })
-
-            except Exception:
-                continue  # Ignora eventuali errori su singoli prodotti
-
+        resp = requests.get(url, headers={"User-Agent": UA, "Accept-Language": "it-IT,it;q=0.9"},
+                            timeout=20)
+        if resp.status_code != 200:
+            print(f"⚠️ Centro Chitarre HTTP {resp.status_code}")
+            return []
+        html = resp.text
     except Exception as e:
-        print(f"⚠️ Errore Centro Chitarre: {e}")
+        print(f"⚠️ Errore richiesta Centro Chitarre: {e}")
+        return []
 
-    finally:
-        BrowserManager.close_driver(driver)
+    soup = BeautifulSoup(html, "html.parser")
+    risultati = []
+    seen = set()
 
+    for card in soup.select("li.product-item, .product-item"):
+        try:
+            a = card.select_one("a.product-item-link") or card.find("a", href=True)
+            if not a:
+                continue
+            nome = a.get_text(strip=True)
+            link = a.get("href", "").strip()
+            if not nome or not link or link in seen:
+                continue
+
+            nome_lower = nome.lower()
+            if not all(k in nome_lower for k in parole_chiave):
+                continue
+
+            prezzo_eur = 0.0
+            price_data = card.select_one("[data-price-amount]")
+            if price_data and price_data.get("data-price-amount"):
+                try:
+                    prezzo_eur = float(price_data["data-price-amount"])
+                except Exception:
+                    pass
+            if prezzo_eur <= 0:
+                price_el = card.select_one(".price-wrapper .price, span.price")
+                if price_el:
+                    prezzo_eur = _parse_price(price_el.get_text(strip=True))
+            if prezzo_eur <= 0:
+                continue
+
+            immagine = "N/A"
+            img = card.select_one("img.product-image-photo, img")
+            if img:
+                immagine = img.get("src") or img.get("data-src") or "N/A"
+
+            prezzo_originale = "N/A"
+            prezzo_originale_numerico = prezzo_eur
+            old = card.select_one(".old-price [data-price-amount], .old-price .price")
+            if old:
+                if old.get("data-price-amount"):
+                    try:
+                        old_v = float(old["data-price-amount"])
+                    except Exception:
+                        old_v = _parse_price(old.get_text(strip=True))
+                else:
+                    old_v = _parse_price(old.get_text(strip=True))
+                if old_v > prezzo_eur:
+                    prezzo_originale = f"€ {old_v:.2f}"
+                    prezzo_originale_numerico = old_v
+
+            seen.add(link)
+            risultati.append({
+                "nome": nome,
+                "prezzo": f"€ {prezzo_eur:.2f}",
+                "prezzo_numerico": prezzo_eur,
+                "prezzo_originale": prezzo_originale,
+                "prezzo_originale_numerico": prezzo_originale_numerico,
+                "immagine": immagine,
+                "link": link,
+                "sito": "Centro Chitarre",
+            })
+
+        except Exception:
+            continue
+
+    print(f"📦 Centro Chitarre totale: {len(risultati)}")
     return risultati
+
 
 if __name__ == "__main__":
     prodotto = input("🔎 Prodotto da cercare su Centro Chitarre: ")

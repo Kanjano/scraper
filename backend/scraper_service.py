@@ -33,8 +33,8 @@ ALL_SCRAPERS = {
 
 _NAME_MAP = {k: v[0] for k, v in ALL_SCRAPERS.items()}
 
-DEFAULT_MAX_WORKERS  = int(os.environ.get("MAX_WORKERS", 5))
-DEFAULT_TIMEOUT_SEC  = int(os.environ.get("SCRAPER_TIMEOUT", 30))
+DEFAULT_MAX_WORKERS  = int(os.environ.get("MAX_WORKERS", 3))
+DEFAULT_TIMEOUT_SEC  = int(os.environ.get("SCRAPER_TIMEOUT", 90))
 STRICT_MIN_RESULTS   = 5
 
 
@@ -50,11 +50,11 @@ def _site_active(selected: list, key: str) -> bool:
 
 
 def _safe_run(key: str, name: str, func, query: str) -> list:
-    """Esegue un singolo scraper con cleanup on error e retry."""
+    """Esegue un singolo scraper. Nessun cleanup_cache durante il run parallelo
+    per evitare race condition tra driver concorrenti."""
     logger.info("Avvio scraper: %s", name)
     start = time.time()
     try:
-        cleanup_cache()
         result = func(query)
         if not isinstance(result, list):
             result = []
@@ -66,18 +66,18 @@ def _safe_run(key: str, name: str, func, query: str) -> list:
     except Exception as exc:
         err_msg = str(exc)
         logger.warning("%s: errore dopo %.2fs — %s", name, time.time() - start, err_msg[:200])
-        if cleanup_on_error(err_msg):
-            try:
-                result = func(query)
-                if not isinstance(result, list):
-                    result = []
-                for r in result:
-                    if isinstance(r, dict) and "sito" not in r:
-                        r["sito"] = name
-                logger.info("%s: retry ok — %d risultati", name, len(result))
-                return result
-            except Exception as exc2:
-                logger.error("%s: retry fallito — %s", name, str(exc2)[:200])
+        try:
+            time.sleep(1.0)
+            result = func(query)
+            if not isinstance(result, list):
+                result = []
+            for r in result:
+                if isinstance(r, dict) and "sito" not in r:
+                    r["sito"] = name
+            logger.info("%s: retry ok — %d risultati", name, len(result))
+            return result
+        except Exception as exc2:
+            logger.error("%s: retry fallito — %s", name, str(exc2)[:200])
         return []
 
 

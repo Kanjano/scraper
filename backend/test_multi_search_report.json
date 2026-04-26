@@ -1,0 +1,144 @@
+[
+  {
+    "query": "fender jaguar",
+    "ok": true,
+    "totale": 167,
+    "siti_count": 6,
+    "per_sito": {
+      "Thomann": 42,
+      "Musik Produktiv": 31,
+      "Centro Chitarre": 32,
+      "Tomassone": 5,
+      "StrumentiMusicali.net": 7,
+      "Gear4music": 50
+    },
+    "tempo": 17.51
+  },
+  {
+    "query": "heritage h 150",
+    "ok": true,
+    "totale": 63,
+    "siti_count": 5,
+    "per_sito": {
+      "Musik Produktiv": 15,
+      "Thomann": 29,
+      "Centro Chitarre": 2,
+      "Tomassone": 1,
+      "Andertons": 16
+    },
+    "tempo": 25.09
+  },
+  {
+    "query": "gibson les paul",
+    "ok": true,
+    "totale": 394,
+    "siti_count": 6,
+    "per_sito": {
+      "Thomann": 50,
+      "Centro Chitarre": 68,
+      "Tomassone": 29,
+      "Gear4music": 175,
+      "StrumentiMusicali.net": 12,
+      "Musik Produktiv": 60
+    },
+    "tempo": 30.94
+  },
+  {
+    "query": "fender stratocaster",
+    "ok": true,
+    "totale": 314,
+    "siti_count": 6,
+    "per_sito": {
+      "Gear4music": 126,
+      "Centro Chitarre": 70,
+      "Tomassone": 35,
+      "StrumentiMusicali.net": 7,
+      "Andertons": 16,
+      "Musik Produktiv": 60
+    },
+    "tempo": 36.96
+  },
+  {
+    "query": "ibanez rg",
+    "ok": true,
+    "totale": 250,
+    "siti_count": 5,
+    "per_sito": {
+      "Centro Chitarre": 72,
+      "Tomassone": 17,
+      "StrumentiMusicali.net": 18,
+      "Gear4music": 83,
+      "Musik Produktiv": 60
+    },
+    "tempo": 28.83
+  },
+  {
+    "query": "prs custom 24",
+    "ok": true,
+    "totale": 150,
+    "siti_count": 6,
+    "per_sito": {
+      "Musik Produktiv": 7,
+      "Thomann": 50,
+      "Tomassone": 7,
+      "StrumentiMusicali.net": 2,
+      "Centro Chitarre": 68,
+      "Andertons": 16
+    },
+    "tempo": 24.85
+  },
+  {
+    "query": "marshall jcm800",
+    "ok": true,
+    "totale": 32,
+    "siti_count": 5,
+    "per_sito": {
+      "Musik Produktiv": 6,
+      "Centro Chitarre": 3,
+      "StrumentiMusicali.net": 3,
+      "Gear4music": 4,
+      "Andertons": 16
+    },
+    "tempo": 21.95
+  },
+  {
+    "query": "boss ds-1",
+    "ok": true,
+    "totale": 45,
+    "siti_count": 6,
+    "per_sito": {
+      "Musik Produktiv": 4,
+      "Thomann": 8,
+      "Centro Chitarre": 5,
+      "StrumentiMusicali.net": 4,
+      "Andertons": 16,
+      "Gear4music": 8
+    },
+    "tempo": 20.92
+  },
+  {
+    "query": "yamaha p125",
+    "ok": true,
+    "totale": 112,
+    "siti_count": 3,
+    "per_sito": {
+      "Thomann": 36,
+      "Andertons": 16,
+      "Musik Produktiv": 60
+    },
+    "tempo": 31.41
+  },
+  {
+    "query": "shure sm7b",
+    "ok": true,
+    "totale": 38,
+    "siti_count": 4,
+    "per_sito": {
+      "Musik Produktiv": 6,
+      "Thomann": 15,
+      "StrumentiMusicali.net": 1,
+      "Andertons": 16
+    },
+    "tempo": 24.57
+  }
+]

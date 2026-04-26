@@ -1,23 +1,36 @@
 <nav class="navbar">
-  <div class="logo">
-    <a routerLink="/">Musical Scraper</a>
-  </div>
-  <div class="nav-links">
-    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
-    @if (auth.currentUser()) {
-    <a routerLink="/profile" routerLinkActive="active">Profile</a>
-    <a (click)="logout()" class="logout-btn">Logout</a>
-    } @else {
-    <a routerLink="/login" routerLinkActive="active">Login</a>
-    <a routerLink="/signup" routerLinkActive="active">Sign Up</a>
-    }
+  <div class="navbar-inner">
+    <a routerLink="/" class="brand">
+      <span class="brand-name">Instrinder</span><span class="brand-mark">™</span>
+    </a>
+
+    <div class="nav-meta mono">
+      <span>{{ clock }}</span>
+      <span class="dot">•</span>
+      <span>IT</span>
+    </div>
+
+    <div class="nav-links mono">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Index</a>
+      @if (auth.currentUser()) {
+        <a routerLink="/profile" routerLinkActive="active">Profile</a>
+        <a (click)="logout()" class="logout-btn">Logout</a>
+      } @else {
+        <a routerLink="/login" routerLinkActive="active">Login</a>
+        <a routerLink="/signup" routerLinkActive="active">Sign Up</a>
+      }
+    </div>
   </div>
 </nav>
 
-<div class="container">
+<div class="container main-container">
   <router-outlet></router-outlet>
 </div>
 
 <footer class="footer">
-  <p>&copy; 2026 Musical Scraper. All rights reserved.</p>
+  <div class="footer-inner mono">
+    <span>© 2026 Instrinder™</span>
+    <span>Price index — 7 stores</span>
+    <span>Made in Italy</span>
+  </div>
 </footer>

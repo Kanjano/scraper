@@ -1,0 +1,362 @@
+[
+  {
+    "sito": "Thomann",
+    "nome": "FenderPlayer II Jaguar RW AQB",
+    "link": "https://www.thomann.de/fender_player_ii_jaguar_rw_aqb.htm?type=quickSearch",
+    "prezzo_dichiarato": 829.0,
+    "http_status": 200,
+    "prezzo_match": true,
+    "nome_match": true,
+    "errore": null
+  },
+  {
+    "sito": "Thomann",
+    "nome": "FenderPlayer II Jaguar RW 3TS",
+    "link": "https://www.thomann.de/fender_player_ii_jaguar_rw_3ts.htm?type=quickSearch",
+    "prezzo_dichiarato": 825.0,
+    "http_status": 403,
+    "prezzo_match": false,
+    "nome_match": false,
+    "errore": "HTTP 403"
+  },
+  {
+    "sito": "Musik Produktiv",
+    "nome": "Fender Vintera III mid 60's Jaguar Shell Pink",
+    "link": "https://www.musik-produktiv.com/it/10170553.html",
+    "prezzo_dichiarato": 1349.0,
+    "http_status": 200,
+    "prezzo_match": true,
+    "nome_match": true,
+    "errore": null
+  },
+  {
+    "sito": "Musik Produktiv",
+    "nome": "Fender American Professional Classic Jaguar RW FFMG",
+    "link": "https://www.musik-produktiv.com/it/10167230.html",
+    "prezzo_dichiarato": 1899.0,
+    "http_status": 200,
+    "prezzo_match": true,
+    "nome_match": true,
+    "errore": null
+  },
+  {
+    "sito": "Centro Chitarre",
+    "nome": "Fender Jaguar Vintera III Mid '60s Color Sunburst",
+    "link": "https://www.centrochitarre.com/fender-jaguar-vintera-iii-mid-60s-color-sunburst.html",
+    "prezzo_dichiarato": 1299.0,
+    "http_status": 200,
+    "prezzo_match": true,
+    "nome_match": true,
+    "errore": null
+  },
+  {
+    "sito": "Centro Chitarre",
+    "nome": "Fender Jaguar Mark Hoppus Limited Edition 3 Color Sunburst",
+    "link": "https://www.centrochitarre.com/fender-jaguar-mark-hoppus-limited-edition-3-color-sunburst.html",
+    "prezzo_dichiarato": 1439.0,
+    "http_status": 200,
+    "prezzo_match": true,
+    "nome_match": true,
+    "errore": null
+  },
+  {
+    "sito": "Tomassone",
+    "nome": "FENDER VINTERA II'70S JAGUAR MN VINTAGE WHITE",
+    "link": "https://www.tomassone.it/ita/fender-vintera-ii-70s-jaguar-mn-vintage-white.html",
+    "prezzo_dichiarato": 1249.0,
+    "http_status": 200,
+    "prezzo_match": true,
+    "nome_match": true,
+    "errore": null
+  },
+  {
+    "sito": "Tomassone",
+    "nome": "FENDER FEJ610 JAGUAR/JAZZMASTER/STARCASTER GIG BAG BLACK",
+    "link": "https://www.tomassone.it/ita/fender-fej610-jaguar-jazzmaster-starcaster-gig-bag-black.html.html",
+    "prezzo_dichiarato": 61.5,
+    "http_status": 200,
+    "prezzo_match": true,
+    "nome_match": true,
+    "errore": null
+  },
+  {
+    "sito": "StrumentiMusicali.net",
+    "nome": "FENDER Eyeglass Case - Jazzmaster/jaguar",
+    "link": "https://www.strumentimusicali.net/product_info.php/products_id/201611/fender-eyeglass-case-jazzmaster-jaguar.html?keywords=fender+jaguar",
+    "prezzo_dichiarato": 269.0,
+    "http_status": 200,
+    "prezzo_match": true,
+    "nome_match": true,
+    "errore": null
+  },
+  {
+    "sito": "StrumentiMusicali.net",
+    "nome": "FENDER Affinity Jaguar MP Mystic Metallic Brown",
+    "link": "https://www.strumentimusicali.net/product_info.php/products_id/201421/fender-affinity-jaguar-mp-mystic-metallic-brown.html?keywords=fender+jaguar",
+    "prezzo_dichiarato": 269.0,
+    "http_status": 200,
+    "prezzo_match": true,
+    "nome_match": true,
+    "errore": null
+  },
+  {
+    "sito": "Gear4music",
+    "nome": "Fender Kurt Cobain Jaguar NOS Mancina, 3-Tone Sunburst - Ex Demo",
+    "link": "https://www.gear4music.it/it/Chitarra-e-basso/Fender-Kurt-Cobain-Jaguar-NOS-Mancina-3-Tone-Sunburst-Ex-Demo/6JU6",
+    "prezzo_dichiarato": 1399.0,
+    "http_status": 403,
+    "prezzo_match": false,
+    "nome_match": false,
+    "errore": "HTTP 403"
+  },
+  {
+    "sito": "Gear4music",
+    "nome": "Fender Player II Jaguar RW, Coral Red",
+    "link": "https://www.gear4music.it/it/Chitarra-e-basso/Fender-Player-II-Jaguar-RW-Coral-Red/6HTC",
+    "prezzo_dichiarato": 850.0,
+    "http_status": 403,
+    "prezzo_match": false,
+    "nome_match": false,
+    "errore": "HTTP 403"
+  },
+  {
+    "sito": "Thomann",
+    "nome": "Hal LeonardThe Beauty Of The Burst",
+    "link": "https://www.thomann.de/hal_leonard_the_beauty_of_the_burst_botb.htm?type=quickSearch",
+    "prezzo_dichiarato": 45.0,
+    "http_status": 403,
+    "prezzo_match": false,
+    "nome_match": false,
+    "errore": "HTTP 403"
+  },
+  {
+    "sito": "Thomann",
+    "nome": "GibsonPRPG-010 Pickguard LP BK",
+    "link": "https://www.thomann.de/gibson_prpg010_pickguard_lp_bk.htm?type=quickSearch",
+    "prezzo_dichiarato": 24.9,
+    "http_status": 403,
+    "prezzo_match": false,
+    "nome_match": false,
+    "errore": "HTTP 403"
+  },
+  {
+    "sito": "Centro Chitarre",
+    "nome": "Gibson Slash Signature Les Paul Standard November Burst",
+    "link": "https://www.centrochitarre.com/gibson-slash-signature-les-paul-standard-november-burst-uslpss00nvnh1143.html",
+    "prezzo_dichiarato": 2400.0,
+    "http_status": 200,
+    "prezzo_match": true,
+    "nome_match": true,
+    "errore": null
+  },
+  {
+    "sito": "Centro Chitarre",
+    "nome": "Gibson Custom Les Paul 1959 Reissue True Historic Vintage Lemon Burst",
+    "link": "https://www.centrochitarre.com/gibson-custom-les-paul-1959-reissue-true-historic-vintage-lemon-burst.html",
+    "prezzo_dichiarato": 6300.0,
+    "http_status": 200,
+    "prezzo_match": true,
+    "nome_match": true,
+    "errore": null
+  },
+  {
+    "sito": "Tomassone",
+    "nome": "GIBSON LES PAUL TRADITIONAL",
+    "link": "https://www.tomassone.it/ita/gibson-les-paul-traditional-usato-usaa260041.html",
+    "prezzo_dichiarato": 1690.0,
+    "http_status": 200,
+    "prezzo_match": true,
+    "nome_match": true,
+    "errore": null
+  },
+  {
+    "sito": "Tomassone",
+    "nome": "GIBSON LES PAUL CUSTOM 70S BUTTERCREAM TOP",
+    "link": "https://www.tomassone.it/ita/gibson-les-paul-custom-70s-buttercream-top.html",
+    "prezzo_dichiarato": 3450.0,
+    "http_status": 200,
+    "prezzo_match": true,
+    "nome_match": true,
+    "errore": null
+  },
+  {
+    "sito": "StrumentiMusicali.net",
+    "nome": "Il Manuale della Gibson Les Paul",
+    "link": "https://www.strumentimusicali.net/product_info.php/products_id/70557/il-manuale-della-gibson-les-paul.html?keywords=gibson+les+paul",
+    "prezzo_dichiarato": 1389.0,
+    "http_status": 200,
+    "prezzo_match": false,
+    "nome_match": true,
+    "errore": null
+  },
+  {
+    "sito": "StrumentiMusicali.net",
+    "nome": "GIBSON Les Paul Junior Ebony",
+    "link": "https://www.strumentimusicali.net/product_info.php/products_id/115838/gibson-les-paul-junior-ebony.html?keywords=gibson+les+paul",
+    "prezzo_dichiarato": 1389.0,
+    "http_status": 200,
+    "prezzo_match": true,
+    "nome_match": true,
+    "errore": null
+  },
+  {
+    "sito": "Gear4music",
+    "nome": "Gibson Les Paul Standard 60s Figured Top, Iced Tea",
+    "link": "https://www.gear4music.it/it/Chitarra-e-basso/Gibson-Les-Paul-Standard-60s-Figured-Top-Iced-Tea/2XA2",
+    "prezzo_dichiarato": 2501.0,
+    "http_status": 403,
+    "prezzo_match": false,
+    "nome_match": false,
+    "errore": "HTTP 403"
+  },
+  {
+    "sito": "Gear4music",
+    "nome": "Gibson Custom 1959 Les Paul Standard Reissue VOS, Dirty Lemon #943598",
+    "link": "https://www.gear4music.it/it/Chitarra-e-basso/Gibson-Custom-1959-Les-Paul-Standard-Reissue-VOS-Dirty-Lemon-943598/6X11",
+    "prezzo_dichiarato": 6690.0,
+    "http_status": 403,
+    "prezzo_match": false,
+    "nome_match": false,
+    "errore": "HTTP 403"
+  },
+  {
+    "sito": "Musik Produktiv",
+    "nome": "Epiphone Les Paul Custom Figured Triburst",
+    "link": "https://www.musik-produktiv.com/it/10172100.html",
+    "prezzo_dichiarato": 859.0,
+    "http_status": 200,
+    "prezzo_match": true,
+    "nome_match": true,
+    "errore": null
+  },
+  {
+    "sito": "Musik Produktiv",
+    "nome": "Gibson Adam Jones Les Paul Standard",
+    "link": "https://www.musik-produktiv.com/it/10160881.html",
+    "prezzo_dichiarato": 2499.0,
+    "http_status": 200,
+    "prezzo_match": true,
+    "nome_match": true,
+    "errore": null
+  },
+  {
+    "sito": "Thomann",
+    "nome": "IbanezRG550-BK",
+    "link": "https://www.thomann.de/ibanez_rg550_bk.htm?type=quickSearch",
+    "prezzo_dichiarato": 999.0,
+    "http_status": 403,
+    "prezzo_match": false,
+    "nome_match": false,
+    "errore": "HTTP 403"
+  },
+  {
+    "sito": "Thomann",
+    "nome": "IbanezRG550-DY",
+    "link": "https://www.thomann.de/ibanez_rg550_dy.htm?type=quickSearch",
+    "prezzo_dichiarato": 933.0,
+    "http_status": 403,
+    "prezzo_match": false,
+    "nome_match": false,
+    "errore": "HTTP 403"
+  },
+  {
+    "sito": "Centro Chitarre",
+    "nome": "Ibanez RGT1220PBK-COL Cosmic Blue Low Gloss",
+    "link": "https://www.centrochitarre.com/ibanez-rgt1220pbk-col-cosmic-blue-low-gloss.html",
+    "prezzo_dichiarato": 1519.0,
+    "http_status": 200,
+    "prezzo_match": true,
+    "nome_match": true,
+    "errore": null
+  },
+  {
+    "sito": "Centro Chitarre",
+    "nome": "Ibanez RG470DXWWZM Wine Red Frozen Matte",
+    "link": "https://www.centrochitarre.com/ibanez-rg470dxwwzm-wine-red-frozen-matte.html",
+    "prezzo_dichiarato": 549.0,
+    "http_status": 200,
+    "prezzo_match": true,
+    "nome_match": true,
+    "errore": null
+  },
+  {
+    "sito": "Tomassone",
+    "nome": "IBANEZ RG STANDARD RGMS7 BLACK",
+    "link": "https://www.tomassone.it/ita/ibanez-rg-standard-rgms7-black.html.html",
+    "prezzo_dichiarato": 529.0,
+    "http_status": 200,
+    "prezzo_match": true,
+    "nome_match": true,
+    "errore": null
+  },
+  {
+    "sito": "Tomassone",
+    "nome": "IBANEZ RG STANDARD RG450DXB WHITE",
+    "link": "https://www.tomassone.it/ita/ibanez-rg-standard-rg450dxb-white.html",
+    "prezzo_dichiarato": 499.0,
+    "http_status": 200,
+    "prezzo_match": true,
+    "nome_match": true,
+    "errore": null
+  },
+  {
+    "sito": "StrumentiMusicali.net",
+    "nome": "IBANEZ RG5121R DBF",
+    "link": "https://www.strumentimusicali.net/product_info.php/products_id/233024/ibanez-rg5121r-dbf.html?keywords=ibanez+rg",
+    "prezzo_dichiarato": 1965.0,
+    "http_status": 200,
+    "prezzo_match": true,
+    "nome_match": true,
+    "errore": null
+  },
+  {
+    "sito": "StrumentiMusicali.net",
+    "nome": "IBANEZ RG450QMB TGB",
+    "link": "https://www.strumentimusicali.net/product_info.php/products_id/233034/ibanez-rg450qmb-tgb.html?keywords=ibanez+rg",
+    "prezzo_dichiarato": 549.0,
+    "http_status": 200,
+    "prezzo_match": true,
+    "nome_match": true,
+    "errore": null
+  },
+  {
+    "sito": "Andertons",
+    "nome": "Ibanez GRGM21-WH Gio RG MiKro Guitar in White",
+    "link": "https://www.andertons.co.uk/ibanez-grgm21-bkn-gio-rg-mikro-guitar-in-white/?searchid=16423334&search_query=ibanez+rg",
+    "prezzo_dichiarato": 209.43,
+    "http_status": 200,
+    "prezzo_match": true,
+    "nome_match": true,
+    "errore": null
+  },
+  {
+    "sito": "Andertons",
+    "nome": "Ibanez GRGM21-BKN GIO RG MiKro Guitar in Black",
+    "link": "https://www.andertons.co.uk/ibanez-grgm21-bkn-gio-rg-mikro-guitar-in-black/?searchid=16423334&search_query=ibanez+rg",
+    "prezzo_dichiarato": 221.13,
+    "http_status": 200,
+    "prezzo_match": true,
+    "nome_match": true,
+    "errore": null
+  },
+  {
+    "sito": "Musik Produktiv",
+    "nome": "Ibanez RG653DX-TDF",
+    "link": "https://www.musik-produktiv.com/it/10170137.html",
+    "prezzo_dichiarato": 1799.0,
+    "http_status": 200,
+    "prezzo_match": true,
+    "nome_match": true,
+    "errore": null
+  },
+  {
+    "sito": "Musik Produktiv",
+    "nome": "Ibanez RG450DXB-CSV",
+    "link": "https://www.musik-produktiv.com/it/10168113.html",
+    "prezzo_dichiarato": 499.0,
+    "http_status": 200,
+    "prezzo_match": true,
+    "nome_match": true,
+    "errore": null
+  }
+]
