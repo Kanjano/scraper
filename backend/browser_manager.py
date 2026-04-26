@@ -83,8 +83,7 @@ class BrowserManager:
         try:
             with _DRIVER_CREATE_LOCK:
                 driver = uc.Chrome(**_build_kwargs())
-                # Brevissima pausa per spalmare l'avvio dei processi Chrome paralleli
-                time.sleep(0.4)
+                time.sleep(1.5)
             driver.set_page_load_timeout(45)
             driver.set_script_timeout(45)
             driver._uc_user_data_dir = user_data_dir

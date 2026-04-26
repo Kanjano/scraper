@@ -87,6 +87,7 @@ def cerca_thomann(prodotto):
             })
     except Exception as e:
         print(f"⚠️ Errore Thomann: {e}")
+        raise
     finally:
         BrowserManager.close_driver(driver)
 

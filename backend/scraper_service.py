@@ -33,7 +33,7 @@ ALL_SCRAPERS = {
 
 _NAME_MAP = {k: v[0] for k, v in ALL_SCRAPERS.items()}
 
-DEFAULT_MAX_WORKERS  = int(os.environ.get("MAX_WORKERS", 3))
+DEFAULT_MAX_WORKERS  = int(os.environ.get("MAX_WORKERS", 2))
 DEFAULT_TIMEOUT_SEC  = int(os.environ.get("SCRAPER_TIMEOUT", 90))
 STRICT_MIN_RESULTS   = 5
 

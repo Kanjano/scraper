@@ -132,6 +132,7 @@ def cerca_gear4music(prodotto):
 
     except Exception as e:
         print(f"❌ Errore generale Gear4music: {e}")
+        raise
     finally:
         BrowserManager.close_driver(driver)
 

@@ -82,6 +82,7 @@ def cerca_andertons(prodotto):
                 pass
     except Exception as e:
         print(f"⚠️ Errore Andertons: {e}")
+        raise
     finally:
         BrowserManager.close_driver(driver)
 
