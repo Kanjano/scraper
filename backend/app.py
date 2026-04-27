@@ -2,6 +2,7 @@ import warnings
 warnings.filterwarnings("ignore", category=DeprecationWarning, module='urllib3')
 
 import logging
+from typing import Optional
 from flask import Flask, request, session, g, jsonify, send_from_directory, redirect, url_for
 import smtplib
 import os
@@ -29,7 +30,7 @@ def _provider_configured(provider: str) -> bool:
     )
 
 
-def _login_redirect(error_code: str, provider: str | None = None):
+def _login_redirect(error_code: str, provider: Optional[str] = None):
     params = {'error': error_code}
     if provider:
         params['provider'] = provider
