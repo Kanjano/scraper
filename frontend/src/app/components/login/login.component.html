@@ -22,21 +22,29 @@
             </button>
         </form>
 
+        @if (isProviderAvailable('google') || isProviderAvailable('facebook') || isProviderAvailable('twitter')) {
         <div class="divider">
             <span>oppure continua con</span>
         </div>
 
         <div class="social-login">
+            @if (isProviderAvailable('google')) {
             <a href="/login/google" class="btn-social google">
                 <i class="fab fa-google"></i> Google
             </a>
+            }
+            @if (isProviderAvailable('facebook')) {
             <a href="/login/facebook" class="btn-social facebook">
                 <i class="fab fa-facebook-f"></i> Facebook
             </a>
+            }
+            @if (isProviderAvailable('twitter')) {
             <a href="/login/twitter" class="btn-social twitter">
                 <i class="fab fa-twitter"></i> Twitter
             </a>
+            }
         </div>
+        }
 
         <div class="auth-footer">
             <p>Non hai un account? <a routerLink="/signup">Registrati</a></p>
