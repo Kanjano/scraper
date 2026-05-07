@@ -3,7 +3,7 @@ warnings.filterwarnings("ignore", category=DeprecationWarning, module='urllib3')
 
 import logging
 from typing import Optional
-from flask import Flask, request, session, g, jsonify, send_from_directory, redirect, url_for
+from flask import Flask, request, jsonify, send_from_directory, redirect, url_for
 import smtplib
 import os
 import json
@@ -118,36 +118,6 @@ def load_user(user_id):
 
 
 ReferralDBManager.log_referral_status()
-
-try:
-    from translations import get_locale, get_translations, get_available_languages
-except ImportError:
-    def get_locale(): return 'en'
-    def get_translations(lang=None): return {}
-    def get_available_languages(): return {'en': 'English'}
-
-
-@app.context_processor
-def inject_translations():
-    translations = get_translations()
-    def translate(key, **kwargs):
-        return translations.get(key, key).format(**kwargs)
-    return dict(_=translate)
-
-
-@app.before_request
-def before_request():
-    if 'lang' not in session:
-        session['lang'] = get_locale()
-    g.current_lang = session['lang']
-    g.available_languages = get_available_languages()
-
-
-@app.route('/set_language/<lang>')
-def set_language(lang):
-    if lang in get_available_languages():
-        session['lang'] = lang
-    return redirect(request.referrer or '/')
 
 
 # --- OAuth routes ---
