@@ -1,0 +1,906 @@
+{
+  "report": [
+    {
+      "query": "fender stratocaster",
+      "normalized": "fender stratocaster",
+      "raw_total": 361,
+      "ranked_total": 312,
+      "search_mode": "strict",
+      "elapsed": 32.38,
+      "per_site": {
+        "Thomann": {
+          "stato": "ok",
+          "oggetti": 50,
+          "errore": null
+        },
+        "Musik Produktiv": {
+          "stato": "ok",
+          "oggetti": 60,
+          "errore": null
+        },
+        "Gear4music": {
+          "stato": "ok",
+          "oggetti": 128,
+          "errore": null
+        },
+        "Andertons": {
+          "stato": "ok",
+          "oggetti": 16,
+          "errore": null
+        },
+        "Centro Chitarre": {
+          "stato": "ok",
+          "oggetti": 66,
+          "errore": null
+        },
+        "Tomassone": {
+          "stato": "ok",
+          "oggetti": 35,
+          "errore": null
+        },
+        "StrumentiMusicali.net": {
+          "stato": "ok",
+          "oggetti": 6,
+          "errore": null
+        }
+      }
+    },
+    {
+      "query": "gibson les paul",
+      "normalized": "gibson les paul",
+      "raw_total": 408,
+      "ranked_total": 392,
+      "search_mode": "strict",
+      "elapsed": 33.49,
+      "per_site": {
+        "Thomann": {
+          "stato": "ok",
+          "oggetti": 50,
+          "errore": null
+        },
+        "Musik Produktiv": {
+          "stato": "ok",
+          "oggetti": 60,
+          "errore": null
+        },
+        "Gear4music": {
+          "stato": "ok",
+          "oggetti": 175,
+          "errore": null
+        },
+        "Andertons": {
+          "stato": "ok",
+          "oggetti": 16,
+          "errore": null
+        },
+        "Centro Chitarre": {
+          "stato": "ok",
+          "oggetti": 67,
+          "errore": null
+        },
+        "Tomassone": {
+          "stato": "ok",
+          "oggetti": 29,
+          "errore": null
+        },
+        "StrumentiMusicali.net": {
+          "stato": "ok",
+          "oggetti": 11,
+          "errore": null
+        }
+      }
+    },
+    {
+      "query": "ibanez rg",
+      "normalized": "ibanez rg",
+      "raw_total": 313,
+      "ranked_total": 310,
+      "search_mode": "strict",
+      "elapsed": 30.88,
+      "per_site": {
+        "Thomann": {
+          "stato": "ok",
+          "oggetti": 50,
+          "errore": null
+        },
+        "Musik Produktiv": {
+          "stato": "ok",
+          "oggetti": 60,
+          "errore": null
+        },
+        "Gear4music": {
+          "stato": "ok",
+          "oggetti": 80,
+          "errore": null
+        },
+        "Andertons": {
+          "stato": "ok",
+          "oggetti": 16,
+          "errore": null
+        },
+        "Centro Chitarre": {
+          "stato": "ok",
+          "oggetti": 72,
+          "errore": null
+        },
+        "Tomassone": {
+          "stato": "ok",
+          "oggetti": 17,
+          "errore": null
+        },
+        "StrumentiMusicali.net": {
+          "stato": "ok",
+          "oggetti": 18,
+          "errore": null
+        }
+      }
+    },
+    {
+      "query": "prs custom 24",
+      "normalized": "prs custom 24",
+      "raw_total": 200,
+      "ranked_total": 175,
+      "search_mode": "strict",
+      "elapsed": 7.53,
+      "per_site": {
+        "Thomann": {
+          "stato": "ok",
+          "oggetti": 50,
+          "errore": null
+        },
+        "Musik Produktiv": {
+          "stato": "ok",
+          "oggetti": 7,
+          "errore": null
+        },
+        "Gear4music": {
+          "stato": "ok",
+          "oggetti": 52,
+          "errore": null
+        },
+        "Andertons": {
+          "stato": "ok",
+          "oggetti": 16,
+          "errore": null
+        },
+        "Centro Chitarre": {
+          "stato": "ok",
+          "oggetti": 68,
+          "errore": null
+        },
+        "Tomassone": {
+          "stato": "ok",
+          "oggetti": 7,
+          "errore": null
+        },
+        "StrumentiMusicali.net": {
+          "stato": "ok",
+          "oggetti": 0,
+          "errore": null
+        }
+      }
+    },
+    {
+      "query": "fender telecaster",
+      "normalized": "fender telecaster",
+      "raw_total": 349,
+      "ranked_total": 303,
+      "search_mode": "strict",
+      "elapsed": 31.4,
+      "per_site": {
+        "Thomann": {
+          "stato": "ok",
+          "oggetti": 50,
+          "errore": null
+        },
+        "Musik Produktiv": {
+          "stato": "ok",
+          "oggetti": 59,
+          "errore": null
+        },
+        "Gear4music": {
+          "stato": "ok",
+          "oggetti": 121,
+          "errore": null
+        },
+        "Andertons": {
+          "stato": "ok",
+          "oggetti": 16,
+          "errore": null
+        },
+        "Centro Chitarre": {
+          "stato": "ok",
+          "oggetti": 66,
+          "errore": null
+        },
+        "Tomassone": {
+          "stato": "ok",
+          "oggetti": 32,
+          "errore": null
+        },
+        "StrumentiMusicali.net": {
+          "stato": "ok",
+          "oggetti": 5,
+          "errore": null
+        }
+      }
+    },
+    {
+      "query": "gibson sg",
+      "normalized": "gibson sg",
+      "raw_total": 256,
+      "ranked_total": 225,
+      "search_mode": "strict",
+      "elapsed": 16.99,
+      "per_site": {
+        "Thomann": {
+          "stato": "ok",
+          "oggetti": 50,
+          "errore": null
+        },
+        "Musik Produktiv": {
+          "stato": "ok",
+          "oggetti": 31,
+          "errore": null
+        },
+        "Gear4music": {
+          "stato": "ok",
+          "oggetti": 50,
+          "errore": null
+        },
+        "Andertons": {
+          "stato": "ok",
+          "oggetti": 16,
+          "errore": null
+        },
+        "Centro Chitarre": {
+          "stato": "ok",
+          "oggetti": 71,
+          "errore": null
+        },
+        "Tomassone": {
+          "stato": "ok",
+          "oggetti": 22,
+          "errore": null
+        },
+        "StrumentiMusicali.net": {
+          "stato": "ok",
+          "oggetti": 16,
+          "errore": null
+        }
+      }
+    },
+    {
+      "query": "marshall jcm800",
+      "normalized": "marshall jcm800",
+      "raw_total": 42,
+      "ranked_total": 16,
+      "search_mode": "strict",
+      "elapsed": 6.34,
+      "per_site": {
+        "Thomann": {
+          "stato": "ok",
+          "oggetti": 10,
+          "errore": null
+        },
+        "Musik Produktiv": {
+          "stato": "ok",
+          "oggetti": 6,
+          "errore": null
+        },
+        "Gear4music": {
+          "stato": "ok",
+          "oggetti": 4,
+          "errore": null
+        },
+        "Andertons": {
+          "stato": "ok",
+          "oggetti": 16,
+          "errore": null
+        },
+        "Centro Chitarre": {
+          "stato": "ok",
+          "oggetti": 3,
+          "errore": null
+        },
+        "Tomassone": {
+          "stato": "ok",
+          "oggetti": 0,
+          "errore": null
+        },
+        "StrumentiMusicali.net": {
+          "stato": "ok",
+          "oggetti": 3,
+          "errore": null
+        }
+      }
+    },
+    {
+      "query": "fender mustang",
+      "normalized": "fender mustang",
+      "raw_total": 257,
+      "ranked_total": 211,
+      "search_mode": "strict",
+      "elapsed": 28.48,
+      "per_site": {
+        "Thomann": {
+          "stato": "ok",
+          "oggetti": 50,
+          "errore": null
+        },
+        "Musik Produktiv": {
+          "stato": "ok",
+          "oggetti": 60,
+          "errore": null
+        },
+        "Gear4music": {
+          "stato": "ok",
+          "oggetti": 62,
+          "errore": null
+        },
+        "Andertons": {
+          "stato": "ok",
+          "oggetti": 16,
+          "errore": null
+        },
+        "Centro Chitarre": {
+          "stato": "ok",
+          "oggetti": 54,
+          "errore": null
+        },
+        "Tomassone": {
+          "stato": "ok",
+          "oggetti": 7,
+          "errore": null
+        },
+        "StrumentiMusicali.net": {
+          "stato": "ok",
+          "oggetti": 8,
+          "errore": null
+        }
+      }
+    },
+    {
+      "query": "boss ds-1",
+      "normalized": "boss ds 1",
+      "raw_total": 57,
+      "ranked_total": 29,
+      "search_mode": "strict",
+      "elapsed": 7.01,
+      "per_site": {
+        "Thomann": {
+          "stato": "ok",
+          "oggetti": 14,
+          "errore": null
+        },
+        "Musik Produktiv": {
+          "stato": "ok",
+          "oggetti": 9,
+          "errore": null
+        },
+        "Gear4music": {
+          "stato": "ok",
+          "oggetti": 8,
+          "errore": null
+        },
+        "Andertons": {
+          "stato": "ok",
+          "oggetti": 16,
+          "errore": null
+        },
+        "Centro Chitarre": {
+          "stato": "ok",
+          "oggetti": 5,
+          "errore": null
+        },
+        "Tomassone": {
+          "stato": "ok",
+          "oggetti": 1,
+          "errore": null
+        },
+        "StrumentiMusicali.net": {
+          "stato": "ok",
+          "oggetti": 4,
+          "errore": null
+        }
+      }
+    },
+    {
+      "query": "shure sm58",
+      "normalized": "shure sm58",
+      "raw_total": 141,
+      "ranked_total": 126,
+      "search_mode": "strict",
+      "elapsed": 12.21,
+      "per_site": {
+        "Thomann": {
+          "stato": "ok",
+          "oggetti": 50,
+          "errore": null
+        },
+        "Musik Produktiv": {
+          "stato": "ok",
+          "oggetti": 22,
+          "errore": null
+        },
+        "Gear4music": {
+          "stato": "ok",
+          "oggetti": 43,
+          "errore": null
+        },
+        "Andertons": {
+          "stato": "ok",
+          "oggetti": 16,
+          "errore": null
+        },
+        "Centro Chitarre": {
+          "stato": "ok",
+          "oggetti": 0,
+          "errore": null
+        },
+        "Tomassone": {
+          "stato": "ok",
+          "oggetti": 2,
+          "errore": null
+        },
+        "StrumentiMusicali.net": {
+          "stato": "ok",
+          "oggetti": 8,
+          "errore": null
+        }
+      }
+    },
+    {
+      "query": "yamaha p125",
+      "normalized": "yamaha p125",
+      "raw_total": 120,
+      "ranked_total": 8,
+      "search_mode": "strict",
+      "elapsed": 32.22,
+      "per_site": {
+        "Thomann": {
+          "stato": "ok",
+          "oggetti": 36,
+          "errore": null
+        },
+        "Musik Produktiv": {
+          "stato": "ok",
+          "oggetti": 60,
+          "errore": null
+        },
+        "Gear4music": {
+          "stato": "ok",
+          "oggetti": 8,
+          "errore": null
+        },
+        "Andertons": {
+          "stato": "ok",
+          "oggetti": 16,
+          "errore": null
+        },
+        "Centro Chitarre": {
+          "stato": "ok",
+          "oggetti": 0,
+          "errore": null
+        },
+        "Tomassone": {
+          "stato": "ok",
+          "oggetti": 0,
+          "errore": null
+        },
+        "StrumentiMusicali.net": {
+          "stato": "ok",
+          "oggetti": 0,
+          "errore": null
+        }
+      }
+    },
+    {
+      "query": "vox ac30",
+      "normalized": "vox ac30",
+      "raw_total": 79,
+      "ranked_total": 67,
+      "search_mode": "strict",
+      "elapsed": 10.22,
+      "per_site": {
+        "Thomann": {
+          "stato": "ok",
+          "oggetti": 18,
+          "errore": null
+        },
+        "Musik Produktiv": {
+          "stato": "ok",
+          "oggetti": 11,
+          "errore": null
+        },
+        "Gear4music": {
+          "stato": "ok",
+          "oggetti": 11,
+          "errore": null
+        },
+        "Andertons": {
+          "stato": "ok",
+          "oggetti": 16,
+          "errore": null
+        },
+        "Centro Chitarre": {
+          "stato": "ok",
+          "oggetti": 10,
+          "errore": null
+        },
+        "Tomassone": {
+          "stato": "ok",
+          "oggetti": 6,
+          "errore": null
+        },
+        "StrumentiMusicali.net": {
+          "stato": "ok",
+          "oggetti": 7,
+          "errore": null
+        }
+      }
+    },
+    {
+      "query": "roland td-17",
+      "normalized": "roland td 17",
+      "raw_total": 88,
+      "ranked_total": 88,
+      "search_mode": "fuzzy",
+      "elapsed": 13.47,
+      "per_site": {
+        "Thomann": {
+          "stato": "ok",
+          "oggetti": 55,
+          "errore": null
+        },
+        "Musik Produktiv": {
+          "stato": "ok",
+          "oggetti": 15,
+          "errore": null
+        },
+        "Gear4music": {
+          "stato": "ok",
+          "oggetti": 2,
+          "errore": null
+        },
+        "Andertons": {
+          "stato": "ok",
+          "oggetti": 16,
+          "errore": null
+        },
+        "Centro Chitarre": {
+          "stato": "ok",
+          "oggetti": 0,
+          "errore": null
+        },
+        "Tomassone": {
+          "stato": "ok",
+          "oggetti": 0,
+          "errore": null
+        },
+        "StrumentiMusicali.net": {
+          "stato": "ok",
+          "oggetti": 0,
+          "errore": null
+        }
+      }
+    },
+    {
+      "query": "korg minilogue",
+      "normalized": "korg minilogue",
+      "raw_total": 61,
+      "ranked_total": 36,
+      "search_mode": "strict",
+      "elapsed": 10.31,
+      "per_site": {
+        "Thomann": {
+          "stato": "ok",
+          "oggetti": 24,
+          "errore": null
+        },
+        "Musik Produktiv": {
+          "stato": "ok",
+          "oggetti": 5,
+          "errore": null
+        },
+        "Gear4music": {
+          "stato": "ok",
+          "oggetti": 11,
+          "errore": null
+        },
+        "Andertons": {
+          "stato": "ok",
+          "oggetti": 16,
+          "errore": null
+        },
+        "Centro Chitarre": {
+          "stato": "ok",
+          "oggetti": 0,
+          "errore": null
+        },
+        "Tomassone": {
+          "stato": "ok",
+          "oggetti": 0,
+          "errore": null
+        },
+        "StrumentiMusicali.net": {
+          "stato": "ok",
+          "oggetti": 5,
+          "errore": null
+        }
+      }
+    },
+    {
+      "query": "akg c414",
+      "normalized": "akg c414",
+      "raw_total": 37,
+      "ranked_total": 16,
+      "search_mode": "strict",
+      "elapsed": 7.09,
+      "per_site": {
+        "Thomann": {
+          "stato": "ok",
+          "oggetti": 11,
+          "errore": null
+        },
+        "Musik Produktiv": {
+          "stato": "ok",
+          "oggetti": 3,
+          "errore": null
+        },
+        "Gear4music": {
+          "stato": "ok",
+          "oggetti": 3,
+          "errore": null
+        },
+        "Andertons": {
+          "stato": "ok",
+          "oggetti": 16,
+          "errore": null
+        },
+        "Centro Chitarre": {
+          "stato": "ok",
+          "oggetti": 0,
+          "errore": null
+        },
+        "Tomassone": {
+          "stato": "ok",
+          "oggetti": 0,
+          "errore": null
+        },
+        "StrumentiMusicali.net": {
+          "stato": "ok",
+          "oggetti": 4,
+          "errore": null
+        }
+      }
+    },
+    {
+      "query": "behringer x32",
+      "normalized": "behringer x32",
+      "raw_total": 82,
+      "ranked_total": 56,
+      "search_mode": "strict",
+      "elapsed": 6.44,
+      "per_site": {
+        "Thomann": {
+          "stato": "ok",
+          "oggetti": 50,
+          "errore": null
+        },
+        "Musik Produktiv": {
+          "stato": "ok",
+          "oggetti": 0,
+          "errore": null
+        },
+        "Gear4music": {
+          "stato": "ok",
+          "oggetti": 10,
+          "errore": null
+        },
+        "Andertons": {
+          "stato": "ok",
+          "oggetti": 16,
+          "errore": null
+        },
+        "Centro Chitarre": {
+          "stato": "ok",
+          "oggetti": 0,
+          "errore": null
+        },
+        "Tomassone": {
+          "stato": "ok",
+          "oggetti": 0,
+          "errore": null
+        },
+        "StrumentiMusicali.net": {
+          "stato": "ok",
+          "oggetti": 6,
+          "errore": null
+        }
+      }
+    },
+    {
+      "query": "focusrite scarlett",
+      "normalized": "focusrite scarlett",
+      "raw_total": 102,
+      "ranked_total": 89,
+      "search_mode": "strict",
+      "elapsed": 11.26,
+      "per_site": {
+        "Thomann": {
+          "stato": "ok",
+          "oggetti": 31,
+          "errore": null
+        },
+        "Musik Produktiv": {
+          "stato": "ok",
+          "oggetti": 18,
+          "errore": null
+        },
+        "Gear4music": {
+          "stato": "ok",
+          "oggetti": 26,
+          "errore": null
+        },
+        "Andertons": {
+          "stato": "ok",
+          "oggetti": 16,
+          "errore": null
+        },
+        "Centro Chitarre": {
+          "stato": "ok",
+          "oggetti": 0,
+          "errore": null
+        },
+        "Tomassone": {
+          "stato": "ok",
+          "oggetti": 0,
+          "errore": null
+        },
+        "StrumentiMusicali.net": {
+          "stato": "ok",
+          "oggetti": 11,
+          "errore": null
+        }
+      }
+    },
+    {
+      "query": "electro-harmonix big muff",
+      "normalized": "electro harmonix big muff",
+      "raw_total": 107,
+      "ranked_total": 103,
+      "search_mode": "strict",
+      "elapsed": 15.27,
+      "per_site": {
+        "Thomann": {
+          "stato": "ok",
+          "oggetti": 26,
+          "errore": null
+        },
+        "Musik Produktiv": {
+          "stato": "ok",
+          "oggetti": 18,
+          "errore": null
+        },
+        "Gear4music": {
+          "stato": "ok",
+          "oggetti": 18,
+          "errore": null
+        },
+        "Andertons": {
+          "stato": "ok",
+          "oggetti": 16,
+          "errore": null
+        },
+        "Centro Chitarre": {
+          "stato": "ok",
+          "oggetti": 13,
+          "errore": null
+        },
+        "Tomassone": {
+          "stato": "ok",
+          "oggetti": 3,
+          "errore": null
+        },
+        "StrumentiMusicali.net": {
+          "stato": "ok",
+          "oggetti": 13,
+          "errore": null
+        }
+      }
+    },
+    {
+      "query": "audio technica at2020",
+      "normalized": "audio technica at2020",
+      "raw_total": 29,
+      "ranked_total": 11,
+      "search_mode": "strict",
+      "elapsed": 8.15,
+      "per_site": {
+        "Thomann": {
+          "stato": "ok",
+          "oggetti": 9,
+          "errore": null
+        },
+        "Musik Produktiv": {
+          "stato": "ok",
+          "oggetti": 0,
+          "errore": null
+        },
+        "Gear4music": {
+          "stato": "ok",
+          "oggetti": 3,
+          "errore": null
+        },
+        "Andertons": {
+          "stato": "ok",
+          "oggetti": 16,
+          "errore": null
+        },
+        "Centro Chitarre": {
+          "stato": "ok",
+          "oggetti": 0,
+          "errore": null
+        },
+        "Tomassone": {
+          "stato": "ok",
+          "oggetti": 0,
+          "errore": null
+        },
+        "StrumentiMusicali.net": {
+          "stato": "ok",
+          "oggetti": 1,
+          "errore": null
+        }
+      }
+    },
+    {
+      "query": "tc electronic hall of fame",
+      "normalized": "tc electronic hall of fame",
+      "raw_total": 31,
+      "ranked_total": 11,
+      "search_mode": "strict",
+      "elapsed": 7.09,
+      "per_site": {
+        "Thomann": {
+          "stato": "ok",
+          "oggetti": 10,
+          "errore": null
+        },
+        "Musik Produktiv": {
+          "stato": "ok",
+          "oggetti": 0,
+          "errore": null
+        },
+        "Gear4music": {
+          "stato": "ok",
+          "oggetti": 3,
+          "errore": null
+        },
+        "Andertons": {
+          "stato": "ok",
+          "oggetti": 16,
+          "errore": null
+        },
+        "Centro Chitarre": {
+          "stato": "ok",
+          "oggetti": 0,
+          "errore": null
+        },
+        "Tomassone": {
+          "stato": "ok",
+          "oggetti": 0,
+          "errore": null
+        },
+        "StrumentiMusicali.net": {
+          "stato": "ok",
+          "oggetti": 2,
+          "errore": null
+        }
+      }
+    }
+  ],
+  "failures": [],
+  "total_seconds": 328.3
+}

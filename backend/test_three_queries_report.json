@@ -1,0 +1,387 @@
+[
+  {
+    "query": "fender mustang",
+    "normalized": "fender mustang",
+    "tokens": [
+      "fender",
+      "mustang"
+    ],
+    "raw_total": 257,
+    "ranked_total": 211,
+    "search_mode": "strict",
+    "scrape_seconds": 28.15,
+    "rank_seconds": 0.005,
+    "per_site_raw": {
+      "Thomann": 50,
+      "Gear4music": 62,
+      "Andertons": 16,
+      "Centro Chitarre": 54,
+      "Tomassone": 7,
+      "StrumentiMusicali.net": 8,
+      "Musik Produktiv": 60
+    },
+    "per_site_ranked": {
+      "Musik Produktiv": 34,
+      "Tomassone": 7,
+      "Centro Chitarre": 54,
+      "StrumentiMusicali.net": 8,
+      "Thomann": 30,
+      "Gear4music": 62,
+      "Andertons": 16
+    },
+    "match_fields_top50": {
+      "all_tokens_in_nome": 50,
+      "any_token_in_nome": 50,
+      "no_token_in_nome": 0
+    },
+    "top10": [
+      {
+        "nome": "Fender Mustang",
+        "sito": "Musik Produktiv",
+        "prezzo": "€ 14.90",
+        "relevance_score": 100
+      },
+      {
+        "nome": "Fender Mustang",
+        "sito": "Musik Produktiv",
+        "prezzo": "€ 95.00",
+        "relevance_score": 100
+      },
+      {
+        "nome": "FENDER MUSTANG LTX50",
+        "sito": "Tomassone",
+        "prezzo": "€339,00",
+        "relevance_score": 95
+      },
+      {
+        "nome": "FENDER MUSTANG GTX50",
+        "sito": "Tomassone",
+        "prezzo": "€499,00",
+        "relevance_score": 95
+      },
+      {
+        "nome": "Fender Mustang Mini",
+        "sito": "Centro Chitarre",
+        "prezzo": "€ 99.00",
+        "relevance_score": 95
+      },
+      {
+        "nome": "Fender Mustang I V2",
+        "sito": "Centro Chitarre",
+        "prezzo": "€ 139.00",
+        "relevance_score": 95
+      },
+      {
+        "nome": "Fender Mustang LT 25",
+        "sito": "Centro Chitarre",
+        "prezzo": "€ 175.00",
+        "relevance_score": 95
+      },
+      {
+        "nome": "Fender Mustang LT 25",
+        "sito": "Musik Produktiv",
+        "prezzo": "€ 189.00",
+        "relevance_score": 95
+      },
+      {
+        "nome": "Fender Mustang II V2",
+        "sito": "Centro Chitarre",
+        "prezzo": "€ 199.00",
+        "relevance_score": 95
+      },
+      {
+        "nome": "Fender Mustang LT40S",
+        "sito": "Centro Chitarre",
+        "prezzo": "€ 219.00",
+        "relevance_score": 95
+      }
+    ],
+    "stats": {
+      "Thomann": {
+        "oggetti": 50,
+        "stato": "ok"
+      },
+      "Gear4music": {
+        "oggetti": 62,
+        "stato": "ok"
+      },
+      "Andertons": {
+        "oggetti": 16,
+        "stato": "ok"
+      },
+      "Centro Chitarre": {
+        "oggetti": 54,
+        "stato": "ok"
+      },
+      "Tomassone": {
+        "oggetti": 7,
+        "stato": "ok"
+      },
+      "StrumentiMusicali.net": {
+        "oggetti": 8,
+        "stato": "ok"
+      },
+      "Musik Produktiv": {
+        "oggetti": 60,
+        "stato": "ok"
+      },
+      "_tempo_totale": 28.15
+    }
+  },
+  {
+    "query": "gibson les paul",
+    "normalized": "gibson les paul",
+    "tokens": [
+      "gibson",
+      "les",
+      "paul"
+    ],
+    "raw_total": 408,
+    "ranked_total": 392,
+    "search_mode": "strict",
+    "scrape_seconds": 29.07,
+    "rank_seconds": 0.005,
+    "per_site_raw": {
+      "Thomann": 50,
+      "Gear4music": 175,
+      "Andertons": 16,
+      "Centro Chitarre": 67,
+      "Tomassone": 29,
+      "StrumentiMusicali.net": 11,
+      "Musik Produktiv": 60
+    },
+    "per_site_ranked": {
+      "Musik Produktiv": 45,
+      "Tomassone": 29,
+      "Gear4music": 175,
+      "Centro Chitarre": 67,
+      "StrumentiMusicali.net": 11,
+      "Andertons": 16,
+      "Thomann": 49
+    },
+    "match_fields_top50": {
+      "all_tokens_in_nome": 50,
+      "any_token_in_nome": 50,
+      "no_token_in_nome": 0
+    },
+    "top10": [
+      {
+        "nome": "Gibson Les Paul Junior",
+        "sito": "Musik Produktiv",
+        "prezzo": "€ 1540.01",
+        "relevance_score": 95
+      },
+      {
+        "nome": "GIBSON LES PAUL ORIGINAL HARDSHELL CASE (BROWN)",
+        "sito": "Tomassone",
+        "prezzo": "€195,00",
+        "relevance_score": 90
+      },
+      {
+        "nome": "Gibson Les Paul Control Cover Plate, Black",
+        "sito": "Gear4music",
+        "prezzo": "€ 8.87",
+        "relevance_score": 90
+      },
+      {
+        "nome": "GIBSON LES PAUL TRADITIONAL",
+        "sito": "Tomassone",
+        "prezzo": "€1690,00",
+        "relevance_score": 90
+      },
+      {
+        "nome": "GIBSON LES PAUL JUNIOR  BILLIE JOE ARMSTRONG",
+        "sito": "Tomassone",
+        "prezzo": "€2099,00",
+        "relevance_score": 90
+      },
+      {
+        "nome": "GIBSON LES PAUL SLASH VICTORIA GOLDTOP GOLD",
+        "sito": "Tomassone",
+        "prezzo": "€2789,00",
+        "relevance_score": 90
+      },
+      {
+        "nome": "GIBSON LES PAUL CUSTOM 70S BUTTERCREAM TOP",
+        "sito": "Tomassone",
+        "prezzo": "€3450,00",
+        "relevance_score": 90
+      },
+      {
+        "nome": "GIBSON LES PAUL CUSTOM 70S TOBACCO BURST",
+        "sito": "Tomassone",
+        "prezzo": "€3450,00",
+        "relevance_score": 90
+      },
+      {
+        "nome": "GIBSON LES PAUL CUSTOM 70S WINE RED",
+        "sito": "Tomassone",
+        "prezzo": "€3450,00",
+        "relevance_score": 90
+      },
+      {
+        "nome": "GIBSON LES PAUL JUNIOR 1957 REISSUE VOS TV YELLOW (CUSTOM SHOP)",
+        "sito": "Tomassone",
+        "prezzo": "€3759,00",
+        "relevance_score": 90
+      }
+    ],
+    "stats": {
+      "Thomann": {
+        "oggetti": 50,
+        "stato": "ok"
+      },
+      "Gear4music": {
+        "oggetti": 175,
+        "stato": "ok"
+      },
+      "Andertons": {
+        "oggetti": 16,
+        "stato": "ok"
+      },
+      "Centro Chitarre": {
+        "oggetti": 67,
+        "stato": "ok"
+      },
+      "Tomassone": {
+        "oggetti": 29,
+        "stato": "ok"
+      },
+      "StrumentiMusicali.net": {
+        "oggetti": 11,
+        "stato": "ok"
+      },
+      "Musik Produktiv": {
+        "oggetti": 60,
+        "stato": "ok"
+      },
+      "_tempo_totale": 29.07
+    }
+  },
+  {
+    "query": "friedman",
+    "normalized": "friedman",
+    "tokens": [
+      "friedman"
+    ],
+    "raw_total": 144,
+    "ranked_total": 143,
+    "search_mode": "strict",
+    "scrape_seconds": 31.52,
+    "rank_seconds": 0.002,
+    "per_site_raw": {
+      "Thomann": 50,
+      "Andertons": 16,
+      "Centro Chitarre": 4,
+      "Tomassone": 8,
+      "StrumentiMusicali.net": 6,
+      "Musik Produktiv": 60
+    },
+    "per_site_ranked": {
+      "Thomann": 50,
+      "Tomassone": 8,
+      "Andertons": 15,
+      "StrumentiMusicali.net": 6,
+      "Musik Produktiv": 60,
+      "Centro Chitarre": 4
+    },
+    "match_fields_top50": {
+      "all_tokens_in_nome": 50,
+      "any_token_in_nome": 50,
+      "no_token_in_nome": 0
+    },
+    "top10": [
+      {
+        "nome": "FriedmanIR-D Dual Tube Preamp",
+        "sito": "Thomann",
+        "prezzo": "",
+        "relevance_score": 90
+      },
+      {
+        "nome": "FriedmanIR-X Dual Tube Preamp",
+        "sito": "Thomann",
+        "prezzo": "",
+        "relevance_score": 90
+      },
+      {
+        "nome": "FriedmanCALI-SCMRN-Q0O-NQ42-BBL",
+        "sito": "Thomann",
+        "prezzo": "",
+        "relevance_score": 90
+      },
+      {
+        "nome": "FriedmanBE-OD",
+        "sito": "Thomann",
+        "prezzo": "",
+        "relevance_score": 90
+      },
+      {
+        "nome": "FriedmanLittle Sister Head",
+        "sito": "Thomann",
+        "prezzo": "",
+        "relevance_score": 90
+      },
+      {
+        "nome": "FriedmanJose Arredondo Head",
+        "sito": "Thomann",
+        "prezzo": "",
+        "relevance_score": 90
+      },
+      {
+        "nome": "FriedmanCALI-AMRRN-H0P-NI42-B",
+        "sito": "Thomann",
+        "prezzo": "",
+        "relevance_score": 90
+      },
+      {
+        "nome": "FriedmanVintage T-AMRHN-909-MNQ42-F58M",
+        "sito": "Thomann",
+        "prezzo": "",
+        "relevance_score": 90
+      },
+      {
+        "nome": "FriedmanIR-D Black/Silver/Red LTD",
+        "sito": "Thomann",
+        "prezzo": "",
+        "relevance_score": 90
+      },
+      {
+        "nome": "FriedmanJEL-20 Head",
+        "sito": "Thomann",
+        "prezzo": "",
+        "relevance_score": 90
+      }
+    ],
+    "stats": {
+      "Thomann": {
+        "oggetti": 50,
+        "stato": "ok"
+      },
+      "Gear4music": {
+        "oggetti": 0,
+        "stato": "ok"
+      },
+      "Andertons": {
+        "oggetti": 16,
+        "stato": "ok"
+      },
+      "Centro Chitarre": {
+        "oggetti": 4,
+        "stato": "ok"
+      },
+      "Tomassone": {
+        "oggetti": 8,
+        "stato": "ok"
+      },
+      "StrumentiMusicali.net": {
+        "oggetti": 6,
+        "stato": "ok"
+      },
+      "Musik Produktiv": {
+        "oggetti": 60,
+        "stato": "ok"
+      },
+      "_tempo_totale": 31.52
+    }
+  }
+]

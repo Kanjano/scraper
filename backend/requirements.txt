@@ -17,3 +17,4 @@ email_validator
 Authlib
 flask-cors
 rapidfuzz>=3.0.0
+curl_cffi>=0.13.0
