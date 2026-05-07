@@ -12,16 +12,28 @@ IVA_PER_PAESI = {
     "default": 0.22
 }
 
-def get_musikprodukt_image(link):
-    try:
-        headers = {"User-Agent": "Mozilla/5.0"}
-        res = requests.get(link, headers=headers, timeout=5)
-        soup = BeautifulSoup(res.text, "html.parser")
-        og_image = soup.find("meta", property="og:image")
-        return og_image["content"] if og_image else "N/A"
-    except Exception as e:
-        print(f"⚠ Immagine non trovata per {link}: {e}")
-        return "N/A"
+def _build_image_map(soup):
+    """Estrae mappa product_id -> (image_url, slug_link) dalle card della pagina
+    di ricerca. Evita una richiesta HTTP per prodotto (N+1) per og:image."""
+    image_map = {}
+    for a in soup.select('a[href*=".html"]'):
+        img = a.find("img")
+        if not img:
+            continue
+        href = a.get("href") or ""
+        src = img.get("src") or img.get("data-src") or ""
+        if not src:
+            continue
+        # Pattern URL immagine: pic-{id_padded}l/...
+        m = re.search(r'/pic-0*(\d+)l/', src)
+        if not m:
+            continue
+        pid = m.group(1)
+        if pid not in image_map:
+            full_link = href if href.startswith("http") else f"https://www.musik-produktiv.com{href}"
+            image_map[pid] = (src, full_link)
+    return image_map
+
 
 def cerca_musik_produktiv(prodotto, paese="IT"):
     query = prodotto.replace(" ", "+")
@@ -30,7 +42,7 @@ def cerca_musik_produktiv(prodotto, paese="IT"):
 
     try:
         headers = {"User-Agent": "Mozilla/5.0"}
-        response = requests.get(url, headers=headers)
+        response = requests.get(url, headers=headers, timeout=20)
         soup = BeautifulSoup(response.text, "html.parser")
 
         script_tag = re.search(r'gtmDataLayer.push\((\{.*?"products":\s*\[.*?\])\}\);', str(soup), re.DOTALL)
@@ -41,6 +53,7 @@ def cerca_musik_produktiv(prodotto, paese="IT"):
         data_str = script_tag.group(1) + "}"
         data = json.loads(data_str)
         prodotti = data.get("products", [])
+        image_map = _build_image_map(soup)
 
         print(f"✅ Trovati {len(prodotti)} prodotti su Musik Produktiv")
 
@@ -76,8 +89,12 @@ def cerca_musik_produktiv(prodotto, paese="IT"):
                         print(f"⚠ ID prodotto mancante per {nome}, salto")
                         continue
                         
-                    link = f"https://www.musik-produktiv.com/it/{product_id}.html"
-                    immagine = get_musikprodukt_image(link)
+                    img_entry = image_map.get(product_id)
+                    if img_entry:
+                        immagine, link = img_entry
+                    else:
+                        link = f"https://www.musik-produktiv.com/it/{product_id}.html"
+                        immagine = "N/A"
 
                     # Estrazione prezzo originale (se presente nel JSON)
                     prezzo_originale = "N/A"

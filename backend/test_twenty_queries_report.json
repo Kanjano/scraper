@@ -3,10 +3,10 @@
     {
       "query": "fender stratocaster",
       "normalized": "fender stratocaster",
-      "raw_total": 361,
-      "ranked_total": 312,
+      "raw_total": 363,
+      "ranked_total": 314,
       "search_mode": "strict",
-      "elapsed": 32.38,
+      "elapsed": 3.79,
       "per_site": {
         "Thomann": {
           "stato": "ok",
@@ -20,7 +20,7 @@
         },
         "Gear4music": {
           "stato": "ok",
-          "oggetti": 128,
+          "oggetti": 127,
           "errore": null
         },
         "Andertons": {
@@ -30,7 +30,7 @@
         },
         "Centro Chitarre": {
           "stato": "ok",
-          "oggetti": 66,
+          "oggetti": 69,
           "errore": null
         },
         "Tomassone": {
@@ -51,7 +51,7 @@
       "raw_total": 408,
       "ranked_total": 392,
       "search_mode": "strict",
-      "elapsed": 33.49,
+      "elapsed": 3.04,
       "per_site": {
         "Thomann": {
           "stato": "ok",
@@ -96,7 +96,7 @@
       "raw_total": 313,
       "ranked_total": 310,
       "search_mode": "strict",
-      "elapsed": 30.88,
+      "elapsed": 4.75,
       "per_site": {
         "Thomann": {
           "stato": "ok",
@@ -138,10 +138,10 @@
     {
       "query": "prs custom 24",
       "normalized": "prs custom 24",
-      "raw_total": 200,
-      "ranked_total": 175,
+      "raw_total": 201,
+      "ranked_total": 176,
       "search_mode": "strict",
-      "elapsed": 7.53,
+      "elapsed": 6.96,
       "per_site": {
         "Thomann": {
           "stato": "ok",
@@ -165,7 +165,7 @@
         },
         "Centro Chitarre": {
           "stato": "ok",
-          "oggetti": 68,
+          "oggetti": 69,
           "errore": null
         },
         "Tomassone": {
@@ -183,10 +183,10 @@
     {
       "query": "fender telecaster",
       "normalized": "fender telecaster",
-      "raw_total": 349,
-      "ranked_total": 303,
+      "raw_total": 351,
+      "ranked_total": 305,
       "search_mode": "strict",
-      "elapsed": 31.4,
+      "elapsed": 6.13,
       "per_site": {
         "Thomann": {
           "stato": "ok",
@@ -200,7 +200,7 @@
         },
         "Gear4music": {
           "stato": "ok",
-          "oggetti": 121,
+          "oggetti": 120,
           "errore": null
         },
         "Andertons": {
@@ -210,17 +210,17 @@
         },
         "Centro Chitarre": {
           "stato": "ok",
-          "oggetti": 66,
+          "oggetti": 69,
           "errore": null
         },
         "Tomassone": {
           "stato": "ok",
-          "oggetti": 32,
+          "oggetti": 33,
           "errore": null
         },
         "StrumentiMusicali.net": {
           "stato": "ok",
-          "oggetti": 5,
+          "oggetti": 4,
           "errore": null
         }
       }
@@ -231,7 +231,7 @@
       "raw_total": 256,
       "ranked_total": 225,
       "search_mode": "strict",
-      "elapsed": 16.99,
+      "elapsed": 2.6,
       "per_site": {
         "Thomann": {
           "stato": "ok",
@@ -276,7 +276,7 @@
       "raw_total": 42,
       "ranked_total": 16,
       "search_mode": "strict",
-      "elapsed": 6.34,
+      "elapsed": 4.62,
       "per_site": {
         "Thomann": {
           "stato": "ok",
@@ -318,10 +318,10 @@
     {
       "query": "fender mustang",
       "normalized": "fender mustang",
-      "raw_total": 257,
-      "ranked_total": 211,
+      "raw_total": 255,
+      "ranked_total": 209,
       "search_mode": "strict",
-      "elapsed": 28.48,
+      "elapsed": 5.48,
       "per_site": {
         "Thomann": {
           "stato": "ok",
@@ -335,7 +335,7 @@
         },
         "Gear4music": {
           "stato": "ok",
-          "oggetti": 62,
+          "oggetti": 61,
           "errore": null
         },
         "Andertons": {
@@ -355,7 +355,7 @@
         },
         "StrumentiMusicali.net": {
           "stato": "ok",
-          "oggetti": 8,
+          "oggetti": 7,
           "errore": null
         }
       }
@@ -363,14 +363,14 @@
     {
       "query": "boss ds-1",
       "normalized": "boss ds 1",
-      "raw_total": 57,
+      "raw_total": 51,
       "ranked_total": 29,
       "search_mode": "strict",
-      "elapsed": 7.01,
+      "elapsed": 6.14,
       "per_site": {
         "Thomann": {
           "stato": "ok",
-          "oggetti": 14,
+          "oggetti": 8,
           "errore": null
         },
         "Musik Produktiv": {
@@ -411,7 +411,7 @@
       "raw_total": 141,
       "ranked_total": 126,
       "search_mode": "strict",
-      "elapsed": 12.21,
+      "elapsed": 6.95,
       "per_site": {
         "Thomann": {
           "stato": "ok",
@@ -456,7 +456,7 @@
       "raw_total": 120,
       "ranked_total": 8,
       "search_mode": "strict",
-      "elapsed": 32.22,
+      "elapsed": 19.49,
       "per_site": {
         "Thomann": {
           "stato": "ok",
@@ -498,10 +498,10 @@
     {
       "query": "vox ac30",
       "normalized": "vox ac30",
-      "raw_total": 79,
-      "ranked_total": 67,
+      "raw_total": 78,
+      "ranked_total": 66,
       "search_mode": "strict",
-      "elapsed": 10.22,
+      "elapsed": 4.61,
       "per_site": {
         "Thomann": {
           "stato": "ok",
@@ -535,7 +535,7 @@
         },
         "StrumentiMusicali.net": {
           "stato": "ok",
-          "oggetti": 7,
+          "oggetti": 6,
           "errore": null
         }
       }
@@ -546,7 +546,7 @@
       "raw_total": 88,
       "ranked_total": 88,
       "search_mode": "fuzzy",
-      "elapsed": 13.47,
+      "elapsed": 7.53,
       "per_site": {
         "Thomann": {
           "stato": "ok",
@@ -591,7 +591,7 @@
       "raw_total": 61,
       "ranked_total": 36,
       "search_mode": "strict",
-      "elapsed": 10.31,
+      "elapsed": 5.81,
       "per_site": {
         "Thomann": {
           "stato": "ok",
@@ -636,7 +636,7 @@
       "raw_total": 37,
       "ranked_total": 16,
       "search_mode": "strict",
-      "elapsed": 7.09,
+      "elapsed": 4.09,
       "per_site": {
         "Thomann": {
           "stato": "ok",
@@ -681,7 +681,7 @@
       "raw_total": 82,
       "ranked_total": 56,
       "search_mode": "strict",
-      "elapsed": 6.44,
+      "elapsed": 4.03,
       "per_site": {
         "Thomann": {
           "stato": "ok",
@@ -723,14 +723,14 @@
     {
       "query": "focusrite scarlett",
       "normalized": "focusrite scarlett",
-      "raw_total": 102,
-      "ranked_total": 89,
+      "raw_total": 103,
+      "ranked_total": 90,
       "search_mode": "strict",
-      "elapsed": 11.26,
+      "elapsed": 4.43,
       "per_site": {
         "Thomann": {
           "stato": "ok",
-          "oggetti": 31,
+          "oggetti": 33,
           "errore": null
         },
         "Musik Produktiv": {
@@ -740,7 +740,7 @@
         },
         "Gear4music": {
           "stato": "ok",
-          "oggetti": 26,
+          "oggetti": 25,
           "errore": null
         },
         "Andertons": {
@@ -771,7 +771,7 @@
       "raw_total": 107,
       "ranked_total": 103,
       "search_mode": "strict",
-      "elapsed": 15.27,
+      "elapsed": 11.86,
       "per_site": {
         "Thomann": {
           "stato": "ok",
@@ -816,7 +816,7 @@
       "raw_total": 29,
       "ranked_total": 11,
       "search_mode": "strict",
-      "elapsed": 8.15,
+      "elapsed": 3.77,
       "per_site": {
         "Thomann": {
           "stato": "ok",
@@ -861,7 +861,7 @@
       "raw_total": 31,
       "ranked_total": 11,
       "search_mode": "strict",
-      "elapsed": 7.09,
+      "elapsed": 4.11,
       "per_site": {
         "Thomann": {
           "stato": "ok",
@@ -902,5 +902,5 @@
     }
   ],
   "failures": [],
-  "total_seconds": 328.3
+  "total_seconds": 120.2
 }
