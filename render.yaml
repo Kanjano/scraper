@@ -2,9 +2,23 @@ services:
   - type: web
     name: instrinder
     env: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:app
+    rootDir: .
+    buildCommand: |
+      cd frontend && npm ci && npm run build && cd .. && \
+      rm -rf backend/static && mkdir -p backend/static && \
+      cp -r frontend/dist/frontend/browser/* backend/static/ && \
+      cd backend && pip install -r requirements.txt
+    startCommand: cd backend && gunicorn app:app -c gunicorn.conf.py
+    healthCheckPath: /
     envVars:
       - key: PYTHON_VERSION
-        value: 3.9.0
+        value: 3.9.18
+      - key: NODE_VERSION
+        value: 20.11.1
+      - key: SECRET_KEY
+        generateValue: true
+      - key: MAX_WORKERS
+        value: 4
+      - key: SCRAPER_TIMEOUT
+        value: 90
     plan: free
