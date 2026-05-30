@@ -41,6 +41,7 @@ from scraper_service import (
     calculate_discounts, apply_referral_links, get_top_discounts,
 )
 from search_normalizer import normalize_query, find_similar_queries
+from search_optimizer import AdaptiveSearchOptimizer, product_key_from_item
 from referral_db_manager import ReferralDBManager
 
 load_dotenv()
@@ -118,6 +119,8 @@ def load_user(user_id):
 
 
 ReferralDBManager.log_referral_status()
+
+search_optimizer = AdaptiveSearchOptimizer()
 
 
 # --- OAuth routes ---
@@ -312,6 +315,31 @@ def api_search():
         ranked, search_mode = filter_and_rank_results(results, norm_query)
         top_discounts = get_top_discounts(ranked)
 
+        # Adaptive optimizer: enrich every item with product_key /
+        # correlation_score / adaptive_score so the frontend can show
+        # learning signals and so /api/search/click has a stable key.
+        # We intentionally do NOT re-sort here — price ordering wins; the
+        # learned boost is exposed for UI and used by /search/learned.
+        try:
+            uid = current_user.id if current_user.is_authenticated else None
+            for r in ranked:
+                pk = product_key_from_item(r)
+                r["product_key"] = pk
+                r["correlation_score"] = search_optimizer.get_correlation_score(
+                    norm_query, pk
+                )
+
+            shown_keys = [r["product_key"] for r in ranked[:20]]
+            search_optimizer.record_impression(
+                uid, raw_query, len(ranked), shown_product_keys=shown_keys,
+            )
+            no_result_alert = None
+            if len(ranked) == 0:
+                no_result_alert = search_optimizer.record_no_result(raw_query)
+        except Exception as e:
+            logger.warning(f"search_optimizer hook failed: {e}")
+            no_result_alert = None
+
         return jsonify({
             "results": ranked,
             "stats": stats,
@@ -319,6 +347,7 @@ def api_search():
             "search_mode": search_mode,
             "count": len(ranked),
             "normalized_query": norm_query,
+            "no_result_alert": no_result_alert,
         }), 200
 
     except Exception as e:
@@ -335,12 +364,91 @@ def api_suggestions():
         return jsonify({"suggestions": [], "normalized_query": ""}), 200
 
     norm = normalize_query(raw)
+    # Two sources: learned (click_log + product_variant) via the optimizer,
+    # plus user-personal SearchHistory fallback for cold-start coverage.
+    learned = search_optimizer.get_suggestions(norm, count=5)
     history = [
         h.search_term
         for h in SearchHistory.query.order_by(SearchHistory.timestamp.desc()).limit(200).all()
     ]
-    suggestions = find_similar_queries(norm, history, limit=5)
-    return jsonify({"suggestions": suggestions, "normalized_query": norm}), 200
+    fuzzy = find_similar_queries(norm, history, limit=5)
+    seen, merged = set(), []
+    for s in learned + fuzzy:
+        if s and s not in seen:
+            seen.add(s)
+            merged.append(s)
+            if len(merged) >= 5:
+                break
+    return jsonify({"suggestions": merged, "normalized_query": norm}), 200
+
+
+# --- Adaptive optimizer endpoints --------------------------------------------
+
+@app.route('/api/search/click', methods=['POST'])
+def api_search_click():
+    """Records a click on a search result so the optimizer can learn."""
+    data = request.get_json() or {}
+    query = (data.get('query') or '').strip()
+    product = data.get('product') or {}
+    rank = data.get('rank')
+    if not query or not product:
+        return jsonify({"success": False, "message": "query e product richiesti"}), 400
+    try:
+        uid = current_user.id if current_user.is_authenticated else None
+        search_optimizer.record_click(uid, query, product, rank=rank)
+        return jsonify({"success": True}), 200
+    except Exception as e:
+        logger.exception(f"record_click error: {e}")
+        return jsonify({"success": False, "message": str(e)}), 500
+
+
+@app.route('/api/optimizer/enrich', methods=['POST'])
+def api_optimizer_enrich():
+    """On-demand: generate variants for products supplied in the request body.
+
+    Body: {"products": [<scraper item>, ...]}
+    Typical use: pipe in the latest scrape pass to grow the variant index.
+    """
+    data = request.get_json() or {}
+    products = data.get('products') or []
+    if not isinstance(products, list):
+        return jsonify({"success": False, "message": "products deve essere lista"}), 400
+    stats = search_optimizer.enrich_index(products)
+    return jsonify({"success": True, "stats": stats}), 200
+
+
+@app.route('/api/optimizer/stats', methods=['GET'])
+def api_optimizer_stats():
+    return jsonify(search_optimizer.get_training_stats()), 200
+
+
+@app.route('/api/optimizer/failed-queries', methods=['GET'])
+def api_optimizer_failed_queries():
+    limit = int(request.args.get('limit', 20))
+    days = request.args.get('days', type=int)
+    return jsonify({
+        "failed_queries": search_optimizer.get_failed_queries(limit=limit, days=days)
+    }), 200
+
+
+@app.route('/api/optimizer/most-searched', methods=['GET'])
+def api_optimizer_most_searched():
+    days = int(request.args.get('days', 7))
+    limit = int(request.args.get('limit', 20))
+    return jsonify({
+        "most_searched": search_optimizer.get_most_searched(days=days, limit=limit)
+    }), 200
+
+
+@app.route('/api/optimizer/variants', methods=['GET'])
+def api_optimizer_variants():
+    pk = request.args.get('product_key')
+    if not pk:
+        return jsonify({"success": False, "message": "product_key richiesto"}), 400
+    return jsonify({
+        "product_key": pk,
+        "variants": search_optimizer.get_product_variants(pk),
+    }), 200
 
 
 @app.route('/api/contacts', methods=['POST'])

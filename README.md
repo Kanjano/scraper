@@ -21,10 +21,11 @@ Instrinder esegue uno **scraping parallelo** su sette store, normalizza i risult
 11. [Frontend Angular](#frontend-angular)
 12. [Database e migrazioni](#database-e-migrazioni)
 13. [Sistema referral](#sistema-referral)
-14. [Testing](#testing)
-15. [Deploy](#deploy)
-16. [Contribuire](#contribuire)
-17. [Licenza](#licenza)
+14. [Adaptive Search Optimizer](#adaptive-search-optimizer)
+15. [Testing](#testing)
+16. [Deploy](#deploy)
+17. [Contribuire](#contribuire)
+18. [Licenza](#licenza)
 
 ---
 
@@ -35,7 +36,8 @@ Instrinder esegue uno **scraping parallelo** su sette store, normalizza i risult
 - **Modalità ricerca strict / fuzzy**: se il filtro strict restituisce meno di `STRICT_MIN_RESULTS` (5) item, il backend ricade automaticamente su un ranking fuzzy senza interrompere l'esperienza utente.
 - **Calcolo sconti** con confronto fra prezzo corrente e prezzo originale, esposto come campo `sconto_percentuale`.
 - **Top Discounts**: i 10 prodotti con lo sconto percentuale più alto vengono restituiti come lista separata.
-- **Suggerimenti di ricerca** basati sullo storico delle query salvate.
+- **Suggerimenti di ricerca** basati sullo storico delle query salvate e sui dati di learning (click log + product variants).
+- **Adaptive Search Optimizer** — sistema autoapprendente che migliora il ranking dinamicamente in base al comportamento degli utenti (click), genera varianti/sinonimi per i prodotti (es. "Fender Stratocaster" → `strat`, `american strat`, `fender strat`) e logga le query senza risultati per guidare crawl mirati. Persistito su SQLite, esposto via `/api/optimizer/*` e `/api/search/click`. Vedi [Adaptive Search Optimizer](#adaptive-search-optimizer).
 - **Autenticazione** con sessione Flask-Login: signup/login email+password (hash `pbkdf2:sha256`) e **OAuth** Google / Facebook / X (Twitter) via Authlib.
 - **Cronologia ricerche** per utente loggato.
 - **Newsletter settimanale** opt-in con i migliori sconti sui prodotti cercati dall'utente (comando Flask CLI).
@@ -112,7 +114,8 @@ Instrinder esegue uno **scraping parallelo** su sette store, normalizza i risult
 5. `filter_and_rank_results` applica il filtro strict-or-fuzzy e ordina per `relevance_score` decrescente, poi prezzo crescente.
 6. `get_top_discounts` estrae i 10 prodotti con sconto più alto.
 7. Se l'utente è loggato, la query viene registrata in `SearchHistory`.
-8. Risposta JSON con `results`, `top_discounts`, `stats`, `search_mode`, `count`, `normalized_query`.
+8. `AdaptiveSearchOptimizer` stampiglia su ogni risultato `product_key` + `correlation_score` (boost imparato dai click passati), registra un'`impression` sui primi 20 risultati e — se `count == 0` — un `QueryFailure`.
+9. Risposta JSON con `results`, `top_discounts`, `stats`, `search_mode`, `count`, `normalized_query`, `no_result_alert`.
 
 ---
 
@@ -125,13 +128,14 @@ Instrinder esegue uno **scraping parallelo** su sette store, normalizza i risult
 │   ├── scraper_service.py            # orchestrazione parallela degli scraper
 │   ├── scraper_*.py                  # uno per ogni store supportato
 │   ├── search_normalizer.py          # normalizzazione + fuzzy matching
+│   ├── search_optimizer.py           # AdaptiveSearchOptimizer (learning, varianti, analytics)
 │   ├── browser_manager.py            # wrapper undetected-chromedriver (legacy)
 │   ├── cache_manager.py              # cleanup cache UC
 │   ├── captcha_solver.py             # gestione CAPTCHA (legacy)
 │   ├── referral_db_manager.py        # DB JSON dei link referral
 │   ├── referral_manager.py           # logica costruzione referral dinamica
 │   ├── newsletter_manager.py         # invio newsletter settimanale
-│   ├── models.py                     # SQLAlchemy: User, SearchHistory
+│   ├── models.py                     # SQLAlchemy: User, SearchHistory, ClickLog, QueryFailure, QueryImpression, ProductVariant, QueryCorrelation
 │   ├── migrations/                   # Alembic (Flask-Migrate)
 │   ├── tests/                        # pytest: API, scraper service, normalizer
 │   ├── translations/                 # IT, EN, DE, FR, ES (legacy Jinja)
@@ -307,8 +311,19 @@ Codici d'errore standardizzati: `oauth_unsupported_provider`, `oauth_not_configu
 
 | Metodo | Path | Descrizione |
 |--------|------|-------------|
-| `POST` | `/api/search` | Body: `{prodotto: string, siti: string[]}`. Restituisce `{results, top_discounts, stats, search_mode, count, normalized_query}`. |
-| `POST` | `/api/search/suggestions` | Body: `{query}`. Restituisce `{suggestions[], normalized_query}` basato sullo storico. |
+| `POST` | `/api/search` | Body: `{prodotto: string, siti: string[]}`. Restituisce `{results, top_discounts, stats, search_mode, count, normalized_query, no_result_alert}`. Ogni item include `product_key` e `correlation_score`. |
+| `POST` | `/api/search/suggestions` | Body: `{query}`. Restituisce `{suggestions[], normalized_query}` combinando varianti apprese (click log + product variant) e storico personale. |
+| `POST` | `/api/search/click` | Body: `{query, product, rank?}`. Registra un click su un risultato e aggiorna la correlation matrix per migliorare il ranking futuro. |
+
+### Adaptive Optimizer
+
+| Metodo | Path | Descrizione |
+|--------|------|-------------|
+| `POST` | `/api/optimizer/enrich` | Body: `{products: ScraperItem[]}`. Genera varianti/sinonimi per i prodotti forniti (idempotente: ri-eseguire non duplica). |
+| `GET` | `/api/optimizer/stats` | Contatori diagnostici: `clicks`, `failures`, `impressions`, `variants`, `correlations`, `unique_clicked_queries`. |
+| `GET` | `/api/optimizer/failed-queries?limit=&days=` | Top query senza risultati, raggruppate per `normalized_query`, con flag `alert` se sopra soglia. |
+| `GET` | `/api/optimizer/most-searched?days=&limit=` | Query più frequenti negli ultimi N giorni (default 7). |
+| `GET` | `/api/optimizer/variants?product_key=` | Tutte le varianti registrate per un prodotto. |
 
 ### Contatti
 
@@ -400,6 +415,23 @@ SQLite di default (`instance/scraper.db`), gestito da SQLAlchemy + Flask-Migrate
 **`search_history`**
 - `id` (PK), `user_id` (FK → user.id), `search_term`, `filters` (JSON string), `timestamp`
 
+**`click_log`** — clic sui risultati, alimenta il learning
+- `id` (PK), `user_id` (FK → user.id, nullable), `query`, `normalized_query`, `product_key`, `product_name`, `site`, `click_rank`, `timestamp`
+
+**`query_failure`** — query con zero risultati
+- `id` (PK), `query`, `normalized_query`, `results_count`, `timestamp`
+
+**`query_impression`** — contatore impression per CTR / popolarità
+- `id` (PK), `normalized_query`, `results_count`, `timestamp`
+
+**`product_variant`** — sinonimi/abbreviazioni/permutazioni brand-modello
+- `id` (PK), `product_key`, `main_name`, `variant`, `source` (`rules`|`click`|`manual`), `created_at`
+- Unique `(product_key, variant)`
+
+**`query_correlation`** — score smoothed-CTR per coppia (query, prodotto)
+- `id` (PK), `normalized_query`, `product_key`, `product_name`, `click_count`, `impression_count`, `score` (float ∈ [0, 1]), `last_updated`
+- Unique `(normalized_query, product_key)`
+
 ### Comandi
 
 ```bash
@@ -432,6 +464,107 @@ Lo script `backend/import_referrals.py` automatizza l'import da fonti esterne.
 
 ---
 
+## Adaptive Search Optimizer
+
+`backend/search_optimizer.py` contiene `AdaptiveSearchOptimizer`, un sistema autoapprendente che:
+
+1. **Migliora il ranking dai click utente** (real-time)
+2. **Genera varianti di nome prodotto** (sinonimi, abbreviazioni, brand-modello)
+3. **Logga query fallite** per guidare crawl mirati
+4. **Espone analytics** per diagnosticare la qualità della ricerca
+
+Tutto persiste su SQLite (tabelle `click_log`, `query_failure`, `query_impression`, `product_variant`, `query_correlation`) — niente stato in-process tranne la config, quindi più worker gunicorn restano coerenti.
+
+### Flusso completo
+
+```
+User digita "fender strat"
+        │
+        ▼
+/api/search → ranking standard (price+fuzzy)
+        │
+        ├── optimizer stampiglia product_key + correlation_score su ogni item
+        ├── optimizer.record_impression(query, 20 product_keys)
+        └── se 0 risultati → optimizer.record_no_result → alert dopo N fallimenti
+        │
+User clicca su "Fender American Pro Stratocaster" (rank 1)
+        │
+        ▼
+/api/search/click {query, product, rank}
+        │
+        ▼
+optimizer.record_click → ClickLog insert + QueryCorrelation upsert
+        │
+        ▼
+Prossima ricerca "fender strat" → correlation_score > 0 → boost applicato
+```
+
+### Ranking model
+
+Il boost è uno score CTR Bayesiano smoothed:
+
+```
+score = (clicks + α) / (impressions + α + β)   con α=1, β=9
+boost = score × boost_weight                    (default boost_weight=30)
+adaptive_score = relevance_score + boost
+```
+
+Lo smoothing evita che un singolo click su una query rara prevarichi tutto. Il prior beta=9 corrisponde a "9 impression senza click" come baseline scettica.
+
+### Variant generation
+
+Per ogni nuovo prodotto (`enrich_index`) vengono generate varianti combinando:
+
+- **Brand aliases** (`BRAND_ALIASES`): `fender`, `gibson`, `prs` → forme complete + abbreviazioni
+- **Model aliases** (`MODEL_ALIASES`): `stratocaster` ↔ `strat`, `les paul` ↔ `lp`, `precision bass` ↔ `p bass`, `p-125` ↔ `p125`, …
+- **Series-noise stripping**: rimuove `american`, `professional`, `ii`, `60th`, finiture (`sunburst`, `black`)
+- **Permutazioni brand-modello**: `"fender strat"`, `"strat fender"`, `"strat"`, `"american strat"`
+
+Le varianti sono salvate in `product_variant` e usate sia per ranking che per `/api/search/suggestions`.
+
+### On-demand crawl / enrich
+
+`POST /api/optimizer/enrich` con il payload dei risultati di una scrape pass aggiorna l'indice varianti. È idempotente — il vincolo unique `(product_key, variant)` blocca i duplicati. Tipico uso: schedularlo via cron Render dopo le top-N query del giorno.
+
+```bash
+curl -X POST localhost:5001/api/optimizer/enrich \
+  -H 'Content-Type: application/json' \
+  -d '{"products": [{"nome": "Fender Stratocaster", "link": "...", "sito": "Thomann"}]}'
+```
+
+### Analytics
+
+```bash
+# Top query fallite ultimi 7 giorni
+curl 'localhost:5001/api/optimizer/failed-queries?limit=10&days=7'
+
+# Stats globali
+curl localhost:5001/api/optimizer/stats
+# → {"clicks":..., "failures":..., "impressions":..., "variants":..., "correlations":..., "unique_clicked_queries":...}
+
+# Top query più cercate
+curl 'localhost:5001/api/optimizer/most-searched?days=7'
+
+# Varianti note per un prodotto
+curl 'localhost:5001/api/optimizer/variants?product_key=thomann.de/it/fender-strat'
+```
+
+### Configurazione
+
+Override del default passando un dict al costruttore in `app.py`:
+
+```python
+search_optimizer = AdaptiveSearchOptimizer({
+    "boost_weight": 30.0,        # max boost score (fuzzy points)
+    "smoothing_alpha": 1.0,      # Bayesian prior — clicks
+    "smoothing_beta": 9.0,       # Bayesian prior — non-clicks
+    "failure_threshold": 5,      # alert dopo N fallimenti su stessa query
+    "max_suggestions": 5,
+})
+```
+
+---
+
 ## Testing
 
 Test backend con pytest:
@@ -448,6 +581,7 @@ Suite incluse:
 - `tests/test_api_search.py` — endpoint `/api/search` con scraper mockati.
 - `tests/test_scraper_service.py` — coordinator parallelo, retry, timeout.
 - `tests/test_search_normalizer.py` — normalizzazione, fuzzy, stopwords.
+- `tests/test_search_optimizer.py` — variant generation, click learning, ranking boost, failure tracking, suggestion sourcing.
 
 Test integrativi end-to-end ad-hoc (`test_three_queries.py`, `test_twenty_queries.py`, `test_multi_search.py`, `test_veracity.py`) generano report JSON con statistiche reali per sito.
 
