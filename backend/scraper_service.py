@@ -183,13 +183,39 @@ def run_all_scrapers(query: str, sites: list) -> tuple:
     return results, stats
 
 
+NO_PRICE_SENTINEL = float("inf")
+
+
 def _parse_price(item: dict) -> float:
+    """Restituisce il prezzo corrente in float.
+
+    Preferisce ``prezzo_numerico`` (già parsed dagli scraper). Se assente o
+    non valido, fa fallback sul parsing della stringa ``prezzo``. I prodotti
+    senza prezzo valido ricevono ``NO_PRICE_SENTINEL`` in modo che finiscano
+    in fondo all'ordinamento ascendente.
+    """
     try:
-        raw = str(item.get("prezzo", "") or item.get("prezzo_numerico", 0))
-        raw = raw.replace("€", "").replace(".", "").replace(",", ".").strip()
-        return float(raw) if raw else 999_999.0
+        num = item.get("prezzo_numerico")
+        if num is not None:
+            val = float(num)
+            if val > 0:
+                return val
+    except (TypeError, ValueError):
+        pass
+    try:
+        raw = str(item.get("prezzo", "") or "")
+        raw = raw.replace("€", "").replace(" ", "").strip()
+        if not raw or raw.upper() == "N/A":
+            return NO_PRICE_SENTINEL
+        # Format europeo (1.234,56) → 1234.56
+        if "," in raw and "." in raw:
+            raw = raw.replace(".", "").replace(",", ".")
+        elif "," in raw:
+            raw = raw.replace(",", ".")
+        val = float(raw)
+        return val if val > 0 else NO_PRICE_SENTINEL
     except (ValueError, AttributeError):
-        return 999_999.0
+        return NO_PRICE_SENTINEL
 
 
 def _filter_strict(items: list, query: str) -> list:
@@ -201,11 +227,29 @@ def _filter_strict(items: list, query: str) -> list:
         # Fallback: se la query è tutta stopwords/parole brevi, usa lo split
         # naive — meglio dei zero risultati.
         tokens = [t.lower() for t in query.split() if t]
+
+    import re as _re
+    # Forma "compatta" di ciascun token: solo alfanumerici (es. "p-125" → "p125").
+    tokens_compact = [_re.sub(r"\W+", "", t) for t in tokens]
+
     out = []
     for item in items:
         try:
-            name = str(item.get("nome") or item.get("titolo") or item.get("name") or "").lower()
-            if all(tok in name for tok in tokens):
+            raw_name = str(item.get("nome") or item.get("titolo") or item.get("name") or "")
+            name = raw_name.lower()
+            # Versione compatta del nome: rimuove tutti i separatori
+            # (spazi, trattini, slash) così "Yamaha P-125" matcha il token
+            # "p125" e viceversa.
+            name_compact = _re.sub(r"\W+", "", name)
+            ok = True
+            for tok, tok_c in zip(tokens, tokens_compact):
+                if tok in name:
+                    continue
+                if tok_c and tok_c in name_compact:
+                    continue
+                ok = False
+                break
+            if ok:
                 out.append(item)
         except Exception:
             continue
@@ -237,26 +281,51 @@ def filter_and_rank_results(results: list, query: str) -> tuple:
     for item in pool:
         name = str(item.get("nome") or item.get("titolo") or item.get("name") or "")
         item["relevance_score"] = round(fuzzy_match_score(name, norm_q) * 100)
+        # Memorizza il prezzo parsed per debug/frontend e per evitare di
+        # ricalcolarlo durante l'ordinamento.
+        item["_sort_price"] = _parse_price(item)
 
+    # Ordinamento primario per prezzo crescente (offerte/sconti già riflessi
+    # in `prezzo_numerico`). Relevance score come tiebreaker per parità di
+    # prezzo. I prodotti senza prezzo valido finiscono in coda grazie a
+    # NO_PRICE_SENTINEL.
     ranked = sorted(
         pool,
-        key=lambda x: (-x.get("relevance_score", 0), _parse_price(x)),
+        key=lambda x: (
+            x.get("_sort_price", NO_PRICE_SENTINEL),
+            -x.get("relevance_score", 0),
+            str(x.get("nome") or x.get("titolo") or "").lower(),
+        ),
     )
+    # Pulizia: non esponiamo il campo interno al client.
+    for item in ranked:
+        item.pop("_sort_price", None)
     return ranked, mode
 
 
 def calculate_discounts(results: list) -> list:
-    """Aggiunge sconto_percentuale a ogni item."""
+    """Aggiunge sconto_percentuale, risparmio e has_offer a ogni item.
+
+    has_offer è True quando esiste un prezzo originale strettamente maggiore
+    del prezzo corrente — utile al frontend per evidenziare le offerte senza
+    dover riconfrontare i campi.
+    """
     for item in results:
         try:
             curr = float(item.get("prezzo_numerico") or 0)
             orig = float(item.get("prezzo_originale_numerico") or 0)
             if orig > curr > 0:
                 item["sconto_percentuale"] = round(((orig - curr) / orig) * 100)
+                item["risparmio"] = round(orig - curr, 2)
+                item["has_offer"] = True
             else:
                 item["sconto_percentuale"] = 0
+                item["risparmio"] = 0
+                item["has_offer"] = False
         except Exception:
             item["sconto_percentuale"] = 0
+            item["risparmio"] = 0
+            item["has_offer"] = False
     return results
 
 

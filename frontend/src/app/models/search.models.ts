@@ -8,6 +8,8 @@ export interface SearchResult {
   immagine: string;
   sito: string;
   sconto_percentuale: number;
+  risparmio?: number;
+  has_offer?: boolean;
   relevance_score?: number;
 }
 
