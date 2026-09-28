@@ -80,6 +80,7 @@ See `.env.example`. Most relevant here:
 | `REVERB_API_KEY` | – | raises Reverb API rate limits |
 | `USE_PROXY` / `PROXY_LIST` | `False` | round-robin proxies for requests and Chromium |
 | `HEADLESS_BROWSER` | `True` | Playwright headless mode |
+| `STEALTH_BROWSER_CHANNEL` | `chrome` | browser for `stealth` shops: installed Google Chrome; empty = patchright's bundled Chromium (used automatically when Chrome is missing, e.g. Linux arm64) |
 | `SCHEDULER_ENABLED` | `True` | periodic scraping jobs; set `False` in development |
 | `SCRAPER_CONTACT` | – | e-mail or URL added to the scraper's User-Agent, so shops can reach you |
 | `GEOIP_DB` | `data/dbip-country-lite.mmdb` | offline IP → country file for the page language (optional) |

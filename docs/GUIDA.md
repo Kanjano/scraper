@@ -89,7 +89,20 @@ messaggio arriva al gestore del sito; la tua email serve solo per la risposta.
 - Google Chrome installato (per i negozi che richiedono un browser vero)
 - Circa 1 GB di spazio (modello di ricerca, browser Playwright)
 
-### Installazione
+### Installazione con Docker (consigliata)
+
+```bash
+git clone https://github.com/Kanjano/scraper.git instrinder && cd instrinder
+cp .env.example .env          # poi modifica .env (vedi sotto)
+docker compose up -d --build  # http://localhost:8000
+```
+
+L'immagine (≈ 4,5 GB) contiene già browser e modello di ricerca; funziona su
+server Intel/AMD e ARM. Dettagli, reverse proxy e sicurezza in
+[INFRASTRUCTURE](INFRASTRUCTURE.md). **Prima di pubblicare il sito** limita
+l'accesso a `/admin/…` dal reverse proxy: quegli indirizzi non hanno password.
+
+### Installazione senza Docker
 
 ```bash
 git clone https://github.com/Kanjano/scraper.git instrinder
@@ -97,6 +110,7 @@ cd instrinder
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 playwright install chromium
+patchright install chromium
 cp .env.example .env          # poi modifica .env (vedi sotto)
 python main.py                # http://localhost:8000
 ```

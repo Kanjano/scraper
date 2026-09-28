@@ -1,0 +1,16 @@
+.venv/
+venv/
+.git/
+.env
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+data/models/
+data/cache/
+data/logs/
+data/*.db
+data/*.mmdb
+.DS_Store

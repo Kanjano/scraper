@@ -19,11 +19,22 @@ match, converts prices to euro, flags discounts and ranks the results.
 
 ## Quick start
 
+Docker (multi-arch, includes browsers and the search model):
+
+```bash
+git clone https://github.com/Kanjano/scraper.git instrinder && cd instrinder
+cp .env.example .env                 # then edit it — see Configuration
+docker compose up -d --build         # http://localhost:8000
+```
+
+Local Python:
+
 ```bash
 git clone https://github.com/Kanjano/scraper.git instrinder && cd instrinder
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-playwright install chromium          # JS-rendered shops (Google Chrome too, for "stealth" shops)
+playwright install chromium          # JS-rendered shops
+patchright install chromium          # "stealth" shops (uses Google Chrome when installed)
 cp .env.example .env                 # then edit it — see Configuration
 python main.py                       # http://localhost:8000   (API docs: /docs)
 ```
@@ -148,6 +159,10 @@ periodically. Status and coverage: [docs/STATUS.md](docs/STATUS.md).
 
 | Doc | Contents |
 |-----|----------|
+| [FUNCTIONAL](docs/FUNCTIONAL.md) | functional specification: features, acceptance criteria, business rules |
+| [DESIGN](docs/DESIGN.md) | design system: identity, colour and contrast, type, motion, components, layout, accessibility |
+| [INFRASTRUCTURE](docs/INFRASTRUCTURE.md) | sizing, Docker, reverse proxy for SSE, security checklist, scaling, observability, maintenance |
+| [SECURITY](docs/SECURITY.md) · [TESTING](docs/TESTING.md) | security and privacy; test layers and how to run them |
 | [GUIDA](docs/GUIDA.md) | user and operator guide (Italian) |
 | [FRONTEND](docs/FRONTEND.md) | web page: layout, live search, deals, contact, languages, accessibility |
 | [SEARCH](docs/SEARCH.md) | translation, relevance filter, accessories, discounts, sorting |
@@ -158,3 +173,8 @@ periodically. Status and coverage: [docs/STATUS.md](docs/STATUS.md).
 | [ANTIBOT_PROXY](docs/ANTIBOT_PROXY.md) | protections per shop, proxies |
 | [PRICING](docs/PRICING.md) · [DATA_MODEL](docs/DATA_MODEL.md) | suggested price, database models |
 | [STATUS](docs/STATUS.md) | coverage, live test results, known limits |
+
+Also: [CONTRIBUTING](CONTRIBUTING.md) · [CHANGELOG](CHANGELOG.md).
+
+> **Before going online**: `/admin/*` has no authentication — restrict it at
+> the reverse proxy ([INFRASTRUCTURE](docs/INFRASTRUCTURE.md#reverse-proxy)).

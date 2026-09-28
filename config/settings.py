@@ -20,6 +20,10 @@ class Settings(BaseSettings):
     default_timeout: int = 30
     max_retries: int = 3
     headless_browser: bool = True
+    # Browser for "stealth" shops: "chrome" (installed Google Chrome, amd64/macOS)
+    # or "" for patchright's bundled Chromium (e.g. Linux arm64, where Chrome is
+    # not available).
+    stealth_browser_channel: str = "chrome"
     browser_pool_size: int = 5
 
     # Proxy

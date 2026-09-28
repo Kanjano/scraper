@@ -50,9 +50,21 @@ class PlaywrightScraper(GenericScraper):
         try:
             with sync_playwright() as p:
                 if stealth:
-                    browser = p.chromium.launch(
-                        channel="chrome", headless=settings.headless_browser, proxy=proxy
-                    )
+                    # "chrome" = the installed Google Chrome (best disguise);
+                    # empty, or Chrome missing (Linux arm64) = patchright's Chromium.
+                    channel = settings.stealth_browser_channel or None
+                    try:
+                        browser = p.chromium.launch(
+                            channel=channel, headless=settings.headless_browser, proxy=proxy
+                        )
+                    except Exception as exc:  # noqa: BLE001
+                        if not channel:
+                            raise
+                        self.logger.warning("%s not available (%s), using bundled Chromium",
+                                            channel, str(exc).splitlines()[0][:120])
+                        browser = p.chromium.launch(
+                            headless=settings.headless_browser, proxy=proxy
+                        )
                     # The real UA of this Chrome build, minus the "HeadlessChrome"
                     # token that every bot wall checks first.
                     probe = browser.new_page()

@@ -8,19 +8,27 @@ FastAPI service.
 
 ## Index
 
-| Doc | Contents |
-|-----|----------|
-| [GUIDA](GUIDA.md) | **user and operator guide** (Italian): using the site, installing, `.env`, maintenance, troubleshooting |
-| [FRONTEND](FRONTEND.md) | the web page: layout, live search states, deals column, contact form, languages, design tokens, accessibility, demo mode |
-| [SEARCH](SEARCH.md) | query translation, relevance filter, accessories, relevance score, discounts and deals, sorting |
-| [API](API.md) | REST endpoints, SSE stream events, contact, parameters, responses |
-| [ARCHITECTURE](ARCHITECTURE.md) | layered design, request/data flow, module map |
-| [CONFIGURATION](CONFIGURATION.md) | the store dataset, overrides and their keys, `.env` settings |
-| [SCRAPERS](SCRAPERS.md) | route tiers, scraper classes, fields returned, adding or fixing a shop |
-| [ANTIBOT_PROXY](ANTIBOT_PROXY.md) | bot-protection findings per shop, proxy support |
-| [DATA_MODEL](DATA_MODEL.md) | SQLAlchemy models and relationships |
-| [PRICING](PRICING.md) | suggested-price algorithm, market analysis |
-| [STATUS](STATUS.md) | coverage per area/tier, live test results, known limits |
+**Start here**: functional overview in [FUNCTIONAL](FUNCTIONAL.md), system design
+in [ARCHITECTURE](ARCHITECTURE.md), running it in [INFRASTRUCTURE](INFRASTRUCTURE.md),
+the look and feel in [DESIGN](DESIGN.md); Italian users: [GUIDA](GUIDA.md).
+
+| Doc | Area | Contents |
+|-----|------|----------|
+| [FUNCTIONAL](FUNCTIONAL.md) | functional | purpose, actors, features with acceptance criteria, business rules, edge cases |
+| [GUIDA](GUIDA.md) | functional | **user and operator guide** (Italian): using the site, installing, `.env`, maintenance, troubleshooting |
+| [ARCHITECTURE](ARCHITECTURE.md) | technical | context and sequence diagrams, layers, module map, data flow, concurrency, caching, errors, extension points |
+| [SEARCH](SEARCH.md) | technical | query translation, relevance filter, accessories, relevance score, discounts and deals, sorting |
+| [SCRAPERS](SCRAPERS.md) | technical | route tiers, scraper classes, fields returned, adding or fixing a shop |
+| [API](API.md) | technical | REST endpoints, SSE events, contact, parameters, responses |
+| [CONFIGURATION](CONFIGURATION.md) | technical | dataset, store overrides and their keys, every `.env` setting |
+| [DATA_MODEL](DATA_MODEL.md) · [PRICING](PRICING.md) | technical | database models; suggested price |
+| [INFRASTRUCTURE](INFRASTRUCTURE.md) | infrastructure | sizing, Docker, VM/systemd, reverse proxy for SSE, security checklist, scaling, observability, jobs, maintenance, backups |
+| [SECURITY](SECURITY.md) | infrastructure | secrets, endpoint exposure, injection, privacy, conduct toward shops |
+| [ANTIBOT_PROXY](ANTIBOT_PROXY.md) | infrastructure | protections per shop, proxy support |
+| [TESTING](TESTING.md) | quality | offline suite, self-checks, live test, UI and container checks |
+| [STATUS](STATUS.md) | quality | coverage, live results, known limits |
+| [DESIGN](DESIGN.md) | design | principles, identity, colour tokens and contrast, type, motion, components, layout, states, accessibility, localisation, performance budget |
+| [FRONTEND](FRONTEND.md) | design / technical | how the page is built: files, lifecycle, contact, languages, demo mode |
 
 ## TL;DR
 
@@ -36,11 +44,11 @@ FastAPI service.
 ## Quick start
 
 ```bash
+cp .env.example .env && docker compose up -d --build      # Docker
+# or
 python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-playwright install chromium
-cp .env.example .env
-python main.py
+pip install -r requirements.txt && playwright install chromium && patchright install chromium
+cp .env.example .env && python main.py
 ```
 
 ## Refresh the store routes
