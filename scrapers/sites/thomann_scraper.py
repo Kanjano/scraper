@@ -37,9 +37,16 @@ class ThomannScraper(GenericScraper):
             for a in soup.select("div.fx-product-list-entry a.product__content")
         ]
 
-        # Product photos, keyed by the same product id the GA4 items carry.
-        images = {}
+        # Product photos and card feature bullets, keyed by the same product id
+        # the GA4 items carry. The GA4 name is abbreviated ("Les Paul 57
+        # Goldtop ULA"); the bullets hold the words shoppers search for
+        # ("Modello Murphy Lab", "Custom Shop"), so relevance matches on them too.
+        images, keywords = {}, {}
         for card in soup.select("div.fx-product-list-entry[data-product-id]"):
+            title = card.select_one("div.product__title")
+            if title:
+                title.decompose()
+            keywords[card["data-product-id"]] = " ".join(card.get_text(" ").split())
             src = next((s.get("data-srcset") for s in card.select("source[data-srcset]")
                         if (s.get("data-srcset") or "").split()[0].endswith(".jpg")), None)
             if src:
@@ -68,6 +75,7 @@ class ThomannScraper(GenericScraper):
                     "url": urljoin(self.config["url"], href) if href else None,
                     "rating": None,
                     "image": images.get(item_id),
+                    "keywords": keywords.get(item_id),
                 }
             )
             if len(records) >= limit:

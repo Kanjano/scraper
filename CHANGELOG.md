@@ -12,6 +12,12 @@
   searches (count, duration, results), contact form outcomes.
 - `python -m scripts.send_test_mail` checks the contact-form SMTP settings.
 
+### Fixed
+- Thomann: offers with abbreviated names ("Les Paul 57 Goldtop ULA") were
+  discarded by the relevance filter for queries like "gibson les paul murphy
+  lab". The product card's feature bullets ("Modello Murphy Lab") now count
+  as match text, when the name itself matches part of the query.
+
 ## 0.2.0 — 2026-09-28 — INSTRINDER
 
 ### Added

@@ -179,3 +179,26 @@ def test_doofinder_maps_results(monkeypatch):
     [rec] = s.search("fender")
     assert rec["price"] == 149.0 and rec["currency"] == "GBP"
     assert rec["url"] == "https://www.gear4music.com/Guitar/Fender-Redondo/79E1"
+
+
+def test_thomann_card_bullets_let_abbreviated_names_match(monkeypatch):
+    from scrapers.relevance import filter_relevant
+    from scrapers.sites.thomann_scraper import ThomannScraper
+
+    item = {"item_id": "549927", "item_name": "Les Paul 57 Goldtop ULA",
+            "item_brand": "Gibson", "price": 4499, "currency": "EUR"}
+    html = f"""
+    <div class="fx-product-list-entry" data-product-id="549927">
+      <a class="product__content" href="gibson_les_paul_57_goldtop_ula.htm">
+        <div class="product__title"><span class="title__manufacturer">Gibson</span>
+          <span class="title__name">Les Paul 57 Goldtop ULA</span></div>
+        <ul><li>Modello Murphy Lab</li><li>Custom Shop</li></ul>
+      </a>
+    </div>
+    <script>var x = {{"ecommerceEventItem":{json.dumps(item)}}};</script>
+    """
+    s = ThomannScraper(_cfg("thomann", rate_limit={"requests_per_minute": 1000}))
+    monkeypatch.setattr(s, "respectful_request", lambda *a, **k: FakeResponse(text=html))
+    [rec] = s.search("gibson les paul murphy lab")
+    assert rec["keywords"] == "Modello Murphy Lab Custom Shop"
+    assert filter_relevant([rec], "gibson les paul murphy lab") == [rec]

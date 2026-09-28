@@ -103,10 +103,28 @@ def _haystack(offer: dict) -> str:
     return _norm(f"{offer.get('brand') or ''} {offer.get('name') or ''}")
 
 
-def matches(offer: dict, terms: list[str]) -> bool:
+def _missing(offer: dict, terms: list[str]) -> tuple[list[str], list[str]]:
+    """The offer's name/brand words and the query terms they do not cover.
+
+    Shop-supplied ``keywords`` (Thomann's card bullets: "Modello Murphy Lab"
+    for "Les Paul 57 Goldtop ULA") may cover the rest, literally, but only when
+    the name itself matches a term: brand + "Strat" in a pickguard's bullets
+    must not pass for "fender stratocaster".
+    """
     haystack = _haystack(offer)
     words = _WORD.findall(haystack)
-    return all(_term_matches(t, words, haystack) for t in terms)
+    missing = [t for t in terms if not _term_matches(t, words, haystack)]
+    extra = _norm(offer.get("keywords") or "")
+    if missing and extra:
+        name = _words(offer.get("name") or "")
+        if any(_term_matches(t, name, " ".join(name)) for t in terms):
+            more = _WORD.findall(extra)
+            missing = [t for t in missing if not _term_matches(t, more, extra)]
+    return words, missing
+
+
+def matches(offer: dict, terms: list[str]) -> bool:
+    return not _missing(offer, terms)[1]
 
 
 # ponytail: measured on it/en/de/fr/ja word pairs with MiniLM — translations
@@ -157,9 +175,7 @@ def filter_relevant(offers: list[dict], query: str) -> list[dict]:
         return list(offers)
     kept, pending = [], []
     for o in offers:
-        haystack = _haystack(o)
-        words = _WORD.findall(haystack)
-        missing = [t for t in terms if not _term_matches(t, words, haystack)]
+        words, missing = _missing(o, terms)
         if not missing:
             kept.append(o)
         else:
@@ -284,6 +300,13 @@ if __name__ == "__main__":
     assert not guitar["is_accessory"] and not neck["is_accessory"] and pickups["is_accessory"]
     assert not matches({"name": "Slate Digital Custom Series Bundle"}, t)
     assert not matches({"name": "Fender Telecaster Custom Shop"}, t)
+    ml = {"name": "Les Paul 57 Goldtop ULA", "brand": "Gibson"}
+    assert not matches(ml, query_terms("gibson les paul murphy lab"))
+    assert matches({**ml, "keywords": "Modello Murphy Lab Custom Shop"},
+                   query_terms("gibson les paul murphy lab"))
+    assert not matches({"name": "Pre-Wired ST Pickg.", "brand": "Fender",
+                        "keywords": "Battipenna Vintage Noiseless Strat"},
+                       query_terms("fender stratocaster"))
     assert matches({"name": "Fender Stratocaster"}, query_terms("fender strat"))
     assert matches({"name": "フェンダー ストラトキャスター"}, query_terms("ストラト"))
     flag_accessories([guitar, pickups], query_terms("fender stratocaster pickup"), key="p")
