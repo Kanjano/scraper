@@ -1,0 +1,4882 @@
+{
+  "thomann": {
+    "id": "thomann",
+    "name": "Thomann",
+    "url": "https://www.thomann.de",
+    "area": "europe",
+    "home_status": null,
+    "final_url": null,
+    "platform": "custom",
+    "search_url": "https://www.thomann.de/it/search_dir.html?sw={query}",
+    "scraper_type": "requests",
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "manual",
+    "blocked_reason": null,
+    "attempts": [],
+    "checked_at": "2026-09-26T13:18:29Z"
+  },
+  "memphis-drum-shop": {
+    "id": "memphis-drum-shop",
+    "name": "Memphis Drum Shop",
+    "url": "https://www.memphisdrumshop.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://memphisdrumshop.com/",
+    "platform": "shopify",
+    "search_url": "https://memphisdrumshop.com/products.json?limit=250",
+    "scraper_type": "shopify",
+    "data_quality": "structured",
+    "products_found": 250,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://memphisdrumshop.com/products.json?limit=250",
+        "http": 200,
+        "products": 250,
+        "quality": "structured"
+      }
+    ],
+    "checked_at": "2026-09-26T13:19:47Z",
+    "search_status": 200
+  },
+  "carter-vintage-guitars": {
+    "id": "carter-vintage-guitars",
+    "name": "Carter Vintage Guitars",
+    "url": "https://www.cartervintage.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://cartervintage.com/",
+    "platform": "wordpress",
+    "search_url": "https://cartervintage.com/?s={query}&post_type=product",
+    "scraper_type": "structured",
+    "data_quality": "heuristic",
+    "products_found": 40,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://cartervintage.com/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://cartervintage.com/wp-json/wc/store/v1/products?search=fender&per_page=24",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://cartervintage.com/search?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://cartervintage.com/catalogsearch/result/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://cartervintage.com/?s=fender&post_type=product",
+        "http": 200,
+        "products": 40,
+        "quality": "heuristic"
+      }
+    ],
+    "checked_at": "2026-09-26T13:19:42Z",
+    "search_status": 200
+  },
+  "guitar-center": {
+    "id": "guitar-center",
+    "name": "Guitar Center",
+    "url": "https://www.guitarcenter.com",
+    "area": "usa",
+    "home_status": 403,
+    "final_url": "https://www.guitarcenter.com/",
+    "platform": "custom",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "blocked",
+    "blocked_reason": "anti-bot or forbidden (HTTP 403)",
+    "attempts": [],
+    "checked_at": "2026-09-26T13:47:50Z"
+  },
+  "klangfarbe": {
+    "id": "klangfarbe",
+    "name": "Klangfarbe",
+    "url": "https://www.klangfarbe.com",
+    "area": "europe",
+    "home_status": 200,
+    "final_url": "https://www.klangfarbe.com/",
+    "platform": "custom",
+    "search_url": "https://www.klangfarbe.com/catalogsearch/result/?q={query}",
+    "scraper_type": "structured",
+    "data_quality": "heuristic",
+    "products_found": 32,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.klangfarbe.com/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.klangfarbe.com/wp-json/wc/store/v1/products?search=fender&per_page=24",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.klangfarbe.com/search?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.klangfarbe.com/catalogsearch/result/?q=fender",
+        "http": 200,
+        "products": 32,
+        "quality": "heuristic"
+      }
+    ],
+    "checked_at": "2026-09-26T13:18:29Z",
+    "search_status": 200
+  },
+  "music-store-professional": {
+    "id": "music-store-professional",
+    "name": "Music Store Professional",
+    "url": "https://www.musicstore.de",
+    "area": "europe",
+    "home_status": 403,
+    "final_url": "https://www.musicstore.de/",
+    "platform": "custom",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "blocked",
+    "blocked_reason": "anti-bot or forbidden (HTTP 403)",
+    "attempts": [],
+    "checked_at": "2026-09-26T13:47:26Z"
+  },
+  "woodbrass": {
+    "id": "woodbrass",
+    "name": "Woodbrass",
+    "url": "https://www.woodbrass.com",
+    "area": "europe",
+    "home_status": 200,
+    "final_url": "https://woodbrass.com/",
+    "platform": "shopify",
+    "search_url": "https://woodbrass.com/products.json?limit=250",
+    "scraper_type": "shopify",
+    "data_quality": "structured",
+    "products_found": 250,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://woodbrass.com/products.json?limit=250",
+        "http": 200,
+        "products": 250,
+        "quality": "structured"
+      }
+    ],
+    "checked_at": "2026-09-26T13:18:29Z",
+    "search_status": 200
+  },
+  "custys-music": {
+    "id": "custys-music",
+    "name": "Custy's Music",
+    "url": "https://custysmusic.com",
+    "area": "europe",
+    "home_status": 200,
+    "final_url": "https://custysmusic.com/",
+    "platform": "shopify",
+    "search_url": "https://custysmusic.com/products.json?limit=250",
+    "scraper_type": "shopify",
+    "data_quality": "structured",
+    "products_found": 250,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://custysmusic.com/products.json?limit=250",
+        "http": 200,
+        "products": 250,
+        "quality": "structured"
+      }
+    ],
+    "checked_at": "2026-09-26T13:18:33Z",
+    "search_status": 200
+  },
+  "strumenti-musicali-net": {
+    "id": "strumenti-musicali-net",
+    "name": "Strumenti Musicali .net",
+    "url": "https://www.strumentimusicali.net",
+    "area": "europe",
+    "home_status": 403,
+    "final_url": "https://www.strumentimusicali.net/",
+    "platform": "custom",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "blocked",
+    "blocked_reason": "anti-bot or forbidden (HTTP 403)",
+    "attempts": [],
+    "checked_at": "2026-09-26T13:47:26Z"
+  },
+  "guitarpoint": {
+    "id": "guitarpoint",
+    "name": "GuitarPoint",
+    "url": "https://guitarpoint.de",
+    "area": "europe",
+    "home_status": 200,
+    "final_url": "https://guitarpoint.de/en/",
+    "platform": "woocommerce",
+    "search_url": "https://guitarpoint.de/wp-json/wc/store/v1/products?search={query}&per_page=24",
+    "scraper_type": "woocommerce",
+    "data_quality": "structured",
+    "products_found": 24,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://guitarpoint.de/wp-json/wc/store/v1/products?search=fender&per_page=24",
+        "http": 200,
+        "products": 24,
+        "quality": "structured"
+      }
+    ],
+    "checked_at": "2026-09-26T13:18:29Z",
+    "search_status": 200
+  },
+  "andertons-music-co": {
+    "id": "andertons-music-co",
+    "name": "Andertons Music Co.",
+    "url": "https://www.andertons.co.uk",
+    "area": "europe",
+    "home_status": null,
+    "final_url": null,
+    "platform": "custom",
+    "search_url": "https://www.andertons.co.uk/search?q={query}",
+    "scraper_type": "playwright",
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "manual",
+    "blocked_reason": null,
+    "attempts": [],
+    "checked_at": "2026-09-26T13:18:34Z"
+  },
+  "gear4music": {
+    "id": "gear4music",
+    "name": "Gear4music",
+    "url": "https://www.gear4music.com",
+    "area": "europe",
+    "home_status": null,
+    "final_url": null,
+    "platform": "custom",
+    "search_url": "https://www.gear4music.com/search?search={query}",
+    "scraper_type": "playwright",
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "manual",
+    "blocked_reason": null,
+    "attempts": [],
+    "checked_at": "2026-09-26T13:32:20Z"
+  },
+  "musikhaus-kirstein": {
+    "id": "musikhaus-kirstein",
+    "name": "Musikhaus Kirstein",
+    "url": "https://www.kirstein.de",
+    "area": "europe",
+    "home_status": 200,
+    "final_url": "https://www.kirstein.de/",
+    "platform": "custom",
+    "search_url": "https://www.kirstein.de/?query={query}&cl=search_result",
+    "scraper_type": "structured",
+    "data_quality": "heuristic",
+    "products_found": 8,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.kirstein.de/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.kirstein.de/wp-json/wc/store/v1/products?search=fender&per_page=24",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.kirstein.de/?query=fender&cl=search_result",
+        "http": 200,
+        "products": 8,
+        "quality": "heuristic"
+      }
+    ],
+    "checked_at": "2026-09-26T13:18:29Z",
+    "search_status": 200
+  },
+  "stars-music": {
+    "id": "stars-music",
+    "name": "Star's Music",
+    "url": "https://www.stars-music.fr",
+    "area": "europe",
+    "home_status": 200,
+    "final_url": "https://www.stars-music.fr/",
+    "platform": "custom",
+    "search_url": "https://www.stars-music.fr/?s={query}&post_type=product",
+    "scraper_type": "structured",
+    "data_quality": "heuristic",
+    "products_found": 22,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.stars-music.fr/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.stars-music.fr/wp-json/wc/store/v1/products?search=fender&per_page=24",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.stars-music.fr/search?q=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.stars-music.fr/catalogsearch/result/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.stars-music.fr/?s=fender&post_type=product",
+        "http": 200,
+        "products": 22,
+        "quality": "heuristic"
+      }
+    ],
+    "checked_at": "2026-09-26T13:18:29Z",
+    "search_status": 200
+  },
+  "drum-tec": {
+    "id": "drum-tec",
+    "name": "Drum-Tec",
+    "url": "https://www.drum-tec.de",
+    "area": "europe",
+    "home_status": 200,
+    "final_url": "https://www.drum-tec.de/",
+    "platform": "shopware",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "no_search_results",
+    "blocked_reason": "no product data found on any known search route",
+    "attempts": [
+      {
+        "url": "https://www.drum-tec.de/products.json?limit=250",
+        "http": 410,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.drum-tec.de/wp-json/wc/store/v1/products?per_page=5",
+        "http": 410,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.drum-tec.de/?rest_route=/wc/store/v1/products&per_page=5",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.drum-tec.de/search?sSearch=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.drum-tec.de/search?q=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.drum-tec.de/search?search=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.drum-tec.de/catalogsearch/result/?q=fender",
+        "http": 410,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.drum-tec.de/?s=fender&post_type=product",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.drum-tec.de/search.php?search_query=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.drum-tec.de/search/?q=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      }
+    ],
+    "checked_at": "2026-09-26T13:47:26Z",
+    "search_status": 200
+  },
+  "bax-music": {
+    "id": "bax-music",
+    "name": "Bax Music",
+    "url": "https://www.bax-shop.nl",
+    "area": "europe",
+    "home_status": 406,
+    "final_url": "https://www.bax-shop.nl/",
+    "platform": "custom",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "no_search_results",
+    "blocked_reason": "no product data found on any known search route",
+    "attempts": [
+      {
+        "url": "https://www.bax-shop.nl/products.json?limit=250",
+        "http": 406,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.bax-shop.nl/wp-json/wc/store/v1/products?per_page=5",
+        "http": 406,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.bax-shop.nl/?rest_route=/wc/store/v1/products&per_page=5",
+        "http": 406,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.bax-shop.nl/search?q=fender",
+        "http": 406,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.bax-shop.nl/search?search=fender",
+        "http": 406,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.bax-shop.nl/catalogsearch/result/?q=fender",
+        "http": 406,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.bax-shop.nl/?s=fender&post_type=product",
+        "http": 406,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.bax-shop.nl/search.php?search_query=fender",
+        "http": 406,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.bax-shop.nl/search/?q=fender",
+        "http": 406,
+        "products": 0,
+        "quality": null
+      }
+    ],
+    "checked_at": "2026-09-26T13:47:26Z",
+    "search_status": 406
+  },
+  "the-early-music-shop": {
+    "id": "the-early-music-shop",
+    "name": "The Early Music Shop",
+    "url": "https://earlymusicshop.com",
+    "area": "europe",
+    "home_status": 200,
+    "final_url": "https://earlymusicshop.com/",
+    "platform": "shopify",
+    "search_url": "https://earlymusicshop.com/products.json?limit=250",
+    "scraper_type": "shopify",
+    "data_quality": "structured",
+    "products_found": 250,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://earlymusicshop.com/products.json?limit=250",
+        "http": 200,
+        "products": 250,
+        "quality": "structured"
+      }
+    ],
+    "checked_at": "2026-09-26T13:18:35Z",
+    "search_status": 200
+  },
+  "schneidersladen": {
+    "id": "schneidersladen",
+    "name": "Schneidersladen",
+    "url": "https://schneidersladen.de",
+    "area": "europe",
+    "home_status": 200,
+    "final_url": "https://schneidersladen.de/",
+    "platform": "shopware",
+    "search_url": "https://schneidersladen.de/search?search={query}",
+    "scraper_type": "structured",
+    "data_quality": "heuristic",
+    "products_found": 24,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://schneidersladen.de/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://schneidersladen.de/wp-json/wc/store/v1/products?search=fender&per_page=24",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://schneidersladen.de/search?search=fender",
+        "http": 200,
+        "products": 24,
+        "quality": "heuristic"
+      }
+    ],
+    "checked_at": "2026-09-26T13:18:29Z",
+    "search_status": 200
+  },
+  "musik-produktiv": {
+    "id": "musik-produktiv",
+    "name": "Musik Produktiv",
+    "url": "https://www.musik-produktiv.de",
+    "area": "europe",
+    "home_status": 200,
+    "final_url": "https://www.musik-produktiv.de/",
+    "platform": "custom",
+    "search_url": "https://www.musik-produktiv.de/search?q={query}",
+    "scraper_type": "structured",
+    "data_quality": "heuristic",
+    "products_found": 20,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.musik-produktiv.de/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.musik-produktiv.de/wp-json/wc/store/v1/products?search=fender&per_page=24",
+        "http": 403,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.musik-produktiv.de/search?search=fender",
+        "http": 403,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.musik-produktiv.de/search?q=fender",
+        "http": 200,
+        "products": 20,
+        "quality": "heuristic"
+      }
+    ],
+    "checked_at": "2026-09-26T13:18:29Z",
+    "search_status": 200
+  },
+  "mansons-guitar-shop": {
+    "id": "mansons-guitar-shop",
+    "name": "Mansons Guitar Shop",
+    "url": "https://www.mansons.co.uk",
+    "area": "europe",
+    "home_status": 200,
+    "final_url": "https://www.vpwsys.net/help-and-support/domain-not-in-use/",
+    "platform": "custom",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "no_search_results",
+    "blocked_reason": "no product data found on any known search route",
+    "attempts": [
+      {
+        "url": "https://www.mansons.co.uk",
+        "result": "ConnectionError"
+      },
+      {
+        "url": "https://mansons.co.uk",
+        "result": "ConnectionError"
+      },
+      {
+        "url": "https://www.vpwsys.net/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.vpwsys.net/wp-json/wc/store/v1/products?per_page=5",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.vpwsys.net/?rest_route=/wc/store/v1/products&per_page=5",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.vpwsys.net/search/?zoom_query=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.vpwsys.net/search?q=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.vpwsys.net/search?search=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.vpwsys.net/catalogsearch/result/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.vpwsys.net/?s=fender&post_type=product",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.vpwsys.net/search.php?search_query=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.vpwsys.net/search/?q=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      }
+    ],
+    "checked_at": "2026-09-26T13:47:26Z",
+    "search_status": 200
+  },
+  "j-and-a-beare": {
+    "id": "j-and-a-beare",
+    "name": "J & A Beare",
+    "url": "https://www.beares.com",
+    "area": "europe",
+    "home_status": 200,
+    "final_url": "https://www.beares.com/",
+    "platform": "custom",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "no_search_results",
+    "blocked_reason": "no product data found on any known search route",
+    "attempts": [
+      {
+        "url": "https://www.beares.com/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.beares.com/wp-json/wc/store/v1/products?per_page=5",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.beares.com/?rest_route=/wc/store/v1/products&per_page=5",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.beares.com/search?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.beares.com/search?search=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.beares.com/catalogsearch/result/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.beares.com/?s=fender&post_type=product",
+        "http": 500,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.beares.com/search.php?search_query=fender",
+        "http": 500,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.beares.com/search/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      }
+    ],
+    "checked_at": "2026-09-26T13:47:26Z",
+    "search_status": 404
+  },
+  "session-music": {
+    "id": "session-music",
+    "name": "Session Music",
+    "url": "https://www.session.de",
+    "area": "europe",
+    "home_status": 200,
+    "final_url": "https://www.session.de/",
+    "platform": "custom",
+    "search_url": "https://www.session.de/search?q={query}",
+    "scraper_type": "structured",
+    "data_quality": "heuristic",
+    "products_found": 20,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.session.de/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.session.de/wp-json/wc/store/v1/products?search=fender&per_page=24",
+        "http": 403,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.session.de/search?search=fender",
+        "http": 403,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.session.de/search?q=fender",
+        "http": 200,
+        "products": 20,
+        "quality": "heuristic"
+      }
+    ],
+    "checked_at": "2026-09-26T13:18:31Z",
+    "search_status": 200
+  },
+  "scan-pro-audio": {
+    "id": "scan-pro-audio",
+    "name": "Scan Pro Audio",
+    "url": "https://www.scan.co.uk",
+    "area": "europe",
+    "home_status": 403,
+    "final_url": "https://www.scan.co.uk/",
+    "platform": "custom",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "blocked",
+    "blocked_reason": "anti-bot or forbidden (HTTP 403)",
+    "attempts": [],
+    "checked_at": "2026-09-26T13:47:26Z"
+  },
+  "wunjo-guitars": {
+    "id": "wunjo-guitars",
+    "name": "Wunjo Guitars",
+    "url": "https://www.wunjoguitars.com",
+    "area": "europe",
+    "home_status": 200,
+    "final_url": "https://www.wunjoguitars.com/",
+    "platform": "shopify",
+    "search_url": "https://www.wunjoguitars.com/products.json?limit=250",
+    "scraper_type": "shopify",
+    "data_quality": "structured",
+    "products_found": 250,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.wunjoguitars.com/products.json?limit=250",
+        "http": 200,
+        "products": 250,
+        "quality": "structured"
+      }
+    ],
+    "checked_at": "2026-09-26T13:18:44Z",
+    "search_status": 200
+  },
+  "muziker": {
+    "id": "muziker",
+    "name": "Muziker",
+    "url": "https://www.muziker.sk",
+    "area": "europe",
+    "home_status": 429,
+    "final_url": "https://www.muziker.sk/",
+    "platform": "custom",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "blocked",
+    "blocked_reason": "anti-bot or forbidden (HTTP 429)",
+    "attempts": [],
+    "checked_at": "2026-09-26T13:47:27Z"
+  },
+  "mcneela-music": {
+    "id": "mcneela-music",
+    "name": "McNeela Music",
+    "url": "https://www.mcneelamusic.com",
+    "area": "europe",
+    "home_status": null,
+    "final_url": null,
+    "platform": "bigcommerce",
+    "search_url": "https://mcneelamusic.com/search.php?search_query={query}",
+    "scraper_type": "playwright",
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "manual",
+    "blocked_reason": null,
+    "attempts": [],
+    "checked_at": "2026-09-26T13:47:26Z"
+  },
+  "guitar-guitar": {
+    "id": "guitar-guitar",
+    "name": "Guitar Guitar",
+    "url": "https://www.guitarguitar.co.uk",
+    "area": "europe",
+    "home_status": 200,
+    "final_url": "https://www.guitarguitar.co.uk/",
+    "platform": "custom",
+    "search_url": "https://www.guitarguitar.co.uk/?s={query}&post_type=product",
+    "scraper_type": "structured",
+    "data_quality": "heuristic",
+    "products_found": 1,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.guitarguitar.co.uk/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.guitarguitar.co.uk/wp-json/wc/store/v1/products?search=fender&per_page=24",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.guitarguitar.co.uk/search/?Query=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.guitarguitar.co.uk/search?q=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.guitarguitar.co.uk/catalogsearch/result/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.guitarguitar.co.uk/?s=fender&post_type=product",
+        "http": 200,
+        "products": 1,
+        "quality": "heuristic"
+      }
+    ],
+    "checked_at": "2026-09-26T13:18:37Z",
+    "search_status": 200
+  },
+  "tarisio": {
+    "id": "tarisio",
+    "name": "Tarisio",
+    "url": "https://tarisio.com",
+    "area": "europe",
+    "home_status": 200,
+    "final_url": "https://tarisio.com/",
+    "platform": "custom",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "no_search_results",
+    "blocked_reason": "no product data found on any known search route",
+    "attempts": [
+      {
+        "url": "https://tarisio.com/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://tarisio.com/wp-json/wc/store/v1/products?per_page=5",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://tarisio.com/?rest_route=/wc/store/v1/products&per_page=5",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://tarisio.com/search/?q=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://tarisio.com/search?q=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://tarisio.com/search?search=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://tarisio.com/catalogsearch/result/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://tarisio.com/?s=fender&post_type=product",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://tarisio.com/search.php?search_query=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      }
+    ],
+    "checked_at": "2026-09-26T13:47:26Z",
+    "search_status": 404
+  },
+  "florian-leonhard-fine-violins": {
+    "id": "florian-leonhard-fine-violins",
+    "name": "Florian Leonhard Fine Violins",
+    "url": "https://www.florianleonhard.com",
+    "area": "europe",
+    "home_status": 200,
+    "final_url": "https://www.florianleonhard.com/",
+    "platform": "woocommerce",
+    "search_url": "https://www.florianleonhard.com/wp-json/wc/store/v1/products?search={query}&per_page=24",
+    "scraper_type": "woocommerce",
+    "data_quality": "structured",
+    "products_found": 5,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.florianleonhard.com/wp-json/wc/store/v1/products?per_page=5",
+        "http": 200,
+        "products": 5,
+        "quality": "structured"
+      }
+    ],
+    "checked_at": "2026-09-26T13:35:57Z",
+    "search_status": 200
+  },
+  "howarth-of-london": {
+    "id": "howarth-of-london",
+    "name": "Howarth of London",
+    "url": "https://www.howarthlondon.com",
+    "area": "europe",
+    "home_status": 200,
+    "final_url": "https://www.howarthlondon.com/",
+    "platform": "woocommerce",
+    "search_url": "https://www.howarthlondon.com/wp-json/wc/store/v1/products?search={query}&per_page=24",
+    "scraper_type": "woocommerce",
+    "data_quality": "structured",
+    "products_found": 5,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.howarthlondon.com/wp-json/wc/store/v1/products?per_page=5",
+        "http": 200,
+        "products": 5,
+        "quality": "structured"
+      }
+    ],
+    "checked_at": "2026-09-26T13:35:57Z",
+    "search_status": 200
+  },
+  "casa-parramon": {
+    "id": "casa-parramon",
+    "name": "Casa Parramon",
+    "url": "https://www.casaparramon.com",
+    "area": "europe",
+    "home_status": 200,
+    "final_url": "https://www.casaparramon.com/ca/",
+    "platform": "custom",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "no_search_results",
+    "blocked_reason": "no product data found on any known search route",
+    "attempts": [
+      {
+        "url": "https://www.casaparramon.com/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.casaparramon.com/wp-json/wc/store/v1/products?per_page=5",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.casaparramon.com/?rest_route=/wc/store/v1/products&per_page=5",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.casaparramon.com/search?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.casaparramon.com/search?search=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.casaparramon.com/catalogsearch/result/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.casaparramon.com/?s=fender&post_type=product",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.casaparramon.com/search.php?search_query=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.casaparramon.com/search/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      }
+    ],
+    "checked_at": "2026-09-26T13:47:36Z",
+    "search_status": 404
+  },
+  "guitar-salon-international": {
+    "id": "guitar-salon-international",
+    "name": "Guitar Salon International",
+    "url": "https://www.guitarsalon.com",
+    "area": "usa",
+    "home_status": 403,
+    "final_url": "https://www.guitarsalon.com/",
+    "platform": "custom",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "blocked",
+    "blocked_reason": "anti-bot or forbidden (HTTP 403)",
+    "attempts": [],
+    "checked_at": "2026-09-26T13:47:51Z"
+  },
+  "ingles-and-hayday": {
+    "id": "ingles-and-hayday",
+    "name": "Ingles & Hayday",
+    "url": "https://ingleshayday.com",
+    "area": "europe",
+    "home_status": 200,
+    "final_url": "https://ingleshayday.com/",
+    "platform": "wordpress",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "no_search_results",
+    "blocked_reason": "no product data found on any known search route",
+    "attempts": [
+      {
+        "url": "https://ingleshayday.com/?rest_route=/wc/store/v1/products&per_page=5",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://ingleshayday.com/wp-json/wc/store/v1/products?per_page=5",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://ingleshayday.com/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://ingleshayday.com/search?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://ingleshayday.com/search?search=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://ingleshayday.com/catalogsearch/result/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://ingleshayday.com/?s=fender&post_type=product",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://ingleshayday.com/search.php?search_query=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://ingleshayday.com/search/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      }
+    ],
+    "checked_at": "2026-09-26T13:47:26Z",
+    "search_status": 404
+  },
+  "perfect-circuit": {
+    "id": "perfect-circuit",
+    "name": "Perfect Circuit",
+    "url": "https://www.perfectcircuit.com",
+    "area": "usa",
+    "home_status": 403,
+    "final_url": "https://www.perfectcircuit.com/",
+    "platform": "custom",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "blocked",
+    "blocked_reason": "anti-bot or forbidden (HTTP 403)",
+    "attempts": [],
+    "checked_at": "2026-09-26T13:47:51Z"
+  },
+  "gryphon-stringed-instruments": {
+    "id": "gryphon-stringed-instruments",
+    "name": "Gryphon Stringed Instruments",
+    "url": "https://www.gryphonstrings.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://www.gryphonstrings.com/",
+    "platform": "shopify",
+    "search_url": "https://www.gryphonstrings.com/products.json?limit=250",
+    "scraper_type": "shopify",
+    "data_quality": "structured",
+    "products_found": 250,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.gryphonstrings.com/products.json?limit=250",
+        "http": 200,
+        "products": 250,
+        "quality": "structured"
+      }
+    ],
+    "checked_at": "2026-09-26T13:19:09Z",
+    "search_status": 200
+  },
+  "mccabes-guitar-shop": {
+    "id": "mccabes-guitar-shop",
+    "name": "McCabe's Guitar Shop",
+    "url": "https://www.mccabes.com",
+    "area": "usa",
+    "home_status": 401,
+    "final_url": "https://www.mccabes.com/",
+    "platform": "custom",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "blocked",
+    "blocked_reason": "anti-bot or forbidden (HTTP 401)",
+    "attempts": [],
+    "checked_at": "2026-09-26T13:47:51Z"
+  },
+  "felipe-conde-conde-hermanos": {
+    "id": "felipe-conde-conde-hermanos",
+    "name": "Felipe Conde (Conde Hermanos)",
+    "url": "https://condehermanos.com",
+    "area": "europe",
+    "home_status": 200,
+    "final_url": "https://condehermanos.com/",
+    "platform": "wordpress",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "no_search_results",
+    "blocked_reason": "no product data found on any known search route",
+    "attempts": [
+      {
+        "url": "https://condehermanos.com/?rest_route=/wc/store/v1/products&per_page=5",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://condehermanos.com/wp-json/wc/store/v1/products?per_page=5",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://condehermanos.com/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://condehermanos.com/search?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://condehermanos.com/search?search=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://condehermanos.com/catalogsearch/result/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://condehermanos.com/?s=fender&post_type=product",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://condehermanos.com/search.php?search_query=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://condehermanos.com/search/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://condehermanos.com/?s=fender&post_type=product",
+        "result": "render:Error"
+      }
+    ],
+    "checked_at": "2026-09-26T13:47:27Z",
+    "search_status": 404
+  },
+  "manuel-contreras": {
+    "id": "manuel-contreras",
+    "name": "Manuel Contreras",
+    "url": "https://www.manuelcontreras.com",
+    "area": "europe",
+    "home_status": 200,
+    "final_url": "https://www.manuelcontreras.com/",
+    "platform": "woocommerce",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "no_search_results",
+    "blocked_reason": "no product data found on any known search route",
+    "attempts": [
+      {
+        "url": "https://www.manuelcontreras.com/?rest_route=/wc/store/v1/products&per_page=5",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.manuelcontreras.com/wp-json/wc/store/v1/products?per_page=5",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.manuelcontreras.com/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.manuelcontreras.com/search?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.manuelcontreras.com/search?search=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.manuelcontreras.com/catalogsearch/result/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.manuelcontreras.com/?s=fender&post_type=product",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.manuelcontreras.com/search.php?search_query=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.manuelcontreras.com/search/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      }
+    ],
+    "checked_at": "2026-09-26T13:47:48Z",
+    "search_status": 404
+  },
+  "truetone-music": {
+    "id": "truetone-music",
+    "name": "Truetone Music",
+    "url": "https://www.truetonemusic.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://www.truetonemusic.com/",
+    "platform": "shopify",
+    "search_url": "https://www.truetonemusic.com/products.json?limit=250",
+    "scraper_type": "shopify",
+    "data_quality": "structured",
+    "products_found": 250,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.truetonemusic.com/products.json?limit=250",
+        "http": 200,
+        "products": 250,
+        "quality": "structured"
+      }
+    ],
+    "checked_at": "2026-09-26T13:19:14Z",
+    "search_status": 200
+  },
+  "peach-guitars": {
+    "id": "peach-guitars",
+    "name": "Peach Guitars",
+    "url": "https://www.peachguitars.com",
+    "area": "europe",
+    "home_status": 200,
+    "final_url": "https://www.peachguitars.com/",
+    "platform": "custom",
+    "search_url": "https://www.peachguitars.com/search?q={query}",
+    "scraper_type": "structured",
+    "data_quality": "heuristic",
+    "products_found": 43,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.peachguitars.com/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.peachguitars.com/wp-json/wc/store/v1/products?search=fender&per_page=24",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.peachguitars.com/search.php?q=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.peachguitars.com/search?q=fender",
+        "http": 200,
+        "products": 43,
+        "quality": "heuristic"
+      }
+    ],
+    "checked_at": "2026-09-26T13:18:44Z",
+    "search_status": 200
+  },
+  "guitarras-conde-hermanos-atocha": {
+    "id": "guitarras-conde-hermanos-atocha",
+    "name": "Guitarras Conde Hermanos Atocha",
+    "url": "https://www.conde-atocha.com",
+    "area": "europe",
+    "home_status": 200,
+    "final_url": "https://www.conde-atocha.com/",
+    "platform": "woocommerce",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "no_search_results",
+    "blocked_reason": "no product data found on any known search route",
+    "attempts": [
+      {
+        "url": "https://www.conde-atocha.com/?rest_route=/wc/store/v1/products&per_page=5",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.conde-atocha.com/wp-json/wc/store/v1/products?per_page=5",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.conde-atocha.com/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.conde-atocha.com/search?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.conde-atocha.com/search?search=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.conde-atocha.com/catalogsearch/result/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.conde-atocha.com/?s=fender&post_type=product",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.conde-atocha.com/search.php?search_query=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.conde-atocha.com/search/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      }
+    ],
+    "checked_at": "2026-09-26T13:47:37Z",
+    "search_status": 404
+  },
+  "wildwood-guitars": {
+    "id": "wildwood-guitars",
+    "name": "Wildwood Guitars",
+    "url": "https://wildwoodguitars.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://wildwoodguitars.com/",
+    "platform": "shopify",
+    "search_url": "https://wildwoodguitars.com/products.json?limit=250",
+    "scraper_type": "shopify",
+    "data_quality": "structured",
+    "products_found": 250,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://wildwoodguitars.com/products.json?limit=250",
+        "http": 200,
+        "products": 250,
+        "quality": "structured"
+      }
+    ],
+    "checked_at": "2026-09-26T13:19:18Z",
+    "search_status": 200
+  },
+  "guitarreria-mariano-conde": {
+    "id": "guitarreria-mariano-conde",
+    "name": "Guitarrería Mariano Conde",
+    "url": "https://marianoconde.com",
+    "area": "europe",
+    "home_status": 200,
+    "final_url": "https://marianoconde.com/",
+    "platform": "woocommerce",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "no_search_results",
+    "blocked_reason": "no product data found on any known search route",
+    "attempts": [
+      {
+        "url": "https://marianoconde.com/?rest_route=/wc/store/v1/products&per_page=5",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://marianoconde.com/wp-json/wc/store/v1/products?per_page=5",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://marianoconde.com/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://marianoconde.com/search?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://marianoconde.com/search?search=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://marianoconde.com/catalogsearch/result/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://marianoconde.com/?s=fender&post_type=product",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://marianoconde.com/search.php?search_query=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://marianoconde.com/search/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      }
+    ],
+    "checked_at": "2026-09-26T13:47:48Z",
+    "search_status": 404
+  },
+  "atlanta-pro-percussion": {
+    "id": "atlanta-pro-percussion",
+    "name": "Atlanta Pro Percussion",
+    "url": "https://www.atlantapropercussion.com",
+    "area": "usa",
+    "home_status": null,
+    "final_url": null,
+    "platform": null,
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "unreachable",
+    "blocked_reason": "ConnectionError: HTTPConnectionPool(host='www.atlantapropercussion.com', port=80): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPConnection(host='www.atlantapropercussion.com', ",
+    "attempts": [
+      {
+        "url": "https://www.atlantapropercussion.com",
+        "result": "ConnectionError"
+      },
+      {
+        "url": "https://atlantapropercussion.com",
+        "result": "ConnectionError"
+      },
+      {
+        "url": "http://www.atlantapropercussion.com",
+        "result": "ConnectionError"
+      }
+    ],
+    "checked_at": "2026-09-26T13:47:52Z"
+  },
+  "hawaii-music-supply-the-ukulele-site": {
+    "id": "hawaii-music-supply-the-ukulele-site",
+    "name": "Hawaii Music Supply (The Ukulele Site)",
+    "url": "https://www.theukulelesite.com",
+    "area": "usa",
+    "home_status": 403,
+    "final_url": "https://www.theukulelesite.com/",
+    "platform": "custom",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "blocked",
+    "blocked_reason": "anti-bot or forbidden (HTTP 403)",
+    "attempts": [],
+    "checked_at": "2026-09-26T13:47:52Z"
+  },
+  "guitarras-ramirez": {
+    "id": "guitarras-ramirez",
+    "name": "Guitarras Ramírez",
+    "url": "https://guitarrasramirez.com",
+    "area": "europe",
+    "home_status": 200,
+    "final_url": "https://guitarrasramirez.com/es/",
+    "platform": "woocommerce",
+    "search_url": "https://guitarrasramirez.com/wp-json/wc/store/v1/products?search={query}&per_page=24",
+    "scraper_type": "woocommerce",
+    "data_quality": "structured",
+    "products_found": 5,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://guitarrasramirez.com/wp-json/wc/store/v1/products?per_page=5",
+        "http": 200,
+        "products": 5,
+        "quality": "structured"
+      }
+    ],
+    "checked_at": "2026-09-26T13:36:08Z",
+    "search_status": 200
+  },
+  "reverb": {
+    "id": "reverb",
+    "name": "Reverb",
+    "url": "https://reverb.com",
+    "area": "usa",
+    "home_status": null,
+    "final_url": null,
+    "platform": "api",
+    "search_url": "https://api.reverb.com/api/listings?query={query}",
+    "scraper_type": "api",
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "manual",
+    "blocked_reason": null,
+    "attempts": [],
+    "checked_at": "2026-09-26T13:19:20Z"
+  },
+  "sweetwater": {
+    "id": "sweetwater",
+    "name": "Sweetwater",
+    "url": "https://www.sweetwater.com",
+    "area": "usa",
+    "home_status": 403,
+    "final_url": "https://www.sweetwater.com/",
+    "platform": "custom",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "blocked",
+    "blocked_reason": "anti-bot or forbidden (HTTP 403)",
+    "attempts": [],
+    "checked_at": "2026-09-26T13:47:52Z"
+  },
+  "musicians-friend": {
+    "id": "musicians-friend",
+    "name": "Musician's Friend",
+    "url": "https://www.musiciansfriend.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://www.musiciansfriend.com/",
+    "platform": "custom",
+    "search_url": "https://www.musiciansfriend.com/search?Ntt={query}&typeAheadSuggestion=true&typeAheadRedirect=true&sB=r",
+    "scraper_type": "structured",
+    "data_quality": "heuristic",
+    "products_found": 1,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.musiciansfriend.com/products.json?limit=250",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.musiciansfriend.com/wp-json/wc/store/v1/products?search=fender&per_page=24",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.musiciansfriend.com/search?Ntt=fender&typeAheadSuggestion=true&typeAheadRedirect=true&sB=r",
+        "http": 200,
+        "products": 1,
+        "quality": "heuristic"
+      }
+    ],
+    "checked_at": "2026-09-26T13:32:54Z",
+    "search_status": 200
+  },
+  "normans-rare-guitars": {
+    "id": "normans-rare-guitars",
+    "name": "Norman's Rare Guitars",
+    "url": "https://www.normansrareguitars.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://normansrareguitars.com/",
+    "platform": "wordpress",
+    "search_url": "https://normansrareguitars.com/?s={query}&post_type=product",
+    "scraper_type": "playwright",
+    "data_quality": "heuristic",
+    "products_found": 40,
+    "robots_allows_search": true,
+    "status": "ok_rendered",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://normansrareguitars.com/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://normansrareguitars.com/wp-json/wc/store/v1/products?search=fender&per_page=24",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://normansrareguitars.com/search?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://normansrareguitars.com/catalogsearch/result/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://normansrareguitars.com/?s=fender&post_type=product",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://normansrareguitars.com/search.php?search_query=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://normansrareguitars.com/search/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      }
+    ],
+    "checked_at": "2026-09-26T13:19:06Z",
+    "search_status": 404
+  },
+  "chicago-music-exchange": {
+    "id": "chicago-music-exchange",
+    "name": "Chicago Music Exchange",
+    "url": "https://www.chicagomusicexchange.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://www.chicagomusicexchange.com/",
+    "platform": "shopify",
+    "search_url": "https://www.chicagomusicexchange.com/products.json?limit=250",
+    "scraper_type": "shopify",
+    "data_quality": "structured",
+    "products_found": 250,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.chicagomusicexchange.com/products.json?limit=250",
+        "http": 200,
+        "products": 250,
+        "quality": "structured"
+      }
+    ],
+    "checked_at": "2026-09-26T13:19:20Z",
+    "search_status": 200
+  },
+  "west-l-a-music": {
+    "id": "west-l-a-music",
+    "name": "West L.A. Music",
+    "url": "https://www.westlamusic.com",
+    "area": "usa",
+    "home_status": null,
+    "final_url": null,
+    "platform": null,
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "unreachable",
+    "blocked_reason": "ConnectionError: HTTPConnectionPool(host='www.westlamusic.com', port=80): Max retries exceeded with url: / (Caused by NewConnectionError(\"HTTPConnection(host='www.westlamusic.com', port=80): Failed to",
+    "attempts": [
+      {
+        "url": "https://www.westlamusic.com",
+        "result": "ConnectionError"
+      },
+      {
+        "url": "https://westlamusic.com",
+        "result": "ConnectionError"
+      },
+      {
+        "url": "http://www.westlamusic.com",
+        "result": "ConnectionError"
+      }
+    ],
+    "checked_at": "2026-09-26T13:47:52Z"
+  },
+  "willcutt-guitars": {
+    "id": "willcutt-guitars",
+    "name": "Willcutt Guitars",
+    "url": "https://www.willcuttguitars.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://willcuttguitars.com/",
+    "platform": "shopify",
+    "search_url": "https://willcuttguitars.com/products.json?limit=250",
+    "scraper_type": "shopify",
+    "data_quality": "structured",
+    "products_found": 250,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://willcuttguitars.com/products.json?limit=250",
+        "http": 200,
+        "products": 250,
+        "quality": "structured"
+      }
+    ],
+    "checked_at": "2026-09-26T13:19:21Z",
+    "search_status": 200
+  },
+  "chuck-levins-washington-music-center": {
+    "id": "chuck-levins-washington-music-center",
+    "name": "Chuck Levin's Washington Music Center",
+    "url": "https://www.chucklevins.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://chucklevins.com/",
+    "platform": "shopify",
+    "search_url": "https://chucklevins.com/products.json?limit=250",
+    "scraper_type": "shopify",
+    "data_quality": "structured",
+    "products_found": 250,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://chucklevins.com/products.json?limit=250",
+        "http": 200,
+        "products": 250,
+        "quality": "structured"
+      }
+    ],
+    "checked_at": "2026-09-26T13:19:22Z",
+    "search_status": 200
+  },
+  "osmun-music": {
+    "id": "osmun-music",
+    "name": "Osmun Music",
+    "url": "https://www.osmun.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://osmun.com/",
+    "platform": "shopify",
+    "search_url": "https://osmun.com/products.json?limit=250",
+    "scraper_type": "shopify",
+    "data_quality": "structured",
+    "products_found": 127,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://osmun.com/products.json?limit=250",
+        "http": 200,
+        "products": 127,
+        "quality": "structured"
+      }
+    ],
+    "checked_at": "2026-09-26T13:19:22Z",
+    "search_status": 200
+  },
+  "elderly-instruments": {
+    "id": "elderly-instruments",
+    "name": "Elderly Instruments",
+    "url": "https://www.elderly.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://www.elderly.com/",
+    "platform": "shopify",
+    "search_url": "https://www.elderly.com/products.json?limit=250",
+    "scraper_type": "shopify",
+    "data_quality": "structured",
+    "products_found": 250,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.elderly.com/products.json?limit=250",
+        "http": 200,
+        "products": 250,
+        "quality": "structured"
+      }
+    ],
+    "checked_at": "2026-09-26T13:19:24Z",
+    "search_status": 200
+  },
+  "willies-american-guitars": {
+    "id": "willies-american-guitars",
+    "name": "Willie's American Guitars",
+    "url": "https://www.williesguitars.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://www.williesguitars.com/",
+    "platform": "woocommerce",
+    "search_url": "https://www.williesguitars.com/wp-json/wc/store/v1/products?search={query}&per_page=24",
+    "scraper_type": "woocommerce",
+    "data_quality": "structured",
+    "products_found": 24,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.williesguitars.com/wp-json/wc/store/v1/products?search=fender&per_page=24",
+        "http": 200,
+        "products": 24,
+        "quality": "structured"
+      }
+    ],
+    "checked_at": "2026-09-26T13:19:24Z",
+    "search_status": 200
+  },
+  "professional-drum-shop": {
+    "id": "professional-drum-shop",
+    "name": "Professional Drum Shop",
+    "url": "https://www.prodrumshop.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://www.prodrumshop.com/",
+    "platform": "custom",
+    "search_url": "https://www.prodrumshop.com/search/?q={query}",
+    "scraper_type": "structured",
+    "data_quality": "heuristic",
+    "products_found": 1,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.prodrumshop.com/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.prodrumshop.com/wp-json/wc/store/v1/products?search=fender&per_page=24",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.prodrumshop.com/search/?q=fender",
+        "http": 200,
+        "products": 1,
+        "quality": "heuristic"
+      }
+    ],
+    "checked_at": "2026-09-26T13:19:13Z",
+    "search_status": 200
+  },
+  "musik-hug": {
+    "id": "musik-hug",
+    "name": "Musik Hug",
+    "url": "https://www.musikhug.ch",
+    "area": "europe",
+    "home_status": null,
+    "final_url": null,
+    "platform": null,
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "unreachable",
+    "blocked_reason": "ReadTimeout: HTTPSConnectionPool(host='www.musikhug.ch', port=443): Read timed out. (read timeout=25)",
+    "attempts": [
+      {
+        "url": "https://www.musikhug.ch",
+        "result": "ReadTimeout"
+      },
+      {
+        "url": "https://musikhug.ch",
+        "result": "ReadTimeout"
+      },
+      {
+        "url": "http://www.musikhug.ch",
+        "result": "ReadTimeout"
+      }
+    ],
+    "checked_at": "2026-09-26T13:47:49Z"
+  },
+  "drum-center-of-portsmouth": {
+    "id": "drum-center-of-portsmouth",
+    "name": "Drum Center of Portsmouth",
+    "url": "https://www.drumcenternh.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://drumcenternh.com/",
+    "platform": "shopify",
+    "search_url": "https://drumcenternh.com/products.json?limit=250",
+    "scraper_type": "shopify",
+    "data_quality": "structured",
+    "products_found": 250,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://drumcenternh.com/products.json?limit=250",
+        "http": 200,
+        "products": 250,
+        "quality": "structured"
+      }
+    ],
+    "checked_at": "2026-09-26T13:19:26Z",
+    "search_status": 200
+  },
+  "b-and-h-photo-video": {
+    "id": "b-and-h-photo-video",
+    "name": "B&H Photo Video",
+    "url": "https://www.bhphotovideo.com",
+    "area": "usa",
+    "home_status": 403,
+    "final_url": "https://www.bhphotovideo.com/",
+    "platform": "custom",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "blocked",
+    "blocked_reason": "anti-bot or forbidden (HTTP 403)",
+    "attempts": [],
+    "checked_at": "2026-09-26T13:48:01Z"
+  },
+  "russo-music": {
+    "id": "russo-music",
+    "name": "Russo Music",
+    "url": "https://www.russomusic.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://www.russomusic.com/",
+    "platform": "shopify",
+    "search_url": "https://www.russomusic.com/products.json?limit=250",
+    "scraper_type": "shopify",
+    "data_quality": "structured",
+    "products_found": 250,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.russomusic.com/products.json?limit=250",
+        "http": 200,
+        "products": 250,
+        "quality": "structured"
+      }
+    ],
+    "checked_at": "2026-09-26T13:19:26Z",
+    "search_status": 200
+  },
+  "sound-pure": {
+    "id": "sound-pure",
+    "name": "Sound Pure",
+    "url": "https://www.soundpure.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://www.soundpure.com/",
+    "platform": "wordpress",
+    "search_url": "https://www.soundpure.com/search?searchString={query}",
+    "scraper_type": "structured",
+    "data_quality": "heuristic",
+    "products_found": 16,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.soundpure.com/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.soundpure.com/wp-json/wc/store/v1/products?search=fender&per_page=24",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.soundpure.com/search?searchString=fender",
+        "http": 200,
+        "products": 16,
+        "quality": "heuristic"
+      }
+    ],
+    "checked_at": "2026-09-26T13:19:18Z",
+    "search_status": 200
+  },
+  "30th-street-guitars": {
+    "id": "30th-street-guitars",
+    "name": "30th Street Guitars",
+    "url": "https://www.30thstreetguitars.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://www.30thstreetguitars.com/",
+    "platform": "shopify",
+    "search_url": "https://www.30thstreetguitars.com/products.json?limit=250",
+    "scraper_type": "shopify",
+    "data_quality": "structured",
+    "products_found": 250,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.30thstreetguitars.com/products.json?limit=250",
+        "http": 200,
+        "products": 250,
+        "quality": "structured"
+      }
+    ],
+    "checked_at": "2026-09-26T13:19:28Z",
+    "search_status": 200
+  },
+  "replay-guitar-exchange": {
+    "id": "replay-guitar-exchange",
+    "name": "Replay Guitar Exchange",
+    "url": "https://www.replayguitar.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://www.legendsguitars.com/",
+    "platform": "custom",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "no_search_results",
+    "blocked_reason": "no product data found on any known search route",
+    "attempts": [
+      {
+        "url": "https://www.legendsguitars.com/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.legendsguitars.com/wp-json/wc/store/v1/products?per_page=5",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.legendsguitars.com/?rest_route=/wc/store/v1/products&per_page=5",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.legendsguitars.com/search?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.legendsguitars.com/search?search=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.legendsguitars.com/catalogsearch/result/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.legendsguitars.com/?s=fender&post_type=product",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.legendsguitars.com/search.php?search_query=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.legendsguitars.com/search/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      }
+    ],
+    "checked_at": "2026-09-26T13:47:52Z",
+    "search_status": 404
+  },
+  "the-woodwind-and-brasswind": {
+    "id": "the-woodwind-and-brasswind",
+    "name": "The Woodwind & Brasswind",
+    "url": "https://www.wwbw.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://www.musicarts.com:443/welcome?source=LPVBDDUBA",
+    "platform": "custom",
+    "search_url": "https://www.musicarts.com:443/search?q={query}",
+    "scraper_type": "structured",
+    "data_quality": "heuristic",
+    "products_found": 4,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.musicarts.com:443/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.musicarts.com:443/wp-json/wc/store/v1/products?search=fender&per_page=24",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.musicarts.com:443/search?q=fender",
+        "http": 200,
+        "products": 4,
+        "quality": "heuristic"
+      }
+    ],
+    "checked_at": "2026-09-26T13:19:21Z",
+    "search_status": 200
+  },
+  "retrofret-vintage-guitars": {
+    "id": "retrofret-vintage-guitars",
+    "name": "RetroFret Vintage Guitars",
+    "url": "https://www.retrofret.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://retrofret.com/",
+    "platform": "shopify",
+    "search_url": "https://retrofret.com/products.json?limit=250",
+    "scraper_type": "shopify",
+    "data_quality": "structured",
+    "products_found": 250,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://retrofret.com/products.json?limit=250",
+        "http": 200,
+        "products": 250,
+        "quality": "structured"
+      }
+    ],
+    "checked_at": "2026-09-26T13:19:32Z",
+    "search_status": 200
+  },
+  "rivington-guitars": {
+    "id": "rivington-guitars",
+    "name": "Rivington Guitars",
+    "url": "https://www.rivingtonguitars.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://rivingtonguitars.com/",
+    "platform": "shopify",
+    "search_url": "https://rivingtonguitars.com/products.json?limit=250",
+    "scraper_type": "shopify",
+    "data_quality": "structured",
+    "products_found": 250,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://rivingtonguitars.com/products.json?limit=250",
+        "http": 200,
+        "products": 250,
+        "quality": "structured"
+      }
+    ],
+    "checked_at": "2026-09-26T13:19:33Z",
+    "search_status": 200
+  },
+  "rudys-music": {
+    "id": "rudys-music",
+    "name": "Rudy's Music",
+    "url": "https://rudysmusic.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://rudysmusic.com/",
+    "platform": "shopify",
+    "search_url": "https://rudysmusic.com/products.json?limit=250",
+    "scraper_type": "shopify",
+    "data_quality": "structured",
+    "products_found": 250,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://rudysmusic.com/products.json?limit=250",
+        "http": 200,
+        "products": 250,
+        "quality": "structured"
+      }
+    ],
+    "checked_at": "2026-09-26T13:19:35Z",
+    "search_status": 200
+  },
+  "the-music-zoo": {
+    "id": "the-music-zoo",
+    "name": "The Music Zoo",
+    "url": "https://www.themusiczoo.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://www.themusiczoo.com/",
+    "platform": "shopify",
+    "search_url": "https://www.themusiczoo.com/products.json?limit=250",
+    "scraper_type": "shopify",
+    "data_quality": "structured",
+    "products_found": 250,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.themusiczoo.com/products.json?limit=250",
+        "http": 200,
+        "products": 250,
+        "quality": "structured"
+      }
+    ],
+    "checked_at": "2026-09-26T13:19:35Z",
+    "search_status": 200
+  },
+  "saxquest": {
+    "id": "saxquest",
+    "name": "Saxquest",
+    "url": "https://www.saxquest.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://www.saxquest.com/",
+    "platform": "custom",
+    "search_url": "https://www.saxquest.com/product/search?search_term={query}",
+    "scraper_type": "structured",
+    "data_quality": "heuristic",
+    "products_found": 18,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.saxquest.com/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.saxquest.com/wp-json/wc/store/v1/products?search=fender&per_page=24",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.saxquest.com/product/search?search_term=fender",
+        "http": 200,
+        "products": 18,
+        "quality": "heuristic"
+      }
+    ],
+    "checked_at": "2026-09-26T13:19:26Z",
+    "search_status": 200
+  },
+  "pro-guitar-shop": {
+    "id": "pro-guitar-shop",
+    "name": "Pro Guitar Shop",
+    "url": "https://www.proguitarshop.com",
+    "area": "usa",
+    "home_status": 403,
+    "final_url": "https://reverb.com/",
+    "platform": "custom",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "blocked",
+    "blocked_reason": "anti-bot or forbidden (HTTP 403)",
+    "attempts": [],
+    "checked_at": "2026-09-26T13:48:12Z"
+  },
+  "steinway-hall": {
+    "id": "steinway-hall",
+    "name": "Steinway Hall",
+    "url": "https://www.steinway.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://eu.steinway.com/en",
+    "platform": "custom",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "no_search_results",
+    "blocked_reason": "no product data found on any known search route",
+    "attempts": [
+      {
+        "url": "https://eu.steinway.com/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://eu.steinway.com/wp-json/wc/store/v1/products?per_page=5",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://eu.steinway.com/?rest_route=/wc/store/v1/products&per_page=5",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://eu.steinway.com/search?q=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://eu.steinway.com/search?search=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://eu.steinway.com/catalogsearch/result/?q=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://eu.steinway.com/?s=fender&post_type=product",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://eu.steinway.com/search.php?search_query=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://eu.steinway.com/search/?q=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      }
+    ],
+    "checked_at": "2026-09-26T13:48:01Z",
+    "search_status": 200
+  },
+  "steve-weiss-music": {
+    "id": "steve-weiss-music",
+    "name": "Steve Weiss Music",
+    "url": "https://www.steveweissmusic.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://www.steveweissmusic.com/",
+    "platform": "shopify",
+    "search_url": "https://www.steveweissmusic.com/products.json?limit=250",
+    "scraper_type": "shopify",
+    "data_quality": "structured",
+    "products_found": 250,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.steveweissmusic.com/products.json?limit=250",
+        "http": 200,
+        "products": 250,
+        "quality": "structured"
+      }
+    ],
+    "checked_at": "2026-09-26T13:19:40Z",
+    "search_status": 200
+  },
+  "vintage-instruments": {
+    "id": "vintage-instruments",
+    "name": "Vintage Instruments",
+    "url": "https://www.vintage-instruments.com",
+    "area": "usa",
+    "home_status": 403,
+    "final_url": "https://www.vintage-instruments.com/",
+    "platform": "custom",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "blocked",
+    "blocked_reason": "anti-bot or forbidden (HTTP 403)",
+    "attempts": [],
+    "checked_at": "2026-09-26T13:48:13Z"
+  },
+  "lays-guitar-shop": {
+    "id": "lays-guitar-shop",
+    "name": "Lay's Guitar Shop",
+    "url": "https://www.laysguitar.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://www.laysguitar.com/",
+    "platform": "wix",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "no_search_results",
+    "blocked_reason": "no product data found on any known search route",
+    "attempts": [
+      {
+        "url": "https://www.laysguitar.com/products.json?limit=250",
+        "http": 400,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.laysguitar.com/wp-json/wc/store/v1/products?per_page=5",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.laysguitar.com/?rest_route=/wc/store/v1/products&per_page=5",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.laysguitar.com/search?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.laysguitar.com/search?search=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.laysguitar.com/catalogsearch/result/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.laysguitar.com/?s=fender&post_type=product",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.laysguitar.com/search.php?search_query=fender",
+        "http": 400,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.laysguitar.com/search/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      }
+    ],
+    "checked_at": "2026-09-26T13:48:08Z",
+    "search_status": 404
+  },
+  "rayburn-musical-instrument-co": {
+    "id": "rayburn-musical-instrument-co",
+    "name": "Rayburn Musical Instrument Co.",
+    "url": "https://www.rayburn.com",
+    "area": "usa",
+    "home_status": null,
+    "final_url": null,
+    "platform": null,
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "unreachable",
+    "blocked_reason": "ConnectTimeout: HTTPConnectionPool(host='www.rayburn.com', port=80): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPConnection(host='www.rayburn.com', port=80) at 0x106a11a30>, '",
+    "attempts": [
+      {
+        "url": "https://www.rayburn.com",
+        "result": "ConnectTimeout"
+      },
+      {
+        "url": "https://rayburn.com",
+        "result": "ConnectTimeout"
+      },
+      {
+        "url": "http://www.rayburn.com",
+        "result": "ConnectTimeout"
+      }
+    ],
+    "checked_at": "2026-09-26T13:47:52Z"
+  },
+  "gruhn-guitars": {
+    "id": "gruhn-guitars",
+    "name": "Gruhn Guitars",
+    "url": "https://www.gruhn.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://guitars.com/",
+    "platform": "custom",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "no_search_results",
+    "blocked_reason": "no product data found on any known search route",
+    "attempts": [
+      {
+        "url": "https://www.gruhn.com",
+        "result": "SSLError"
+      },
+      {
+        "url": "https://guitars.com/products.json?limit=250",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://guitars.com/wp-json/wc/store/v1/products?per_page=5",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://guitars.com/?rest_route=/wc/store/v1/products&per_page=5",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://guitars.com/search?q=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://guitars.com/search?search=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://guitars.com/catalogsearch/result/?q=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://guitars.com/?s=fender&post_type=product",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://guitars.com/search.php?search_query=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://guitars.com/search/?q=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      }
+    ],
+    "checked_at": "2026-09-26T13:48:14Z",
+    "search_status": 200
+  },
+  "house-of-guitars": {
+    "id": "house-of-guitars",
+    "name": "House of Guitars",
+    "url": "https://www.houseofguitars.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://houseofguitars.com/",
+    "platform": "woocommerce",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "no_search_results",
+    "blocked_reason": "no product data found on any known search route",
+    "attempts": [
+      {
+        "url": "https://houseofguitars.com/?rest_route=/wc/store/v1/products&per_page=5",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://houseofguitars.com/wp-json/wc/store/v1/products?per_page=5",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://houseofguitars.com/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://houseofguitars.com/search?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://houseofguitars.com/search?search=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://houseofguitars.com/catalogsearch/result/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://houseofguitars.com/?s=fender&post_type=product",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://houseofguitars.com/search.php?search_query=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://houseofguitars.com/search/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      }
+    ],
+    "checked_at": "2026-09-26T13:48:04Z",
+    "search_status": 404
+  },
+  "bernunzio-uptown-music": {
+    "id": "bernunzio-uptown-music",
+    "name": "Bernunzio Uptown Music",
+    "url": "https://www.bernunzio.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://bernunzio.com/",
+    "platform": "custom",
+    "search_url": "https://bernunzio.com/?s={query}&post_type=product",
+    "scraper_type": "structured",
+    "data_quality": "heuristic",
+    "products_found": 11,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://bernunzio.com/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://bernunzio.com/wp-json/wc/store/v1/products?search=fender&per_page=24",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://bernunzio.com/search/?q=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://bernunzio.com/search?q=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://bernunzio.com/catalogsearch/result/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://bernunzio.com/?s=fender&post_type=product",
+        "http": 200,
+        "products": 11,
+        "quality": "heuristic"
+      }
+    ],
+    "checked_at": "2026-09-26T13:19:29Z",
+    "search_status": 200
+  },
+  "gibson-garage": {
+    "id": "gibson-garage",
+    "name": "Gibson Garage",
+    "url": "https://www.gibson.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://www.gibson.com/en-eu",
+    "platform": "shopify",
+    "search_url": "https://www.gibson.com/products.json?limit=250",
+    "scraper_type": "shopify",
+    "data_quality": "structured",
+    "products_found": 238,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.gibson.com/products.json?limit=250",
+        "http": 200,
+        "products": 238,
+        "quality": "structured"
+      }
+    ],
+    "checked_at": "2026-09-26T13:19:45Z",
+    "search_status": 200
+  },
+  "vintage-king-audio": {
+    "id": "vintage-king-audio",
+    "name": "Vintage King Audio",
+    "url": "https://vintageking.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://vintageking.com/",
+    "platform": "magento",
+    "search_url": "https://vintageking.com/catalogsearch/result/?q={query}",
+    "scraper_type": "structured",
+    "data_quality": "heuristic",
+    "products_found": 34,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://vintageking.com/products.json?limit=250",
+        "http": 405,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://vintageking.com/wp-json/wc/store/v1/products?search=fender&per_page=24",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://vintageking.com/catalogsearch/result/?q=fender",
+        "http": 200,
+        "products": 34,
+        "quality": "heuristic"
+      }
+    ],
+    "checked_at": "2026-09-26T13:19:24Z",
+    "search_status": 200
+  },
+  "dales-drum-shop": {
+    "id": "dales-drum-shop",
+    "name": "Dale's Drum Shop",
+    "url": "https://www.dalesdrumshop.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://dalesdrumshop.com/",
+    "platform": "woocommerce",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "no_search_results",
+    "blocked_reason": "no product data found on any known search route",
+    "attempts": [
+      {
+        "url": "https://dalesdrumshop.com/?rest_route=/wc/store/v1/products&per_page=5",
+        "http": 401,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://dalesdrumshop.com/wp-json/wc/store/v1/products?per_page=5",
+        "http": 401,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://dalesdrumshop.com/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://dalesdrumshop.com/?s=fender&post_type=product",
+        "result": "robots_disallowed"
+      },
+      {
+        "url": "https://dalesdrumshop.com/search?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://dalesdrumshop.com/search?search=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://dalesdrumshop.com/catalogsearch/result/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://dalesdrumshop.com/search.php?search_query=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://dalesdrumshop.com/search/?q=fender",
+        "result": "robots_disallowed"
+      }
+    ],
+    "checked_at": "2026-09-26T13:48:12Z",
+    "search_status": 404
+  },
+  "carolyn-nussbaum-music-company": {
+    "id": "carolyn-nussbaum-music-company",
+    "name": "Carolyn Nussbaum Music Company",
+    "url": "https://www.flute4u.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://www.flute4u.com/",
+    "platform": "shopify",
+    "search_url": "https://www.flute4u.com/products.json?limit=250",
+    "scraper_type": "shopify",
+    "data_quality": "structured",
+    "products_found": 250,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.flute4u.com/products.json?limit=250",
+        "http": 200,
+        "products": 250,
+        "quality": "structured"
+      }
+    ],
+    "checked_at": "2026-09-26T13:19:48Z",
+    "search_status": 200
+  },
+  "southpaw-guitars": {
+    "id": "southpaw-guitars",
+    "name": "Southpaw Guitars",
+    "url": "https://southpawguitars.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://southpawguitars.com/",
+    "platform": "shopify",
+    "search_url": "https://southpawguitars.com/products.json?limit=250",
+    "scraper_type": "shopify",
+    "data_quality": "structured",
+    "products_found": 250,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://southpawguitars.com/products.json?limit=250",
+        "http": 200,
+        "products": 250,
+        "quality": "structured"
+      }
+    ],
+    "checked_at": "2026-09-26T13:19:48Z",
+    "search_status": 200
+  },
+  "robertson-and-sons-violin-shop": {
+    "id": "robertson-and-sons-violin-shop",
+    "name": "Robertson & Sons Violin Shop",
+    "url": "https://www.robertsonviolins.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://www.robertsonviolins.com/",
+    "platform": "wix",
+    "search_url": "https://www.robertsonviolins.com/search?search={query}",
+    "scraper_type": "structured",
+    "data_quality": "heuristic",
+    "products_found": 6,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.robertsonviolins.com/products.json?limit=250",
+        "http": 400,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.robertsonviolins.com/wp-json/wc/store/v1/products?per_page=5",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.robertsonviolins.com/search?q=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.robertsonviolins.com/search?search=fender",
+        "http": 200,
+        "products": 6,
+        "quality": "heuristic"
+      }
+    ],
+    "checked_at": "2026-09-26T13:36:42Z",
+    "search_status": 200
+  },
+  "fullers-vintage-guitar": {
+    "id": "fullers-vintage-guitar",
+    "name": "Fuller's Vintage Guitar",
+    "url": "https://www.fullersguitar.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://fullersguitar.com/",
+    "platform": "shopify",
+    "search_url": "https://fullersguitar.com/products.json?limit=250",
+    "scraper_type": "shopify",
+    "data_quality": "structured",
+    "products_found": 250,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://fullersguitar.com/products.json?limit=250",
+        "http": 200,
+        "products": 250,
+        "quality": "structured"
+      }
+    ],
+    "checked_at": "2026-09-26T13:19:49Z",
+    "search_status": 200
+  },
+  "explorers-percussion": {
+    "id": "explorers-percussion",
+    "name": "Explorers Percussion",
+    "url": "https://www.explorersdrums.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://www.explorersdrums.com/",
+    "platform": "custom",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "no_search_results",
+    "blocked_reason": "no product data found on any known search route",
+    "attempts": [
+      {
+        "url": "https://www.explorersdrums.com/products.json?limit=250",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.explorersdrums.com/wp-json/wc/store/v1/products?per_page=5",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.explorersdrums.com/?rest_route=/wc/store/v1/products&per_page=5",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.bata.com/id/search?q=fender&lang=in_ID",
+        "result": "ReadTimeout"
+      },
+      {
+        "result": "rejected: spam doorway content"
+      },
+      {
+        "url": "https://www.explorersdrums.com/id/search?q=fender&lang=in_ID",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "result": "rejected: spam doorway content"
+      },
+      {
+        "url": "https://www.explorersdrums.com/search?q=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "result": "rejected: spam doorway content"
+      },
+      {
+        "url": "https://www.explorersdrums.com/search?search=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "result": "rejected: spam doorway content"
+      },
+      {
+        "url": "https://www.explorersdrums.com/catalogsearch/result/?q=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "result": "rejected: spam doorway content"
+      },
+      {
+        "url": "https://www.explorersdrums.com/?s=fender&post_type=product",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "result": "rejected: spam doorway content"
+      },
+      {
+        "url": "https://www.explorersdrums.com/search.php?search_query=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "result": "rejected: spam doorway content"
+      },
+      {
+        "url": "https://www.explorersdrums.com/search/?q=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "result": "rejected: spam doorway content"
+      },
+      {
+        "result": "rejected: spam doorway content"
+      }
+    ],
+    "checked_at": "2026-09-26T14:04:49Z",
+    "search_status": 200
+  },
+  "tone-shop-guitars": {
+    "id": "tone-shop-guitars",
+    "name": "Tone Shop Guitars",
+    "url": "https://www.toneshopguitars.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://www.toneshopguitars.com/",
+    "platform": "shopify",
+    "search_url": "https://www.toneshopguitars.com/products.json?limit=250",
+    "scraper_type": "shopify",
+    "data_quality": "structured",
+    "products_found": 250,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.toneshopguitars.com/products.json?limit=250",
+        "http": 200,
+        "products": 250,
+        "quality": "structured"
+      }
+    ],
+    "checked_at": "2026-09-26T13:19:50Z",
+    "search_status": 200
+  },
+  "cream-city-music": {
+    "id": "cream-city-music",
+    "name": "Cream City Music",
+    "url": "https://www.creamcitymusic.com",
+    "area": "usa",
+    "home_status": null,
+    "final_url": null,
+    "platform": null,
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "unreachable",
+    "blocked_reason": "ConnectionError: HTTPConnectionPool(host='www.creamcitymusic.com', port=80): Max retries exceeded with url: / (Caused by NameResolutionError(\"HTTPConnection(host='www.creamcitymusic.com', port=80): Fa",
+    "attempts": [
+      {
+        "url": "https://www.creamcitymusic.com",
+        "result": "ConnectionError"
+      },
+      {
+        "url": "https://creamcitymusic.com",
+        "result": "ConnectionError"
+      },
+      {
+        "url": "http://www.creamcitymusic.com",
+        "result": "ConnectionError"
+      }
+    ],
+    "checked_at": "2026-09-26T13:48:25Z"
+  },
+  "full-compass-systems": {
+    "id": "full-compass-systems",
+    "name": "Full Compass Systems",
+    "url": "https://www.fullcompass.com",
+    "area": "usa",
+    "home_status": 403,
+    "final_url": "https://www.fullcompass.com/",
+    "platform": "custom",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "blocked",
+    "blocked_reason": "anti-bot or forbidden (HTTP 403)",
+    "attempts": [],
+    "checked_at": "2026-09-26T13:48:26Z"
+  },
+  "daves-guitar-shop": {
+    "id": "daves-guitar-shop",
+    "name": "Dave's Guitar Shop",
+    "url": "https://www.davesguitar.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://www.davesguitar.com/",
+    "platform": "shopify",
+    "search_url": "https://www.davesguitar.com/products.json?limit=250",
+    "scraper_type": "shopify",
+    "data_quality": "structured",
+    "products_found": 250,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.davesguitar.com/products.json?limit=250",
+        "http": 200,
+        "products": 250,
+        "quality": "structured"
+      }
+    ],
+    "checked_at": "2026-09-26T13:19:51Z",
+    "search_status": 200
+  },
+  "emerald-city-guitars": {
+    "id": "emerald-city-guitars",
+    "name": "Emerald City Guitars",
+    "url": "https://www.emeraldcityguitars.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://emeraldcityguitars.com/",
+    "platform": "shopify",
+    "search_url": "https://emeraldcityguitars.com/products.json?limit=250",
+    "scraper_type": "shopify",
+    "data_quality": "structured",
+    "products_found": 250,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://emeraldcityguitars.com/products.json?limit=250",
+        "http": 200,
+        "products": 250,
+        "quality": "structured"
+      }
+    ],
+    "checked_at": "2026-09-26T13:19:51Z",
+    "search_status": 200
+  },
+  "kraft-music": {
+    "id": "kraft-music",
+    "name": "Kraft Music",
+    "url": "https://www.kraftmusic.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://kraftmusic.com/",
+    "platform": "shopify",
+    "search_url": "https://kraftmusic.com/products.json?limit=250",
+    "scraper_type": "shopify",
+    "data_quality": "structured",
+    "products_found": 250,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://kraftmusic.com/products.json?limit=250",
+        "http": 200,
+        "products": 250,
+        "quality": "structured"
+      }
+    ],
+    "checked_at": "2026-09-26T13:19:53Z",
+    "search_status": 200
+  },
+  "nakwon-musical-instrument-arcade": {
+    "id": "nakwon-musical-instrument-arcade",
+    "name": "Nakwon Musical Instrument Arcade",
+    "url": "https://enakwon.com/new/introduce_en.html?lang=en",
+    "area": "asia",
+    "home_status": 403,
+    "final_url": "https://enakwon.com/new/introduce_en.html?lang=en",
+    "platform": "custom",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "blocked",
+    "blocked_reason": "anti-bot or forbidden (HTTP 403)",
+    "attempts": [],
+    "checked_at": "2026-09-26T13:48:26Z"
+  },
+  "forks-drum-closet": {
+    "id": "forks-drum-closet",
+    "name": "Fork's Drum Closet",
+    "url": "https://www.forksdrumcloset.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://www.forksdrumcloset.com/",
+    "platform": "custom",
+    "search_url": "https://www.forksdrumcloset.com/?keyword={query}",
+    "scraper_type": "structured",
+    "data_quality": "heuristic",
+    "products_found": 12,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.forksdrumcloset.com/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.forksdrumcloset.com/wp-json/wc/store/v1/products?search=fender&per_page=24",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.forksdrumcloset.com/?keyword=fender",
+        "http": 200,
+        "products": 12,
+        "quality": "heuristic"
+      }
+    ],
+    "checked_at": "2026-09-26T13:19:45Z",
+    "search_status": 200
+  },
+  "charleys-guitar-shop": {
+    "id": "charleys-guitar-shop",
+    "name": "Charley's Guitar Shop",
+    "url": "https://www.charleysguitar.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://www.charleysguitar.com/",
+    "platform": "magento",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "no_search_results",
+    "blocked_reason": "no product data found on any known search route",
+    "attempts": [
+      {
+        "url": "https://www.charleysguitar.com/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.charleysguitar.com/wp-json/wc/store/v1/products?per_page=5",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.charleysguitar.com/?rest_route=/wc/store/v1/products&per_page=5",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.charleysguitar.com/search?q=fender",
+        "result": "robots_disallowed"
+      },
+      {
+        "url": "https://www.charleysguitar.com/search?search=fender",
+        "result": "robots_disallowed"
+      },
+      {
+        "url": "https://www.charleysguitar.com/catalogsearch/result/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.charleysguitar.com/?s=fender&post_type=product",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.charleysguitar.com/search.php?search_query=fender",
+        "result": "robots_disallowed"
+      },
+      {
+        "url": "https://www.charleysguitar.com/search/?q=fender",
+        "result": "robots_disallowed"
+      }
+    ],
+    "checked_at": "2026-09-26T13:48:21Z",
+    "search_status": 200
+  },
+  "guitar-planet": {
+    "id": "guitar-planet",
+    "name": "Guitar Planet",
+    "url": "https://www.guitarplanet.co.jp",
+    "area": "asia",
+    "home_status": 200,
+    "final_url": "http://www.guitarplanet.co.jp/",
+    "platform": "custom",
+    "search_url": "http://www.guitarplanet.co.jp/?keyword={query}&act=product",
+    "scraper_type": "structured",
+    "data_quality": "heuristic",
+    "products_found": 42,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.guitarplanet.co.jp",
+        "result": "SSLError"
+      },
+      {
+        "url": "https://guitarplanet.co.jp",
+        "result": "ConnectionError"
+      },
+      {
+        "url": "http://www.guitarplanet.co.jp/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "http://www.guitarplanet.co.jp/wp-json/wc/store/v1/products?per_page=5",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "http://www.guitarplanet.co.jp/?rest_route=/wc/store/v1/products&per_page=5",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "http://www.guitarplanet.co.jp/?keyword=fender&act=product",
+        "http": 200,
+        "products": 42,
+        "quality": "heuristic"
+      }
+    ],
+    "checked_at": "2026-09-26T13:40:36Z",
+    "search_status": 200
+  },
+  "lone-star-percussion": {
+    "id": "lone-star-percussion",
+    "name": "Lone Star Percussion",
+    "url": "https://www.lonestarpercussion.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://www.lonestarpercussion.com/",
+    "platform": "custom",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "no_search_results",
+    "blocked_reason": "no product data found on any known search route",
+    "attempts": [
+      {
+        "url": "https://www.lonestarpercussion.com/products.json?limit=250",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.lonestarpercussion.com/wp-json/wc/store/v1/products?per_page=5",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.lonestarpercussion.com/?rest_route=/wc/store/v1/products&per_page=5",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.lonestarpercussion.com/search?q=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.lonestarpercussion.com/search?search=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.lonestarpercussion.com/catalogsearch/result/?q=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.lonestarpercussion.com/?s=fender&post_type=product",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.lonestarpercussion.com/search.php?search_query=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.lonestarpercussion.com/search/?q=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      }
+    ],
+    "checked_at": "2026-09-26T13:48:23Z",
+    "search_status": 200
+  },
+  "parsons-music": {
+    "id": "parsons-music",
+    "name": "Parsons Music",
+    "url": "https://www.parsonsmusic.com.hk",
+    "area": "asia",
+    "home_status": 200,
+    "final_url": "https://www.parsonsmusic.com.hk/",
+    "platform": "custom",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "no_search_results",
+    "blocked_reason": "no product data found on any known search route",
+    "attempts": [
+      {
+        "url": "https://www.parsonsmusic.com.hk/products.json?limit=250",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.parsonsmusic.com.hk/wp-json/wc/store/v1/products?per_page=5",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.parsonsmusic.com.hk/?rest_route=/wc/store/v1/products&per_page=5",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.parsonsmusic.com.hk/search?q=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.parsonsmusic.com.hk/search?search=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.parsonsmusic.com.hk/catalogsearch/result/?q=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.parsonsmusic.com.hk/?s=fender&post_type=product",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.parsonsmusic.com.hk/search.php?search_query=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.parsonsmusic.com.hk/search/?q=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      }
+    ],
+    "checked_at": "2026-09-26T13:59:55Z",
+    "search_status": 200
+  },
+  "rumble-seat-music": {
+    "id": "rumble-seat-music",
+    "name": "Rumble Seat Music",
+    "url": "https://www.rumbleseatmusic.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://www.rumbleseatmusic.com/",
+    "platform": "wix",
+    "search_url": "https://www.rumbleseatmusic.com/search?q={query}",
+    "scraper_type": "structured",
+    "data_quality": "inline_json",
+    "products_found": 23,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.rumbleseatmusic.com/products.json?limit=250",
+        "http": 400,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.rumbleseatmusic.com/wp-json/wc/store/v1/products?per_page=5",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.rumbleseatmusic.com/?rest_route=/wc/store/v1/products&per_page=5",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.rumbleseatmusic.com/search?q=fender",
+        "http": 200,
+        "products": 23,
+        "quality": "inline_json"
+      }
+    ],
+    "checked_at": "2026-09-26T13:48:20Z",
+    "search_status": 200
+  },
+  "the-guitar-sanctuary": {
+    "id": "the-guitar-sanctuary",
+    "name": "The Guitar Sanctuary",
+    "url": "https://www.theguitarsanctuary.com",
+    "area": "usa",
+    "home_status": 200,
+    "final_url": "https://www.guitarsanctuary.com/",
+    "platform": "bigcommerce",
+    "search_url": "https://www.guitarsanctuary.com/?s={query}&post_type=product",
+    "scraper_type": "structured",
+    "data_quality": "heuristic",
+    "products_found": 2,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.guitarsanctuary.com/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.guitarsanctuary.com/wp-json/wc/store/v1/products?search=fender&per_page=24",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.guitarsanctuary.com/search.php?search_query=fender",
+        "result": "robots_disallowed"
+      },
+      {
+        "url": "https://www.guitarsanctuary.com/search?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.guitarsanctuary.com/catalogsearch/result/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.guitarsanctuary.com/?s=fender&post_type=product",
+        "http": 200,
+        "products": 2,
+        "quality": "heuristic"
+      }
+    ],
+    "checked_at": "2026-09-26T13:19:50Z",
+    "search_status": 200
+  },
+  "ishibashi-music": {
+    "id": "ishibashi-music",
+    "name": "Ishibashi Music",
+    "url": "https://www.ishibashi.co.jp",
+    "area": "asia",
+    "home_status": 200,
+    "final_url": "https://www.ishibashi.co.jp/",
+    "platform": "wordpress",
+    "search_url": "https://www.ishibashi.co.jp/?s={query}&post_type=product",
+    "scraper_type": "playwright",
+    "data_quality": "heuristic",
+    "products_found": 1,
+    "robots_allows_search": true,
+    "status": "ok_rendered",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.ishibashi.co.jp/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.ishibashi.co.jp/wp-json/wc/store/v1/products?search=fender&per_page=24",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://store.ishibashi.co.jp/search?q=fender&searchbox=1",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.ishibashi.co.jp/search?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.ishibashi.co.jp/catalogsearch/result/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.ishibashi.co.jp/?s=fender&post_type=product",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.ishibashi.co.jp/search.php?search_query=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.ishibashi.co.jp/search/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      }
+    ],
+    "checked_at": "2026-09-26T13:19:54Z",
+    "search_status": 404
+  },
+  "tom-lee-music": {
+    "id": "tom-lee-music",
+    "name": "Tom Lee Music",
+    "url": "https://www.tomleemusic.com.hk",
+    "area": "asia",
+    "home_status": 200,
+    "final_url": "https://www.tomleemusic.com.hk/",
+    "platform": "shopify",
+    "search_url": "https://www.tomleemusic.com.hk/products.json?limit=250",
+    "scraper_type": "shopify",
+    "data_quality": "structured",
+    "products_found": 250,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.tomleemusic.com.hk/products.json?limit=250",
+        "http": 200,
+        "products": 250,
+        "quality": "structured"
+      }
+    ],
+    "checked_at": "2026-09-26T13:20:17Z",
+    "search_status": 200
+  },
+  "kurosawa-gakki": {
+    "id": "kurosawa-gakki",
+    "name": "Kurosawa Gakki",
+    "url": "https://www.kurosawagakki.com",
+    "area": "asia",
+    "home_status": 200,
+    "final_url": "https://www.kurosawagakki.com/",
+    "platform": "wordpress",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "no_search_results",
+    "blocked_reason": "no product data found on any known search route",
+    "attempts": [
+      {
+        "url": "https://www.kurosawagakki.com/?rest_route=/wc/store/v1/products&per_page=5",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.kurosawagakki.com/wp-json/wc/store/v1/products?per_page=5",
+        "http": 403,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.kurosawagakki.com/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.kurosawagakki.com/search?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.kurosawagakki.com/search?search=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.kurosawagakki.com/catalogsearch/result/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.kurosawagakki.com/?s=fender&post_type=product",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.kurosawagakki.com/search.php?search_query=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.kurosawagakki.com/search/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      }
+    ],
+    "checked_at": "2026-09-26T13:48:28Z",
+    "search_status": 404
+  },
+  "bajaao": {
+    "id": "bajaao",
+    "name": "Bajaao",
+    "url": "https://www.bajaao.com",
+    "area": "asia",
+    "home_status": 200,
+    "final_url": "https://www.bajaao.com/",
+    "platform": "shopify",
+    "search_url": "https://www.bajaao.com/products.json?limit=250",
+    "scraper_type": "shopify",
+    "data_quality": "structured",
+    "products_found": 250,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.bajaao.com/products.json?limit=250",
+        "http": 200,
+        "products": 250,
+        "quality": "structured"
+      }
+    ],
+    "checked_at": "2026-09-26T13:20:20Z",
+    "search_status": 200
+  },
+  "shimamura-music": {
+    "id": "shimamura-music",
+    "name": "Shimamura Music",
+    "url": "https://www.shimamura.co.jp",
+    "area": "asia",
+    "home_status": 200,
+    "final_url": "https://www.shimamura.co.jp/",
+    "platform": "wordpress",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "no_search_results",
+    "blocked_reason": "no product data found on any known search route",
+    "attempts": [
+      {
+        "url": "https://www.shimamura.co.jp/?rest_route=/wc/store/v1/products&per_page=5",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.shimamura.co.jp/wp-json/wc/store/v1/products?per_page=5",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.shimamura.co.jp/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.shimamura.co.jp/googlesearch/?q=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.shimamura.co.jp/search?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.shimamura.co.jp/search?search=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.shimamura.co.jp/catalogsearch/result/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.shimamura.co.jp/?s=fender&post_type=product",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.shimamura.co.jp/search.php?search_query=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.shimamura.co.jp/search/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      }
+    ],
+    "checked_at": "2026-09-26T13:48:32Z",
+    "search_status": 404
+  },
+  "shimokura-music": {
+    "id": "shimokura-music",
+    "name": "Shimokura Music",
+    "url": "http://www.shimokura-gakki.com/english",
+    "area": "asia",
+    "home_status": 200,
+    "final_url": "http://www.shimokura-gakki.com/english/",
+    "platform": "custom",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "no_search_results",
+    "blocked_reason": "no product data found on any known search route",
+    "attempts": [
+      {
+        "url": "http://www.shimokura-gakki.com/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "http://www.shimokura-gakki.com/wp-json/wc/store/v1/products?per_page=5",
+        "http": 403,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "http://www.shimokura-gakki.com/?rest_route=/wc/store/v1/products&per_page=5",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "http://www.shimokura-gakki.com/search?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "http://www.shimokura-gakki.com/search?search=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "http://www.shimokura-gakki.com/catalogsearch/result/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "http://www.shimokura-gakki.com/?s=fender&post_type=product",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "http://www.shimokura-gakki.com/search.php?search_query=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "http://www.shimokura-gakki.com/search/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      }
+    ],
+    "checked_at": "2026-09-26T13:48:35Z",
+    "search_status": 404
+  },
+  "bigboss": {
+    "id": "bigboss",
+    "name": "BIGBOSS",
+    "url": "https://bigboss.jp",
+    "area": "asia",
+    "home_status": 200,
+    "final_url": "https://bigboss.jp/store/",
+    "platform": "wordpress",
+    "search_url": "https://bigboss.jp/store/products/list#main?name={query}",
+    "scraper_type": "structured",
+    "data_quality": "heuristic",
+    "products_found": 18,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://bigboss.jp/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://bigboss.jp/wp-json/wc/store/v1/products?search=fender&per_page=24",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://bigboss.jp/store/products/list#main?name=fender",
+        "http": 200,
+        "products": 18,
+        "quality": "heuristic"
+      }
+    ],
+    "checked_at": "2026-09-26T13:19:56Z",
+    "search_status": 200
+  },
+  "ikebe-gakki": {
+    "id": "ikebe-gakki",
+    "name": "Ikebe Gakki",
+    "url": "https://www.ikebe-gakki.com",
+    "area": "asia",
+    "home_status": 200,
+    "final_url": "https://www.ikebe-gakki.com/",
+    "platform": "wordpress",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "no_search_results",
+    "blocked_reason": "no product data found on any known search route",
+    "attempts": [
+      {
+        "url": "https://www.ikebe-gakki.com/?rest_route=/wc/store/v1/products&per_page=5",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.ikebe-gakki.com/wp-json/wc/store/v1/products?per_page=5",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.ikebe-gakki.com/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.ikebe-gakki.com/search?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.ikebe-gakki.com/search?search=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.ikebe-gakki.com/catalogsearch/result/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.ikebe-gakki.com/?s=fender&post_type=product",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.ikebe-gakki.com/search.php?search_query=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.ikebe-gakki.com/search/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      }
+    ],
+    "checked_at": "2026-09-26T13:48:27Z",
+    "search_status": 404
+  },
+  "digimart": {
+    "id": "digimart",
+    "name": "Digimart",
+    "url": "https://www.digimart.net",
+    "area": "asia",
+    "home_status": 200,
+    "final_url": "https://www.digimart.net/",
+    "platform": "custom",
+    "search_url": "https://www.digimart.net/?s={query}&post_type=product",
+    "scraper_type": "structured",
+    "data_quality": "heuristic",
+    "products_found": 18,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.digimart.net/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.digimart.net/wp-json/wc/store/v1/products?search=fender&per_page=24",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.digimart.net/search?brandnames=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.digimart.net/search?q=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.digimart.net/catalogsearch/result/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.digimart.net/?s=fender&post_type=product",
+        "http": 200,
+        "products": 18,
+        "quality": "heuristic"
+      }
+    ],
+    "checked_at": "2026-09-26T13:19:57Z",
+    "search_status": 200
+  },
+  "swee-lee": {
+    "id": "swee-lee",
+    "name": "Swee Lee",
+    "url": "https://www.sweelee.com",
+    "area": "asia",
+    "home_status": null,
+    "final_url": null,
+    "platform": "shopify",
+    "search_url": "https://www.sweelee.com.sg/products.json?limit=250",
+    "scraper_type": "shopify",
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "manual",
+    "blocked_reason": null,
+    "attempts": [],
+    "checked_at": "2026-09-26T13:34:03Z"
+  },
+  "thomsun-music": {
+    "id": "thomsun-music",
+    "name": "Thomsun Music",
+    "url": "https://www.thomsunmusic.com",
+    "area": "asia",
+    "home_status": 200,
+    "final_url": "https://www.thomsunmusic.com/",
+    "platform": "custom",
+    "search_url": "https://www.thomsunmusic.com/?s={query}&post_type=product",
+    "scraper_type": "structured",
+    "data_quality": "heuristic",
+    "products_found": 4,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.thomsunmusic.com/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.thomsunmusic.com/wp-json/wc/store/v1/products?search=fender&per_page=24",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.thomsunmusic.com/search?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.thomsunmusic.com/catalogsearch/result/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.thomsunmusic.com/?s=fender&post_type=product",
+        "http": 200,
+        "products": 4,
+        "quality": "heuristic"
+      }
+    ],
+    "checked_at": "2026-09-26T13:20:30Z",
+    "search_status": 200
+  },
+  "rikhi-ram": {
+    "id": "rikhi-ram",
+    "name": "Rikhi Ram",
+    "url": "https://www.shop.rikhiram.com",
+    "area": "asia",
+    "home_status": 200,
+    "final_url": "https://www.shop.rikhiram.com/",
+    "platform": "custom",
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "no_search_results",
+    "blocked_reason": "no product data found on any known search route",
+    "attempts": [
+      {
+        "url": "https://www.shop.rikhiram.com/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.shop.rikhiram.com/wp-json/wc/store/v1/products?per_page=5",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.shop.rikhiram.com/?rest_route=/wc/store/v1/products&per_page=5",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.shop.rikhiram.com/search?keyword=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.shop.rikhiram.com/search?q=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.shop.rikhiram.com/search?search=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.shop.rikhiram.com/catalogsearch/result/?q=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.shop.rikhiram.com/?s=fender&post_type=product",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.shop.rikhiram.com/search.php?search_query=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.shop.rikhiram.com/search/?q=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      }
+    ],
+    "checked_at": "2026-09-26T13:48:41Z",
+    "search_status": 200
+  },
+  "haribhau-vishwanath": {
+    "id": "haribhau-vishwanath",
+    "name": "Haribhau Vishwanath",
+    "url": "https://www.haribhau.com",
+    "area": "asia",
+    "home_status": 200,
+    "final_url": "https://www.haribhau.com/",
+    "platform": "woocommerce",
+    "search_url": "https://www.haribhau.com/wp-json/wc/store/v1/products?search={query}&per_page=24",
+    "scraper_type": "woocommerce",
+    "data_quality": "structured",
+    "products_found": 5,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.haribhau.com/wp-json/wc/store/v1/products?per_page=5",
+        "http": 200,
+        "products": 5,
+        "quality": "structured"
+      }
+    ],
+    "checked_at": "2026-09-26T13:37:38Z",
+    "search_status": 200
+  },
+  "sound-house": {
+    "id": "sound-house",
+    "name": "Sound House",
+    "url": "https://www.soundhouse.co.jp",
+    "area": "asia",
+    "home_status": null,
+    "final_url": null,
+    "platform": null,
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "unreachable",
+    "blocked_reason": "ReadTimeout: HTTPConnectionPool(host='www.soundhouse.co.jp', port=80): Read timed out. (read timeout=25)",
+    "attempts": [
+      {
+        "url": "https://www.soundhouse.co.jp",
+        "result": "ReadTimeout"
+      },
+      {
+        "url": "https://soundhouse.co.jp",
+        "result": "ConnectTimeout"
+      },
+      {
+        "url": "http://www.soundhouse.co.jp",
+        "result": "ReadTimeout"
+      }
+    ],
+    "checked_at": "2026-09-26T13:48:41Z"
+  },
+  "zuhal-muzik": {
+    "id": "zuhal-muzik",
+    "name": "Zuhal Müzik",
+    "url": "https://www.zuhalmuzik.com",
+    "area": "asia",
+    "home_status": 200,
+    "final_url": "https://www.zuhalmuzik.com/",
+    "platform": "custom",
+    "search_url": "https://www.zuhalmuzik.com/searchpage?q={query}",
+    "scraper_type": "structured",
+    "data_quality": "heuristic",
+    "products_found": 50,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.zuhalmuzik.com/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.zuhalmuzik.com/wp-json/wc/store/v1/products?search=fender&per_page=24",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.zuhalmuzik.com/searchpage?q=fender",
+        "http": 200,
+        "products": 50,
+        "quality": "heuristic"
+      }
+    ],
+    "checked_at": "2026-09-26T13:20:34Z",
+    "search_status": 200
+  },
+  "furtados": {
+    "id": "furtados",
+    "name": "Furtados",
+    "url": "https://www.furtadosonline.com",
+    "area": "asia",
+    "home_status": 200,
+    "final_url": "https://www.furtadosonline.com/",
+    "platform": "custom",
+    "search_url": "https://www.furtadosonline.com/?s={query}&post_type=product",
+    "scraper_type": "playwright",
+    "data_quality": "heuristic",
+    "products_found": 18,
+    "robots_allows_search": true,
+    "status": "ok_rendered",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.furtadosonline.com/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.furtadosonline.com/wp-json/wc/store/v1/products?search=fender&per_page=24",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.furtadosonline.com/search?q=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.furtadosonline.com/catalogsearch/result/?q=fender",
+        "result": "ReadTimeout"
+      },
+      {
+        "url": "https://www.furtadosonline.com/?s=fender&post_type=product",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.furtadosonline.com/search.php?search_query=fender",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.furtadosonline.com/search/?q=fender",
+        "http": 200,
+        "products": 0,
+        "quality": null
+      }
+    ],
+    "checked_at": "2026-09-26T13:20:21Z",
+    "search_status": 200
+  },
+  "melody-house": {
+    "id": "melody-house",
+    "name": "Melody House",
+    "url": "https://www.melodyhousemi.com",
+    "area": "asia",
+    "home_status": 200,
+    "final_url": "https://www.melodyhousemi.com/",
+    "platform": "custom",
+    "search_url": "https://www.melodyhousemi.com/search?s={query}",
+    "scraper_type": "structured",
+    "data_quality": "heuristic",
+    "products_found": 5,
+    "robots_allows_search": true,
+    "status": "ok",
+    "blocked_reason": null,
+    "attempts": [
+      {
+        "url": "https://www.melodyhousemi.com/products.json?limit=250",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.melodyhousemi.com/wp-json/wc/store/v1/products?search=fender&per_page=24",
+        "http": 404,
+        "products": 0,
+        "quality": null
+      },
+      {
+        "url": "https://www.melodyhousemi.com/search?s=fender",
+        "http": 200,
+        "products": 5,
+        "quality": "heuristic"
+      }
+    ],
+    "checked_at": "2026-09-26T13:20:29Z",
+    "search_status": 200
+  },
+  "kytary-cz": {
+    "id": "kytary-cz",
+    "name": "Kytary.cz",
+    "url": "https://www.kytary.cz",
+    "area": "europe",
+    "home_status": null,
+    "final_url": null,
+    "platform": null,
+    "search_url": null,
+    "scraper_type": null,
+    "data_quality": null,
+    "products_found": 0,
+    "robots_allows_search": true,
+    "status": "unreachable",
+    "blocked_reason": "ConnectTimeout: HTTPConnectionPool(host='www.kytary.cz', port=80): Max retries exceeded with url: / (Caused by ConnectTimeoutError(<HTTPConnection(host='www.kytary.cz', port=80) at 0x106c40dd0>, 'Conn",
+    "attempts": [
+      {
+        "url": "https://www.kytary.cz",
+        "result": "ConnectTimeout"
+      },
+      {
+        "url": "https://kytary.cz",
+        "result": "ConnectTimeout"
+      },
+      {
+        "url": "http://www.kytary.cz",
+        "result": "ConnectTimeout"
+      }
+    ],
+    "checked_at": "2026-09-26T13:47:26Z"
+  }
+}

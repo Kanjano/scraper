@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="$lang" dir="$dir">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>INSTRINDER — $title</title>
+<meta name="description" content="$tagline">
+<link rel="preload" href="/static/fonts/google-sans-flex-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/static/app.css?v=$version">
+<script>
+  // Theme before first paint: no flash of the wrong theme.
+  try { const t = localStorage.getItem("instrinder.theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+</head>
+<body data-view="$view">
+<a class="skip" href="#results">$search</a>
+
+<div class="progress" id="progress" hidden aria-hidden="true">
+  <div class="progress-indeterminate"></div>
+  <svg class="progress-wave" preserveAspectRatio="none" viewBox="0 0 48 6"><path d="M0 3 Q6 0 12 3 T24 3 T36 3 T48 3" /></svg>
+</div>
+
+<header class="topbar" id="topbar">
+  <a class="brand" href="/" id="brand" aria-label="INSTRINDER — $title"><h1 class="brand-word" id="brand-word">INSTRINDER</h1></a>
+
+  <form class="search" id="search" role="search" autocomplete="off">
+    <div class="search-card" id="search-card">
+      <span class="search-lead" aria-hidden="true">
+        <svg class="icon-lens" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m15.5 15.5 5 5" /></svg>
+        <span class="shape-loader shape-loader--mini"></span>
+      </span>
+      <textarea id="q" name="q" rows="1" enterkeyhint="search" spellcheck="false"
+        placeholder="$placeholder" aria-label="$placeholder"
+        aria-autocomplete="list" aria-controls="suggest"></textarea>
+      <button class="icon-btn search-clear" type="button" id="clear" aria-label="$clear" hidden>
+        <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" /></svg>
+      </button>
+      <button class="icon-btn search-submit" type="submit" aria-label="$search">
+        <svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m15.5 15.5 5 5" /></svg>
+      </button>
+      <div class="suggest" id="suggest" role="listbox" aria-label="$recent" hidden></div>
+    </div>
+  </form>
+
+  <nav class="actions" aria-label="$language">
+    <button class="btn btn--ghost contact-btn" type="button" id="contact-open" aria-haspopup="dialog">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3.5 6.5 8.5 6 8.5-6" /></svg>
+      <span class="contact-label">$contact</span>
+    </button>
+    <label class="lang-picker"><span class="visually-hidden">$language</span>
+      <select id="lang">$language_options</select>
+    </label>
+    <button class="icon-btn" type="button" id="theme" aria-label="$theme" title="$theme">
+      <svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z" /></svg>
+    </button>
+  </nav>
+
+  <div class="filters" id="filters" role="radiogroup" aria-label="$anywhere">
+    <button type="button" class="chip" role="radio" aria-checked="true" data-area="">$anywhere</button>
+    <button type="button" class="chip" role="radio" aria-checked="false" data-area="europe">$europe</button>
+    <button type="button" class="chip" role="radio" aria-checked="false" data-area="usa">$usa</button>
+    <button type="button" class="chip" role="radio" aria-checked="false" data-area="asia">$asia</button>
+    <button type="button" class="chip chip--toggle" id="major" aria-pressed="false">$major_only</button>
+  </div>
+
+  <div class="tabs" id="tabs" role="tablist">
+    <button role="tab" aria-selected="true" data-tab="">$tab_all <span class="tab-count"></span></button>
+    <button role="tab" aria-selected="false" data-tab="europe">$europe <span class="tab-count"></span></button>
+    <button role="tab" aria-selected="false" data-tab="usa">$usa <span class="tab-count"></span></button>
+    <button role="tab" aria-selected="false" data-tab="asia">$asia <span class="tab-count"></span></button>
+    <span class="tab-ink" aria-hidden="true"></span>
+  </div>
+</header>
+
+<main class="page" id="page">
+  <p class="tagline" id="tagline">$tagline</p>
+
+  <section class="results" id="results" aria-busy="false" tabindex="-1">
+    <div class="statusline" id="statusline">
+      <span class="shape-loader" aria-hidden="true"></span>
+      <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span id="status-text"></span>
+      <button type="button" class="btn btn--ghost" id="stop" hidden>$stop</button>
+      <label class="sort" id="sort-wrap" hidden>
+        <span>$sort_by</span>
+        <select id="sort">
+          <option value="relevance">$sort_relevance</option>
+          <option value="price_asc">$sort_price_asc</option>
+          <option value="price_desc">$sort_price_desc</option>
+          <option value="alpha">$sort_alpha</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="banner" id="banner" role="alert" hidden>
+      <span id="banner-text"></span>
+      <button type="button" class="btn btn--primary" id="retry">$retry</button>
+    </div>
+
+    <div class="phases" id="phases" hidden>
+      <button type="button" class="phases-toggle" id="phases-toggle" aria-expanded="true" aria-controls="phases-body">
+        <span id="phases-summary"></span>
+        <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+      </button>
+      <div class="phases-body" id="phases-body"><div class="phases-inner">
+        <ol class="phase-list" id="phase-list"></ol>
+        <div class="sites" id="sites" aria-label="$shops_queried"><span class="sites-count" id="sites-count"></span></div>
+        <p class="note">$sorting_note</p>
+      </div></div>
+    </div>
+
+    <div class="list" id="list"></div>
+    <div class="empty" id="empty" hidden></div>
+    <button type="button" class="btn btn--more" id="more" hidden>$more</button>
+  </section>
+
+  <aside class="side" id="side">
+    <section class="deals" id="deals" hidden aria-labelledby="deals-title">
+      <h2 id="deals-title">$deals</h2>
+      <p class="deals-note">$deals_note</p>
+      <div class="deal-grid" id="deal-grid"></div>
+    </section>
+    <section class="summary" id="summary" hidden aria-labelledby="summary-title">
+      <h2 id="summary-title">$summary</h2>
+      <dl id="summary-list"></dl>
+    </section>
+  </aside>
+</main>
+
+<footer class="footer">
+  <span class="health" id="health"><i class="dot"></i><span id="health-text"></span></span>
+  <span>INSTRINDER v$version</span>
+  <a href="https://db-ip.com" rel="noopener">IP Geolocation by DB-IP</a>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="visually-hidden" id="announce" aria-live="polite"></div>
+
+<div class="menu" id="menu" popover>
+  <button type="button" data-act="open">$open_shop</button>
+  <button type="button" data-act="copy">$copy_link</button>
+  <button type="button" data-act="raw">$copy_data</button>
+</div>
+
+<dialog class="contact" id="contact" aria-labelledby="contact-title">
+  <form id="contact-form" novalidate>
+    <div class="contact-head">
+      <h2 id="contact-title">$contact_title</h2>
+      <button type="button" class="icon-btn" data-close aria-label="$close">
+        <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" /></svg>
+      </button>
+    </div>
+    <p class="contact-intro">$contact_intro</p>
+    <label class="field"><span>$your_name</span>
+      <input name="name" required maxlength="100" autocomplete="name"></label>
+    <label class="field"><span>$your_email</span>
+      <input name="email" type="email" required maxlength="200" autocomplete="email"></label>
+    <label class="field"><span>$your_message</span>
+      <textarea name="message" required minlength="10" maxlength="5000" rows="6"></textarea></label>
+    <!-- Honeypot: people never see or fill this; bots that fill every field are dropped. -->
+    <label class="hp" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label>
+    <p class="form-status" id="contact-status" role="status" aria-live="polite"></p>
+    <div class="contact-actions">
+      <button type="button" class="btn btn--ghost" data-close>$close</button>
+      <button type="submit" class="btn btn--primary" id="contact-send">$send</button>
+    </div>
+  </form>
+</dialog>
+
+<template id="tpl-result">
+  <article class="result">
+    <div class="result-src">
+      <span class="fav"><img alt="" loading="lazy" decoding="async" width="18" height="18"><b></b></span>
+      <span class="src-text"><span class="src-site"></span><span class="src-crumb"></span></span>
+      <button type="button" class="icon-btn result-menu" aria-label="$actions">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.6" /><circle cx="12" cy="12" r="1.6" /><circle cx="12" cy="19" r="1.6" /></svg>
+      </button>
+    </div>
+    <h2 class="result-title"><a rel="noopener" target="_blank"></a></h2>
+    <p class="result-snippet"></p>
+  </article>
+</template>
+
+<template id="tpl-deal">
+  <a class="deal" rel="noopener noreferrer" target="_blank">
+    <span class="deal-img"><img alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer"><span class="deal-badge"></span></span>
+    <span class="deal-body">
+      <span class="deal-shop"><img alt="" loading="lazy" width="14" height="14"><span></span></span>
+      <span class="deal-name"></span>
+      <span class="deal-price"><b></b> <s></s></span>
+    </span>
+  </a>
+</template>
+
+<template id="tpl-skeleton">
+  <div class="result skeleton" aria-hidden="true">
+    <div class="result-src"><span class="fav"></span><span class="src-text"><span class="sk sk-s"></span><span class="sk sk-m"></span></span></div>
+    <span class="sk sk-title"></span>
+    <span class="sk sk-line"></span>
+  </div>
+</template>
+
+<script id="i18n" type="application/json">$strings</script>
+<script type="module" src="/static/app.js?v=$version"></script>
+</body>
+</html>
