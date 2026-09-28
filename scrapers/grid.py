@@ -195,6 +195,22 @@ def _candidate_cards(soup) -> list:
     return [c for c in cards if not any(other is not c and other in c.descendants for other in cards)]
 
 
+def _image_for(card, cards: list) -> str | None:
+    """The card's photo; when the priced block leaves it out, the nearest
+    wrapper that holds this card and no other one."""
+    node = card
+    for _ in range(4):
+        if node is None:
+            return None
+        found = img_src(node.find("img"))
+        if found:
+            return found
+        node = node.parent
+        if node is not None and sum(1 for c in cards if node in c.parents) > 1:
+            return None
+    return None
+
+
 def heuristic_products(html: str, limit: int = 60) -> list[dict]:
     soup = BeautifulSoup(html, "lxml")
     for tag in soup(["script", "style", "noscript", "template"]):
@@ -234,7 +250,7 @@ def heuristic_products(html: str, limit: int = 60) -> list[dict]:
                 "rating": None,
                 "stock": None,
                 "original_price": was,
-                "image": img_src(card.find("img")),
+                "image": _image_for(card, chosen),
             }
         )
         if len(records) >= limit:

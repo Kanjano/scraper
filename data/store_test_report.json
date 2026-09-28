@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-09-28T15:08:26Z",
+  "generated_at": "2026-09-28T15:36:58Z",
   "totals": {
     "stores": 120,
-    "skipped": 46,
-    "passed": 74
+    "skipped": 44,
+    "passed": 76
   },
   "stores": {
     "music-store-professional": {
@@ -46,15 +46,39 @@
       "area": "europe",
       "priority": 2,
       "platform": "custom",
-      "scraper_type": "structured",
-      "data_quality": "heuristic",
-      "expected": "documented_skip",
-      "blocked_reason": "search page ignores the query (same grid for any search); the shop builds its results in the browser",
-      "queries_tried": [],
-      "offers_found": 0,
-      "sample": [],
-      "elapsed_s": null,
-      "result": "skipped",
+      "scraper_type": "doofinder",
+      "data_quality": "structured",
+      "expected": "offers",
+      "blocked_reason": null,
+      "queries_tried": [
+        "fender"
+      ],
+      "offers_found": 4,
+      "sample": [
+        {
+          "name": "Motion 16",
+          "price": 255.0,
+          "currency": "EUR",
+          "price_eur": 255.0,
+          "url": "https://www.stars-music.fr/fender-motion-16_235248.html"
+        },
+        {
+          "name": "Motion 32",
+          "price": 319.0,
+          "currency": "EUR",
+          "price_eur": 319.0,
+          "url": "https://www.stars-music.fr/fender-motion-32_235251.html"
+        },
+        {
+          "name": "Beanie logo Fender",
+          "price": 22.0,
+          "currency": "EUR",
+          "price_eur": 22.0,
+          "url": "https://www.stars-music.fr/fender-beanie-logo-fender-taille-unique_109679.html"
+        }
+      ],
+      "elapsed_s": 0.2,
+      "result": "passed",
       "error": null
     },
     "musikhaus-kirstein": {
@@ -761,33 +785,35 @@
       "expected": "offers",
       "blocked_reason": null,
       "queries_tried": [
-        "fender"
+        "fender",
+        "gibson",
+        "guitar"
       ],
       "offers_found": 5,
       "sample": [
         {
-          "name": "Fender Custom Shop Masterbuilt Levi Perry 62 Strat - Relic Chocolate 3-Tone Sunburst Hand Wound '60/'63 Strat Pickups - 10.5\" Fingerboard Radius - Jumbo Frets",
-          "price": 10999.0,
+          "name": "PRS Paul's Guitar - Black Gold Wrap The Boss' Guitar!",
+          "price": 3199.0,
           "currency": "GBP",
-          "price_eur": 12786.19,
-          "url": "https://www.peachguitars.com/fender-custom-shop-masterbuilt-levi-perry-62-strat-relic-chocolate-3-tone-sunbur.htm"
+          "price_eur": 3718.79,
+          "url": "https://www.peachguitars.com/prs-pauls-guitar-black-gold-wrap_1.htm?opt=57596"
         },
         {
-          "name": "Fender Custom Shop Masterbuilt Todd Krause NAMM 50s 5A Flame Maple Neck Strat - NOS Cadillac Green Handwound Fat 50s Pickups - Custom V Neck Shape - 7.25\" Radius",
-          "price": 9999.0,
+          "name": "PRS Paul's Guitar - Faded Blue Jean The Boss' Guitar!",
+          "price": 3199.0,
           "currency": "GBP",
-          "price_eur": 11623.7,
-          "url": "https://www.peachguitars.com/fender-custom-shop-masterbuilt-todd-krause-namm-50s-5a-flame-maple-neck-strat-no.htm"
+          "price_eur": 3718.79,
+          "url": "https://www.peachguitars.com/prs-pauls-guitar-faded-blue-jean_1.htm?opt=57558"
         },
         {
-          "name": "Fender Custom Shop Masterbuilt David Brown '61 Strat - Relic Olympic White Josefina Handwound 59 Strat Pickups | 59 Esquire C Neck Shape | 9.5\" Radius | Jumbo Frets",
-          "price": 8999.0,
+          "name": "PRS Paul's Guitar - Red Tiger *Used* The Boss' Guitar!",
+          "price": 2799.0,
           "currency": "GBP",
-          "price_eur": 10461.22,
-          "url": "https://www.peachguitars.com/fender-custom-shop-masterbuilt-david-brown-61-strat-relic-olympic-white.htm"
+          "price_eur": 3253.8,
+          "url": "https://www.peachguitars.com/prs-pauls-guitar-red-tiger-used-.htm?opt=70239"
         }
       ],
-      "elapsed_s": 2.5,
+      "elapsed_s": 35.1,
       "result": "passed",
       "error": null
     },
@@ -1545,7 +1571,7 @@
           "url": "https://woodbrass.com/products/fender-telecaster-ss-hybrid-ii-mij-rw-matte-phantom-black-428441"
         }
       ],
-      "elapsed_s": 60.1,
+      "elapsed_s": 240.2,
       "result": "passed",
       "error": null
     },
@@ -1755,13 +1781,38 @@
       "platform": "custom",
       "scraper_type": "structured",
       "data_quality": "heuristic",
-      "expected": "documented_skip",
-      "blocked_reason": "search page ignores the query (same grid for any search); the shop builds its results in the browser",
-      "queries_tried": [],
-      "offers_found": 0,
-      "sample": [],
-      "elapsed_s": null,
-      "result": "skipped",
+      "expected": "offers",
+      "blocked_reason": null,
+      "queries_tried": [
+        "sax",
+        "flute"
+      ],
+      "offers_found": 5,
+      "sample": [
+        {
+          "name": "Hercules Combo Sax Stand - 2 Alto / Tenor, 1 Soprano, 2 Flute / Clarinet!!!",
+          "price": 74.95,
+          "currency": "USD",
+          "price_eur": 65.83,
+          "url": "https://www.saxquest.com/product/view/hercules-combo-sax-stand-2-alto-tenor-1-soprano-2-flute-clarinet-P2105"
+        },
+        {
+          "name": "Light Weight Travel Case for C Foot Flute",
+          "price": 35.0,
+          "currency": "USD",
+          "price_eur": 30.74,
+          "url": "https://www.saxquest.com/product/view/light-weight-travel-case-for-c-foot-flute-P9721"
+        },
+        {
+          "name": "New Yamaha YFL-482 Series Intermediate French Style Sterling Silver Flute",
+          "price": 2989.99,
+          "currency": "USD",
+          "price_eur": 2626.27,
+          "url": "https://www.saxquest.com/product/view/new-yamaha-yfl-482-series-intermediate-french-style-sterling-silver-flute-P10073"
+        }
+      ],
+      "elapsed_s": 16.1,
+      "result": "passed",
       "error": null
     },
     "willies-american-guitars": {

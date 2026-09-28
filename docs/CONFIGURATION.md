@@ -52,6 +52,7 @@ Keys an override may set:
 | `impersonate` | `true` = requests with a Chrome TLS fingerprint (curl_cffi) |
 | `stealth` | `true` (playwright only) = real Google Chrome via patchright |
 | `session_setup` | one POST before searching (`{"url", "data"}`), e.g. pin a display currency |
+| `search_post` | the search is a POST form: `{"field": "{query}"}` sent to `search_url` (Saxquest) |
 | `algolia` / `doofinder` / `constructor` | the public search-API settings of that shop (see [SCRAPERS](SCRAPERS.md)) |
 | `enabled` / `blocked_reason` | disable a shop and say why |
 
@@ -80,6 +81,7 @@ See `.env.example`. Most relevant here:
 | `USE_PROXY` / `PROXY_LIST` | `False` | round-robin proxies for requests and Chromium |
 | `HEADLESS_BROWSER` | `True` | Playwright headless mode |
 | `SCHEDULER_ENABLED` | `True` | periodic scraping jobs; set `False` in development |
+| `SCRAPER_CONTACT` | – | e-mail or URL added to the scraper's User-Agent, so shops can reach you |
 | `GEOIP_DB` | `data/dbip-country-lite.mmdb` | offline IP → country file for the page language (optional) |
 | `SEMANTIC_MODEL` | `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2` | local model for cross-language matching; empty = literal only |
 | `MODELS_DIR` | `data/models` | where the model is downloaded once |

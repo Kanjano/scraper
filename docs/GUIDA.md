@@ -1,6 +1,6 @@
 # Guida all'utilizzo — INSTRINDER
 
-INSTRINDER cerca uno strumento musicale in 74 negozi di Europa, Stati
+INSTRINDER cerca uno strumento musicale in 76 negozi di Europa, Stati
 Uniti e Asia, converte i prezzi in euro e li mette a confronto. Questa guida è
 divisa in due parti: **usare il sito** e **installarlo e gestirlo**.
 
@@ -112,6 +112,7 @@ principali:
 | Voce | A cosa serve |
 |------|--------------|
 | `SCHEDULER_ENABLED` | `False` in sviluppo: evita gli scraping periodici automatici |
+| `SCRAPER_CONTACT` | email o sito con cui lo scraper si presenta ai negozi (nello user-agent) |
 | `CONTACT_EMAIL` | indirizzo che riceve i messaggi del modulo Contattami |
 | `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURITY`, `SMTP_USER`, `SMTP_PASSWORD` | account di posta che invia i messaggi |
 | `GEOIP_DB` | file per riconoscere il paese dall'IP (facoltativo) |

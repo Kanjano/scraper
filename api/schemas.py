@@ -21,6 +21,7 @@ class OfferOut(BaseModel):
     original_price_eur: float | None = None
     discount_pct: int = 0                    # 0 = not on sale
     relevance: float = 0.0                   # 0..1, fit to the query
+    discount_everywhere: bool = False        # the shop shows a cut on nearly all it sold: a list price
 
 
 class SearchResponse(BaseModel):

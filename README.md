@@ -59,6 +59,7 @@ Everything is set in `.env` (never committed; template in `.env.example`).
 | Area | Variables |
 |------|-----------|
 | Development | `SCHEDULER_ENABLED=False` |
+| Scraper identity | `SCRAPER_CONTACT` (e-mail or URL added to the User-Agent) |
 | Contact form | `CONTACT_EMAIL` (recipient, only here), `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURITY`, `SMTP_USER`, `SMTP_PASSWORD`, `CONTACT_FROM`, `CONTACT_RATE_LIMIT`, `CONTACT_RATE_WINDOW_S` |
 | Page language | `GEOIP_DB` (optional offline IP → country file) |
 | Search | `SEMANTIC_MODEL` (empty = literal matching only), `MODELS_DIR` |
@@ -98,7 +99,7 @@ Each offer carries `price_eur`, `original_price` / `discount_pct`, `image`,
 ## How it works
 
 ```
-page / API ─► orchestrator ─► ~74 shops in parallel ─► normalize (EUR, discount)
+page / API ─► orchestrator ─► ~76 shops in parallel ─► normalize (EUR, discount)
                  │                                          │
       query translation (local)          relevance filter · accessories · score
                                                             │

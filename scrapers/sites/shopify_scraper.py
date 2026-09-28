@@ -8,14 +8,27 @@ allowed and far richer: every product with vendor, type, variants and prices.
 We fetch the feed once per site (TTL-cached), then filter locally by query
 tokens. That is one request per site per refresh instead of one per search, and
 no theme/CSS coupling at all.
+
+Large catalogues exceed the feed window (MAX_PAGES x PAGE_SIZE). For those the
+shop's collections fill the gap: ``/collections.json`` lists every collection
+once, and when the query names one ("fender", "fender custom shop") its own
+feed ``/collections/<handle>/products.json`` is read too — the brand's full
+range, without walking a catalogue of tens of thousands of products.
 """
+import re
 from urllib.parse import quote, urlsplit
 
 from cache.cache_manager import cache
 from scrapers.base_scraper import BaseScraper
 
-MAX_PAGES = 4  # 4 x 250 = up to 1000 products per shop
+MAX_PAGES = 4  # 4 x 250 = up to 1000 products per shop (and per collection)
 PAGE_SIZE = 250
+MAX_COLLECTION_PAGES = 8  # collections.json pages: up to 2000 collections
+_SLUG = re.compile(r"[^a-z0-9]+")
+
+
+def _slug(text: str) -> str:
+    return _SLUG.sub("-", text.lower()).strip("-")
 
 
 class ShopifyScraper(BaseScraper):
@@ -46,26 +59,57 @@ class ShopifyScraper(BaseScraper):
         cache.set(key, currency)
         return currency
 
-    def _catalog(self) -> list[dict]:
-        key = f"shopify:{self.config['id']}:catalog"
+    def _pages(self, feed: str, key: str, field: str, max_pages: int) -> list[dict]:
+        """All items of a paginated Shopify JSON feed (TTL-cached)."""
         cached = cache.get(key)
         if cached is not None:
             return cached
-
-        feed = self.config["search_url"] or f"{self._origin()}/products.json?limit={PAGE_SIZE}"
-        products: list[dict] = []
-        for page in range(1, MAX_PAGES + 1):
+        items: list[dict] = []
+        for page in range(1, max_pages + 1):
             url = f"{feed}&page={page}" if "?" in feed else f"{feed}?page={page}"
             try:
                 resp = self.retry_with_backoff(self.respectful_request, url)
-                batch = resp.json().get("products", [])
+                batch = resp.json().get(field, [])
             except Exception as exc:  # noqa: BLE001
-                self.logger.error("shopify catalog page %d failed: %s", page, exc)
+                self.logger.error("shopify %s page %d failed: %s", field, page, exc)
                 break
-            products.extend(batch)
+            items.extend(batch)
             if len(batch) < PAGE_SIZE:
                 break
-        cache.set(key, products)
+        cache.set(key, items)
+        return items
+
+    def _catalog(self) -> list[dict]:
+        feed = self.config["search_url"] or f"{self._origin()}/products.json?limit={PAGE_SIZE}"
+        return self._pages(feed, f"shopify:{self.config['id']}:catalog", "products", MAX_PAGES)
+
+    def _collection_handles(self) -> set[str]:
+        items = self._pages(
+            f"{self._origin()}/collections.json?limit={PAGE_SIZE}",
+            f"shopify:{self.config['id']}:collections", "collections", MAX_COLLECTION_PAGES,
+        )
+        return {c["handle"] for c in items if isinstance(c, dict) and c.get("handle")}
+
+    def _collection_products(self, query: str) -> list[dict]:
+        """Products of the collections the query names (longest name first).
+
+        "fender custom shop" tries fender-custom-shop, fender-custom,
+        custom-shop, fender, … and reads at most two existing collections.
+        """
+        words = [w for w in _slug(query).split("-") if w]
+        wanted = [
+            "-".join(words[i:i + n])
+            for n in range(len(words), 0, -1)
+            for i in range(len(words) - n + 1)
+        ]
+        handles = self._collection_handles()
+        picked = [h for h in wanted if h in handles][:2]
+        products: list[dict] = []
+        for handle in picked:
+            products += self._pages(
+                f"{self._origin()}/collections/{quote(handle)}/products.json?limit={PAGE_SIZE}",
+                f"shopify:{self.config['id']}:collection:{handle}", "products", MAX_PAGES,
+            )
         return products
 
     @staticmethod
@@ -102,7 +146,12 @@ class ShopifyScraper(BaseScraper):
 
     def search(self, query: str, limit: int = 20, **kwargs) -> list[dict]:
         tokens = [t for t in query.lower().split() if t]
-        matches = [p for p in self._catalog() if self._matches(p, tokens)]
+        products = self._catalog()
+        if len(products) >= MAX_PAGES * PAGE_SIZE:  # the feed window is full: catalogue is bigger
+            seen = {p.get("id") for p in products}
+            products = products + [p for p in self._collection_products(query)
+                                   if p.get("id") not in seen]
+        matches = [p for p in products if self._matches(p, tokens)]
         if not matches:
             return []
         currency = self._presentment_currency()

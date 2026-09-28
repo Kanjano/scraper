@@ -19,17 +19,21 @@ challenges stay flagged, not forced.
 import json
 from pathlib import Path
 
+from config.settings import settings
+
 _CONFIG_DIR = Path(__file__).resolve().parent
 STORES_FILE = _CONFIG_DIR / "stores.json"
 OVERRIDES_FILE = _CONFIG_DIR / "store_overrides.json"
 
 # Identifiable, but with the browser token first: several shops reject requests
 # whose UA does not start with a recognised browser string (Thomann answers 429).
+# The contact address shops can reach us at comes from .env (SCRAPER_CONTACT).
 DEFAULT_USER_AGENT = (
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
     "(KHTML, like Gecko) Chrome/122.0 Safari/537.36 "
-    "StrumentiMusicaliScraper/1.0 (+price research; "
-    "contact: antonio.web2music@gmail.com)"
+    "StrumentiMusicaliScraper/1.0 (+price research"
+    + (f"; contact: {settings.scraper_contact}" if settings.scraper_contact else "")
+    + ")"
 )
 
 _HEADERS = {
@@ -357,10 +361,35 @@ MANUAL_OVERRIDES: dict[str, dict] = {
         "impersonate": True,
         "data_quality": "heuristic",
     },
-    "stars-music": {"enabled": False, "blocked_reason": "search page ignores the query (same grid for any search); the shop builds its results in the browser"},
+    "stars-music": {
+        # Search is a Doofinder layer ("fr" engine, EUR) like Gear4music's.
+        "platform": "custom",
+        "scraper_type": "doofinder",
+        "search_url": "https://eu1-search.doofinder.com/6/0c02b0209c000dbfb3352816d892e50f"
+                      "/_search?query={query}",
+        "doofinder": {"hashid": "0c02b0209c000dbfb3352816d892e50f", "zone": "eu1"},
+        "impersonate": True,
+        "selectors_verified": True,
+        "data_quality": "structured",
+    },
     "bernunzio-uptown-music": {"enabled": False, "blocked_reason": "search page ignores the query (same grid for any search); the shop builds its results in the browser"},
     "forks-drum-closet": {"enabled": False, "blocked_reason": "search page ignores the query (same grid for any search); the shop builds its results in the browser"},
-    "saxquest": {"enabled": False, "blocked_reason": "search page ignores the query (same grid for any search); the shop builds its results in the browser"},
+    "saxquest": {
+        # The search form posts: GET /product/search?search_term= ignores the term.
+        "platform": "custom",
+        "scraper_type": "structured",
+        "search_url": "https://www.saxquest.com/product/search",
+        "search_post": {"search_term": "{query}"},
+        "impersonate": True,
+        "data_quality": "heuristic",
+    },
+    "peach-guitars": {
+        "platform": "custom",
+        "scraper_type": "structured",
+        "search_url": "https://www.peachguitars.com/search.php?Go=&q={query}",
+        "impersonate": True,
+        "data_quality": "heuristic",
+    },
     "melody-house": {"enabled": False, "blocked_reason": "search page ignores the query (same grid for any search); the shop builds its results in the browser"},
     "musicians-friend": {
         "enabled": False,
@@ -560,6 +589,7 @@ def build_sites_config() -> dict[str, dict]:
             "impersonate": ov.get("impersonate", False),
             "stealth": ov.get("stealth", False),
             "session_setup": ov.get("session_setup"),
+            "search_post": ov.get("search_post"),
             "algolia": ov.get("algolia"),
             "constructor": ov.get("constructor"),
             "doofinder": ov.get("doofinder"),

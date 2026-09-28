@@ -8,21 +8,22 @@ audit of the search routes (see below).
 
 | | Stores | With a working route |
 |---|---|---|
-| **Total** | 120 | **74** |
-| Europe | 37 | 22 |
-| USA | 63 | 41 |
+| **Total** | 120 | **76** |
+| Europe | 37 | 23 |
+| USA | 63 | 42 |
 | Asia | 20 | 11 |
 | Priority 1 (global majors) | 30 | 22 |
-| Priority 2 (broad catalogues) | 25 | 14 |
-| Priority 3 (niche / workshops) | 65 | 38 |
+| Priority 2 (broad catalogues) | 25 | 15 |
+| Priority 3 (niche / workshops) | 65 | 39 |
 
-Route mix across the 74 usable stores: 33 Shopify catalogue feeds, 21 HTML pages
-(schema.org → embedded JSON → grid detection, or pinned selectors), 8
-Chromium-rendered (6 of them in a real Chrome), 7 WooCommerce Store API, 4 hosted
-search APIs (Algolia ×2, Doofinder, Constructor), 1 official API (Reverb).
+Route mix across the 76 usable stores: 33 Shopify catalogue feeds (with
+brand collections for catalogues over 1000 products), 22 HTML pages (schema.org
+→ embedded JSON → grid detection, or pinned selectors; one POST search form),
+8 Chromium-rendered (6 of them in a real Chrome), 7 WooCommerce Store API, 5
+hosted search APIs (Algolia ×2, Doofinder ×2, Constructor), 1 official API (Reverb).
 
-Data quality of the 74: 53 `structured` (API, platform feed, schema.org or
-verified selectors), 1 `inline_json`, 20 `heuristic` (grid read from the layout).
+Data quality of the 76: 54 `structured` (API, platform feed, schema.org or
+verified selectors), 1 `inline_json`, 21 `heuristic` (grid read from the layout).
 
 ### Route audit (28 September 2026)
 
@@ -36,7 +37,9 @@ change with the query is not searching.
   Music & Arts (prices had no currency sign; grid detection read a $299 banner
   for every item). Thomann now carries product photos.
 - **Disabled** — search ignores the query and the shop builds its results in the
-  browser: Stars Music, Bernunzio, Forks Drum Closet, Saxquest, Melody House.
+  browser: Bernunzio, Forks Drum Closet, Melody House (no product data even in
+  a real Chrome). Stars Music (Doofinder API) and Saxquest (POST search form)
+  were recovered the same day.
   Musician's Friend: now behind the same Akamai challenge as Guitar Center.
 - Shops with relevant results for "fender custom shop": 39 → 47. The coverage
   total drops from 80 to 74 because six shops previously counted as working
@@ -58,19 +61,19 @@ Latest run (`data/store_test_report.json`, 28 September 2026):
 
 | Result | Stores | Meaning |
 |--------|--------|---------|
-| `passed` | 74 | returned at least one offer with a name and a price > 0, with a product URL |
-| `skipped` | 46 | no usable route, each with a `blocked_reason` |
+| `passed` | 76 | returned at least one offer with a name and a price > 0, with a product URL |
+| `skipped` | 44 | no usable route, each with a `blocked_reason` |
 | `failed` | 0 | configured as usable but returned nothing |
 
 Queries are chosen per specialty (a drum shop is asked for a snare, a violin
 dealer for a violin), up to six per store until one returns offers.
 
-## Why 46 stores are not scraped
+## Why 44 stores are not scraped
 
 | Reason | Stores | Examples |
 |--------|--------|----------|
 | Interactive anti-bot challenge (needs residential proxy / unlocker) | 4 | Guitar Center (Akamai press-and-hold), Musician's Friend (Akamai), The Ukulele Site, Full Compass (Cloudflare Turnstile) |
-| Search ignores the query; results built in the browser | 5 | Stars Music, Bernunzio, Forks Drum Closet, Saxquest, Melody House |
+| Search ignores the query; results built in the browser | 3 | Bernunzio, Forks Drum Closet, Melody House |
 | robots.txt disallows search | 2 | Music Store, Muziker |
 | Site locked, parked or merged | 4 | McCabe's (HTTP 401), Mansons (domain parked), Pro Guitar Shop (now reverb.com), Nakwon (403 outside Korea) |
 | Catalogue without public prices ("price on request") | 11 | J & A Beare, Ingles & Hayday, the Conde workshops, Guitarras Ramírez' sister shops, Steinway Hall, Tarisio (auction estimates), Gruhn (now guitars.com) |
@@ -83,19 +86,21 @@ per store is in `data/store_probe.json`.
 
 ## Known limits
 
-- **Heuristic reads.** 20 stores are parsed by grid detection. It picks the price
+- **Heuristic reads.** 21 stores are parsed by grid detection. It picks the price
   from the price-tagged element and ignores instalments and struck-through
   prices, but a badly structured card can still yield a wrong number — hence the
   `data_quality` flag on every offer.
-- **Shopify feeds are capped** at 1000 products per shop (4 × 250). A query that
-  matches nothing in that window returns empty for very large catalogues
-  (e.g. Woodbrass: its Fender Custom Shop items sit beyond the window).
-- **Discounts are as stated by the shops** (list/compare-at prices); some shops
-  show a permanent "compare at" price.
+- **Shopify feeds are read up to 1000 products per shop** (4 × 250). For larger
+  catalogues the shop's collections fill the gap: when the query names a
+  collection ("fender", "fender custom shop") its own feed is read too. The
+  first search of such a shop lists its collections once (≈ 100 s for
+  Woodbrass's 2000, then cached 12 h). A product in no collection named by the
+  query can still be missed.
+- **Discounts are as stated by the shops.** A shop showing a cut on ≥ 80 % of
+  what it returned (at least 5 items) is showing a list price: those offers are
+  flagged `discount_everywhere` and kept out of the deals column.
 - **Search time** grows with the number of shops (1–3 minutes for all of them,
   longer for non-English queries, which are sent twice). Narrow by area to speed up.
-- **Peach Guitars'** search page shows a fixed showcase: the relevance filter
-  keeps only matching items, so coverage there is partial.
 - **`sites_config` is a snapshot.** Shops move platform and re-brand (Gruhn →
   guitars.com, Replay → legendsguitars.com during this work), so re-run
   `scripts/probe_stores.py` periodically; it is idempotent.
@@ -116,9 +121,9 @@ European visitor would be converted twice.
 
 ## Honest summary
 
-Coverage is 74/120, every one of them verified to actually search what is
+Coverage is 76/120, every one of them verified to actually search what is
 typed. The four stores behind interactive challenges need a residential proxy
 or an unlocker (the proxy plumbing is ready); captchas are not solved. Of the
-other 42, most publish no prices, are unreachable from this network, disallow
+other 40, most publish no prices, are unreachable from this network, disallow
 search in robots.txt, or build their search results in the browser in a way
 that cannot be read.

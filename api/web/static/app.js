@@ -306,7 +306,7 @@ function dealNode(o) {
 }
 function renderDeals(offers) {
   const deals = offers
-    .filter(o => o.discount_pct > 0 && !o.is_accessory && o.url)
+    .filter(o => o.discount_pct > 0 && !o.is_accessory && !o.discount_everywhere && o.url)
     .sort((a, b) => b.discount_pct - a.discount_pct || a.price_eur - b.price_eur)
     .slice(0, DEALS);
   el.dealGrid.replaceChildren(...deals.map(dealNode));

@@ -77,6 +77,8 @@ Response (`SearchResponse`):
 - `original_price` / `discount_pct`: the shop's pre-discount price and the cut
   (0 = not on sale). `image`: product photo URL on the shop's CDN.
 - `relevance`: 0..1 fit to the query, used by the page's "sort by relevance".
+- `discount_everywhere`: the shop shows a cut on nearly everything it returned
+  (a list price, not a sale); such offers are left out of the deals column.
 - `data_quality` says how the number was obtained: `structured` (official API,
   JSON feed, schema.org markup or verified selectors), `inline_json` (the shop's
   own embedded catalogue JSON), or `heuristic` (product grid read from the page

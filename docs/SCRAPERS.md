@@ -73,6 +73,13 @@ up to 4 pages × 250 products once per site (TTL-cached in `cache/`), then filte
 locally by query tokens over title/vendor/type/tags. One request per refresh
 instead of one per search, and no theme coupling.
 
+Catalogues larger than that window are completed through the shop's
+collections: `/collections.json` is listed once (cached), and when the query
+names a collection — any run of its words as a handle, longest first
+("fender-custom-shop", "fender") — up to two collection feeds
+(`/collections/<handle>/products.json`) are read and merged. Both endpoints are
+allowed by Shopify's default `robots.txt`.
+
 Shopify Markets quotes converted prices per visitor region and `/products.json`
 never states which currency it used, so the scraper reads the session currency
 from `/cart.js` (cached with the catalogue) instead of assuming the shop's home
@@ -111,8 +118,11 @@ shop's bot-protected pages. Settings live in the store override:
 
 ## `StructuredScraper`
 
-Fetches the shop's search page and tries, in order: JSON-LD `Product`/`ItemList`
-→ microdata → repeated-grid detection → the config's CSS selectors. Covers
+Fetches the shop's search page (or POSTs its search form when the override has
+`search_post`) and tries, in order: JSON-LD `Product`/`ItemList` → microdata →
+repeated-grid detection → the config's CSS selectors. Grid detection takes the
+product photo from the card or, when the priced block leaves it out, from the
+nearest wrapper holding that card only. Covers
 Magento, PrestaShop, BigCommerce, Shopware and bespoke storefronts with one class.
 
 ## `GenericScraper` (CSS selectors)

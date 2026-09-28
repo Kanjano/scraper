@@ -37,3 +37,13 @@ def test_queries_are_translated_to_english_locally():
     assert to_english("Verstärker Marshall") == "amplifier marshall"
     assert to_english("sax alto yamaha") is None  # "alto" stays: not a viola here
     assert to_english("エレキギター フェンダー") == "electric guitar フェンダー"
+
+
+def test_shop_wide_list_prices_are_not_deals():
+    raw = [dict(_offer(f"Fender Stratocaster {i}", 1000 + i, site="always"),
+                discount_pct=20, original_price=1300) for i in range(6)]
+    raw += [dict(_offer("Fender Stratocaster Deal", 900, site="real"), discount_pct=15, original_price=1060),
+            _offer("Fender Stratocaster Plain", 950, site="real")]
+    out = ScraperOrchestrator().aggregate_results("fender stratocaster", raw, 0.1)
+    flags = {r["site_key"]: r["discount_everywhere"] for r in out["results"] if r["discount_pct"]}
+    assert flags == {"always": True, "real": False}

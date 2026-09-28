@@ -16,6 +16,7 @@ class Settings(BaseSettings):
     log_level: str = "INFO"
 
     # Scraping
+    scraper_contact: str = ""            # e-mail/URL added to the scraper's User-Agent
     default_timeout: int = 30
     max_retries: int = 3
     headless_browser: bool = True

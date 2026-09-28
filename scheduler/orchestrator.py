@@ -11,6 +11,23 @@ from utils.logger import get_logger
 logger = get_logger(__name__)
 
 
+# ponytail: fixed thresholds. A shop "discounting" nearly everything it returned
+# shows a list price, not a sale; its cuts stay visible but are not deals.
+_EVERYWHERE_SHARE = 0.8
+_EVERYWHERE_MIN = 5
+
+
+def _flag_list_price_discounts(offers: list[dict]) -> None:
+    by_site: dict[str, list[dict]] = {}
+    for o in offers:
+        by_site.setdefault(o.get("site_key"), []).append(o)
+    for items in by_site.values():
+        on_sale = sum((o.get("discount_pct") or 0) > 0 for o in items)
+        everywhere = len(items) >= _EVERYWHERE_MIN and on_sale / len(items) >= _EVERYWHERE_SHARE
+        for o in items:
+            o["discount_everywhere"] = everywhere and (o.get("discount_pct") or 0) > 0
+
+
 class ScraperOrchestrator:
     def __init__(self, max_workers: int = 5):
         self.max_workers = max_workers
@@ -142,6 +159,7 @@ class ScraperOrchestrator:
             "original_price_eur": r.get("original_price_eur"),
             "discount_pct": r.get("discount_pct", 0),
             "relevance": r.get("relevance", 0.0),
+            "discount_everywhere": r.get("discount_everywhere", False),
         }
 
     def aggregate_results(
@@ -167,6 +185,7 @@ class ScraperOrchestrator:
         variants = [relevance.query_terms(query)] + ([relevance.query_terms(english)] if english else [])
         for r in priced:
             r["relevance"] = max(relevance.score(r, v) for v in variants)
+        _flag_list_price_discounts(priced)
         # What was asked for first, parts/accessories after; cheapest first in each.
         priced.sort(key=lambda r: (r["is_accessory"], r["price_eur_equivalent"]))
         ranked = []

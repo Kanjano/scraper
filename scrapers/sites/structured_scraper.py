@@ -12,9 +12,14 @@ from scrapers.structured import extract_any, extract_products
 
 class StructuredScraper(GenericScraper):
     def search(self, query: str, limit: int = 20, **kwargs) -> list[dict]:
-        url = self.config["search_url"].format(query=quote_plus(query))
+        form = self.config.get("search_post")  # {"field": "{query}"} for POST search forms
+        if form:
+            url = self.config["search_url"]
+            extra = {"data": {k: v.format(query=query) for k, v in form.items()}}
+        else:
+            url, extra = self.config["search_url"].format(query=quote_plus(query)), {}
         try:
-            resp = self.retry_with_backoff(self.respectful_request, url)
+            resp = self.retry_with_backoff(self.respectful_request, url, **extra)
         except Exception as exc:  # noqa: BLE001
             self.logger.error("search failed: %s", exc)
             return []

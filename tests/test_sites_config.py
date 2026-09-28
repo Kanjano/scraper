@@ -38,7 +38,9 @@ def test_search_urls_are_templated_or_catalogue_feeds():
             continue
         # Either the query is substituted, or it is a whole-catalogue feed the
         # scraper filters locally (Shopify /products.json).
-        assert "{query}" in url or cfg["scraper_type"] == "shopify", key
+        # POST search forms carry the query in their fields instead.
+        post = any("{query}" in v for v in (cfg.get("search_post") or {}).values())
+        assert "{query}" in url or post or cfg["scraper_type"] == "shopify", key
 
 
 def test_disabled_stores_say_why():

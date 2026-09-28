@@ -95,7 +95,9 @@ class BaseScraper(ABC):
         proxies = kwargs.pop("proxies", None) or self.proxy_manager.as_requests()
         if proxies:
             kwargs["proxies"] = proxies
-        resp = self.session.get(url, timeout=self.timeout, **kwargs)
+        # Shops whose search form posts (Saxquest) pass `data=`.
+        send = self.session.post if "data" in kwargs else self.session.get
+        resp = send(url, timeout=self.timeout, **kwargs)
         resp.raise_for_status()
         _fix_encoding(resp)
         return resp

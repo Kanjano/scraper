@@ -119,9 +119,13 @@ is dropped as a misreading. Sources of `original_price`:
 | grid detection | struck-through price (`<s>`, `<del>`, classes like `old`, `was`, `strike`) |
 | CSS selectors | `original_price` selector (Bax `span.van-prijs`, Guitar Guitar RRP…) |
 
-Discounts are **as stated by each shop**. The page's right column shows the
-eight biggest discounts among non-accessory matches, each card linking to the
-retailer.
+Discounts are **as stated by each shop**. When a shop shows a cut on at least
+80 % of the offers it returned in a search (and at least 5 offers), the cut is a
+permanent list price rather than a sale: those offers get
+`discount_everywhere: true`, keep their struck price, and stay out of the deals
+column (`scheduler/orchestrator._flag_list_price_discounts`). The page's right
+column shows the eight biggest remaining discounts among non-accessory matches,
+each card linking to the retailer.
 
 Grid-parsed prices also skip instalment offers ("$392/month", Klarna/Affirm
 blocks) and re-join prices split across elements ("$" "4,699" ".99").
