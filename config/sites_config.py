@@ -268,18 +268,126 @@ MANUAL_OVERRIDES: dict[str, dict] = {
         "data_quality": "structured",
     },
     "andertons-music-co": {
+        # BigCommerce storefront whose search box calls Constructor.io (the old
+        # /search?q= page now answers 404). Public client key from the page.
+        "platform": "bigcommerce",
+        "scraper_type": "constructor",
+        "search_url": "https://ac.cnstrc.com/search/{query}",
+        "constructor": {
+            "key": "key_A2YIqKz8zkXkA26G",
+            "fields": {"price": "price", "sale_price": "salePrice", "url": "url",
+                       "image": "image_url", "brand": "brand"},
+        },
+        "impersonate": True,
+        "selectors_verified": True,
+        "data_quality": "structured",
+    },
+    # Routes fixed on 2026-09-28 after a store-by-store check with "fender
+    # custom shop": the probe had accepted pages that ignored the query.
+    "guitar-guitar": {
         "platform": "custom",
         "scraper_type": "playwright",
-        "search_url": "https://www.andertons.co.uk/search?q={query}",
+        "search_url": "https://www.guitarguitar.co.uk/search/?Query={query}",
+        "stealth": True,
         "requires_javascript": True,
         "selectors_verified": True,
         "data_quality": "structured",
         "selectors": {
-            "product_container": "article.productCard",
-            "name": "h3.productCard__title",
-            "brand": "p.productCard__brand",
-            "price": "span.productCard__price",
-            "url": "a.productCard__title__link",
+            "product_container": "a.product",
+            "name": "h3.qa-product-list-item-title",
+            "price": "span.product-main-price",
+            "original_price": "span.product-rrp-price",
+            "url": ":scope",
+            "image": "img",
+        },
+    },
+    "the-guitar-sanctuary": {
+        "platform": "bigcommerce",
+        "scraper_type": "requests",
+        "search_url": "https://www.guitarsanctuary.com/search.php?search_query={query}",
+        "impersonate": True,
+        "selectors_verified": True,
+        "data_quality": "structured",
+        "selectors": {
+            "product_container": "article.card",
+            "name": "h2.card-title a",
+            "price": "span.price--withoutTax",
+            "original_price": "span.price--non-sale",
+            "url": "h2.card-title a",
+            "image": "img.card-image",
+        },
+    },
+    "musik-produktiv": {
+        # 403 to non-browser clients on search; the real search parameter is ?search=.
+        "platform": "custom",
+        "scraper_type": "playwright",
+        "search_url": "https://www.musik-produktiv.de/search?search={query}",
+        "stealth": True,
+        "requires_javascript": True,
+        "data_quality": "heuristic",
+    },
+    "session-music": {
+        "platform": "custom",
+        "scraper_type": "playwright",
+        "search_url": "https://www.session.de/search?search={query}",
+        "stealth": True,
+        "requires_javascript": True,
+        "data_quality": "heuristic",
+    },
+    "bigboss": {
+        # The shop form posts to "…/list#main" with ?name=; the old route put the
+        # query after the "#", so it never reached the server.
+        "platform": "custom",
+        "scraper_type": "structured",
+        "search_url": "https://bigboss.jp/store/products/list?name={query}",
+        "impersonate": True,
+        "data_quality": "heuristic",
+    },
+    "digimart": {
+        "platform": "custom",
+        "scraper_type": "structured",
+        "search_url": "https://www.digimart.net/search?keywordAnd={query}",
+        "impersonate": True,
+        "data_quality": "heuristic",
+    },
+    "musicians-friend": {
+        "enabled": False,
+        "blocked_reason": "Akamai bot challenge on search since 2026-09 (same group and "
+                          "protection as Guitar Center); needs a residential proxy or unlocker",
+    },
+    "thomsun-music": {
+        "platform": "opencart",
+        "scraper_type": "structured",
+        "search_url": "https://www.thomsunmusic.com/index.php?route=product/search&search={query}",
+        "impersonate": True,
+        "data_quality": "heuristic",
+    },
+    "furtados": {
+        # Magento PWA: the results page is built in the browser.
+        "platform": "magento",
+        "scraper_type": "playwright",
+        "search_url": "https://www.furtadosonline.com/search.html?query={query}&page=1",
+        "stealth": True,
+        "requires_javascript": True,
+        "data_quality": "heuristic",
+    },
+    "the-woodwind-and-brasswind": {
+        # Now served by musicarts.com; plain clients time out, a Chrome TLS
+        # fingerprint gets the search page.
+        "platform": "custom",
+        "scraper_type": "requests",
+        "search_url": "https://www.musicarts.com/search?q={query}",
+        "impersonate": True,
+        "selectors_verified": True,
+        "data_quality": "structured",
+        # Prices carry no currency sign, so grid detection picked a banner
+        # figure ($299) for every item: read the card's own price field.
+        "selectors": {
+            "product_container": "div.product-item",
+            "name": "div.mt-xs div.paragraph-medium",
+            "price": "div.mproduct-price",
+            "url": "a",
+            "image": "img",
         },
     },
 }
@@ -320,6 +428,8 @@ VERIFIED_BLOCKS: dict[str, str] = {
     "shimokura-music": "static brochure site, no online catalogue",
     "mansons-guitar-shop": "domain parked (redirects to a 'domain not in use' page)",
     # Anti-bot walls that need an interactive challenge or another exit IP.
+    "musicians-friend": "Akamai bot challenge on search since 2026-09 (same group and "
+                        "protection as Guitar Center); needs a residential proxy or unlocker",
     "guitar-center": "Akamai behavioural challenge (press-and-hold) on search; "
                      "needs a residential proxy or unlocker",
     "hawaii-music-supply-the-ukulele-site": "Cloudflare interactive Turnstile challenge; "
@@ -439,6 +549,7 @@ def build_sites_config() -> dict[str, dict]:
             "stealth": ov.get("stealth", False),
             "session_setup": ov.get("session_setup"),
             "algolia": ov.get("algolia"),
+            "constructor": ov.get("constructor"),
             "doofinder": ov.get("doofinder"),
             "timeout": ov.get("timeout", 30),
             "max_retries": ov.get("max_retries", 3),

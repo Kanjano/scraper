@@ -37,6 +37,14 @@ class ThomannScraper(GenericScraper):
             for a in soup.select("div.fx-product-list-entry a.product__content")
         ]
 
+        # Product photos, keyed by the same product id the GA4 items carry.
+        images = {}
+        for card in soup.select("div.fx-product-list-entry[data-product-id]"):
+            src = next((s.get("data-srcset") for s in card.select("source[data-srcset]")
+                        if (s.get("data-srcset") or "").split()[0].endswith(".jpg")), None)
+            if src:
+                images[card["data-product-id"]] = src.split()[0]
+
         records: list[dict] = []
         seen: set[str] = set()
         for idx, raw in enumerate(_ITEM_RE.findall(html)):
@@ -59,6 +67,7 @@ class ThomannScraper(GenericScraper):
                     "external_id": item_id or None,
                     "url": urljoin(self.config["url"], href) if href else None,
                     "rating": None,
+                    "image": images.get(item_id),
                 }
             )
             if len(records) >= limit:

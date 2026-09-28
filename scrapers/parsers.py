@@ -52,6 +52,20 @@ def text_or_none(node) -> str | None:
     return txt or None
 
 
+def name_text(node) -> str | None:
+    """Text for a product name: parts joined with spaces, so markup like
+    "<strong>Fender</strong> Custom Shop" reads "Fender Custom Shop"."""
+    if node is None:
+        return None
+    txt = " ".join(node.get_text(" ", strip=True).split())
+    return txt or None
+
+
+def link_node(card, selector: str | None):
+    """The card's link element; ":scope" means the card itself is the <a>."""
+    return card if selector == ":scope" else card.select_one(selector or "a")
+
+
 def first_attr(node, *attrs) -> str | None:
     if node is None:
         return None

@@ -2,6 +2,7 @@
 from config.sites_config import SITES_CONFIG
 from scrapers.base_scraper import BaseScraper
 from scrapers.sites.algolia_scraper import AlgoliaScraper
+from scrapers.sites.constructor_scraper import ConstructorScraper
 from scrapers.sites.doofinder_scraper import DoofinderScraper
 from scrapers.sites.generic_scraper import GenericScraper
 from scrapers.sites.playwright_base import PlaywrightScraper
@@ -25,6 +26,7 @@ SCRAPER_TYPES: dict[str, type[BaseScraper]] = {
     "playwright": PlaywrightScraper,
     "requests": GenericScraper,
     "algolia": AlgoliaScraper,
+    "constructor": ConstructorScraper,
     "doofinder": DoofinderScraper,
 }
 

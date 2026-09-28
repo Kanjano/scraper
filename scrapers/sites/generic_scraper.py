@@ -8,7 +8,7 @@ from urllib.parse import quote_plus, urljoin
 from bs4 import BeautifulSoup
 
 from scrapers.base_scraper import BaseScraper
-from scrapers.parsers import first_attr, img_src, text_or_none
+from scrapers.parsers import first_attr, img_src, link_node, name_text, text_or_none
 
 
 class GenericScraper(BaseScraper):
@@ -27,10 +27,9 @@ class GenericScraper(BaseScraper):
 
         records: list[dict] = []
         for node in soup.select(sel["product_container"])[:limit]:
-            name = text_or_none(node.select_one(sel["name"]))
+            name = name_text(node.select_one(sel["name"]))
             price = self.parse_price(text_or_none(node.select_one(sel["price"])) or "")
-            link_node = node.select_one(sel.get("url", "a"))
-            href = first_attr(link_node, "href")
+            href = first_attr(link_node(node, sel.get("url")), "href")
             rating = self.parse_price(text_or_none(node.select_one(sel.get("rating", ""))) or "") \
                 if sel.get("rating") else None
             was = self.parse_price(text_or_none(node.select_one(sel["original_price"])) or "") \

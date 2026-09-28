@@ -19,7 +19,7 @@ from urllib.parse import quote_plus, urljoin
 from bs4 import BeautifulSoup
 
 from config.settings import settings
-from scrapers.parsers import first_attr, img_src, text_or_none
+from scrapers.parsers import first_attr, img_src, link_node, name_text, text_or_none
 from scrapers.sites.generic_scraper import GenericScraper
 from scrapers.structured import extract_any
 from utils.proxy_manager import ProxyManager
@@ -115,7 +115,7 @@ class PlaywrightScraper(GenericScraper):
 
         records: list[dict] = []
         for node in soup.select(sel["product_container"])[:limit]:
-            href = first_attr(node.select_one(sel.get("url", "a")), "href")
+            href = first_attr(link_node(node, sel.get("url")), "href")
             brand = (
                 text_or_none(node.select_one(sel["brand"])) if sel.get("brand") else None
             )
@@ -124,7 +124,7 @@ class PlaywrightScraper(GenericScraper):
             image = img_src(node.select_one(sel.get("image", "img")))
             records.append(
                 {
-                    "name": text_or_none(node.select_one(sel["name"])),
+                    "name": name_text(node.select_one(sel["name"])),
                     "brand": brand,
                     "price": self.parse_price(
                         text_or_none(node.select_one(sel["price"])) or ""
