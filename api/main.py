@@ -6,11 +6,12 @@ from html import escape
 from pathlib import Path
 from string import Template
 
-from fastapi import FastAPI, Request
-from fastapi.responses import FileResponse, HTMLResponse
+from fastapi import Depends, FastAPI, Request
+from fastapi.responses import FileResponse, HTMLResponse, Response
 from fastapi.staticfiles import StaticFiles
 
 from api import i18n
+from api.auth import require_admin
 from api.routes import admin, analytics, contact, favicons, pricing, search
 from config.database import init_db
 from config.settings import settings
@@ -38,7 +39,7 @@ async def lifespan(app: FastAPI):
         _scheduler.shutdown(wait=False)
 
 
-app = FastAPI(title="INSTRINDER", version="0.2.0", lifespan=lifespan)
+app = FastAPI(title="INSTRINDER", version="0.2.1", lifespan=lifespan)
 app.include_router(search.router)
 app.include_router(contact.router)
 app.include_router(pricing.router)
@@ -46,6 +47,20 @@ app.include_router(analytics.router)
 app.include_router(admin.router)
 app.include_router(favicons.router)
 app.mount("/static", StaticFiles(directory=Path(__file__).parent / "web" / "static"), name="static")
+
+
+@app.get("/health", tags=["health"])
+def health():
+    """Public liveness probe (page footer, Docker HEALTHCHECK, uptime monitors)."""
+    return {"status": "ok"}
+
+
+@app.get("/metrics", include_in_schema=False, dependencies=[Depends(require_admin)])
+def metrics_endpoint():
+    """Prometheus exposition format; needs the admin token."""
+    from prometheus_client import CONTENT_TYPE_LATEST, generate_latest
+
+    return Response(generate_latest(), media_type=CONTENT_TYPE_LATEST)
 
 
 @app.get("/favicon.ico", include_in_schema=False)

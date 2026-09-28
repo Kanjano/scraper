@@ -83,6 +83,7 @@ See `.env.example`. Most relevant here:
 | `STEALTH_BROWSER_CHANNEL` | `chrome` | browser for `stealth` shops: installed Google Chrome; empty = patchright's bundled Chromium (used automatically when Chrome is missing, e.g. Linux arm64) |
 | `SCHEDULER_ENABLED` | `True` | periodic scraping jobs; set `False` in development |
 | `SCRAPER_CONTACT` | – | e-mail or URL added to the scraper's User-Agent, so shops can reach you |
+| `ADMIN_TOKEN` | – | shared secret for `/admin/*` and `/metrics` (`Authorization: Bearer …`); empty = those endpoints are closed |
 | `GEOIP_DB` | `data/dbip-country-lite.mmdb` | offline IP → country file for the page language (optional) |
 | `SEMANTIC_MODEL` | `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2` | local model for cross-language matching; empty = literal only |
 | `MODELS_DIR` | `data/models` | where the model is downloaded once |
@@ -103,6 +104,8 @@ The recipient lives only in `.env`, never in code or in the page.
 
 Gmail example: `SMTP_HOST=smtp.gmail.com`, `SMTP_PORT=587`,
 `SMTP_SECURITY=starttls`, `SMTP_USER=<address>`, `SMTP_PASSWORD=<app password>`.
+Check the settings with `python -m scripts.send_test_mail` (sends one message
+to `CONTACT_EMAIL` with exactly the form's configuration).
 | `CACHE_ENABLED` / `CACHE_TTL_HOURS` | `True` / `12` | Shopify catalogue cache |
 | `BASE_CURRENCY` | `EUR` | normalisation target |
 | `SCHEDULER_ENABLED` | `True` | periodic scraping on API startup |

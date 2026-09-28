@@ -42,6 +42,10 @@ class Settings(BaseSettings):
     semantic_model: str = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
     models_dir: str = "data/models"
 
+    # Operator endpoints (/admin/*, /metrics): shared secret, sent as
+    # "Authorization: Bearer <token>". Empty = those endpoints are closed.
+    admin_token: str = ""
+
     # Contact form. The recipient is configuration, never page content: set it
     # in .env (CONTACT_EMAIL) together with an SMTP account that may send mail.
     # Empty CONTACT_EMAIL or SMTP_HOST = form answers "not available" (HTTP 503).

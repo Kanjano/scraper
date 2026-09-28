@@ -17,6 +17,7 @@ from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel, Field, field_validator
 
 from config.settings import settings
+from monitoring import metrics
 from utils.logger import get_logger
 
 router = APIRouter(tags=["contact"])
@@ -90,11 +91,14 @@ def _send(msg: EmailMessage) -> None:
 @router.post("/contact")
 def contact(body: ContactIn, request: Request):
     if not (settings.contact_email and settings.smtp_host):
+        metrics.CONTACT_COUNT.labels(result="unconfigured").inc()
         raise HTTPException(503, "contact form not configured")
     if body.website:  # a bot filled the invisible field: pretend it worked
+        metrics.CONTACT_COUNT.labels(result="honeypot").inc()
         return {"ok": True}
     ip = _client_ip(request)
     if not _allowed(ip):
+        metrics.CONTACT_COUNT.labels(result="rate_limited").inc()
         raise HTTPException(429, "too many messages")
 
     msg = EmailMessage()
@@ -110,5 +114,7 @@ def contact(body: ContactIn, request: Request):
         _send(msg)
     except (OSError, smtplib.SMTPException) as exc:
         logger.error("contact mail not sent: %s", exc)
+        metrics.CONTACT_COUNT.labels(result="smtp_error").inc()
         raise HTTPException(502, "could not send the message") from exc
+    metrics.CONTACT_COUNT.labels(result="sent").inc()
     return {"ok": True}

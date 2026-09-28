@@ -1,14 +1,15 @@
-"""Admin / monitoring endpoints."""
+"""Admin / monitoring endpoints — every route needs the admin token (api/auth.py)."""
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy.orm import Session
 
+from api.auth import require_admin
 from config.database import get_db
 from config.sites_config import SITES_CONFIG
 from models import Site
 from monitoring.health_checker import check_all, check_site
 from scheduler.jobs import scrape_priority, sync_sites
 
-router = APIRouter(prefix="/admin", tags=["admin"])
+router = APIRouter(prefix="/admin", tags=["admin"], dependencies=[Depends(require_admin)])
 
 
 @router.get("/sites-status")

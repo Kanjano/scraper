@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.2.1 — 2026-09-28
+
+### Security
+- `/admin/*` and the new `/metrics` require `ADMIN_TOKEN` (Bearer or
+  `X-Admin-Token`, constant-time check); closed with 403 when unset.
+
+### Added
+- Public `GET /health` (page footer, Docker health check).
+- Prometheus metrics recorded and exposed: per-shop outcomes and latency,
+  searches (count, duration, results), contact form outcomes.
+- `python -m scripts.send_test_mail` checks the contact-form SMTP settings.
+
 ## 0.2.0 — 2026-09-28 — INSTRINDER
 
 ### Added

@@ -748,7 +748,7 @@ el.contactForm.addEventListener("submit", async e => {
 });
 
 /* ---------- footer: backend health ---------- */
-fetch("/admin/health-check").then(r => r.ok ? r.json() : Promise.reject())
+fetch("/health").then(r => r.ok ? r.json() : Promise.reject())
   .then(() => { el.health.classList.add("up"); el.healthText.textContent = T.online; })
   .catch(() => { el.health.classList.add("down"); el.healthText.textContent = T.offline; });
 

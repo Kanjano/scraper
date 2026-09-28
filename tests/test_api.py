@@ -23,9 +23,27 @@ def test_pricing_endpoint():
         assert r.json()["lowest_price_site"] == "A"
 
 
-def test_admin_health():
+def test_public_health():
     with TestClient(app) as client:
-        assert client.get("/admin/health-check").json() == {"status": "ok"}
+        assert client.get("/health").json() == {"status": "ok"}
+
+
+def test_admin_and_metrics_need_the_token(monkeypatch):
+    from config.settings import settings
+
+    monkeypatch.setattr(settings, "admin_token", "")
+    with TestClient(app) as client:
+        assert client.get("/admin/coverage").status_code == 403       # closed by default
+        assert client.get("/metrics").status_code == 403
+        monkeypatch.setattr(settings, "admin_token", "s3cret-token")
+        assert client.get("/admin/coverage").status_code == 401       # no token
+        assert client.get("/admin/coverage", headers={"Authorization": "Bearer nope"}).status_code == 401
+        assert client.post("/admin/force-scrape").status_code == 401
+        ok = {"Authorization": "Bearer s3cret-token"}
+        assert client.get("/admin/health-check", headers=ok).json() == {"status": "ok"}
+        assert client.get("/admin/coverage", headers={"X-Admin-Token": "s3cret-token"}).status_code == 200
+        body = client.get("/metrics", headers=ok)
+        assert body.status_code == 200 and "instrinder_scrape_total" in body.text
 
 
 def test_search_stream_sends_progress_then_the_final_result(monkeypatch):

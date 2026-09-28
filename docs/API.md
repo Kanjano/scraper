@@ -205,7 +205,36 @@ Query params: `days` (int, default 30).
 }
 ```
 
+## Health and metrics
+
+### `GET /health`
+Public liveness probe (page footer, Docker `HEALTHCHECK`, uptime monitors).
+```json
+{ "status": "ok" }
+```
+
+### `GET /metrics`
+Prometheus exposition format — **admin token required**. Series:
+`instrinder_scrape_total{site,status}` (status `ok` · `empty` · `error`),
+`instrinder_scrape_seconds{site}` (histogram), `instrinder_search_total{translated}`,
+`instrinder_search_seconds`, `instrinder_search_results` (histograms),
+`instrinder_contact_total{result}` (`sent` · `smtp_error` · `rate_limited` ·
+`honeypot` · `unconfigured`), plus the Python process metrics.
+
 ## Admin (`api/routes/admin.py`)
+
+**Every `/admin/*` route requires the admin token** (`ADMIN_TOKEN` in `.env`),
+sent as `Authorization: Bearer <token>` or `X-Admin-Token: <token>`:
+
+| Situation | Status |
+|-----------|--------|
+| `ADMIN_TOKEN` not configured | 403 — the admin API is closed |
+| token missing or wrong | 401 (`WWW-Authenticate: Bearer`) |
+| token correct | the endpoint's normal answer |
+
+```bash
+curl -H "Authorization: Bearer $ADMIN_TOKEN" http://localhost:8000/admin/coverage
+```
 
 ### `GET /admin/sites-status`
 Per-store config + last scrape state (joins `SITES_CONFIG` with the `sites` table).
@@ -252,6 +281,7 @@ scheduler's default query set).
 ```
 
 ### `GET /admin/health-check`
+Same answer as the public `GET /health` (kept for compatibility; needs the token).
 ```json
 { "status": "ok" }
 ```

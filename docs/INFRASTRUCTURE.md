@@ -45,7 +45,7 @@ The image (`Dockerfile`) is multi-arch:
 
 It runs as a non-root user (`uid 10001`), bakes the search model into
 `/opt/models` (containers start offline and ready), and declares a
-`HEALTHCHECK` on `/admin/health-check`.
+`HEALTHCHECK` on `/health`.
 
 ```bash
 cp .env.example .env            # fill in (see CONFIGURATION)
@@ -127,8 +127,8 @@ server {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     }
 
-    location /admin/ {                  # unauthenticated in the app: restrict here
-        allow 10.0.0.0/8;               # your office / VPN
+    location ~ ^/(admin/|metrics) {     # token-protected in the app; an IP list adds depth
+        allow 10.0.0.0/8;               # your office / VPN / Prometheus
         deny all;
         proxy_pass http://127.0.0.1:8000;
     }
@@ -147,7 +147,7 @@ Caddy:
 
 ```caddy
 instrinder.example.com {
-    @admin path /admin/*
+    @admin path /admin/* /metrics
     handle @admin {
         remote_ip 10.0.0.0/8
         reverse_proxy 127.0.0.1:8000
@@ -173,7 +173,7 @@ bucket are affected). Do not expose port 8000 publicly.
 
 | Topic | State | Action |
 |-------|-------|--------|
-| `/admin/*` endpoints | **no authentication**; `POST /admin/force-scrape` and `/admin/sync-sites` trigger work | restrict at the proxy (above) or keep the app on a private network |
+| `/admin/*`, `/metrics` | require `ADMIN_TOKEN` (Bearer or `X-Admin-Token`); closed (403) when unset | set a long random token; optionally add an IP allow-list at the proxy |
 | `/docs`, `/redoc`, `/openapi.json` | public | restrict at the proxy if the API is not meant to be public |
 | Secrets | only in `.env` (git-ignored, excluded from the image by `.dockerignore`) | use the platform's secret store in production; `chmod 600 .env` |
 | Contact form | honeypot, per-IP limit (3 / 10 min), length limits, header-injection-safe addresses | add a CAPTCHA only if abuse appears |
@@ -209,16 +209,34 @@ each shop, duplicate scheduled jobs and split caches. To scale:
 | Signal | Where |
 |--------|-------|
 | Logs | JSON lines on stdout (`python-json-logger`): time, level, logger (`scraper.<shop>`, `api.*`), message; level via `LOG_LEVEL` |
-| Liveness | `GET /admin/health-check` → `{"status": "ok"}` (Docker `HEALTHCHECK`, uptime monitors) |
+| Liveness | `GET /health` → `{"status": "ok"}` (public; Docker `HEALTHCHECK`, uptime monitors) |
 | Shop reachability | `GET /admin/health-check/sites`; scheduled every 6 h |
 | Coverage | `GET /admin/coverage` — readable shops and blocking reasons |
 | Per-shop scrape status | `GET /admin/sites-status` (joined with the `sites` table) |
 | Live test | `python -m scripts.test_all_stores` → `data/store_test_report.json` |
-| Metrics | `monitoring/metrics.py` defines Prometheus counters/histograms, **not yet recorded nor exposed** — add a `/metrics` route (`prometheus_client.make_asgi_app`) and increments in the orchestrator to use them |
+| Metrics | `GET /metrics` (admin token): per-shop outcomes and latency, searches (count, duration, results), contact form outcomes — series listed in [API](API.md#get-metrics) |
 
 Useful log queries: `"site .* failed"` (a shop raised), `"attempt 3/3 failed"`
 (a shop exhausted retries), `"contact mail not sent"` (SMTP problem),
 `"semantic matching off"` (model unavailable).
+
+### Prometheus scrape config
+
+```yaml
+scrape_configs:
+  - job_name: instrinder
+    metrics_path: /metrics
+    authorization:
+      type: Bearer
+      credentials_file: /etc/prometheus/instrinder_token   # the ADMIN_TOKEN
+    static_configs:
+      - targets: ["instrinder.example.com:443"]
+    scheme: https
+```
+
+Useful alerts: `rate(instrinder_scrape_total{status="error"}[1h])` rising for a
+shop (its route broke), `histogram_quantile(0.9, rate(instrinder_search_seconds_bucket[1h]))`
+above your target, `instrinder_contact_total{result="smtp_error"}` > 0.
 
 ## Scheduled work
 

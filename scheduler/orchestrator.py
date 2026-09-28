@@ -5,6 +5,7 @@ from statistics import mean
 
 from config.sites_config import SITES_CONFIG, get_searchable_sites
 from scrapers import query_translation, relevance
+from monitoring import metrics
 from scrapers.sites import get_scraper
 from utils.logger import get_logger
 
@@ -43,6 +44,7 @@ class ScraperOrchestrator:
         cfg = SITES_CONFIG.get(site_key, {})
         if isinstance(queries, str):
             queries = [queries]
+        started = time.monotonic()
         try:
             with get_scraper(site_key) as scraper:
                 results = [r for q in queries for r in scraper.search(q, limit=limit)]
@@ -52,10 +54,14 @@ class ScraperOrchestrator:
                     r["area"] = cfg.get("area")
                     r["country"] = cfg.get("country")
                     r["data_quality"] = cfg.get("data_quality", "structured")
-                return results, (None if results else scraper.last_error)
+                error = None if results else scraper.last_error
         except Exception as exc:  # noqa: BLE001
             logger.error("site %s failed: %s", site_key, exc)
-            return [], f"{type(exc).__name__}: {exc}"[:200]
+            results, error = [], f"{type(exc).__name__}: {exc}"[:200]
+        status = "error" if error else ("ok" if results else "empty")
+        metrics.SCRAPE_COUNT.labels(site=site_key, status=status).inc()
+        metrics.SCRAPE_LATENCY.labels(site=site_key).observe(time.monotonic() - started)
+        return results, error
 
     def search_all_sites(
         self,
@@ -128,6 +134,9 @@ class ScraperOrchestrator:
             english=english,
         )
         emit("phase", {"id": "rank", "status": "done"})
+        metrics.SEARCH_COUNT.labels(translated=str(bool(english)).lower()).inc()
+        metrics.SEARCH_LATENCY.observe(out["search_time_seconds"])
+        metrics.SEARCH_RESULTS.observe(out["total_results"])
         return out
 
     @staticmethod

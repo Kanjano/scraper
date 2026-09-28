@@ -10,8 +10,10 @@ visitors' privacy, and good conduct toward the shops.
 
 ## Secrets
 
-- All secrets live in `.env` (`SMTP_PASSWORD`, `CONTACT_EMAIL`,
-  `SCRAPER_CONTACT`, `REVERB_API_KEY`, `PROXY_LIST` credentials). `.env` is
+- All secrets live in `.env` (`ADMIN_TOKEN`, `SMTP_PASSWORD`, `CONTACT_EMAIL`,
+  `SCRAPER_CONTACT`, `REVERB_API_KEY`, `PROXY_LIST` credentials). Generate the
+  admin token with `python -c "import secrets; print(secrets.token_urlsafe(32))"`
+  and rotate it by changing `.env` and restarting. `.env` is
   git-ignored and excluded from the Docker build context (`.dockerignore`);
   `.env.example` contains only empty placeholders.
 - The contact recipient is never sent to the browser: the form posts to
@@ -28,7 +30,7 @@ visitors' privacy, and good conduct toward the shops.
 |----------|------|------------|
 | `GET /search`, `/search/stream` | expensive (fans out to ~76 shops) | put a rate limit per IP at the reverse proxy; consider caching identical searches |
 | `POST /contact` | spam, header injection | honeypot, 3 messages / 10 min per IP, length limits, strict e-mail pattern without CR/LF, name without line breaks, `EmailMessage` headers |
-| `/admin/*` | **unauthenticated**; `force-scrape` and `sync-sites` start work | restrict at the proxy (IP allow-list, VPN or basic auth) — examples in [INFRASTRUCTURE](INFRASTRUCTURE.md#reverse-proxy) |
+| `/admin/*`, `/metrics` | `force-scrape` and `sync-sites` start work; coverage and metrics disclose internals | **admin token required** (`ADMIN_TOKEN`, constant-time check; closed with 403 when unset); optionally also an IP allow-list at the proxy |
 | `/docs`, `/redoc`, `/openapi.json` | disclose the API | restrict if the API is not public |
 | `/favicon/{site_key}` | server-side request forgery | fetches only the URL of a configured shop; unknown keys → 404 |
 | `/static/*` | — | static files only |

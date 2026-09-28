@@ -100,7 +100,8 @@ docker compose up -d --build  # http://localhost:8000
 L'immagine (≈ 4,5 GB) contiene già browser e modello di ricerca; funziona su
 server Intel/AMD e ARM. Dettagli, reverse proxy e sicurezza in
 [INFRASTRUCTURE](INFRASTRUCTURE.md). **Prima di pubblicare il sito** limita
-l'accesso a `/admin/…` dal reverse proxy: quegli indirizzi non hanno password.
+un `ADMIN_TOKEN` lungo e casuale in `.env`: senza token le pagine di
+amministrazione (`/admin/…`) e le metriche (`/metrics`) restano chiuse.
 
 ### Installazione senza Docker
 
@@ -127,6 +128,7 @@ principali:
 |------|--------------|
 | `SCHEDULER_ENABLED` | `False` in sviluppo: evita gli scraping periodici automatici |
 | `SCRAPER_CONTACT` | email o sito con cui lo scraper si presenta ai negozi (nello user-agent) |
+| `ADMIN_TOKEN` | chiave per le pagine di amministrazione e le metriche; genera con `python -c "import secrets; print(secrets.token_urlsafe(32))"` |
 | `CONTACT_EMAIL` | indirizzo che riceve i messaggi del modulo Contattami |
 | `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURITY`, `SMTP_USER`, `SMTP_PASSWORD` | account di posta che invia i messaggi |
 | `GEOIP_DB` | file per riconoscere il paese dall'IP (facoltativo) |
@@ -145,8 +147,11 @@ SMTP_USER=tuo-indirizzo@gmail.com
 SMTP_PASSWORD=la-password-per-le-app
 ```
 
-Senza `SMTP_HOST` il modulo risponde "non disponibile" invece di perdere i
-messaggi. L'indirizzo non compare mai nella pagina. Limite anti-spam: 3
+Verifica la configurazione con `python -m scripts.send_test_mail`: invia un
+messaggio di prova a `CONTACT_EMAIL` e, se qualcosa non va, dice perché (per
+Gmail l'errore tipico è usare la password dell'account invece della password
+per le app). Senza `SMTP_HOST` il modulo risponde "non disponibile" invece di
+perdere i messaggi. L'indirizzo non compare mai nella pagina. Limite anti-spam: 3
 messaggi ogni 10 minuti per indirizzo IP (`CONTACT_RATE_LIMIT`,
 `CONTACT_RATE_WINDOW_S`).
 

@@ -18,7 +18,7 @@ start periodic scrapes.
 
 | File | Covers |
 |------|--------|
-| `tests/test_api.py` | root JSON banner; pricing endpoint; health check; **SSE stream** event order and final payload; **favicon** letter fallback and 404; **contact** delivery (To, Reply-To, body), recipient never in the page, invalid input, header injection in name/e-mail, honeypot, rate limit (429), unconfigured (503) |
+| `tests/test_api.py` | root JSON banner; pricing endpoint; public health; **admin token** (closed when unset, 401 without/with wrong token, Bearer and header accepted) and `/metrics`; **SSE stream** event order and final payload; **favicon** letter fallback and 404; **contact** delivery (To, Reply-To, body), recipient never in the page, invalid input, header injection in name/e-mail, honeypot, rate limit (429), unconfigured (503) |
 | `tests/test_i18n.py` | page language for ~40 countries on every continent, multilingual countries resolved by `Accept-Language`, fallbacks, `?lang` + cookie, right-to-left, all 18 languages render complete, GeoIP lookup from the client IP |
 | `tests/test_relevance.py` | every query word required, accessories ranked last, lowest price/average from items only, local translation to English, shop-wide list prices not counted as deals |
 | `tests/test_extractors.py` | schema.org JSON-LD and microdata, embedded JSON, grid detection (chrome, financing, instalments, split prices), parser priority |
@@ -78,7 +78,7 @@ docker build -t instrinder:test .
 docker run -d --name instrinder-test -p 8001:8000 --shm-size=1g \
   -e SCHEDULER_ENABLED=False instrinder:test
 docker inspect -f '{{.State.Health.Status}}' instrinder-test        # healthy
-curl -s localhost:8001/admin/health-check                             # {"status":"ok"}
+curl -s localhost:8001/health                                         # {"status":"ok"}
 curl -sN "localhost:8001/search/stream?query=fender&sites=thomann,sweetwater" | grep '^event:'
 docker rm -f instrinder-test
 ```

@@ -70,6 +70,7 @@ Everything is set in `.env` (never committed; template in `.env.example`).
 | Area | Variables |
 |------|-----------|
 | Development | `SCHEDULER_ENABLED=False` |
+| Operator endpoints | `ADMIN_TOKEN` (Bearer token for `/admin/*` and `/metrics`) |
 | Scraper identity | `SCRAPER_CONTACT` (e-mail or URL added to the User-Agent) |
 | Contact form | `CONTACT_EMAIL` (recipient, only here), `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURITY`, `SMTP_USER`, `SMTP_PASSWORD`, `CONTACT_FROM`, `CONTACT_RATE_LIMIT`, `CONTACT_RATE_WINDOW_S` |
 | Page language | `GEOIP_DB` (optional offline IP → country file) |
@@ -100,7 +101,8 @@ Full reference: [docs/CONFIGURATION.md](docs/CONFIGURATION.md).
 | `GET /search/stream?query=…` | the same search as Server-Sent Events (live progress) |
 | `POST /contact` | contact form → e-mail |
 | `GET /favicon/{site_key}` | shop icon served from our origin |
-| `GET /stores` · `GET /admin/coverage` | the dataset and why some shops are not readable |
+| `GET /stores` · `GET /admin/coverage` | the dataset; why some shops are not readable (admin token) |
+| `GET /health` · `GET /metrics` | liveness (public); Prometheus metrics (admin token) |
 | `POST /pricing` · `GET /market-analysis` | suggested price, market overview |
 
 Each offer carries `price_eur`, `original_price` / `discount_pct`, `image`,
@@ -176,5 +178,5 @@ periodically. Status and coverage: [docs/STATUS.md](docs/STATUS.md).
 
 Also: [CONTRIBUTING](CONTRIBUTING.md) · [CHANGELOG](CHANGELOG.md).
 
-> **Before going online**: `/admin/*` has no authentication — restrict it at
-> the reverse proxy ([INFRASTRUCTURE](docs/INFRASTRUCTURE.md#reverse-proxy)).
+> **Before going online**: set a long random `ADMIN_TOKEN` in `.env` —
+> `/admin/*` and `/metrics` stay closed without it ([SECURITY](docs/SECURITY.md)).
