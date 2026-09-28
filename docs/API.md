@@ -10,10 +10,14 @@ Base URL: `http://localhost:8000`
 ## Root
 
 ### `GET /`
-Service banner.
+Content negotiation: a browser (`Accept: text/html`) gets the INSTRINDER search
+page in the visitor's language (see [FRONTEND](FRONTEND.md)); `?lang=xx` forces
+a language, `?q=…&area=…&priority=…&sort=…` opens a search. Any other client
+gets the service banner:
 ```json
 { "service": "strumenti-musicali-scraper", "docs": "/docs" }
 ```
+Response headers: `Content-Language`, `X-Visitor-Country` (when known).
 
 ## Search (`api/routes/search.py`)
 
@@ -31,35 +35,71 @@ Query params:
 Response (`SearchResponse`):
 ```json
 {
-  "query": "stratocaster",
-  "sites_queried": 74,
-  "total_results": 42,
-  "lowest_price": 159.0,
-  "lowest_price_site": "Thomann",
-  "market_average": 612.5,
+  "query": "chitarra elettrica fender",
+  "translated_query": "guitar electric fender",
+  "sites_queried": 79,
+  "total_results": 205,
+  "lowest_price": 113.33,
+  "lowest_price_site": "Bajaao",
+  "market_average": 4498.22,
   "results": [
     {
       "rank": 1,
-      "site": "Thomann",
-      "site_key": "thomann",
+      "site": "Andertons",
+      "site_key": "andertons-music-co",
       "area": "europe",
-      "country": "DE",
-      "name": "Squier Sonic Strat HT Arctic White",
-      "price": 159.0,
-      "currency": "EUR",
-      "price_eur": 159.0,
+      "country": "GB",
+      "name": "Fender Custom Shop Postmodern Stratocaster",
+      "price": 2999.0,
+      "currency": "GBP",
+      "price_eur": 3508.83,
       "rating": null,
-      "url": "https://www.thomann.de/...",
-      "data_quality": "structured"
+      "url": "https://www.andertons.co.uk/...",
+      "data_quality": "structured",
+      "is_accessory": false,
+      "image": "https://cdn11.bigcommerce.com/...jpg",
+      "original_price": 3999.0,
+      "original_price_eur": 4678.83,
+      "discount_pct": 25,
+      "relevance": 0.83
     }
   ],
-  "search_time_seconds": 3.21
+  "search_time_seconds": 58.4
 }
 ```
 
-`data_quality` says how the number was obtained: `structured` (official API, JSON
-feed or schema.org markup), `inline_json` (the shop's own embedded catalogue
-JSON), or `heuristic` (product grid read from the page layout — lower confidence).
+- Only offers matching every word of the query (literally, by prefix, or by
+  meaning in another language) are returned — see [SEARCH](SEARCH.md).
+- Order: items first, accessories after (`is_accessory`), each by EUR price.
+  `lowest_price` and `market_average` ignore accessories.
+- `translated_query`: the English version also sent to the shops (null when the
+  query is already English).
+- `original_price` / `discount_pct`: the shop's pre-discount price and the cut
+  (0 = not on sale). `image`: product photo URL on the shop's CDN.
+- `relevance`: 0..1 fit to the query, used by the page's "sort by relevance".
+- `data_quality` says how the number was obtained: `structured` (official API,
+  JSON feed, schema.org markup or verified selectors), `inline_json` (the shop's
+  own embedded catalogue JSON), or `heuristic` (product grid read from the page
+  layout — lower confidence).
+
+### `GET /search/stream`
+The same search, streamed as **Server-Sent Events** while it runs (same query
+parameters as `/search`). Used by the web page for live progress.
+
+| Event | Data |
+|-------|------|
+| `phase` | `{"id": "prepare"\|"search"\|"filter"\|"rank", "status": "active"\|"done"}` |
+| `start` | `{"query", "translated_query", "sites": [{"key", "name", "url", "area"}]}` |
+| `site` | one shop answered: `{"key", "name", "status": "ok"\|"empty"\|"error", "error", "offers", "relevant": [offer…], "done", "total"}` |
+| `done` | the final `SearchResponse` (ranked) |
+| `error` | `{"message"}` |
+
+Comment lines (`: keep-alive`) are sent every 15 s of silence. Closing the
+connection cancels shops that have not started yet.
+
+```bash
+curl -N "http://localhost:8000/search/stream?query=moog&sites=thomann,reverb"
+```
 
 ### `GET /search-all-sites`
 Same behavior and shape as `/search` (alias kept from the spec).
@@ -80,6 +120,33 @@ Query params: `area`, `specialty`, `searchable_only` (bool).
   ]
 }
 ```
+
+## Contact (`api/routes/contact.py`)
+
+### `POST /contact`
+Sends a visitor's message by e-mail to `CONTACT_EMAIL` (server configuration —
+never exposed to the page). Body:
+```json
+{ "name": "Ada", "email": "ada@example.com", "message": "Please add a shop in Milan.",
+  "website": "", "lang": "it" }
+```
+`website` is a honeypot (hidden field): when filled the request is accepted
+silently and nothing is sent. The visitor's address becomes `Reply-To`.
+
+| Status | Meaning |
+|--------|---------|
+| 200 `{"ok": true}` | sent |
+| 422 | invalid input (empty/long fields, bad e-mail, line breaks in name/e-mail) |
+| 429 | rate limit per IP (`CONTACT_RATE_LIMIT` per `CONTACT_RATE_WINDOW_S`) |
+| 502 | the SMTP server refused or was unreachable |
+| 503 | not configured (`CONTACT_EMAIL` or `SMTP_HOST` empty) |
+
+## Shop icons (`api/routes/favicons.py`)
+
+### `GET /favicon/{site_key}`
+The shop's icon served from our origin (fetched once, cached in
+`data/cache/favicons/`); an SVG letter badge when the shop has none. `404` for
+an unknown shop. Cached by browsers for a week.
 
 ## Pricing (`api/routes/pricing.py`)
 
@@ -197,6 +264,7 @@ Live reachability for all stores, or one with `site_key`.
 
 `OfferOut`, `SearchResponse`, `PricingRequestOffer`, `PricingResponse`,
 `SiteStatus`. Used for request validation and response serialization.
+`ContactIn` (in `api/routes/contact.py`) validates the contact form.
 
 > Not yet implemented (planned in spec): `/instruments/{name}/price-comparison`,
 > `/best-deals`, `/trending-instruments`, `/pricing/{instrument_id}` (GET),

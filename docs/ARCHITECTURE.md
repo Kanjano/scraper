@@ -78,8 +78,13 @@ SQLAlchemy 2.0 typed models: `Site`, `Instrument`, `PriceHistory`,
 ### `api/`
 - `main.py` — app factory, lifespan (DB init + scheduler start/stop), router
   registration.
-- `routes/` — `search`, `pricing`, `analytics`, `admin`.
+- `routes/` — `search` (incl. the SSE stream), `pricing`, `analytics`, `admin`,
+  `contact` (mail form), `favicons` (shop icons from our origin).
 - `schemas.py` — Pydantic request/response models.
+- `i18n.py` — page language from the visitor's country (CDN header or offline
+  GeoIP) and `Accept-Language`.
+- `web/` — the INSTRINDER page: template, translations, static CSS/JS/fonts.
+  See [FRONTEND](FRONTEND.md).
 
 ### `utils/`
 `logger` (JSON), `rate_limiter` (per-site min-interval), `currency_converter`
@@ -98,17 +103,32 @@ over all 120 stores + optional Prometheus metrics.
   scrapers, with queries matched to each shop's specialty. Writes
   `data/store_test_report.json`, which `tests/test_live_stores.py` asserts on.
 
-## Request flow — `GET /search?query=...`
+## Request flow — `GET /search?query=...` (and `/search/stream`)
 
 1. `api/routes/search.py` calls `ScraperOrchestrator.search_all_sites`.
-2. Orchestrator submits one task per *searchable* store to a thread pool
+2. The query is translated to English locally when needed
+   (`scrapers/query_translation.py`); both versions are searched.
+3. Orchestrator submits one task per *searchable* store to a thread pool
    (optionally filtered by `priority` tier or `area`); stores with no usable
    route are skipped, not retried blindly.
-3. Each task builds its scraper via `get_scraper(site_key)` and runs `search()`.
-4. Each scraper rate-limits, fetches (requests / API / Playwright), parses,
-   validates, and normalizes to EUR (`price_eur_equivalent`).
-5. Orchestrator aggregates: ranks by EUR price, computes lowest + market average.
-6. Response serialized via `SearchResponse`.
+4. Each task builds its scraper via `get_scraper(site_key)` and runs `search()`.
+5. Each scraper rate-limits, fetches (requests / Chrome TLS / hosted search API
+   / Playwright), parses (price, pre-discount price, image), validates, and
+   normalizes to EUR (`price_eur_equivalent`, `discount_pct`).
+6. As each shop answers, `on_event` reports it with its relevant offers — the
+   stream endpoint turns these into Server-Sent Events; a `cancel` event stops
+   shops not started yet.
+7. Orchestrator aggregates: relevance filter, dedupe, accessory flags,
+   relevance score, items-then-price ranking, lowest price + market average
+   from items only. See [SEARCH](SEARCH.md).
+8. Response serialized via `SearchResponse` (or sent as the `done` event).
+
+## Search page flow
+
+Browser → `GET /` (template in the visitor's language) → `app.js` opens
+`GET /search/stream` → renders phases, shop icons (`GET /favicon/{key}`) and
+offers as they arrive → final ranked list, deals column, client-side sorting.
+Contact form → `POST /contact` → SMTP.
 
 ## Concurrency
 

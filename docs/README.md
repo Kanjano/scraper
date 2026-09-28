@@ -1,47 +1,44 @@
-# Documentation — Strumenti Musicali Scraper
+# Documentation — INSTRINDER
 
-Worldwide musical-instrument price aggregator over a dataset of **120
-internationally known shops** (Europe 37 · USA 63 · Asia 20). It searches every
-shop it can read, normalises prices to EUR, computes a competitive suggested
-price, and exposes everything through a FastAPI service.
-
-This folder documents the project **as built to date**. Where a component is
-planned in the spec but not yet implemented, it is marked explicitly (see
-[STATUS](STATUS.md)).
+INSTRINDER is a worldwide musical-instrument price search over a dataset of
+**120 internationally known shops** (Europe 37 · USA 63 · Asia 20). It searches
+every shop it can read, keeps the offers that match the query, normalises prices
+to EUR, flags discounts, and serves the results through a web page and a
+FastAPI service.
 
 ## Index
 
 | Doc | Contents |
 |-----|----------|
-| [ARCHITECTURE](ARCHITECTURE.md) | Layered design, request/data flow, module map |
-| [CONFIGURATION](CONFIGURATION.md) | the store dataset, probed overrides, `.env` settings |
+| [GUIDA](GUIDA.md) | **user and operator guide** (Italian): using the site, installing, `.env`, maintenance, troubleshooting |
+| [FRONTEND](FRONTEND.md) | the web page: layout, live search states, deals column, contact form, languages, design tokens, accessibility, demo mode |
+| [SEARCH](SEARCH.md) | query translation, relevance filter, accessories, relevance score, discounts and deals, sorting |
+| [API](API.md) | REST endpoints, SSE stream events, contact, parameters, responses |
+| [ARCHITECTURE](ARCHITECTURE.md) | layered design, request/data flow, module map |
+| [CONFIGURATION](CONFIGURATION.md) | the store dataset, overrides and their keys, `.env` settings |
+| [SCRAPERS](SCRAPERS.md) | route tiers, scraper classes, fields returned, adding or fixing a shop |
+| [ANTIBOT_PROXY](ANTIBOT_PROXY.md) | bot-protection findings per shop, proxy support |
 | [DATA_MODEL](DATA_MODEL.md) | SQLAlchemy models and relationships |
-| [SCRAPERS](SCRAPERS.md) | Route tiers, scraper classes, adding or fixing a shop |
-| [API](API.md) | REST endpoints, parameters, responses |
-| [PRICING](PRICING.md) | Suggested-price algorithm, market analysis |
-| [ANTIBOT_PROXY](ANTIBOT_PROXY.md) | Bot-protection findings, proxy support |
-| [STATUS](STATUS.md) | Coverage per area/tier, functional-test results, known limits |
+| [PRICING](PRICING.md) | suggested-price algorithm, market analysis |
+| [STATUS](STATUS.md) | coverage per area/tier, live test results, known limits |
 
 ## TL;DR
 
-- **Stack:** Python 3.11+ (dev/verified on 3.12), FastAPI, SQLAlchemy 2.0,
-  APScheduler, requests + BeautifulSoup, Playwright (Chromium) for JS sites.
-- **Coverage (live-verified 2026-09-26):** 71 of 120 shops return offers; the
-  other 49 are disabled with a recorded reason (anti-bot, no public prices,
-  unreachable). Routes: Shopify feeds, WooCommerce Store API, Reverb's API,
-  schema.org, embedded catalogue JSON, grid detection, Chromium rendering.
-- **Tests:** 170 passing offline (`pytest`), plus the live sweep
-  `python -m scripts.test_all_stores` (~20 min, writes
-  `data/store_test_report.json`).
-- **Run:** `python main.py` → http://localhost:8000 (interactive docs at `/docs`).
+- **Stack:** Python 3.11+ (verified on 3.12), FastAPI, SQLAlchemy 2.0,
+  APScheduler, requests / curl_cffi + BeautifulSoup, Playwright and patchright
+  (Google Chrome) for JS and protected shops, fastembed (local multilingual
+  model), Babel + DB-IP Lite for the page language. Front end: plain HTML/CSS/JS,
+  no build.
+- **Run:** `python main.py` → http://localhost:8000 (API docs at `/docs`).
+- **Tests:** `pytest` (offline); live sweep `python -m scripts.test_all_stores`
+  (~20 min, writes `data/store_test_report.json`).
 
 ## Quick start
 
 ```bash
-cd strumenti-musicali-scraper
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-playwright install chromium      # only needed for JS-rendered sites
+playwright install chromium
 cp .env.example .env
 python main.py
 ```

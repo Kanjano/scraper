@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-09-27T10:40:43Z",
+  "generated_at": "2026-09-28T15:08:26Z",
   "totals": {
     "stores": 120,
-    "skipped": 40,
-    "passed": 80
+    "skipped": 46,
+    "passed": 74
   },
   "stores": {
     "music-store-professional": {
@@ -48,6 +48,23 @@
       "platform": "custom",
       "scraper_type": "structured",
       "data_quality": "heuristic",
+      "expected": "documented_skip",
+      "blocked_reason": "search page ignores the query (same grid for any search); the shop builds its results in the browser",
+      "queries_tried": [],
+      "offers_found": 0,
+      "sample": [],
+      "elapsed_s": null,
+      "result": "skipped",
+      "error": null
+    },
+    "musikhaus-kirstein": {
+      "site_key": "musikhaus-kirstein",
+      "name": "Musikhaus Kirstein",
+      "area": "europe",
+      "priority": 2,
+      "platform": "custom",
+      "scraper_type": "structured",
+      "data_quality": "heuristic",
       "expected": "offers",
       "blocked_reason": null,
       "queries_tried": [
@@ -56,28 +73,28 @@
       "offers_found": 5,
       "sample": [
         {
-          "name": "FOCAL Alpha  Evo 80 - la pièce",
-          "price": 348.0,
+          "name": "Fender 351 Picks Medium 12-Pack",
+          "price": 3.59,
           "currency": "EUR",
-          "price_eur": 348.0,
-          "url": "https://www.stars-music.fr/focal-alpha-evo-80-la-pia-ce_184973.html"
+          "price_eur": 3.59,
+          "url": "https://www.kirstein.de/en/Picks/Fender-351-Picks-Medium-12-Pack.html"
         },
         {
-          "name": "SIRE Marcus Miller V7 Alder 2nd Generation 4ST - sparkle black",
+          "name": "Fender Strap 2\" Running Logo Strap Black/White",
+          "price": 13.5,
+          "currency": "EUR",
+          "price_eur": 13.5,
+          "url": "https://www.kirstein.de/en/Guitar-Straps/Fender-Strap-2-Running-Logo-Strap-Black-White.html"
+        },
+        {
+          "name": "Squier Paranormal Troy Van Leeuwen Telecaster XII Copper",
           "price": 549.0,
           "currency": "EUR",
           "price_eur": 549.0,
-          "url": "https://www.stars-music.fr/sire-marcus-miller-v7-alder-2nd-generation-4st-sparkle-black_233034.html"
-        },
-        {
-          "name": "YAMAHA Pacifica PAC112VM - ice blue",
-          "price": 333.0,
-          "currency": "EUR",
-          "price_eur": 333.0,
-          "url": "https://www.stars-music.fr/yamaha-pacifica-pac112vm-ice-blue_169050.html"
+          "url": "https://www.kirstein.de/en/Electric-Guitars/TL-Models/Squier-Paranormal-Troy-Van-Leeuwen-Telecaster-XII-Copper.html"
         }
       ],
-      "elapsed_s": 0.4,
+      "elapsed_s": 1.6,
       "result": "passed",
       "error": null
     },
@@ -118,7 +135,7 @@
           "url": "https://schneidersladen.de/moog-music-mother-rack-kit-two-tier"
         }
       ],
-      "elapsed_s": 1.1,
+      "elapsed_s": 1.8,
       "result": "passed",
       "error": null
     },
@@ -152,65 +169,24 @@
           "url": "https://www.thomann.de/fender_cb_60sce_a_bass_black_2018.htm?type=manufacturer"
         },
         {
-          "name": "Rumble 100 V3",
-          "price": 368,
+          "name": "Tone Master Pro",
+          "price": 1590,
           "currency": "EUR",
-          "price_eur": 368.0,
-          "url": "https://www.thomann.de/fender_rumble_100.htm?type=manufacturer"
+          "price_eur": 1590.0,
+          "url": "https://www.thomann.de/fender_tone_master_pro.htm?type=manufacturer"
         }
       ],
-      "elapsed_s": 1.2,
+      "elapsed_s": 1.8,
       "result": "passed",
       "error": null
     },
-    "musikhaus-kirstein": {
-      "site_key": "musikhaus-kirstein",
-      "name": "Musikhaus Kirstein",
+    "guitarpoint": {
+      "site_key": "guitarpoint",
+      "name": "GuitarPoint",
       "area": "europe",
-      "priority": 2,
-      "platform": "custom",
-      "scraper_type": "structured",
-      "data_quality": "heuristic",
-      "expected": "offers",
-      "blocked_reason": null,
-      "queries_tried": [
-        "fender"
-      ],
-      "offers_found": 5,
-      "sample": [
-        {
-          "name": "Fender 351 Picks Medium 12-Pack",
-          "price": 3.59,
-          "currency": "EUR",
-          "price_eur": 3.59,
-          "url": "https://www.kirstein.de/en/Picks/Fender-351-Picks-Medium-12-Pack.html"
-        },
-        {
-          "name": "Fender Strap 2\" Running Logo Strap Black/White",
-          "price": 13.5,
-          "currency": "EUR",
-          "price_eur": 13.5,
-          "url": "https://www.kirstein.de/en/Guitar-Straps/Fender-Strap-2-Running-Logo-Strap-Black-White.html"
-        },
-        {
-          "name": "Fender The Pelt Fuzz V2 Pedal",
-          "price": 199.0,
-          "currency": "EUR",
-          "price_eur": 199.0,
-          "url": "https://www.kirstein.de/en/Single-Effect-Units/Fender-The-Pelt-Fuzz-V2-Pedal.html"
-        }
-      ],
-      "elapsed_s": 1.5,
-      "result": "passed",
-      "error": null
-    },
-    "strumenti-musicali-net": {
-      "site_key": "strumenti-musicali-net",
-      "name": "Strumenti Musicali .net",
-      "area": "europe",
-      "priority": 2,
-      "platform": "oscommerce",
-      "scraper_type": "playwright",
+      "priority": 1,
+      "platform": "woocommerce",
+      "scraper_type": "woocommerce",
       "data_quality": "structured",
       "expected": "offers",
       "blocked_reason": null,
@@ -220,28 +196,28 @@
       "offers_found": 5,
       "sample": [
         {
-          "name": "Fender Motion 32 + Fender Studio Pro",
-          "price": 309.0,
+          "name": "1956 Fender Stratocaster – Sunburst",
+          "price": 49000.0,
           "currency": "EUR",
-          "price_eur": 309.0,
-          "url": "https://www.strumentimusicali.net/product_info.php/products_id/233047/fender-motion-32-fender-studio-pro.html?keywords=fender"
+          "price_eur": 49000.0,
+          "url": "https://guitarpoint.de/product/1956-fender-stratocaster-sunburst-7/"
         },
         {
-          "name": "Fender Motion 16 + Fender Studio Pro",
-          "price": 249.0,
+          "name": "1961 Fender Stack Knob Jazz Bass – Sunburst",
+          "price": 22500.0,
           "currency": "EUR",
-          "price_eur": 249.0,
-          "url": "https://www.strumentimusicali.net/product_info.php/products_id/233045/fender-motion-16-fender-studio-pro.html?keywords=fender"
+          "price_eur": 22500.0,
+          "url": "https://guitarpoint.de/product/1961-fender-stack-knob-jazz-bass-sunburst/"
         },
         {
-          "name": "FENDER 8060",
-          "price": 19.9,
+          "name": "1982 Fender 57 Precision Bass – Sunburst „Fullerton“ (Vintage Reissue)",
+          "price": 3850.0,
           "currency": "EUR",
-          "price_eur": 19.9,
-          "url": "https://www.strumentimusicali.net/product_info.php/products_id/75760/fender-8060.html?keywords=fender"
+          "price_eur": 3850.0,
+          "url": "https://guitarpoint.de/product/1982-fender-57-precision-bass-2-tone-sunburst-fullerton-vintage-reissue-2/"
         }
       ],
-      "elapsed_s": 6.2,
+      "elapsed_s": 2.1,
       "result": "passed",
       "error": null
     },
@@ -282,17 +258,17 @@
           "url": "https://www.bax-shop.nl/elektrische-gitaren/fender-dan-smith-stratocaster-rosewood-ivory-white-1983-pre-owned"
         }
       ],
-      "elapsed_s": 1.6,
+      "elapsed_s": 1.7,
       "result": "passed",
       "error": null
     },
-    "guitarpoint": {
-      "site_key": "guitarpoint",
-      "name": "GuitarPoint",
+    "andertons-music-co": {
+      "site_key": "andertons-music-co",
+      "name": "Andertons Music Co.",
       "area": "europe",
       "priority": 1,
-      "platform": "woocommerce",
-      "scraper_type": "woocommerce",
+      "platform": "bigcommerce",
+      "scraper_type": "constructor",
       "data_quality": "structured",
       "expected": "offers",
       "blocked_reason": null,
@@ -302,28 +278,28 @@
       "offers_found": 5,
       "sample": [
         {
-          "name": "1961 Fender Stack Knob Jazz Bass &#8211; Sunburst",
-          "price": 22500.0,
-          "currency": "EUR",
-          "price_eur": 22500.0,
-          "url": "https://guitarpoint.de/product/1961-fender-stack-knob-jazz-bass-sunburst/"
+          "name": "Fender American Professional Classic Telecaster in Faded Dakota Red",
+          "price": 1279.0,
+          "currency": "GBP",
+          "price_eur": 1486.82,
+          "url": "https://www.andertons.co.uk/fender-american-professional-classic-telecaster-faded-dakota-red/"
         },
         {
-          "name": "1982 Fender 57 Precision Bass &#8211; Sunburst &#8222;Fullerton&#8220; (Vintage Reissue)",
-          "price": 3850.0,
-          "currency": "EUR",
-          "price_eur": 3850.0,
-          "url": "https://guitarpoint.de/product/1982-fender-57-precision-bass-2-tone-sunburst-fullerton-vintage-reissue-2/"
+          "name": "Fender American Professional Classic Jazzmaster in 3-Colour Sunburst",
+          "price": 1279.0,
+          "currency": "GBP",
+          "price_eur": 1486.82,
+          "url": "https://www.andertons.co.uk/fender-american-professional-classic-jazzmaster-3-colour-sunburst/"
         },
         {
-          "name": "1966 Fender Jazz Bass &#8211; Sunburst",
-          "price": 8995.0,
-          "currency": "EUR",
-          "price_eur": 8995.0,
-          "url": "https://guitarpoint.de/product/1966-fender-jazz-bass-3-tone-sunburst-2/"
+          "name": "Fender Standard Series Telecaster in Aqua Marine Metallic",
+          "price": 399.0,
+          "currency": "GBP",
+          "price_eur": 463.83,
+          "url": "https://www.andertons.co.uk/fender-standard-telecaster-mn-white-pickguard--aqua-marine-metallic/"
         }
       ],
-      "elapsed_s": 2.2,
+      "elapsed_s": 0.4,
       "result": "passed",
       "error": null
     },
@@ -346,21 +322,21 @@
           "name": "Fender California Standard Redondo Mini Acoustic Guitar with Bag, Sapele Top, Natural Sapele",
           "price": 149.0,
           "currency": "GBP",
-          "price_eur": 173.16,
+          "price_eur": 173.21,
           "url": "https://www.gear4music.com/Guitar-and-Bass/Fender-California-Standard-Redondo-Mini-Acoustic-Guitar-with-Bag-Sapele-Top-Natural-Sapele/79E1"
         },
         {
           "name": "Fender California Standard Redondo Mini Acoustic Guitar with Bag, Spruce Top, Surf Green",
           "price": 149.0,
           "currency": "GBP",
-          "price_eur": 173.16,
+          "price_eur": 173.21,
           "url": "https://www.gear4music.com/Guitar-and-Bass/Fender-California-Standard-Redondo-Mini-Acoustic-Guitar-with-Bag-Spruce-Top-Surf-Green/79E2"
         },
         {
           "name": "Fender California Standard Redondo Mini Acoustic Guitar with Bag, Spruce Top, 3-Color Sunburst",
           "price": 149.0,
           "currency": "GBP",
-          "price_eur": 173.16,
+          "price_eur": 173.21,
           "url": "https://www.gear4music.com/Guitar-and-Bass/Fender-California-Standard-Redondo-Mini-Acoustic-Guitar-with-Bag-Spruce-Top-3-Color-Sunburst/79DY"
         }
       ],
@@ -408,7 +384,7 @@
       "area": "europe",
       "priority": 2,
       "platform": "custom",
-      "scraper_type": "structured",
+      "scraper_type": "playwright",
       "data_quality": "heuristic",
       "expected": "offers",
       "blocked_reason": null,
@@ -418,28 +394,69 @@
       "offers_found": 5,
       "sample": [
         {
-          "name": "Bounce Cajon Hand Beat - Natural",
-          "price": 79.0,
+          "name": "Fender American Ultra II Telecaster EB Solar Flare",
+          "price": 2149.0,
           "currency": "EUR",
-          "price_eur": 79.0,
-          "url": "https://www.musik-produktiv.de/products/bounce-cajon-hand-beat-natural/"
+          "price_eur": 2149.0,
+          "url": "https://www.musik-produktiv.de/products/fender-american-ultra-ii-telecaster-eb-solar-flare/"
         },
         {
-          "name": "PRS SE Custom 24 Gray Black session Select",
-          "price": 949.0,
+          "name": "Fender 75th Anniversary Player II Precision Bass RW Diamond Dust Sparkle",
+          "price": 979.0,
           "currency": "EUR",
-          "price_eur": 949.0,
-          "url": "https://www.musik-produktiv.de/products/prs-se-custom-24-gray-black-session-select/"
+          "price_eur": 979.0,
+          "url": "https://www.musik-produktiv.de/products/fender-75th-anniversary-player-ii-precision-bass-rw-diamond-dust-sparkle/"
         },
         {
-          "name": "Nuvo Student Flute Ltd. Edition \"Oranje\"",
-          "price": 99.0,
+          "name": "Fender American Ultra Luxe Vintage 60s Stratocaster HSS RW FRD",
+          "price": 2997.0,
           "currency": "EUR",
-          "price_eur": 99.0,
-          "url": "https://www.musik-produktiv.de/products/nuvo-student-flute-ltd-edition-oranje/"
+          "price_eur": 2997.0,
+          "url": "https://www.musik-produktiv.de/products/fender-american-ultra-luxe-vintage-60s-stratocaster-hss-rw-frd/"
         }
       ],
-      "elapsed_s": 2.9,
+      "elapsed_s": 7.3,
+      "result": "passed",
+      "error": null
+    },
+    "strumenti-musicali-net": {
+      "site_key": "strumenti-musicali-net",
+      "name": "Strumenti Musicali .net",
+      "area": "europe",
+      "priority": 2,
+      "platform": "oscommerce",
+      "scraper_type": "playwright",
+      "data_quality": "structured",
+      "expected": "offers",
+      "blocked_reason": null,
+      "queries_tried": [
+        "fender"
+      ],
+      "offers_found": 5,
+      "sample": [
+        {
+          "name": "Fender Motion 32 + Fender Studio Pro",
+          "price": 309.0,
+          "currency": "EUR",
+          "price_eur": 309.0,
+          "url": "https://www.strumentimusicali.net/product_info.php/products_id/233047/fender-motion-32-fender-studio-pro.html?keywords=fender"
+        },
+        {
+          "name": "Fender Motion 16 + Fender Studio Pro",
+          "price": 249.0,
+          "currency": "EUR",
+          "price_eur": 249.0,
+          "url": "https://www.strumentimusicali.net/product_info.php/products_id/233045/fender-motion-16-fender-studio-pro.html?keywords=fender"
+        },
+        {
+          "name": "FENDER 8060",
+          "price": 19.9,
+          "currency": "EUR",
+          "price_eur": 19.9,
+          "url": "https://www.strumentimusicali.net/product_info.php/products_id/75760/fender-8060.html?keywords=fender"
+        }
+      ],
+      "elapsed_s": 5.7,
       "result": "passed",
       "error": null
     },
@@ -449,7 +466,7 @@
       "area": "europe",
       "priority": 2,
       "platform": "custom",
-      "scraper_type": "structured",
+      "scraper_type": "playwright",
       "data_quality": "heuristic",
       "expected": "offers",
       "blocked_reason": null,
@@ -459,82 +476,69 @@
       "offers_found": 5,
       "sample": [
         {
-          "name": "Bounce Cajon Hand Beat - Natural",
-          "price": 79.0,
+          "name": "Fender American Ultra II Telecaster EB Solar Flare",
+          "price": 2149.0,
           "currency": "EUR",
-          "price_eur": 79.0,
-          "url": "https://www.session.de/products/bounce-cajon-hand-beat-natural/"
+          "price_eur": 2149.0,
+          "url": "https://www.session.de/products/fender-american-ultra-ii-telecaster-eb-solar-flare/"
         },
         {
-          "name": "PRS SE Custom 24 Gray Black session Select",
-          "price": 949.0,
+          "name": "Fender 75th Anniversary Player II Precision Bass RW Diamond Dust Sparkle",
+          "price": 979.0,
           "currency": "EUR",
-          "price_eur": 949.0,
-          "url": "https://www.session.de/products/prs-se-custom-24-gray-black-session-select/"
+          "price_eur": 979.0,
+          "url": "https://www.session.de/products/fender-75th-anniversary-player-ii-precision-bass-rw-diamond-dust-sparkle/"
         },
         {
-          "name": "Nuvo Student Flute Ltd. Edition \"Oranje\"",
-          "price": 99.0,
+          "name": "Fender American Ultra Luxe Vintage 60s Stratocaster HSS RW FRD",
+          "price": 2997.0,
           "currency": "EUR",
-          "price_eur": 99.0,
-          "url": "https://www.session.de/products/nuvo-student-flute-ltd-edition-oranje/"
+          "price_eur": 2997.0,
+          "url": "https://www.session.de/products/fender-american-ultra-luxe-vintage-60s-stratocaster-hss-rw-frd/"
         }
       ],
-      "elapsed_s": 2.9,
+      "elapsed_s": 8.2,
       "result": "passed",
       "error": null
     },
-    "florian-leonhard-fine-violins": {
-      "site_key": "florian-leonhard-fine-violins",
-      "name": "Florian Leonhard Fine Violins",
+    "mcneela-music": {
+      "site_key": "mcneela-music",
+      "name": "McNeela Music",
       "area": "europe",
       "priority": 3,
-      "platform": "woocommerce",
-      "scraper_type": "woocommerce",
-      "data_quality": "structured",
-      "expected": "offers",
-      "blocked_reason": null,
-      "queries_tried": [
-        "violin"
-      ],
-      "offers_found": 1,
-      "sample": [
-        {
-          "name": "FLFV Violin Rosin",
-          "price": 20.0,
-          "currency": "GBP",
-          "price_eur": 23.24,
-          "url": "https://www.florianleonhard.com/product/flfv-violin-rosin/"
-        }
-      ],
-      "elapsed_s": 0.9,
-      "result": "passed",
-      "error": null
-    },
-    "guitar-guitar": {
-      "site_key": "guitar-guitar",
-      "name": "Guitar Guitar",
-      "area": "europe",
-      "priority": 3,
-      "platform": "custom",
-      "scraper_type": "structured",
+      "platform": "bigcommerce",
+      "scraper_type": "playwright",
       "data_quality": "heuristic",
       "expected": "offers",
       "blocked_reason": null,
       "queries_tried": [
-        "fender"
+        "ukulele"
       ],
-      "offers_found": 1,
+      "offers_found": 5,
       "sample": [
         {
-          "name": "Save Now Taylor Mega Deals A Great Selection of Models to Choose From",
-          "price": 249.0,
-          "currency": "GBP",
-          "price_eur": 289.32,
-          "url": "https://www.guitarguitar.co.uk/clearance/taylor/"
+          "name": "McNeela Moonshine Ukulele",
+          "price": 44.0,
+          "currency": "EUR",
+          "price_eur": 44.0,
+          "url": "https://www.mcneelamusic.com/string-instruments/mcneela-carbon-fibre-ukulele/"
+        },
+        {
+          "name": "Build Your Own Ukulele - DIY Ukulele Kit",
+          "price": 30.0,
+          "currency": "EUR",
+          "price_eur": 30.0,
+          "url": "https://www.mcneelamusic.com/ukuleles/build-your-own-ukulele-diy-ukulele-kit/"
+        },
+        {
+          "name": "Irish Songs for Ukulele Book",
+          "price": 16.0,
+          "currency": "EUR",
+          "price_eur": 16.0,
+          "url": "https://www.mcneelamusic.com/string-instruments/ukuleles/irish-songs-for-ukulele-book/"
         }
       ],
-      "elapsed_s": 0.6,
+      "elapsed_s": 6.6,
       "result": "passed",
       "error": null
     },
@@ -591,25 +595,66 @@
           "name": "Selmer Paris | Claude Delangle Alto Saxophone Mouthpiece",
           "price": 259.0,
           "currency": "GBP",
-          "price_eur": 300.94,
+          "price_eur": 301.08,
           "url": "https://www.howarthlondon.com/product/claude-delangle-alto-saxophone-mouthpiece/"
         },
         {
           "name": "Selmer Paris | Density Rubber Alto Saxophone Mouthpiece",
           "price": 165.0,
           "currency": "GBP",
-          "price_eur": 191.72,
+          "price_eur": 191.81,
           "url": "https://www.howarthlondon.com/product/density-rubber-alto-saxophone-mouthpiece/"
         },
         {
           "name": "Jody Jazz | DV JC Gold Plated Tenor Saxophone Mouthpiece",
           "price": 480.0,
           "currency": "GBP",
-          "price_eur": 557.73,
+          "price_eur": 557.99,
           "url": "https://www.howarthlondon.com/product/dv-jc-gold-plated-tenor-saxophone-mouthpiece/"
         }
       ],
       "elapsed_s": 0.8,
+      "result": "passed",
+      "error": null
+    },
+    "klangfarbe": {
+      "site_key": "klangfarbe",
+      "name": "Klangfarbe",
+      "area": "europe",
+      "priority": 2,
+      "platform": "custom",
+      "scraper_type": "structured",
+      "data_quality": "heuristic",
+      "expected": "offers",
+      "blocked_reason": null,
+      "queries_tried": [
+        "fender"
+      ],
+      "offers_found": 5,
+      "sample": [
+        {
+          "name": "MACKIE Kompakt PA-System",
+          "price": 2099.0,
+          "currency": "EUR",
+          "price_eur": 2099.0,
+          "url": "https://www.klangfarbe.com/Shop/Artikel/MACKIE_Kompakt_PAsystem.html"
+        },
+        {
+          "name": "Sigma SATA-400 Archtop Hollowbody all solid Fich/Falmed Mapl.",
+          "price": 1490.0,
+          "currency": "EUR",
+          "price_eur": 1490.0,
+          "url": "https://www.klangfarbe.com/Shop/Artikel/Sigma_SATA400_Archtop_Hollowbody_all_solid_F.html"
+        },
+        {
+          "name": "Merida Castellan Prominence Series",
+          "price": 799.0,
+          "currency": "EUR",
+          "price_eur": 799.0,
+          "url": "https://www.klangfarbe.com/Shop/Artikel/Merida_CAstellan_Prominence_Series.html"
+        }
+      ],
+      "elapsed_s": 9.5,
       "result": "passed",
       "error": null
     },
@@ -632,66 +677,25 @@
           "name": "Moog - Bob Moog Tribute Edition Minimoog Model D Monophonic Analogue Synthesizer",
           "price": 3999.0,
           "currency": "GBP",
-          "price_eur": 4647.3,
+          "price_eur": 4648.78,
           "url": "https://www.scan.co.uk/products/moog-bob-moog-tribute-edition-minimoog-model-d-monophonic-analogue-synthesizer"
         },
         {
           "name": "Moog ThereMini - Theremin with 32 Sounds, Selectable Scales, Variable Note",
           "price": 339.0,
           "currency": "GBP",
-          "price_eur": 393.96,
+          "price_eur": 394.08,
           "url": "https://www.scan.co.uk/products/moog-theremini-theremin-with-32-sounds-selectable-scales-variable-note"
         },
         {
           "name": "Moog - Minimoog Model D-05 (Mahogany) Monophonic Analogue Synthesizer",
           "price": 3999.0,
           "currency": "GBP",
-          "price_eur": 4647.3,
+          "price_eur": 4648.78,
           "url": "https://www.scan.co.uk/products/moog-minimoog-model-d-05-mahogany-monophonic-analogue-synthesizer"
         }
       ],
       "elapsed_s": 0.9,
-      "result": "passed",
-      "error": null
-    },
-    "peach-guitars": {
-      "site_key": "peach-guitars",
-      "name": "Peach Guitars",
-      "area": "europe",
-      "priority": 3,
-      "platform": "custom",
-      "scraper_type": "structured",
-      "data_quality": "heuristic",
-      "expected": "offers",
-      "blocked_reason": null,
-      "queries_tried": [
-        "fender"
-      ],
-      "offers_found": 5,
-      "sample": [
-        {
-          "name": "Fender Custom Shop Masterbuilt Levi Perry 62 Strat - Relic Chocolate 3-Tone Sunburst Hand Wound '60/'63 Strat Pickups - 10.5\" Fingerboard Radius - Jumbo Frets",
-          "price": 10999.0,
-          "currency": "GBP",
-          "price_eur": 12780.13,
-          "url": "https://www.peachguitars.com/fender-custom-shop-masterbuilt-levi-perry-62-strat-relic-chocolate-3-tone-sunbur.htm"
-        },
-        {
-          "name": "Fender Custom Shop Masterbuilt Todd Krause NAMM 50s 5A Flame Maple Neck Strat - NOS Cadillac Green Handwound Fat 50s Pickups - Custom V Neck Shape - 7.25\" Radius",
-          "price": 9999.0,
-          "currency": "GBP",
-          "price_eur": 11618.19,
-          "url": "https://www.peachguitars.com/fender-custom-shop-masterbuilt-todd-krause-namm-50s-5a-flame-maple-neck-strat-no.htm"
-        },
-        {
-          "name": "Fender Custom Shop Masterbuilt David Brown '61 Strat - Relic Olympic White Josefina Handwound 59 Strat Pickups | 59 Esquire C Neck Shape | 9.5\" Radius | Jumbo Frets",
-          "price": 8999.0,
-          "currency": "GBP",
-          "price_eur": 10456.26,
-          "url": "https://www.peachguitars.com/fender-custom-shop-masterbuilt-david-brown-61-strat-relic-olympic-white.htm"
-        }
-      ],
-      "elapsed_s": 2.4,
       "result": "passed",
       "error": null
     },
@@ -746,14 +750,14 @@
       "result": "skipped",
       "error": null
     },
-    "andertons-music-co": {
-      "site_key": "andertons-music-co",
-      "name": "Andertons Music Co.",
+    "peach-guitars": {
+      "site_key": "peach-guitars",
+      "name": "Peach Guitars",
       "area": "europe",
-      "priority": 1,
+      "priority": 3,
       "platform": "custom",
-      "scraper_type": "playwright",
-      "data_quality": "structured",
+      "scraper_type": "structured",
+      "data_quality": "heuristic",
       "expected": "offers",
       "blocked_reason": null,
       "queries_tried": [
@@ -762,28 +766,28 @@
       "offers_found": 5,
       "sample": [
         {
-          "name": "9V Battery For Alvarez Electro-Acoustic Guitars",
-          "price": 5.0,
+          "name": "Fender Custom Shop Masterbuilt Levi Perry 62 Strat - Relic Chocolate 3-Tone Sunburst Hand Wound '60/'63 Strat Pickups - 10.5\" Fingerboard Radius - Jumbo Frets",
+          "price": 10999.0,
           "currency": "GBP",
-          "price_eur": 5.81,
-          "url": "https://www.andertons.co.uk/alvarez-battery-1/"
+          "price_eur": 12786.19,
+          "url": "https://www.peachguitars.com/fender-custom-shop-masterbuilt-levi-perry-62-strat-relic-chocolate-3-tone-sunbur.htm"
         },
         {
-          "name": "EBS Premium Gold Flat Right Angle Jack Patch Cable - 10CM",
-          "price": 6.99,
+          "name": "Fender Custom Shop Masterbuilt Todd Krause NAMM 50s 5A Flame Maple Neck Strat - NOS Cadillac Green Handwound Fat 50s Pickups - Custom V Neck Shape - 7.25\" Radius",
+          "price": 9999.0,
           "currency": "GBP",
-          "price_eur": 8.12,
-          "url": "https://www.andertons.co.uk/ebs-premium-gold-flat-right-angle-jack-patch-cable-10cm/"
+          "price_eur": 11623.7,
+          "url": "https://www.peachguitars.com/fender-custom-shop-masterbuilt-todd-krause-namm-50s-5a-flame-maple-neck-strat-no.htm"
         },
         {
-          "name": "Neural DSP Quad Cortex QC Digital Effects Processor and Amp Modeller",
-          "price": 1449.0,
+          "name": "Fender Custom Shop Masterbuilt David Brown '61 Strat - Relic Olympic White Josefina Handwound 59 Strat Pickups | 59 Esquire C Neck Shape | 9.5\" Radius | Jumbo Frets",
+          "price": 8999.0,
           "currency": "GBP",
-          "price_eur": 1683.64,
-          "url": "https://www.andertons.co.uk/neural-dsp-quad-cortex-digital-effects-processor-and-amp-modeller/"
+          "price_eur": 10461.22,
+          "url": "https://www.peachguitars.com/fender-custom-shop-masterbuilt-david-brown-61-strat-relic-olympic-white.htm"
         }
       ],
-      "elapsed_s": 5.2,
+      "elapsed_s": 2.5,
       "result": "passed",
       "error": null
     },
@@ -889,6 +893,47 @@
       "result": "skipped",
       "error": null
     },
+    "guitar-guitar": {
+      "site_key": "guitar-guitar",
+      "name": "Guitar Guitar",
+      "area": "europe",
+      "priority": 3,
+      "platform": "custom",
+      "scraper_type": "playwright",
+      "data_quality": "structured",
+      "expected": "offers",
+      "blocked_reason": null,
+      "queries_tried": [
+        "fender"
+      ],
+      "offers_found": 5,
+      "sample": [
+        {
+          "name": "Fender FB405 Electric Bass Gig Bag",
+          "price": 27.0,
+          "currency": "GBP",
+          "price_eur": 31.39,
+          "url": "https://www.guitarguitar.co.uk/product/170809313187008--fender-fb405-electric-bass-gig-bag"
+        },
+        {
+          "name": "Fender FE405 Electric Guitar Gig Bag",
+          "price": 27.0,
+          "currency": "GBP",
+          "price_eur": 31.39,
+          "url": "https://www.guitarguitar.co.uk/product/170809313186008--fender-fe405-electric-guitar-gig-bag"
+        },
+        {
+          "name": "Fender FA405 Dreadnought Gig Bag",
+          "price": 32.0,
+          "currency": "GBP",
+          "price_eur": 37.2,
+          "url": "https://www.guitarguitar.co.uk/product/170809313188008--fender-fa405-dreadnought-gig-bag"
+        }
+      ],
+      "elapsed_s": 4.3,
+      "result": "passed",
+      "error": null
+    },
     "guitar-salon-international": {
       "site_key": "guitar-salon-international",
       "name": "Guitar Salon International",
@@ -908,100 +953,45 @@
           "name": "2026 Gerardo Centonze \"The Blue Guitar - REG Limited Edition 2026\" SP/AR",
           "price": 12500.0,
           "currency": "USD",
-          "price_eur": 10968.8,
+          "price_eur": 10979.44,
           "url": "https://www.guitarsalon.com/product/2026-gerardo-centonze-the-blue-guitar-sp-ar?mz_fq=guitar"
         },
         {
           "name": "Cordoba Guitars Master Series \"Hauser\" SP/IN",
           "price": 4399.99,
           "currency": "USD",
-          "price_eur": 3861.01,
+          "price_eur": 3864.75,
           "url": "https://www.guitarsalon.com/product/cordoba-guitars-master-series-hauser-sp-in-3?mz_fq=guitar"
         }
       ],
-      "elapsed_s": 1.1,
+      "elapsed_s": 1.3,
       "result": "passed",
       "error": null
     },
-    "mcneela-music": {
-      "site_key": "mcneela-music",
-      "name": "McNeela Music",
+    "florian-leonhard-fine-violins": {
+      "site_key": "florian-leonhard-fine-violins",
+      "name": "Florian Leonhard Fine Violins",
       "area": "europe",
       "priority": 3,
-      "platform": "bigcommerce",
-      "scraper_type": "playwright",
-      "data_quality": "heuristic",
-      "expected": "offers",
-      "blocked_reason": null,
-      "queries_tried": [
-        "ukulele"
-      ],
-      "offers_found": 5,
-      "sample": [
-        {
-          "name": "McNeela Moonshine Ukulele",
-          "price": 44.0,
-          "currency": "EUR",
-          "price_eur": 44.0,
-          "url": "https://www.mcneelamusic.com/string-instruments/mcneela-carbon-fibre-ukulele/"
-        },
-        {
-          "name": "Build Your Own Ukulele - DIY Ukulele Kit",
-          "price": 30.0,
-          "currency": "EUR",
-          "price_eur": 30.0,
-          "url": "https://www.mcneelamusic.com/ukuleles/build-your-own-ukulele-diy-ukulele-kit/"
-        },
-        {
-          "name": "Absolute Beginners Ukulele - Book & CD",
-          "price": 23.0,
-          "currency": "EUR",
-          "price_eur": 23.0,
-          "url": "https://www.mcneelamusic.com/ukuleles/absolute-beginners-ukulele-book-cd/"
-        }
-      ],
-      "elapsed_s": 5.6,
-      "result": "passed",
-      "error": null
-    },
-    "perfect-circuit": {
-      "site_key": "perfect-circuit",
-      "name": "Perfect Circuit",
-      "area": "usa",
-      "priority": 1,
-      "platform": "magento",
-      "scraper_type": "algolia",
+      "platform": "woocommerce",
+      "scraper_type": "woocommerce",
       "data_quality": "structured",
       "expected": "offers",
       "blocked_reason": null,
       "queries_tried": [
-        "moog"
+        "violin"
       ],
-      "offers_found": 5,
+      "offers_found": 1,
       "sample": [
         {
-          "name": "Minimoog Model D Analog Keyboard Synthesizer (2022 Edition)",
-          "price": 3999.0,
-          "currency": "USD",
-          "price_eur": 3509.14,
-          "url": "https://www.perfectcircuit.com/moog-minimoog-model-d-2022.html"
-        },
-        {
-          "name": "Powered Eurorack Case - 104HP",
-          "price": 349.0,
-          "currency": "USD",
-          "price_eur": 306.25,
-          "url": "https://www.perfectcircuit.com/moog-powered-eurorack-case-104hp.html"
-        },
-        {
-          "name": "Matriarch Semi-Modular Analog Keyboard Synthesizer",
-          "price": 1899.0,
-          "currency": "USD",
-          "price_eur": 1666.38,
-          "url": "https://www.perfectcircuit.com/moog-matriarch.html"
+          "name": "FLFV Violin Rosin",
+          "price": 20.0,
+          "currency": "GBP",
+          "price_eur": 23.25,
+          "url": "https://www.florianleonhard.com/product/flfv-violin-rosin/"
         }
       ],
-      "elapsed_s": 10.8,
+      "elapsed_s": 5.6,
       "result": "passed",
       "error": null
     },
@@ -1042,7 +1032,7 @@
           "url": "https://guitarrasramirez.com/es/producto/estuche-foam-ramirez-2/"
         }
       ],
-      "elapsed_s": 2.1,
+      "elapsed_s": 3.6,
       "result": "passed",
       "error": null
     },
@@ -1063,47 +1053,6 @@
       "result": "skipped",
       "error": null
     },
-    "klangfarbe": {
-      "site_key": "klangfarbe",
-      "name": "Klangfarbe",
-      "area": "europe",
-      "priority": 2,
-      "platform": "custom",
-      "scraper_type": "structured",
-      "data_quality": "heuristic",
-      "expected": "offers",
-      "blocked_reason": null,
-      "queries_tried": [
-        "fender"
-      ],
-      "offers_found": 5,
-      "sample": [
-        {
-          "name": "Yamaha P-45 Komplett Set",
-          "price": 349.0,
-          "currency": "EUR",
-          "price_eur": 349.0,
-          "url": "https://www.klangfarbe.com/Shop/Artikel/BUNDLE_Yamaha_P45_Digitalpiano_SET_StaenderKopfhoerer.html"
-        },
-        {
-          "name": "Yamaha  FX 400 Natural Satin",
-          "price": 336.0,
-          "currency": "EUR",
-          "price_eur": 336.0,
-          "url": "https://www.klangfarbe.com/Shop/Artikel/Yamaha__FX_400_Natural_Satin.html"
-        },
-        {
-          "name": "Yamaha YDP-166-R",
-          "price": 1399.0,
-          "currency": "EUR",
-          "price_eur": 1399.0,
-          "url": "https://www.klangfarbe.com/Shop/Artikel/Yamaha_YDP166R_Digital_Piano.html"
-        }
-      ],
-      "elapsed_s": 8.6,
-      "result": "passed",
-      "error": null
-    },
     "musicians-friend": {
       "site_key": "musicians-friend",
       "name": "Musician's Friend",
@@ -1112,37 +1061,13 @@
       "platform": "custom",
       "scraper_type": "structured",
       "data_quality": "heuristic",
-      "expected": "offers",
-      "blocked_reason": null,
-      "queries_tried": [
-        "fender"
-      ],
-      "offers_found": 4,
-      "sample": [
-        {
-          "name": "Computer and Gaming  (3)",
-          "price": 25.0,
-          "currency": "USD",
-          "price_eur": 21.93,
-          "url": "https://www.musiciansfriend.com/pro-audio/computer-and-gaming--cardioid?refine=site1AA_1_1_1_1"
-        },
-        {
-          "name": "(1) Open Box:",
-          "price": 46.55,
-          "currency": "USD",
-          "price_eur": 40.84,
-          "url": "https://www.musiciansfriend.com/pro-audio/open-box-behringer-go-video-kit/m09259004000000"
-        },
-        {
-          "name": "(1) Open Box:",
-          "price": 45.75,
-          "currency": "USD",
-          "price_eur": 40.13,
-          "url": "https://www.musiciansfriend.com/pro-audio/open-box-behringer-video-mic-ms-dual-capsule-condenser-microphone/m09225004000000"
-        }
-      ],
-      "elapsed_s": 0.4,
-      "result": "passed",
+      "expected": "documented_skip",
+      "blocked_reason": "Akamai bot challenge on search since 2026-09 (same group and protection as Guitar Center); needs a residential proxy or unlocker",
+      "queries_tried": [],
+      "offers_found": 0,
+      "sample": [],
+      "elapsed_s": null,
+      "result": "skipped",
       "error": null
     },
     "professional-drum-shop": {
@@ -1164,25 +1089,66 @@
           "name": "100 Legendary Hip Hop Beats - by Jason Prushko - 30081BCD",
           "price": 14.99,
           "currency": "USD",
-          "price_eur": 13.15,
+          "price_eur": 13.17,
           "url": "https://www.prodrumshop.com/100-legendary-hip-hop-beats-by-jason-prushko-30081.html"
         },
         {
           "name": "100 Rhythm Etudes for Snare Drum - by Joe Maroni - HL03770909",
           "price": 29.95,
           "currency": "USD",
-          "price_eur": 26.27,
+          "price_eur": 26.31,
           "url": "https://www.prodrumshop.com/100-rhythm-etudes-for-snare-drum-by-joe-maroni-377.html"
         },
         {
           "name": "20 Modern Snare Drum Solos, A Rhythmic Journey - by Daniel Bédard - 00-51332",
           "price": 19.99,
           "currency": "USD",
-          "price_eur": 17.54,
+          "price_eur": 17.56,
           "url": "https://www.prodrumshop.com/copy-of-jost-nickels-snare-book-by-jost-n-65131681.html"
         }
       ],
-      "elapsed_s": 1.7,
+      "elapsed_s": 1.9,
+      "result": "passed",
+      "error": null
+    },
+    "normans-rare-guitars": {
+      "site_key": "normans-rare-guitars",
+      "name": "Norman's Rare Guitars",
+      "area": "usa",
+      "priority": 1,
+      "platform": "wordpress",
+      "scraper_type": "playwright",
+      "data_quality": "heuristic",
+      "expected": "offers",
+      "blocked_reason": null,
+      "queries_tried": [
+        "fender"
+      ],
+      "offers_found": 5,
+      "sample": [
+        {
+          "name": "Hagstrom Swede Patch 2000 (John McVie) 1977, Walnut",
+          "price": 4400.0,
+          "currency": "USD",
+          "price_eur": 3864.76,
+          "url": "https://www.normansrareguitars.com/shop/hagstrom-swede-patch-2000-john-mcvie-1977-walnut/3IkVkPrUNcQWVjYLfayeR2ePWkA"
+        },
+        {
+          "name": "Fender Custom Shop 64 Jaguar Journeyman 2024, Candy Green",
+          "price": 4495.0,
+          "currency": "USD",
+          "price_eur": 3948.21,
+          "url": "https://www.normansrareguitars.com/shop/fender-custom-shop-64-jaguar-journeyman-2024-candy-green/3J44l7cOOR1KCzLzBas5mJHuAke"
+        },
+        {
+          "name": "Martin D-28 Authentic 1937 2015, Natural",
+          "price": 5700.0,
+          "currency": "USD",
+          "price_eur": 5006.62,
+          "url": "https://www.normansrareguitars.com/shop/martin-d-28-authentic-1937-2015-natural/3JZUyDWHYER4BqTcyZC9lrehHT9"
+        }
+      ],
+      "elapsed_s": 4.2,
       "result": "passed",
       "error": null
     },
@@ -1203,44 +1169,44 @@
       "result": "skipped",
       "error": null
     },
-    "normans-rare-guitars": {
-      "site_key": "normans-rare-guitars",
-      "name": "Norman's Rare Guitars",
+    "perfect-circuit": {
+      "site_key": "perfect-circuit",
+      "name": "Perfect Circuit",
       "area": "usa",
       "priority": 1,
-      "platform": "wordpress",
-      "scraper_type": "playwright",
-      "data_quality": "heuristic",
+      "platform": "magento",
+      "scraper_type": "algolia",
+      "data_quality": "structured",
       "expected": "offers",
       "blocked_reason": null,
       "queries_tried": [
-        "fender"
+        "moog"
       ],
       "offers_found": 5,
       "sample": [
         {
-          "name": "Martin 0-18 1952, Natural",
-          "price": 5999.0,
+          "name": "Minimoog Model D Analog Keyboard Synthesizer (2022 Edition)",
+          "price": 3999.0,
           "currency": "USD",
-          "price_eur": 5262.71,
-          "url": "https://www.normansrareguitars.com/shop/martin-0-18-1952-natural/3I6UP4ls11J7FYijB2kffxfN4sl"
+          "price_eur": 3512.54,
+          "url": "https://www.perfectcircuit.com/moog-minimoog-model-d-2022.html"
         },
         {
-          "name": "Gibson Les Paul 1957, Goldtop",
-          "price": 75000.0,
+          "name": "Powered Eurorack Case - 104HP",
+          "price": 349.0,
           "currency": "USD",
-          "price_eur": 65794.78,
-          "url": "https://www.normansrareguitars.com/shop/gibson-les-paul-1957-goldtop/3JFMpYGWIYvRMQadhz48aLoVUX9"
+          "price_eur": 306.55,
+          "url": "https://www.perfectcircuit.com/moog-powered-eurorack-case-104hp.html"
         },
         {
-          "name": "Collings CJ45 AT 2020s, Sunburst",
-          "price": 6250.0,
+          "name": "Matriarch Semi-Modular Analog Keyboard Synthesizer",
+          "price": 1899.0,
           "currency": "USD",
-          "price_eur": 5482.9,
-          "url": "https://www.normansrareguitars.com/shop/collings-cj45-at-2020s-sunburst/3IkFd4R1AjJrv7aq8yVoJVPjuzI"
+          "price_eur": 1668.0,
+          "url": "https://www.perfectcircuit.com/moog-matriarch.html"
         }
       ],
-      "elapsed_s": 3.9,
+      "elapsed_s": 11.0,
       "result": "passed",
       "error": null
     },
@@ -1264,25 +1230,25 @@
           "name": "MXR M310 Textures Granular Synth Engine Pedal",
           "price": 269.99,
           "currency": "USD",
-          "price_eur": 236.85,
+          "price_eur": 237.15,
           "url": "https://www.soundpure.com/p/mxr-m310-textures-granular-synth-engine-pedal/42236"
         },
         {
           "name": "Roland GR-55 Guitar Synthesizer - Used",
           "price": 500.0,
           "currency": "USD",
-          "price_eur": 438.63,
+          "price_eur": 439.18,
           "url": "https://www.soundpure.com/p/roland-gr-55-guitar-synthesizer-used/42124"
         },
         {
           "name": "Electro-Harmonix Synth9 Synthesizer Machine Pedal",
           "price": 259.5,
           "currency": "USD",
-          "price_eur": 227.65,
+          "price_eur": 227.93,
           "url": "https://www.soundpure.com/p/electro-harmonix-synth9-synthesizer-machine-pedal/41400"
         }
       ],
-      "elapsed_s": 15.8,
+      "elapsed_s": 16.0,
       "result": "passed",
       "error": null
     },
@@ -1353,28 +1319,28 @@
       "offers_found": 5,
       "sample": [
         {
-          "name": "Soprano Recorder after Stanesby (a440) in European Boxwood by Stephan Blezinger (Reconditioned)",
-          "price": 1095.0,
+          "name": "Moeck Flauto Rondo Tenor Recorder with Double Key in Maple (Reconditioned)",
+          "price": 525.0,
           "currency": "GBP",
-          "price_eur": 1272.32,
-          "url": "https://earlymusicshop.com/products/soprano-recorder-after-stanesby-a440-in-european-boxwood-by-stephan-blezinger-reconditioned"
+          "price_eur": 610.31,
+          "url": "https://earlymusicshop.com/products/moeck-flauto-rondo-tenor-recorder-with-double-key-in-maple-reconditioned"
         },
         {
-          "name": "Küng Studio 'Sinor' Comfort Tenor Recorder in Cherrywood (Reconditioned)",
-          "price": 875.0,
+          "name": "Moeck Flauto Rondo Alto Recorder in Maple (Reconditioned)",
+          "price": 195.0,
           "currency": "GBP",
-          "price_eur": 1016.69,
-          "url": "https://earlymusicshop.com/products/kung-studio-sinor-comfort-tenor-recorder-in-cherrywood-reconditioned-1"
+          "price_eur": 226.68,
+          "url": "https://earlymusicshop.com/products/moeck-flaut-rondo-alto-recorder-in-maple-reconditioned"
         },
         {
-          "name": "Paetzold Great Bass in C - Cherrywood Finish",
-          "price": 3750.0,
+          "name": "Moeck Rottenburgh Soprano Recorder in Maple (Reconditioned)",
+          "price": 175.0,
           "currency": "GBP",
-          "price_eur": 4357.26,
-          "url": "https://earlymusicshop.com/products/paetzold-great-bass-in-c-cherrywood-finish"
+          "price_eur": 203.44,
+          "url": "https://earlymusicshop.com/products/moeck-rottenburgh-soprano-recorder-in-maple-reconditioned-1"
         }
       ],
-      "elapsed_s": 40.2,
+      "elapsed_s": 40.1,
       "result": "passed",
       "error": null
     },
@@ -1394,25 +1360,25 @@
       "offers_found": 5,
       "sample": [
         {
-          "name": "Fender Quick Change Surf Green Capo",
-          "price": 27.82,
-          "currency": "USD",
-          "price_eur": 24.41,
-          "url": "https://reverb.com/item/84598465-fender-quick-change-surf-green-capo"
-        },
-        {
           "name": "Fender Quick Change Butterscotch Capo",
           "price": 27.82,
           "currency": "USD",
-          "price_eur": 24.41,
+          "price_eur": 24.44,
           "url": "https://reverb.com/item/84598461-fender-quick-change-butterscotch-capo"
         },
         {
-          "name": "Fender Kyser Quick-Change Capo Daphne Blue",
-          "price": 24.95,
+          "name": "Fender Quick Change Surf Green Capo",
+          "price": 27.82,
           "currency": "USD",
-          "price_eur": 21.89,
-          "url": "https://reverb.com/item/84295090-fender-kyser-quick-change-capo-daphne-blue"
+          "price_eur": 24.44,
+          "url": "https://reverb.com/item/84598465-fender-quick-change-surf-green-capo"
+        },
+        {
+          "name": "Kyser Fender KGEFSGA Electric Capo - Surf Green",
+          "price": 32.99,
+          "currency": "USD",
+          "price_eur": 28.98,
+          "url": "https://reverb.com/item/91153386-kyser-fender-kgefsga-electric-capo-surf-green"
         }
       ],
       "elapsed_s": 0.6,
@@ -1435,69 +1401,28 @@
       "offers_found": 5,
       "sample": [
         {
-          "name": "Limited Edition Player Fusion Precision Bass HH Electric Bass - Gold",
-          "price": 1149.99,
-          "currency": "USD",
-          "price_eur": 1009.12,
-          "url": "https://www.sweetwater.com/store/detail/PBassLEPFG--fender-limited-edition-player-fusion-precision-bass-hh-electric-bass-gold"
-        },
-        {
           "name": "Tone Master Pro Multi-effects Guitar Workstation",
           "price": 1499.99,
           "currency": "USD",
-          "price_eur": 1316.25,
+          "price_eur": 1317.52,
           "url": "https://www.sweetwater.com/store/detail/ToneMasterPro--fender-tone-master-pro-multi-effects-guitar-workstation"
+        },
+        {
+          "name": "Limited Edition Player Fusion Precision Bass HH Electric Bass - Gold",
+          "price": 1149.99,
+          "currency": "USD",
+          "price_eur": 1010.1,
+          "url": "https://www.sweetwater.com/store/detail/PBassLEPFG--fender-limited-edition-player-fusion-precision-bass-hh-electric-bass-gold"
         },
         {
           "name": "Limited Edition Player Fusion Jaguar Baritone Electric Guitar - Black",
           "price": 1299.99,
           "currency": "USD",
-          "price_eur": 1140.75,
+          "price_eur": 1141.85,
           "url": "https://www.sweetwater.com/store/detail/JagLEPFB--fender-limited-edition-player-fusion-jaguar-baritone-electric-guitar-black"
         }
       ],
       "elapsed_s": 0.5,
-      "result": "passed",
-      "error": null
-    },
-    "the-woodwind-and-brasswind": {
-      "site_key": "the-woodwind-and-brasswind",
-      "name": "The Woodwind & Brasswind",
-      "area": "usa",
-      "priority": 3,
-      "platform": "custom",
-      "scraper_type": "structured",
-      "data_quality": "heuristic",
-      "expected": "offers",
-      "blocked_reason": null,
-      "queries_tried": [
-        "sax"
-      ],
-      "offers_found": 5,
-      "sample": [
-        {
-          "name": "Etude ETS-200 Student Series Tenor Saxophone",
-          "price": 299.0,
-          "currency": "USD",
-          "price_eur": 262.3,
-          "url": "https://www.wwbw.com/etude-ets-200-student-series-tenor-saxophone-main0302042"
-        },
-        {
-          "name": "Prelude by Conn-Selmer PAS111 Alto Saxophone Outfit",
-          "price": 299.0,
-          "currency": "USD",
-          "price_eur": 262.3,
-          "url": "https://www.wwbw.com/prelude-by-conn-selmer-pas111-alto-saxophone-outfit-main0522127"
-        },
-        {
-          "name": "Allora ASPS-250 Student Series Soprano Sax",
-          "price": 299.0,
-          "currency": "USD",
-          "price_eur": 262.3,
-          "url": "https://www.wwbw.com/allora-asps-250-student-series-soprano-sax-main0459525"
-        }
-      ],
-      "elapsed_s": 2.3,
       "result": "passed",
       "error": null
     },
@@ -1542,44 +1467,44 @@
       "result": "passed",
       "error": null
     },
-    "wildwood-guitars": {
-      "site_key": "wildwood-guitars",
-      "name": "Wildwood Guitars",
+    "the-woodwind-and-brasswind": {
+      "site_key": "the-woodwind-and-brasswind",
+      "name": "The Woodwind & Brasswind",
       "area": "usa",
-      "priority": 1,
-      "platform": "shopify",
-      "scraper_type": "shopify",
+      "priority": 3,
+      "platform": "custom",
+      "scraper_type": "requests",
       "data_quality": "structured",
       "expected": "offers",
       "blocked_reason": null,
       "queries_tried": [
-        "fender"
+        "sax"
       ],
       "offers_found": 5,
       "sample": [
         {
-          "name": "Wildwood 10 1961 Stratocaster - Journeyman Relic",
-          "price": 4575.0,
+          "name": "Etude ETS-200 Student Series Tenor Saxophone",
+          "price": 899.99,
           "currency": "USD",
-          "price_eur": 4013.48,
-          "url": "https://wildwoodguitars.com/products/r151661-wildwood-10-1961-stratocaster-nos-olympic-white-copy"
+          "price_eur": 790.51,
+          "url": "https://www.wwbw.com/etude-ets-200-student-series-tenor-saxophone-main0302042"
         },
         {
-          "name": "Wildwood 10 1961 Stratocaster - NOS",
-          "price": 4175.0,
+          "name": "Yamaha YAS-26 Standard Alto Saxophone",
+          "price": 2979.0,
           "currency": "USD",
-          "price_eur": 3662.58,
-          "url": "https://wildwoodguitars.com/products/r151858-wildwood-10-1961-stratocaster-nos-olympic-white-copy-copy"
+          "price_eur": 2616.62,
+          "url": "https://www.wwbw.com/yamaha-yas-26-standard-alto-saxophone-main0103338"
         },
         {
-          "name": "Wildwood 10 1961 Stratocaster - NOS",
-          "price": 4750.0,
+          "name": "Jupiter JBS1000 Deluxe Baritone Saxophone",
+          "price": 6579.0,
           "currency": "USD",
-          "price_eur": 4167.0,
-          "url": "https://wildwoodguitars.com/products/r150045-wildwood-10-1961-stratocaster-nos-seafoam-green-copy"
+          "price_eur": 5778.7,
+          "url": "https://www.wwbw.com/jupiter-jbs1000-deluxe-baritone-saxophone-main0021846"
         }
       ],
-      "elapsed_s": 40.2,
+      "elapsed_s": 2.3,
       "result": "passed",
       "error": null
     },
@@ -1599,28 +1524,69 @@
       "offers_found": 5,
       "sample": [
         {
-          "name": "Mustang LT25 White",
-          "price": 199.0,
+          "name": "Telecaster 75 Anni Player II Baritone, RW Black",
+          "price": 1049.0,
           "currency": "EUR",
-          "price_eur": 199.0,
-          "url": "https://woodbrass.com/products/fender-mustang-lt25-white-438983"
+          "price_eur": 1049.0,
+          "url": "https://woodbrass.com/products/fender-telecaster-75-anni-player-ii-baritone-rw-black-436612"
         },
         {
-          "name": "Mustang LT25 Navy",
-          "price": 199.0,
+          "name": "Telecaster 75 Anni Player II Baritone, RW 3-Color Sunburst",
+          "price": 1049.0,
           "currency": "EUR",
-          "price_eur": 199.0,
-          "url": "https://woodbrass.com/products/fender-mustang-lt25-navy-438984"
+          "price_eur": 1049.0,
+          "url": "https://woodbrass.com/products/fender-telecaster-75-anni-player-ii-baritone-rw-3-color-sunburst-436611"
         },
         {
-          "name": "Stratocaster American Ultra II LH EB Texas Tea",
-          "price": 2463.0,
+          "name": "Telecaster SS HYBRID II MIJ RW Matte Phantom Black",
+          "price": 1499.0,
           "currency": "EUR",
-          "price_eur": 2463.0,
-          "url": "https://woodbrass.com/products/fender-stratocaster-american-ultra-ii-lh-eb-texas-tea-395714"
+          "price_eur": 1499.0,
+          "url": "https://woodbrass.com/products/fender-telecaster-ss-hybrid-ii-mij-rw-matte-phantom-black-428441"
         }
       ],
-      "elapsed_s": 60.2,
+      "elapsed_s": 60.1,
+      "result": "passed",
+      "error": null
+    },
+    "wildwood-guitars": {
+      "site_key": "wildwood-guitars",
+      "name": "Wildwood Guitars",
+      "area": "usa",
+      "priority": 1,
+      "platform": "shopify",
+      "scraper_type": "shopify",
+      "data_quality": "structured",
+      "expected": "offers",
+      "blocked_reason": null,
+      "queries_tried": [
+        "fender"
+      ],
+      "offers_found": 5,
+      "sample": [
+        {
+          "name": "Wildwood 10 1962 Telecaster Custom - Journeyman Relic",
+          "price": 4720.0,
+          "currency": "USD",
+          "price_eur": 4145.84,
+          "url": "https://wildwoodguitars.com/products/r152305-ww10-62-tele-cust-ash-jrn-rw-hw-2ts"
+        },
+        {
+          "name": "Wildwood 10 1961 Stratocaster - Journeyman Relic",
+          "price": 4575.0,
+          "currency": "USD",
+          "price_eur": 4018.47,
+          "url": "https://wildwoodguitars.com/products/r151661-wildwood-10-1961-stratocaster-nos-olympic-white-copy"
+        },
+        {
+          "name": "Wildwood 10 1961 Stratocaster - NOS",
+          "price": 4175.0,
+          "currency": "USD",
+          "price_eur": 3667.13,
+          "url": "https://wildwoodguitars.com/products/r151858-wildwood-10-1961-stratocaster-nos-olympic-white-copy-copy"
+        }
+      ],
+      "elapsed_s": 40.1,
       "result": "passed",
       "error": null
     },
@@ -1657,28 +1623,185 @@
       "offers_found": 5,
       "sample": [
         {
+          "name": "B-Stock Fender American Vintage II Limited Edition 75th Anniversary 1951 Precision Bass, Butterscotch Blonde",
+          "price": 2399.0,
+          "currency": "GBP",
+          "price_eur": 2788.81,
+          "url": "https://www.wunjoguitars.com/products/fender-american-vintage-ii-limited-edition-75th-anniversary-1951-precision-bass-butterscotch-blonde"
+        },
+        {
+          "name": "Fender Player II Telecaster Maple Neck, Three Tone Sunburst",
+          "price": 729.0,
+          "currency": "GBP",
+          "price_eur": 847.45,
+          "url": "https://www.wunjoguitars.com/products/fender-player-ii-telecaster-maple-neck-three-tone-sunburst"
+        },
+        {
           "name": "Squier by Fender Mini Jazzmaster HH (MASTER)",
           "price": 149.0,
           "currency": "GBP",
-          "price_eur": 173.13,
+          "price_eur": 173.21,
           "url": "https://www.wunjoguitars.com/products/mini-jazzmaster%C2%AE-hh"
-        },
-        {
-          "name": "Fender MIJ Traditional II 60s Jaguar, Black Pearl",
-          "price": 1399.0,
-          "currency": "GBP",
-          "price_eur": 1625.55,
-          "url": "https://www.wunjoguitars.com/products/fender-mij-traditional-ii-60s-jaguar-black-pearl-eta-mid-november"
-        },
-        {
-          "name": "Fender MIJ Hybrid II 2026 Collection Stratocaster, Matte Aero Blue",
-          "price": 1349.0,
-          "currency": "GBP",
-          "price_eur": 1567.45,
-          "url": "https://www.wunjoguitars.com/products/fender-mij-hybrid-ii-2026-collection-stratocaster-matte-aero-blue"
         }
       ],
       "elapsed_s": 60.1,
+      "result": "passed",
+      "error": null
+    },
+    "chicago-music-exchange": {
+      "site_key": "chicago-music-exchange",
+      "name": "Chicago Music Exchange",
+      "area": "usa",
+      "priority": 1,
+      "platform": "shopify",
+      "scraper_type": "shopify",
+      "data_quality": "structured",
+      "expected": "offers",
+      "blocked_reason": null,
+      "queries_tried": [
+        "fender"
+      ],
+      "offers_found": 5,
+      "sample": [
+        {
+          "name": "Fender Supersonic 2x12 Speaker Cabinet (only)",
+          "price": 550.0,
+          "currency": "USD",
+          "price_eur": 483.1,
+          "url": "https://www.chicagomusicexchange.com/products/fender-supersonic-2x12-speaker-cabinet-only-2680041"
+        },
+        {
+          "name": "Fender Bassman Reissue '59 (1st release)  1990",
+          "price": 1295.0,
+          "currency": "USD",
+          "price_eur": 1137.47,
+          "url": "https://www.chicagomusicexchange.com/products/fender-bassman-reissue-59-1st-release-1990-2679756"
+        },
+        {
+          "name": "Fender Princeton Reverb Reissue (1st version)  2008",
+          "price": 1395.0,
+          "currency": "USD",
+          "price_eur": 1225.31,
+          "url": "https://www.chicagomusicexchange.com/products/fender-princeton-reverb-reissue-1st-version-2008-2679750"
+        }
+      ],
+      "elapsed_s": 40.1,
+      "result": "passed",
+      "error": null
+    },
+    "gryphon-stringed-instruments": {
+      "site_key": "gryphon-stringed-instruments",
+      "name": "Gryphon Stringed Instruments",
+      "area": "usa",
+      "priority": 3,
+      "platform": "shopify",
+      "scraper_type": "shopify",
+      "data_quality": "structured",
+      "expected": "offers",
+      "blocked_reason": null,
+      "queries_tried": [
+        "fender"
+      ],
+      "offers_found": 5,
+      "sample": [
+        {
+          "name": "2017 Fender American Elite Jazz Bass - Used",
+          "price": 1450.0,
+          "currency": "USD",
+          "price_eur": 1273.61,
+          "url": "https://www.gryphonstrings.com/products/2017-fender-american-elite-jazz-bass-used-26584"
+        },
+        {
+          "name": "Fender Rumble™ 40 (V3), 120V, Black/Silver - New",
+          "price": 269.99,
+          "currency": "USD",
+          "price_eur": 237.15,
+          "url": "https://www.gryphonstrings.com/products/fender-rumble-40-v3-120v-black-silver-new-26571"
+        },
+        {
+          "name": "2022 Fender MIJ Traditional '60's Stratocaster Electric Guitar-Used",
+          "price": 1050.0,
+          "currency": "USD",
+          "price_eur": 922.27,
+          "url": "https://www.gryphonstrings.com/products/2022-fender-mij-traditional-60-s-stratocaster-electric-guitar-used-26455"
+        }
+      ],
+      "elapsed_s": 60.1,
+      "result": "passed",
+      "error": null
+    },
+    "explorers-percussion": {
+      "site_key": "explorers-percussion",
+      "name": "Explorers Percussion",
+      "area": "usa",
+      "priority": 3,
+      "platform": "custom",
+      "scraper_type": "requests",
+      "data_quality": null,
+      "expected": "documented_skip",
+      "blocked_reason": "site serves injected SEO-spam pages (Indonesian gambling doorways) alongside the shop; no clean route",
+      "queries_tried": [],
+      "offers_found": 0,
+      "sample": [],
+      "elapsed_s": null,
+      "result": "skipped",
+      "error": null
+    },
+    "saxquest": {
+      "site_key": "saxquest",
+      "name": "Saxquest",
+      "area": "usa",
+      "priority": 3,
+      "platform": "custom",
+      "scraper_type": "structured",
+      "data_quality": "heuristic",
+      "expected": "documented_skip",
+      "blocked_reason": "search page ignores the query (same grid for any search); the shop builds its results in the browser",
+      "queries_tried": [],
+      "offers_found": 0,
+      "sample": [],
+      "elapsed_s": null,
+      "result": "skipped",
+      "error": null
+    },
+    "willies-american-guitars": {
+      "site_key": "willies-american-guitars",
+      "name": "Willie's American Guitars",
+      "area": "usa",
+      "priority": 3,
+      "platform": "woocommerce",
+      "scraper_type": "woocommerce",
+      "data_quality": "structured",
+      "expected": "offers",
+      "blocked_reason": null,
+      "queries_tried": [
+        "fender"
+      ],
+      "offers_found": 5,
+      "sample": [
+        {
+          "name": "New Fender American Vintage II ’63 Telecaster",
+          "price": 2649.99,
+          "currency": "USD",
+          "price_eur": 2327.63,
+          "url": "https://www.williesguitars.com/product/new-fender-american-vintage-ii-63-telecaster/"
+        },
+        {
+          "name": "New Fender ’68 Custom Vibro Champ",
+          "price": 1049.99,
+          "currency": "USD",
+          "price_eur": 922.26,
+          "url": "https://www.williesguitars.com/product/new-fender-68-custom-vibro-champ/"
+        },
+        {
+          "name": "1966 Fender Champ-Amp",
+          "price": 1395.0,
+          "currency": "USD",
+          "price_eur": 1225.31,
+          "url": "https://www.williesguitars.com/product/1966-fender-champ-amp/"
+        }
+      ],
+      "elapsed_s": 1.1,
       "result": "passed",
       "error": null
     },
@@ -1699,27 +1822,27 @@
       "sample": [
         {
           "name": "Moog Music Muse 8-Voice Analog Bi-Timbral Polyphonic Synthesizer",
-          "price": 292.0,
+          "price": 3499.0,
           "currency": "USD",
-          "price_eur": 256.16,
+          "price_eur": 3073.36,
           "url": "https://vintageking.com/moog-music-muse-8-voice-analog-bi-timbral-polyphonic-synthesizer"
         },
         {
           "name": "Moog Subsequent 37 Analog Synthesizer",
-          "price": 159.0,
+          "price": 1899.0,
           "currency": "USD",
-          "price_eur": 139.48,
+          "price_eur": 1668.0,
           "url": "https://vintageking.com/moog-music-subsequent-37"
         },
         {
           "name": "Moog Music Mother 32",
-          "price": 50.0,
+          "price": 599.0,
           "currency": "USD",
-          "price_eur": 43.86,
+          "price_eur": 526.13,
           "url": "https://vintageking.com/moog-music-mother-32-modular-synthesizer"
         }
       ],
-      "elapsed_s": 0.8,
+      "elapsed_s": 4.7,
       "result": "passed",
       "error": null
     },
@@ -1742,9 +1865,9 @@
       "sample": [
         {
           "name": "Digitize Horn/Trumpet Rim",
-          "price": 140.0,
+          "price": 145.0,
           "currency": "EUR",
-          "price_eur": 140.0,
+          "price_eur": 145.0,
           "url": "https://osmun.com/products/digitize-horn-trumpet-rim"
         },
         {
@@ -1763,187 +1886,6 @@
         }
       ],
       "elapsed_s": 15.1,
-      "result": "passed",
-      "error": null
-    },
-    "explorers-percussion": {
-      "site_key": "explorers-percussion",
-      "name": "Explorers Percussion",
-      "area": "usa",
-      "priority": 3,
-      "platform": "custom",
-      "scraper_type": "requests",
-      "data_quality": null,
-      "expected": "documented_skip",
-      "blocked_reason": "site serves injected SEO-spam pages (Indonesian gambling doorways) alongside the shop; no clean route",
-      "queries_tried": [],
-      "offers_found": 0,
-      "sample": [],
-      "elapsed_s": null,
-      "result": "skipped",
-      "error": null
-    },
-    "chicago-music-exchange": {
-      "site_key": "chicago-music-exchange",
-      "name": "Chicago Music Exchange",
-      "area": "usa",
-      "priority": 1,
-      "platform": "shopify",
-      "scraper_type": "shopify",
-      "data_quality": "structured",
-      "expected": "offers",
-      "blocked_reason": null,
-      "queries_tried": [
-        "fender"
-      ],
-      "offers_found": 5,
-      "sample": [
-        {
-          "name": "Fender Mod Shop Telecaster Crimson Red Transparent 2020",
-          "price": 1295.0,
-          "currency": "USD",
-          "price_eur": 1136.06,
-          "url": "https://www.chicagomusicexchange.com/products/fender-mod-shop-telecaster-crimson-red-transparent-2685742"
-        },
-        {
-          "name": "Fender Custom Shop WW10 '55 Telecaster Heavy Relic Lake Placid Blue 2018",
-          "price": 3495.0,
-          "currency": "USD",
-          "price_eur": 3066.04,
-          "url": "https://www.chicagomusicexchange.com/products/fender-custom-shop-ww10-55-telecaster-heavy-relic-2680839"
-        },
-        {
-          "name": "Fender American Ultra Telecaster Mystic Pine 2021",
-          "price": 1795.0,
-          "currency": "USD",
-          "price_eur": 1574.69,
-          "url": "https://www.chicagomusicexchange.com/products/fender-american-ultra-telecaster-mystic-pine-2021-2680136"
-        }
-      ],
-      "elapsed_s": 40.2,
-      "result": "passed",
-      "error": null
-    },
-    "willies-american-guitars": {
-      "site_key": "willies-american-guitars",
-      "name": "Willie's American Guitars",
-      "area": "usa",
-      "priority": 3,
-      "platform": "woocommerce",
-      "scraper_type": "woocommerce",
-      "data_quality": "structured",
-      "expected": "offers",
-      "blocked_reason": null,
-      "queries_tried": [
-        "fender"
-      ],
-      "offers_found": 5,
-      "sample": [
-        {
-          "name": "New Fender American Vintage II &#8217;63 Telecaster",
-          "price": 2649.99,
-          "currency": "USD",
-          "price_eur": 2324.74,
-          "url": "https://www.williesguitars.com/product/new-fender-american-vintage-ii-63-telecaster/"
-        },
-        {
-          "name": "New Fender &#8217;68 Custom Vibro Champ",
-          "price": 1049.99,
-          "currency": "USD",
-          "price_eur": 921.12,
-          "url": "https://www.williesguitars.com/product/new-fender-68-custom-vibro-champ/"
-        },
-        {
-          "name": "1966 Fender Champ-Amp",
-          "price": 1395.0,
-          "currency": "USD",
-          "price_eur": 1223.78,
-          "url": "https://www.williesguitars.com/product/1966-fender-champ-amp/"
-        }
-      ],
-      "elapsed_s": 1.0,
-      "result": "passed",
-      "error": null
-    },
-    "gryphon-stringed-instruments": {
-      "site_key": "gryphon-stringed-instruments",
-      "name": "Gryphon Stringed Instruments",
-      "area": "usa",
-      "priority": 3,
-      "platform": "shopify",
-      "scraper_type": "shopify",
-      "data_quality": "structured",
-      "expected": "offers",
-      "blocked_reason": null,
-      "queries_tried": [
-        "fender"
-      ],
-      "offers_found": 5,
-      "sample": [
-        {
-          "name": "Fender Rumble™ 40 (V3), 120V, Black/Silver - New",
-          "price": 269.99,
-          "currency": "USD",
-          "price_eur": 236.85,
-          "url": "https://www.gryphonstrings.com/products/fender-rumble-40-v3-120v-black-silver-new-26571"
-        },
-        {
-          "name": "2022 Fender MIJ Traditional '60's Stratocaster Electric Guitar-Used",
-          "price": 1050.0,
-          "currency": "USD",
-          "price_eur": 921.13,
-          "url": "https://www.gryphonstrings.com/products/2022-fender-mij-traditional-60-s-stratocaster-electric-guitar-used-26455"
-        },
-        {
-          "name": "1999 Fender American Series Stratocaster Electric Guitar - Used",
-          "price": 1200.0,
-          "currency": "USD",
-          "price_eur": 1052.72,
-          "url": "https://www.gryphonstrings.com/products/1999-fender-american-series-stratocaster-electric-guitar-used-26486"
-        }
-      ],
-      "elapsed_s": 60.1,
-      "result": "passed",
-      "error": null
-    },
-    "b-and-h-photo-video": {
-      "site_key": "b-and-h-photo-video",
-      "name": "B&H Photo Video",
-      "area": "usa",
-      "priority": 1,
-      "platform": "custom",
-      "scraper_type": "playwright",
-      "data_quality": "structured",
-      "expected": "offers",
-      "blocked_reason": null,
-      "queries_tried": [
-        "moog"
-      ],
-      "offers_found": 5,
-      "sample": [
-        {
-          "name": "Moog Messenger Monophonic Analog Synthesizer",
-          "price": 699.0,
-          "currency": "USD",
-          "price_eur": 613.38,
-          "url": "https://www.bhphotovideo.com/c/product/1892027-REG/moog_messenger_monophonic_analog_synthesizer.html"
-        },
-        {
-          "name": "Moog Subsequent 37 Paraphonic Analog Synthesizer",
-          "price": 1899.0,
-          "currency": "USD",
-          "price_eur": 1666.38,
-          "url": "https://www.bhphotovideo.com/c/product/1358192-REG/moog_lps_sub_006_01_subsequent_37_cv_paraphonic.html"
-        },
-        {
-          "name": "Moog Labyrinth Parallel Generative Analog Synthesizer (60 HP)",
-          "price": 599.0,
-          "currency": "USD",
-          "price_eur": 525.62,
-          "url": "https://www.bhphotovideo.com/c/product/1827003-REG/moog_labyrinth_parallel_generative_analog_synthesizer.html"
-        }
-      ],
-      "elapsed_s": 6.6,
       "result": "passed",
       "error": null
     },
@@ -1983,25 +1925,25 @@
           "name": "Fender Limited Edition American Professional Classic Silent System Stratocaster Candy Apple Red with Gig Bag",
           "price": 1599.99,
           "currency": "USD",
-          "price_eur": 1403.61,
+          "price_eur": 1405.36,
           "url": "https://www.truetonemusic.com/products/fender-limited-edition-american-professional-classic-silent-system-stratocaster-candy-apple-red-with-gig-bag"
         },
         {
           "name": "Fender 75th Anniversary Player II Baritone Telecaster Black",
           "price": 879.99,
           "currency": "USD",
-          "price_eur": 771.98,
+          "price_eur": 772.94,
           "url": "https://www.truetonemusic.com/products/fender-75th-anniversary-player-ii-baritone-telecaster-black"
         },
         {
           "name": "Fender 75th Anniversary Player II Baritone Telecaster Lake Placid Blue",
           "price": 879.99,
           "currency": "USD",
-          "price_eur": 771.98,
+          "price_eur": 772.94,
           "url": "https://www.truetonemusic.com/products/fender-75th-anniversary-player-ii-baritone-telecaster-lake-placid-blue"
         }
       ],
-      "elapsed_s": 60.2,
+      "elapsed_s": 60.1,
       "result": "passed",
       "error": null
     },
@@ -2013,37 +1955,13 @@
       "platform": "custom",
       "scraper_type": "structured",
       "data_quality": "heuristic",
-      "expected": "offers",
-      "blocked_reason": null,
-      "queries_tried": [
-        "fender"
-      ],
-      "offers_found": 5,
-      "sample": [
-        {
-          "name": "Silvertone 1485 Head + 6x10 Cabinet",
-          "price": 995.0,
-          "currency": "USD",
-          "price_eur": 872.88,
-          "url": "https://www.bernunzio.com/product/silvertone-1485-head-6x10-cabinet-31202/"
-        },
-        {
-          "name": "CMI Model #97 Waikiki Deluxe (Valco) (c.1950's)",
-          "price": 500.0,
-          "currency": "USD",
-          "price_eur": 438.63,
-          "url": "https://www.bernunzio.com/product/cmi-model-97-waikiki-tweed-tube-amp-c1950s-32750/"
-        },
-        {
-          "name": "Gibson Chet Atkins Classic CE (2001)",
-          "price": 199.0,
-          "currency": "USD",
-          "price_eur": 174.58,
-          "url": "https://www.bernunzio.com/product/gibson-chet-atkins-classic-ce-2001-32711/"
-        }
-      ],
-      "elapsed_s": 2.0,
-      "result": "passed",
+      "expected": "documented_skip",
+      "blocked_reason": "search page ignores the query (same grid for any search); the shop builds its results in the browser",
+      "queries_tried": [],
+      "offers_found": 0,
+      "sample": [],
+      "elapsed_s": null,
+      "result": "skipped",
       "error": null
     },
     "house-of-guitars": {
@@ -2063,44 +1981,85 @@
       "result": "skipped",
       "error": null
     },
-    "saxquest": {
-      "site_key": "saxquest",
-      "name": "Saxquest",
+    "b-and-h-photo-video": {
+      "site_key": "b-and-h-photo-video",
+      "name": "B&H Photo Video",
       "area": "usa",
-      "priority": 3,
+      "priority": 1,
       "platform": "custom",
-      "scraper_type": "structured",
-      "data_quality": "heuristic",
+      "scraper_type": "playwright",
+      "data_quality": "structured",
       "expected": "offers",
       "blocked_reason": null,
       "queries_tried": [
-        "sax"
+        "moog"
       ],
       "offers_found": 5,
       "sample": [
         {
-          "name": "2021 Foundational Donor National Saxophone Museum 11oz Ceramic Coffee Mug",
-          "price": 10.0,
+          "name": "Moog Messenger Monophonic Analog Synthesizer",
+          "price": 699.0,
           "currency": "USD",
-          "price_eur": 8.77,
-          "url": "https://www.saxquest.com/product/view/2021-foundational-donor-national-saxophone-museum-11oz-ceramic-coffee-mug-P14685"
+          "price_eur": 613.97,
+          "url": "https://www.bhphotovideo.com/c/product/1892027-REG/moog_messenger_monophonic_analog_synthesizer.html"
         },
         {
-          "name": "National Saxophone Museum Cotton Tote Bag",
-          "price": 25.0,
+          "name": "Moog Subsequent 37 Paraphonic Analog Synthesizer",
+          "price": 1899.0,
           "currency": "USD",
-          "price_eur": 21.93,
-          "url": "https://www.saxquest.com/product/view/national-saxophone-museum-cotton-tote-bag-P14686"
+          "price_eur": 1668.0,
+          "url": "https://www.bhphotovideo.com/c/product/1358192-REG/moog_lps_sub_006_01_subsequent_37_cv_paraphonic.html"
         },
         {
-          "name": "National Saxophone Museum T-shirt",
-          "price": 29.0,
+          "name": "Moog Labyrinth Parallel Generative Analog Synthesizer (60 HP)",
+          "price": 599.0,
           "currency": "USD",
-          "price_eur": 25.44,
-          "url": "https://www.saxquest.com/product/view/national-saxophone-museum-t-shirt-P14684"
+          "price_eur": 526.13,
+          "url": "https://www.bhphotovideo.com/c/product/1827003-REG/moog_labyrinth_parallel_generative_analog_synthesizer.html"
         }
       ],
-      "elapsed_s": 5.4,
+      "elapsed_s": 4.9,
+      "result": "passed",
+      "error": null
+    },
+    "elderly-instruments": {
+      "site_key": "elderly-instruments",
+      "name": "Elderly Instruments",
+      "area": "usa",
+      "priority": 1,
+      "platform": "shopify",
+      "scraper_type": "shopify",
+      "data_quality": "structured",
+      "expected": "offers",
+      "blocked_reason": null,
+      "queries_tried": [
+        "fender"
+      ],
+      "offers_found": 5,
+      "sample": [
+        {
+          "name": "Fender Stratocaster Electric Guitar (1961)",
+          "price": 35000.0,
+          "currency": "USD",
+          "price_eur": 30742.42,
+          "url": "https://www.elderly.com/products/fender-stratocaster-30u-224370"
+        },
+        {
+          "name": "Fender American Ultra Stratocaster HSS Electric Guitar (2022)",
+          "price": 1650.0,
+          "currency": "USD",
+          "price_eur": 1449.29,
+          "url": "https://www.elderly.com/products/fender-american-ultra-stratocaster-hss-30u-224509"
+        },
+        {
+          "name": "Fender Bullet I Electric Guitar (1982)",
+          "price": 650.0,
+          "currency": "USD",
+          "price_eur": 570.93,
+          "url": "https://www.elderly.com/products/fender-bullet-i-electric-guitar-1982-30u-223812"
+        }
+      ],
+      "elapsed_s": 40.1,
       "result": "passed",
       "error": null
     },
@@ -2125,66 +2084,25 @@
           "name": "Cinnamon Drive",
           "price": 199.0,
           "currency": "USD",
-          "price_eur": 174.58,
+          "price_eur": 174.79,
           "url": "https://www.30thstreetguitars.com/products/cinnamon-drive"
         },
         {
           "name": "The Windmiller",
           "price": 199.0,
           "currency": "USD",
-          "price_eur": 174.58,
+          "price_eur": 174.79,
           "url": "https://www.30thstreetguitars.com/products/the-windmiller"
         },
         {
           "name": "The Woman Tone",
           "price": 299.0,
           "currency": "USD",
-          "price_eur": 262.3,
+          "price_eur": 262.63,
           "url": "https://www.30thstreetguitars.com/products/the-woman-tone"
         }
       ],
       "elapsed_s": 30.1,
-      "result": "passed",
-      "error": null
-    },
-    "elderly-instruments": {
-      "site_key": "elderly-instruments",
-      "name": "Elderly Instruments",
-      "area": "usa",
-      "priority": 1,
-      "platform": "shopify",
-      "scraper_type": "shopify",
-      "data_quality": "structured",
-      "expected": "offers",
-      "blocked_reason": null,
-      "queries_tried": [
-        "fender"
-      ],
-      "offers_found": 5,
-      "sample": [
-        {
-          "name": "Fender American Ultra Stratocaster HSS Electric Guitar (2022)",
-          "price": 1650.0,
-          "currency": "USD",
-          "price_eur": 1447.49,
-          "url": "https://www.elderly.com/products/fender-american-ultra-stratocaster-hss-30u-224509"
-        },
-        {
-          "name": "Fender Bullet I Electric Guitar (1982)",
-          "price": 650.0,
-          "currency": "USD",
-          "price_eur": 570.22,
-          "url": "https://www.elderly.com/products/fender-bullet-i-electric-guitar-1982-30u-223812"
-        },
-        {
-          "name": "Fender Telecaster Electric Guitar (1968)",
-          "price": 5850.0,
-          "currency": "USD",
-          "price_eur": 5131.99,
-          "url": "https://www.elderly.com/products/fender-telecaster-30u-224503"
-        }
-      ],
-      "elapsed_s": 40.2,
       "result": "passed",
       "error": null
     },
@@ -2207,66 +2125,66 @@
           "name": "DEMO Fender Jimi Hendrix Stratocaster 3-Tone Sunburst (631)",
           "price": 999.99,
           "currency": "USD",
-          "price_eur": 877.26,
+          "price_eur": 878.35,
           "url": "https://willcuttguitars.com/products/fender-jimi-hendrix-stratocaster-3-tone-sunburst-631"
         },
         {
           "name": "DEMO Fender Vintera 50's Telecaster Sonic Blue Maple (396)",
           "price": 791.99,
           "currency": "USD",
-          "price_eur": 694.78,
+          "price_eur": 695.65,
           "url": "https://willcuttguitars.com/products/fender-vintera-50s-telecaster-sonic-blue-maple-712"
         },
         {
           "name": "2010 Fender American Special Stratocaster Candy Apple Red Changed Body and Pickups",
           "price": 699.99,
           "currency": "USD",
-          "price_eur": 614.08,
+          "price_eur": 614.84,
           "url": "https://willcuttguitars.com/products/2010-fender-american-special-stratocaster-changed-body-and-pickups-fen-american-special-used-10003148"
         }
       ],
-      "elapsed_s": 60.1,
+      "elapsed_s": 60.2,
       "result": "passed",
       "error": null
     },
-    "drum-center-of-portsmouth": {
-      "site_key": "drum-center-of-portsmouth",
-      "name": "Drum Center of Portsmouth",
+    "chuck-levins-washington-music-center": {
+      "site_key": "chuck-levins-washington-music-center",
+      "name": "Chuck Levin's Washington Music Center",
       "area": "usa",
-      "priority": 1,
+      "priority": 2,
       "platform": "shopify",
       "scraper_type": "shopify",
       "data_quality": "structured",
       "expected": "offers",
       "blocked_reason": null,
       "queries_tried": [
-        "snare"
+        "fender"
       ],
       "offers_found": 5,
       "sample": [
         {
-          "name": "Sakae Double-Braced Snare Drum Stand SS-200D Clearance Deal!",
-          "price": 89.99,
+          "name": "Jackson PC1-E Pro Series Signature Phil Collen Signature Guitar - Worn Black",
+          "price": 2199.99,
           "currency": "USD",
-          "price_eur": 78.94,
-          "url": "https://drumcenternh.com/products/sakae-double-braced-snare-drum-stand-ss-200d-clearance-deal"
+          "price_eur": 1932.37,
+          "url": "https://chucklevins.com/products/jackson-pc1-e-pro-series-signature-phil-collen-signature-guitar-worn-black"
         },
         {
-          "name": "Used Yamaha Concert Snare Drum Stand - Good",
-          "price": 49.99,
+          "name": "PRS SE Silver Sky Defender Limited Edition Guitar - Woolstone Green",
+          "price": 999.0,
           "currency": "USD",
-          "price_eur": 43.85,
-          "url": "https://drumcenternh.com/products/used-yamaha-concert-snare-drum-stand-good-u-092326-14"
+          "price_eur": 877.48,
+          "url": "https://chucklevins.com/products/prs-se-silver-sky-defender-limited-edition-guitar-woolstone-green"
         },
         {
-          "name": "Craviotto Heirloom Purpleheart Snare Drum 14x8 w/Maple Hoops & Abalone Inlays",
-          "price": 6500.0,
+          "name": "PRS SE Silver Sky Defender Limited Edition Guitar - Carpathian Grey",
+          "price": 999.0,
           "currency": "USD",
-          "price_eur": 5702.21,
-          "url": "https://drumcenternh.com/products/craviotto-heirloom-purpleheart-snare-drum-14x8-w-maple-hoops-abalone-inlays"
+          "price_eur": 877.48,
+          "url": "https://chucklevins.com/products/prs-se-silver-sky-defender-limited-edition-guitar-carpathian-grey"
         }
       ],
-      "elapsed_s": 40.1,
+      "elapsed_s": 60.1,
       "result": "passed",
       "error": null
     },
@@ -2321,44 +2239,44 @@
       "result": "skipped",
       "error": null
     },
-    "chuck-levins-washington-music-center": {
-      "site_key": "chuck-levins-washington-music-center",
-      "name": "Chuck Levin's Washington Music Center",
+    "robertson-and-sons-violin-shop": {
+      "site_key": "robertson-and-sons-violin-shop",
+      "name": "Robertson & Sons Violin Shop",
       "area": "usa",
-      "priority": 2,
-      "platform": "shopify",
-      "scraper_type": "shopify",
-      "data_quality": "structured",
+      "priority": 3,
+      "platform": "wix",
+      "scraper_type": "structured",
+      "data_quality": "heuristic",
       "expected": "offers",
       "blocked_reason": null,
       "queries_tried": [
-        "fender"
+        "violin"
       ],
       "offers_found": 5,
       "sample": [
         {
-          "name": "Jackson PC1-E Pro Series Signature Phil Collen Signature Guitar - Worn Black",
-          "price": 2199.99,
+          "name": "Cison Bronek Chicago 2007 | Robertson and Sons Violin Shop",
+          "price": 21000.0,
           "currency": "USD",
-          "price_eur": 1929.97,
-          "url": "https://chucklevins.com/products/jackson-pc1-e-pro-series-signature-phil-collen-signature-guitar-worn-black"
+          "price_eur": 18445.45,
+          "url": "https://www.robertsonviolins.com/cellos-21k-to-30k/cison-bronek-chicago-2007"
         },
         {
-          "name": "PRS SE Silver Sky Defender Limited Edition Guitar - Woolstone Green",
-          "price": 999.0,
+          "name": "Fetique Vtor K7649 | Robertson and Sons Violin Shop",
+          "price": 10000.0,
           "currency": "USD",
-          "price_eur": 876.39,
-          "url": "https://chucklevins.com/products/prs-se-silver-sky-defender-limited-edition-guitar-woolstone-green"
+          "price_eur": 8783.55,
+          "url": "https://www.robertsonviolins.com/french-bass-bows-over-10k/fetique-vtor-k7649"
         },
         {
-          "name": "PRS SE Silver Sky Defender Limited Edition Guitar - Carpathian Grey",
-          "price": 999.0,
+          "name": "Moennig William H Philadelphia 1956 | Robertson and Sons Violin Shop",
+          "price": 11000.0,
           "currency": "USD",
-          "price_eur": 876.39,
-          "url": "https://chucklevins.com/products/prs-se-silver-sky-defender-limited-edition-guitar-carpathian-grey"
+          "price_eur": 9661.9,
+          "url": "https://www.robertsonviolins.com/violas-11k-to-20k/moennig-william-h-philadelphia-1956"
         }
       ],
-      "elapsed_s": 60.2,
+      "elapsed_s": 2.0,
       "result": "passed",
       "error": null
     },
@@ -2378,69 +2296,69 @@
       "offers_found": 5,
       "sample": [
         {
-          "name": "Lyon &#038; Healy, Rare Old Violins, Book, 1922, Chicago",
+          "name": "Lyon & Healy, Rare Old Violins, Book, 1922, Chicago",
           "price": 50.0,
           "currency": "USD",
-          "price_eur": 43.88,
+          "price_eur": 43.92,
           "url": "https://vintage-instruments.com/shop/books/violin_family_books/lyon-healy-rare-old-violins-book-1922-chicago-2/"
         },
         {
           "name": "Wurlitzer  Co., Rudolph, Rare Violins, Violas, Violoncellos/Rare Bows, Book, 1931",
           "price": 100.0,
           "currency": "USD",
-          "price_eur": 87.75,
+          "price_eur": 87.84,
           "url": "https://vintage-instruments.com/shop/books/violin_family_books/wurlitzer-co-rudolph-rare-violins-violas-violoncellos-rare-bows-book-1931/"
         },
         {
           "name": "Doring, Ernest N, The Guadagnini  Family of Violin Makers, Book, 1949, Chicago",
           "price": 550.0,
           "currency": "USD",
-          "price_eur": 482.63,
+          "price_eur": 483.1,
           "url": "https://vintage-instruments.com/shop/books/violin_family_books/doring-ernest-n-the-guadagnini-family-of-violin-makers-book-1949-chicago-3/"
         }
       ],
-      "elapsed_s": 1.9,
+      "elapsed_s": 1.8,
       "result": "passed",
       "error": null
     },
-    "robertson-and-sons-violin-shop": {
-      "site_key": "robertson-and-sons-violin-shop",
-      "name": "Robertson & Sons Violin Shop",
+    "carter-vintage-guitars": {
+      "site_key": "carter-vintage-guitars",
+      "name": "Carter Vintage Guitars",
       "area": "usa",
-      "priority": 3,
-      "platform": "wix",
+      "priority": 1,
+      "platform": "custom",
       "scraper_type": "structured",
       "data_quality": "heuristic",
       "expected": "offers",
       "blocked_reason": null,
       "queries_tried": [
-        "violin"
+        "fender"
       ],
       "offers_found": 5,
       "sample": [
         {
-          "name": "Mermillot Maurice Paris 1870 | Robertson and Sons Violin Shop",
-          "price": 31000.0,
+          "name": "Fender Telecaster 1968, Blonde",
+          "price": 16000.0,
           "currency": "USD",
-          "price_eur": 27195.18,
-          "url": "https://www.robertsonviolins.com/violins-31k-to-50k/mermillot-maurice-paris-1870"
+          "price_eur": 14053.68,
+          "url": "https://www.cartervintage.com/shop/fender-telecaster-1968-blonde/3DMcKIJfUQzDWSZMgCJiXsYQuDu"
         },
         {
-          "name": "Fazio Michael Paris 2021 | Robertson and Sons Violin Shop",
-          "price": 21000.0,
+          "name": "Fender Jazzmaster 1963, Sunburst",
+          "price": 9500.0,
           "currency": "USD",
-          "price_eur": 18422.54,
-          "url": "https://www.robertsonviolins.com/cellos-21k-to-30k/fazio-michael-paris-2021"
+          "price_eur": 8344.37,
+          "url": "https://www.cartervintage.com/shop/fender-jazzmaster-1963-sunburst/3B88Umj1XPm0molPLgvNc1QXqT9"
         },
         {
-          "name": "Pillot Anne Paris S E K7433 | Robertson and Sons Violin Shop",
-          "price": 3100.0,
+          "name": "Fender Stratocaster 1963, Sunburst",
+          "price": 35000.0,
           "currency": "USD",
-          "price_eur": 2719.52,
-          "url": "https://www.robertsonviolins.com/violin-bows-3100-to-5k/pillot-anne-paris-s-e-k7433"
+          "price_eur": 30742.42,
+          "url": "https://www.cartervintage.com/shop/fender-stratocaster-1963-sunburst/3IYEQGzcgX2qORHmbNJXJZjwqrs"
         }
       ],
-      "elapsed_s": 1.6,
+      "elapsed_s": 1.2,
       "result": "passed",
       "error": null
     },
@@ -2461,47 +2379,6 @@
       "result": "skipped",
       "error": null
     },
-    "carter-vintage-guitars": {
-      "site_key": "carter-vintage-guitars",
-      "name": "Carter Vintage Guitars",
-      "area": "usa",
-      "priority": 1,
-      "platform": "wordpress",
-      "scraper_type": "structured",
-      "data_quality": "heuristic",
-      "expected": "offers",
-      "blocked_reason": null,
-      "queries_tried": [
-        "fender"
-      ],
-      "offers_found": 5,
-      "sample": [
-        {
-          "name": "Martin HD-28 1993, Natural",
-          "price": 3000.0,
-          "currency": "USD",
-          "price_eur": 2631.79,
-          "url": "https://www.cartervintage.com/shop/martin-hd-28-1993-natural/3Jn5rwXLhqnuwtFx9cJv5mW4FOL"
-        },
-        {
-          "name": "Breedlove CM/W 2000, Natural",
-          "price": 4000.0,
-          "currency": "USD",
-          "price_eur": 3509.06,
-          "url": "https://www.cartervintage.com/shop/breedlove-cmw-2000-natural/3IhGPEXTm8WgIwQ51MgLJ5fcDv4"
-        },
-        {
-          "name": "Collings Baby 1997, Natural",
-          "price": 5700.0,
-          "currency": "USD",
-          "price_eur": 5000.4,
-          "url": "https://www.cartervintage.com/shop/collings-baby-1997-natural/3IhITWt5sGoUEaZPfdlMdCHhUw6"
-        }
-      ],
-      "elapsed_s": 1.6,
-      "result": "passed",
-      "error": null
-    },
     "forks-drum-closet": {
       "site_key": "forks-drum-closet",
       "name": "Fork's Drum Closet",
@@ -2510,6 +2387,23 @@
       "platform": "custom",
       "scraper_type": "structured",
       "data_quality": "heuristic",
+      "expected": "documented_skip",
+      "blocked_reason": "search page ignores the query (same grid for any search); the shop builds its results in the browser",
+      "queries_tried": [],
+      "offers_found": 0,
+      "sample": [],
+      "elapsed_s": null,
+      "result": "skipped",
+      "error": null
+    },
+    "drum-center-of-portsmouth": {
+      "site_key": "drum-center-of-portsmouth",
+      "name": "Drum Center of Portsmouth",
+      "area": "usa",
+      "priority": 1,
+      "platform": "shopify",
+      "scraper_type": "shopify",
+      "data_quality": "structured",
       "expected": "offers",
       "blocked_reason": null,
       "queries_tried": [
@@ -2518,28 +2412,28 @@
       "offers_found": 5,
       "sample": [
         {
-          "name": "Meinl 14\" Artist Design Anika Nilles Lunar Hihat, Pair (PRE-ORDER)",
-          "price": 649.99,
+          "name": "Rogers R Series Snare Drum 14x6.5 Walnut Burst",
+          "price": 349.0,
           "currency": "USD",
-          "price_eur": 570.21,
-          "url": "https://www.forksdrumcloset.com/products/meinl-14-artist-design-anika-nilles-lunar-hihat-pair-pre-order"
+          "price_eur": 306.55,
+          "url": "https://drumcenternh.com/products/rogers-r-series-snare-drum-14x6-5-walnut-burst"
         },
         {
-          "name": "Meinl Byzance 22'' Vintage Trash China (PRE-ORDER)",
-          "price": 609.99,
+          "name": "Rogers R Series Snare Drum 14x6.5 Piano Black Copper",
+          "price": 399.0,
           "currency": "USD",
-          "price_eur": 535.12,
-          "url": "https://www.forksdrumcloset.com/products/meinl-byzance-22-vintage-trash-china"
+          "price_eur": 350.46,
+          "url": "https://drumcenternh.com/products/rogers-r-series-snare-drum-14x6-5-piano-black-copper"
         },
         {
-          "name": "USED Yamaha 1987 Recording Custom 4 Piece Drum Kit - \"Cherry Wood\"",
-          "price": 3199.0,
+          "name": "Rogers R Series Snare Drum 14x6.5 Candy Apple Red",
+          "price": 349.0,
           "currency": "USD",
-          "price_eur": 2806.37,
-          "url": "https://www.forksdrumcloset.com/products/used-yamaha-1987-recording-custom-4-piece-drum-kit-cherry-wood"
+          "price_eur": 306.55,
+          "url": "https://drumcenternh.com/products/rogers-r-series-snare-drum-14x6-5-candy-apple-red"
         }
       ],
-      "elapsed_s": 1.2,
+      "elapsed_s": 40.2,
       "result": "passed",
       "error": null
     },
@@ -2563,21 +2457,21 @@
           "name": "Gibson Certified Vintage 1962 Gibson Les Paul SG Junior, Cherry",
           "price": 10999.0,
           "currency": "USD",
-          "price_eur": 9649.02,
+          "price_eur": 9661.03,
           "url": "https://www.gibson.com/products/gibson-certified-vintage-1962-gibson-les-paul-sg-junior-cherry-sn-42120"
         },
         {
           "name": "Gibson Flat-Top Tee, Black, Exclusive",
           "price": 40.0,
           "currency": "USD",
-          "price_eur": 35.09,
+          "price_eur": 35.13,
           "url": "https://www.gibson.com/products/gibson-flat-top-tee-black-exclusive"
         },
         {
           "name": "Gibson Custom 1957 Les Paul Junior Reissue, VOS, Tri Burst",
           "price": 4699.0,
           "currency": "USD",
-          "price_eur": 4122.26,
+          "price_eur": 4127.39,
           "url": "https://www.gibson.com/products/57-les-paul-junior-single-cut-tri-burst-vos-nh"
         }
       ],
@@ -2604,21 +2498,21 @@
           "name": "1965 Fender Jaguar “Blonde\"",
           "price": 11250.0,
           "currency": "USD",
-          "price_eur": 9869.22,
+          "price_eur": 9881.49,
           "url": "https://www.rumbleseatmusic.com/product-page/draft-1965-fender-jaguar-blonde"
         },
         {
           "name": "1979 Fender Telecaster \"Blonde\"",
           "price": 3200.0,
           "currency": "USD",
-          "price_eur": 2807.24,
+          "price_eur": 2810.74,
           "url": "https://www.rumbleseatmusic.com/product-page/draft-1979-fender-telecaster-blonde"
         },
         {
           "name": "1962 Fender Jaguar “Sunburst”",
           "price": 8500.0,
           "currency": "USD",
-          "price_eur": 7456.74,
+          "price_eur": 7466.02,
           "url": "https://www.rumbleseatmusic.com/product-page/draft-1962-fender-jaguar-sunburst"
         }
       ],
@@ -2642,28 +2536,28 @@
       "offers_found": 5,
       "sample": [
         {
-          "name": "Fender American Ultra II Telecaster Electric Guitar, Ebony Fingerboard, Texas Tea",
-          "price": 2049.95,
+          "name": "Fender Custom Shop '51 Loaded Cunife Telecaster Heavy Relic Electric Guitar, Aged Natural, Dave Brown Masterbuilt",
+          "price": 8372.95,
           "currency": "EUR",
-          "price_eur": 2049.95,
+          "price_eur": 8372.95,
+          "url": "https://www.russomusic.com/products/fender-custom-shop-51-cunife-telecaster-heavy-relic-dave-brown-masterbuilt"
+        },
+        {
+          "name": "Fender American Ultra II Telecaster Electric Guitar, Ebony Fingerboard, Texas Tea",
+          "price": 2054.95,
+          "currency": "EUR",
+          "price_eur": 2054.95,
           "url": "https://www.russomusic.com/products/fender-american-ultra-ii-telecaster-guitar-ebony-fingerboard-texas-tea"
         },
         {
           "name": "2023 Fender American Ultra Jazz Bass, Texas Tea w/ OHSC - Used",
-          "price": 1336.95,
+          "price": 1339.95,
           "currency": "EUR",
-          "price_eur": 1336.95,
+          "price_eur": 1339.95,
           "url": "https://www.russomusic.com/products/2023-fender-american-ultra-jazz-bass-texas-tea-w-ohsc-used"
-        },
-        {
-          "name": "2014 Fender American Vintage '65 Stratocaster Electric Guitar, Dakota Red w/ OHSC - Used",
-          "price": 2673.95,
-          "currency": "EUR",
-          "price_eur": 2673.95,
-          "url": "https://www.russomusic.com/products/2014-fender-american-vintage-65-stratocaster-dakota-red-w-ohsc-used"
         }
       ],
-      "elapsed_s": 60.2,
+      "elapsed_s": 60.1,
       "result": "passed",
       "error": null
     },
@@ -2683,28 +2577,28 @@
       "offers_found": 5,
       "sample": [
         {
+          "name": "Fender Telecaster Left-Handed Solid Body Electric Guitar (1965)",
+          "price": 25000.0,
+          "currency": "USD",
+          "price_eur": 21958.87,
+          "url": "https://retrofret.com/products/fender-telecaster-left-handed-solid-body-electric-guitar-1965-14338"
+        },
+        {
           "name": "Fender Mustang Solid Body Electric Bass Guitar (1975)",
           "price": 2650.0,
           "currency": "USD",
-          "price_eur": 2324.75,
+          "price_eur": 2327.64,
           "url": "https://retrofret.com/products/fender-mustang-solid-body-electric-bass-guitar-1975-13934"
         },
         {
           "name": "Fender Precision Bass Solid Body Electric Bass Guitar (1980)",
           "price": 3250.0,
           "currency": "USD",
-          "price_eur": 2851.11,
+          "price_eur": 2854.65,
           "url": "https://retrofret.com/products/fender-precision-bass-solid-body-electric-bass-guitar-1980-14149"
-        },
-        {
-          "name": "Fender Jaguar Solid Body Electric Guitar (1966)",
-          "price": 10000.0,
-          "currency": "USD",
-          "price_eur": 8772.64,
-          "url": "https://retrofret.com/products/fender-jaguar-solid-body-electric-guitar-1966-13268"
         }
       ],
-      "elapsed_s": 60.2,
+      "elapsed_s": 60.1,
       "result": "passed",
       "error": null
     },
@@ -2744,21 +2638,21 @@
           "name": "~1997 Fender Blues Deluxe Tweed",
           "price": 599.0,
           "currency": "USD",
-          "price_eur": 525.48,
+          "price_eur": 526.13,
           "url": "https://rivingtonguitars.com/products/1997-fender-blues-deluxe-tweed"
         },
         {
           "name": "1965 Fender Deluxe Reverb Blackface",
           "price": 4999.0,
           "currency": "USD",
-          "price_eur": 4385.44,
+          "price_eur": 4390.9,
           "url": "https://rivingtonguitars.com/products/1965-fender-deluxe-reverb-blackface"
         },
         {
           "name": "1973 Fender Twin Reverb Silverface",
           "price": 1199.0,
           "currency": "USD",
-          "price_eur": 1051.84,
+          "price_eur": 1053.15,
           "url": "https://rivingtonguitars.com/products/1973-fender-twin-reverb-silverface"
         }
       ],
@@ -2789,31 +2683,38 @@
       "area": "usa",
       "priority": 3,
       "platform": "bigcommerce",
-      "scraper_type": "structured",
-      "data_quality": "heuristic",
+      "scraper_type": "requests",
+      "data_quality": "structured",
       "expected": "offers",
       "blocked_reason": null,
       "queries_tried": [
         "fender"
       ],
-      "offers_found": 2,
+      "offers_found": 5,
       "sample": [
         {
-          "name": "sku: 38392",
-          "price": 3399.15,
+          "name": "Fender® Blackout Backrest 30\" Barstool with Embossed Logo",
+          "price": 229.99,
           "currency": "USD",
-          "price_eur": 2981.95,
-          "url": "https://www.theguitarsanctuary.com/brands/taylor"
+          "price_eur": 202.01,
+          "url": "https://www.guitarsanctuary.com/fender-blackout-backrest-30-barstool-with-embossed-logo/?searchuuid=69e6b63d-6ee2-4b66-afcb-e0a7cc760a33&search_query=fender"
         },
         {
-          "name": "Pre-Order Now",
-          "price": 3200.0,
+          "name": "Fender Jim Root Jazzmaster in Flat Black",
+          "price": 2349.99,
           "currency": "USD",
-          "price_eur": 2807.24,
-          "url": "https://www.guitarsanctuary.com/prs-silver-sky-defender-limited-edition-willow-green/"
+          "price_eur": 2064.13,
+          "url": "https://www.guitarsanctuary.com/fender-jim-root-jazzmaster-in-flat-black/?searchuuid=69e6b63d-6ee2-4b66-afcb-e0a7cc760a33&search_query=fender"
+        },
+        {
+          "name": "Fender Tone Master Princeton Reverb Combo",
+          "price": 1099.99,
+          "currency": "USD",
+          "price_eur": 966.18,
+          "url": "https://www.guitarsanctuary.com/fender-tone-master-princeton-reverb-combo/?searchuuid=69e6b63d-6ee2-4b66-afcb-e0a7cc760a33&search_query=fender"
         }
       ],
-      "elapsed_s": 1.2,
+      "elapsed_s": 1.5,
       "result": "passed",
       "error": null
     },
@@ -2833,28 +2734,28 @@
       "offers_found": 5,
       "sample": [
         {
-          "name": "Fender American Ultra Strat Used Left-Handed Texas Tea finish",
-          "price": 1899.0,
+          "name": "Fender Custom Shop Limited1968 Tele Thinline Journeyman Closet Classic Left-Handed Certified pre-owned",
+          "price": 4699.0,
           "currency": "USD",
-          "price_eur": 1665.92,
-          "url": "https://southpawguitars.com/products/200"
+          "price_eur": 4127.39,
+          "url": "https://southpawguitars.com/products/1"
+        },
+        {
+          "name": "Fender American Ultra Strat Left-Handed Texas Tea finish Certified pre-owned. save $500 under new pricing",
+          "price": 1999.0,
+          "currency": "USD",
+          "price_eur": 1755.83,
+          "url": "https://southpawguitars.com/products/fender-american-ultra-strat-used-left-handed-texas-tea-finish"
         },
         {
           "name": "Fender Player 2 Tele Ltd",
           "price": 849.0,
           "currency": "USD",
-          "price_eur": 744.8,
+          "price_eur": 745.72,
           "url": "https://southpawguitars.com/products/fender-player-2-tele-ltd"
-        },
-        {
-          "name": "Fender Player 2 Tele Left-Handed Limited",
-          "price": 849.99,
-          "currency": "USD",
-          "price_eur": 745.67,
-          "url": "https://southpawguitars.com/products/fender-player-2-tele-left-handed-3"
         }
       ],
-      "elapsed_s": 20.2,
+      "elapsed_s": 20.1,
       "result": "passed",
       "error": null
     },
@@ -2877,25 +2778,25 @@
           "name": "Fender American Vintage II 1951 Telecaster Left-Hand, Butterscotch Blonde",
           "price": 2649.99,
           "currency": "USD",
-          "price_eur": 2324.74,
+          "price_eur": 2327.63,
           "url": "https://rudysmusic.com/products/american-vintage-ii-1951-telecaster%C2%AE-left-hand-maple-fingerboard-butterscotch-blonde"
         },
         {
           "name": "Fender Vintera III Mid '60s Jazzmaster, Candy Apple Red",
           "price": 1349.99,
           "currency": "USD",
-          "price_eur": 1184.3,
+          "price_eur": 1185.77,
           "url": "https://rudysmusic.com/products/vintera%C2%AE-iii-mid-60s-jazzmaster%C2%AE-rosewood-fingerboard-candy-apple-red"
         },
         {
           "name": "Fender 1965 Stratocaster, Sunburst",
           "price": 25900.0,
           "currency": "USD",
-          "price_eur": 22721.13,
+          "price_eur": 22749.39,
           "url": "https://rudysmusic.com/products/fender-1965-strat-3tsb-100145"
         }
       ],
-      "elapsed_s": 60.2,
+      "elapsed_s": 60.1,
       "result": "passed",
       "error": null
     },
@@ -2918,25 +2819,25 @@
           "name": "Fender American Ultra II Telecaster Ultraburst 2024",
           "price": 2499.0,
           "currency": "USD",
-          "price_eur": 2192.28,
+          "price_eur": 2195.01,
           "url": "https://www.themusiczoo.com/products/fender-american-ultra-ii-telecaster-ultraburst-2024"
         },
         {
           "name": "Fender American Standard Telecaster 3-Tone Sunburst 2015",
           "price": 1299.0,
           "currency": "USD",
-          "price_eur": 1139.57,
+          "price_eur": 1140.98,
           "url": "https://www.themusiczoo.com/products/fender-american-standard-telecaster-3-tone-sunburst-2015"
         },
         {
           "name": "Fender Custom Shop 1956 Stratocaster NOS Sweet Pea Green HSH DiMarzios",
           "price": 4999.0,
           "currency": "USD",
-          "price_eur": 4385.44,
+          "price_eur": 4390.9,
           "url": "https://www.themusiczoo.com/products/fender-custom-shop-1956-stratocaster-nos-sweet-pea-green-hsh-dimarzios"
         }
       ],
-      "elapsed_s": 60.2,
+      "elapsed_s": 60.1,
       "result": "passed",
       "error": null
     },
@@ -2993,21 +2894,21 @@
           "name": "Yamaha SS-7HR Concert Snare Drum Stand",
           "price": 179.95,
           "currency": "USD",
-          "price_eur": 157.86,
+          "price_eur": 158.06,
           "url": "https://www.steveweissmusic.com/products/yamaha-ss-7hr-concert-snare-drum-stand"
         },
         {
           "name": "Yamaha SS6H Concert Snare Drum Stand",
           "price": 136.95,
           "currency": "USD",
-          "price_eur": 120.14,
+          "price_eur": 120.29,
           "url": "https://www.steveweissmusic.com/products/yamaha-ss-6h-concert-snare-drum-stand"
         },
         {
           "name": "Sonor KS-1465-SDS Kompressor Steel Snare Drum - 14\" x 6.5\"",
           "price": 362.75,
           "currency": "USD",
-          "price_eur": 318.23,
+          "price_eur": 318.62,
           "url": "https://www.steveweissmusic.com/products/sonor-ks-1465-sds-kompressor-steel-snare-drum-14-x-6-5"
         }
       ],
@@ -3032,23 +2933,23 @@
       "sample": [
         {
           "name": "Ludwig 14x6.5 Supraphonic Classic Snare Drum with Blue & Olive Badge",
-          "price": 649.95,
+          "price": 651.95,
           "currency": "EUR",
-          "price_eur": 649.95,
+          "price_eur": 651.95,
           "url": "https://memphisdrumshop.com/products/ludwig-14x6-5-supraphonic-classic-snare-drum-with-blue-olive-badge"
         },
         {
           "name": "Rogers 14x6.5 Dyna-Sonic Limited Custom Snare Drum with Beavertail Lugs - Wildwood Curly Maple",
-          "price": 712.95,
+          "price": 713.95,
           "currency": "EUR",
-          "price_eur": 712.95,
+          "price_eur": 713.95,
           "url": "https://memphisdrumshop.com/products/rogers-14x65-dyna-sonic-snare-drum-with-beavertail-lugs-wildwood-curly-maple-37wwcm"
         },
         {
           "name": "Rogers 14x6.5 Dyna-Sonic Snare Drum with Beavertail Lugs - White Marine Pearl",
-          "price": 712.95,
+          "price": 713.95,
           "currency": "EUR",
-          "price_eur": 712.95,
+          "price_eur": 713.95,
           "url": "https://memphisdrumshop.com/products/rogers-14x65-dyna-sonic-snare-drum-with-beavertail-lugs-white-marine-pearl-37wmp"
         }
       ],
@@ -3078,47 +2979,6 @@
       "name": "BIGBOSS",
       "area": "asia",
       "priority": 3,
-      "platform": "wordpress",
-      "scraper_type": "structured",
-      "data_quality": "heuristic",
-      "expected": "offers",
-      "blocked_reason": null,
-      "queries_tried": [
-        "fender"
-      ],
-      "offers_found": 5,
-      "sample": [
-        {
-          "name": "【即納可能】E-II(イーツー) EC BB (Black Satin) 札幌店",
-          "price": 313500.0,
-          "currency": "JPY",
-          "price_eur": 1746.13,
-          "url": "https://bigboss.jp/store/products/detail/51603#item_detail"
-        },
-        {
-          "name": "【即納可能】Tokai LS-101F / Lemon Drop 京都店",
-          "price": 198000.0,
-          "currency": "JPY",
-          "price_eur": 1102.82,
-          "url": "https://bigboss.jp/store/products/detail/51602#item_detail"
-        },
-        {
-          "name": "【中古品/即納可能】 Gibson (ギブソン) B.B.King Lucille (Ebony)  広島店",
-          "price": 385000.0,
-          "currency": "JPY",
-          "price_eur": 2144.37,
-          "url": "https://bigboss.jp/store/products/detail/51601#item_detail"
-        }
-      ],
-      "elapsed_s": 2.5,
-      "result": "passed",
-      "error": null
-    },
-    "digimart": {
-      "site_key": "digimart",
-      "name": "Digimart",
-      "area": "asia",
-      "priority": 2,
       "platform": "custom",
       "scraper_type": "structured",
       "data_quality": "heuristic",
@@ -3130,28 +2990,28 @@
       "offers_found": 5,
       "sample": [
         {
-          "name": "山野楽器 イオンモール鶴見緑地店",
-          "price": 143000.0,
+          "name": "【お取寄せ商品】Paul Reed Smith(ポールリードスミス/PRS) SE SILVER SKY DEFENDER Limited Edition / Petra Copper",
+          "price": 151984.0,
           "currency": "JPY",
-          "price_eur": 796.48,
-          "url": "https://www.digimart.net/shop/5030/"
+          "price_eur": 847.73,
+          "url": "https://bigboss.jp/store/products/detail/51557#item_detail"
         },
         {
-          "name": "山野楽器 イオンモール鶴見緑地店",
-          "price": 209000.0,
+          "name": "【お取寄せ商品】Paul Reed Smith(ポールリードスミス/PRS) SE SILVER SKY DEFENDER Limited Edition / Sedona Red",
+          "price": 151984.0,
           "currency": "JPY",
-          "price_eur": 1164.09,
-          "url": "https://www.digimart.net/shop/5030/"
+          "price_eur": 847.73,
+          "url": "https://bigboss.jp/store/products/detail/51556#item_detail"
         },
         {
-          "name": "山野楽器 イオンモール鶴見緑地店",
-          "price": 242000.0,
+          "name": "【お取寄せ商品】Paul Reed Smith(ポールリードスミス/PRS) SE SILVER SKY DEFENDER Limited Edition / Carpathian Grey",
+          "price": 151984.0,
           "currency": "JPY",
-          "price_eur": 1347.89,
-          "url": "https://www.digimart.net/shop/5030/"
+          "price_eur": 847.73,
+          "url": "https://bigboss.jp/store/products/detail/51555#item_detail"
         }
       ],
-      "elapsed_s": 2.5,
+      "elapsed_s": 4.8,
       "result": "passed",
       "error": null
     },
@@ -3172,27 +3032,61 @@
       "sample": [
         {
           "name": "2017 Fender Custom Shop LTD Precision Bass",
-          "price": 3082.95,
+          "price": 3089.95,
           "currency": "EUR",
-          "price_eur": 3082.95,
+          "price_eur": 3089.95,
           "url": "https://emeraldcityguitars.com/products/2017-fender-custom-shop-ltd-precision-bass"
         },
         {
           "name": "1975 Fender Bantam Bass Amp",
-          "price": 650.95,
+          "price": 651.95,
           "currency": "EUR",
-          "price_eur": 650.95,
+          "price_eur": 651.95,
           "url": "https://emeraldcityguitars.com/products/1975-fender-bantam-bass-amp"
         },
         {
           "name": "Pre-Owned Fender Custom Shop Parts Telecaster [*Lollar PUs]",
-          "price": 2802.95,
+          "price": 2808.95,
           "currency": "EUR",
-          "price_eur": 2802.95,
+          "price_eur": 2808.95,
           "url": "https://emeraldcityguitars.com/products/pre-owned-fender-custom-shop-parts-telecaster-lollar-pus"
         }
       ],
       "elapsed_s": 30.2,
+      "result": "passed",
+      "error": null
+    },
+    "digimart": {
+      "site_key": "digimart",
+      "name": "Digimart",
+      "area": "asia",
+      "priority": 2,
+      "platform": "custom",
+      "scraper_type": "structured",
+      "data_quality": "heuristic",
+      "expected": "offers",
+      "blocked_reason": null,
+      "queries_tried": [
+        "fender"
+      ],
+      "offers_found": 2,
+      "sample": [
+        {
+          "name": "Fender Player Jazz Bass 3-Color Sunburst 2020",
+          "price": 69300.0,
+          "currency": "JPY",
+          "price_eur": 386.54,
+          "url": "https://www.digimart.net/cat03/shop4360/DS10773503/"
+        },
+        {
+          "name": "Fender American Vintage ‘62 Stratocaster Thin Lacque 2001",
+          "price": 297000.0,
+          "currency": "JPY",
+          "price_eur": 1656.6,
+          "url": "https://www.digimart.net/cat01/shop4360/DS10773468/"
+        }
+      ],
+      "elapsed_s": 2.5,
       "result": "passed",
       "error": null
     },
@@ -3314,28 +3208,28 @@
       "offers_found": 5,
       "sample": [
         {
-          "name": "2023 Collection Traditional 60s Stratocaster -Olympic White With Blue Competition Stripe- 2023年製 【3.",
-          "price": 128000.0,
+          "name": "【アウトレット】Player II Stratocaster -3 Color Sunburst-【MX26030742】【3.49kg】",
+          "price": 88000.0,
           "currency": "JPY",
-          "price_eur": 712.93,
-          "url": "https://www.guitarplanet.co.jp/product/detail/?cd=&id=75549"
+          "price_eur": 490.84,
+          "url": "https://www.guitarplanet.co.jp/product/detail/?cd=&id=75598"
         },
         {
-          "name": "FSR Traditional 60s Telecaster Custom -Blue Transparent- 2024年製 【Alder Body!】【3.38kg】【48回金利0%対象】",
-          "price": 138000.0,
+          "name": "【アウトレット】Player II Jazzmaster -   Aquatone Blue -【MX25144774】【3.64kg】",
+          "price": 88000.0,
           "currency": "JPY",
-          "price_eur": 768.63,
-          "url": "https://www.guitarplanet.co.jp/product/detail/?cd=&id=75547"
+          "price_eur": 490.84,
+          "url": "https://www.guitarplanet.co.jp/product/detail/?cd=&id=75596"
         },
         {
-          "name": "Fender Custom Shop",
-          "price": 1045000.0,
+          "name": "【アウトレット】Limited Edition Player II Telecaster- Lavender Haze -【MX26039081】【3.60kg】",
+          "price": 99000.0,
           "currency": "JPY",
-          "price_eur": 5820.44,
-          "url": "https://www.guitarplanet.co.jp/product/detail/?cd=&id=75545"
+          "price_eur": 552.2,
+          "url": "https://www.guitarplanet.co.jp/product/detail/?cd=&id=75595"
         }
       ],
-      "elapsed_s": 4.0,
+      "elapsed_s": 4.9,
       "result": "passed",
       "error": null
     },
@@ -3416,25 +3310,66 @@
           "name": "Fender Limited Edition American Professional Classic Telecaster featuring the Fender Silent System Vintage Blonde",
           "price": 1599.99,
           "currency": "USD",
-          "price_eur": 1403.61,
+          "price_eur": 1405.36,
           "url": "https://fullersguitar.com/products/fender-limited-edition-american-professional-classic-telecaster-featuring-the-fender-silent-system-vintage-blonde"
         },
         {
           "name": "Fender Limited Edition American Professional Classic Telecaster featuring the Fender Silent System Sonic Blue",
           "price": 1599.99,
           "currency": "USD",
-          "price_eur": 1403.61,
+          "price_eur": 1405.36,
           "url": "https://fullersguitar.com/products/fender-limited-edition-american-professional-classic-telecaster-featuring-the-fender-silent-system-sonic-blue"
         },
         {
           "name": "Fender 75th Anniversary Player II Baritone Telecaster Lake Placid Blue Maple Fingerboard",
           "price": 879.99,
           "currency": "USD",
-          "price_eur": 771.98,
+          "price_eur": 772.94,
           "url": "https://fullersguitar.com/products/fender-75th-anniversary-player-ii-baritone-telecaster-lake-placid-blue-maple-fingerboard"
         }
       ],
-      "elapsed_s": 60.2,
+      "elapsed_s": 60.3,
+      "result": "passed",
+      "error": null
+    },
+    "furtados": {
+      "site_key": "furtados",
+      "name": "Furtados",
+      "area": "asia",
+      "priority": 2,
+      "platform": "magento",
+      "scraper_type": "playwright",
+      "data_quality": "heuristic",
+      "expected": "offers",
+      "blocked_reason": null,
+      "queries_tried": [
+        "fender"
+      ],
+      "offers_found": 5,
+      "sample": [
+        {
+          "name": "Fender, Electric Guitar, Squier Affinity Strat, Flame Maple Top H-S-S -Black Burst BBST 0378153539",
+          "price": 34017.0,
+          "currency": "INR",
+          "price_eur": 311.71,
+          "url": "https://www.furtadosonline.com/fender-electric-guitar-squier-affinity-strat-flame-maple-top-h-s-s-black-burst-bbst.html"
+        },
+        {
+          "name": "Fender, Acoustic Guitar, Dreadnought, Walnut Fingerboard-CD-60 Dread V3 DS Natural 0970110521",
+          "price": 14820.0,
+          "currency": "INR",
+          "price_eur": 135.8,
+          "url": "https://www.furtadosonline.com/fender-acoustic-guitar-dreadnought-walnut-fingerboard-cd-60-dread-v3-ds-natural-0970110521.html"
+        },
+        {
+          "name": "Fender, Acoustic Electric Guitar CD-60SCE -Natural 0970113021",
+          "price": 28728.0,
+          "currency": "INR",
+          "price_eur": 263.25,
+          "url": "https://www.furtadosonline.com/fender-acoustic-electric-guitar-cd-60sce-natural.html"
+        }
+      ],
+      "elapsed_s": 4.5,
       "result": "passed",
       "error": null
     },
@@ -3454,38 +3389,55 @@
       "offers_found": 5,
       "sample": [
         {
+          "name": "Used 2026 Fender Limited Edition Cabronita Special Telecaster Black w/case TSU26442",
+          "price": 1499.99,
+          "currency": "USD",
+          "price_eur": 1317.52,
+          "url": "https://www.toneshopguitars.com/products/used-2026-fender-limited-edition-cabronita-special-telecaster-black-w-case-tsu26442"
+        },
+        {
+          "name": "Fender Custom Shop TSG Exclusive ’52 Telecaster Chambered Chartreuse Sparkle Journeyman Relic R151367",
+          "price": 4499.99,
+          "currency": "USD",
+          "price_eur": 3952.59,
+          "url": "https://www.toneshopguitars.com/products/fender-custom-shop-tsg-exclusive-52-telecaster-chambered-butterscotch-blonde-journeyman-relic-r151367"
+        },
+        {
           "name": "Used Fender Super Sonic 60w 1x12 Combo w/Footswitch TSU26437",
           "price": 549.99,
           "currency": "USD",
-          "price_eur": 482.49,
+          "price_eur": 483.09,
           "url": "https://www.toneshopguitars.com/products/used-fender-super-sonic-60w-1x12-combo-w-footswitch-tsu26437"
-        },
-        {
-          "name": "Fender Custom Shop Limited Edition 1968 Stratocaster Relic Aged Black w/case CZ571331",
-          "price": 4800.0,
-          "currency": "USD",
-          "price_eur": 4210.87,
-          "url": "https://www.toneshopguitars.com/products/fender-custom-shop-limited-edition-1968-stratocaster-relic-aged-black-w-case-cz571331"
-        },
-        {
-          "name": "Fender Custom Shop Merle Haggard Signature Tele NOS 2 Color Sunburst US26048890",
-          "price": 8200.0,
-          "currency": "USD",
-          "price_eur": 7193.56,
-          "url": "https://www.toneshopguitars.com/products/fender-custom-shop-merle-haggard-telecaster-mp-2-color-sunburst-w-case"
         }
       ],
       "elapsed_s": 60.1,
       "result": "passed",
       "error": null
     },
-    "furtados": {
-      "site_key": "furtados",
-      "name": "Furtados",
+    "melody-house": {
+      "site_key": "melody-house",
+      "name": "Melody House",
       "area": "asia",
       "priority": 2,
       "platform": "custom",
-      "scraper_type": "playwright",
+      "scraper_type": "structured",
+      "data_quality": "heuristic",
+      "expected": "documented_skip",
+      "blocked_reason": "search page ignores the query (same grid for any search); the shop builds its results in the browser",
+      "queries_tried": [],
+      "offers_found": 0,
+      "sample": [],
+      "elapsed_s": null,
+      "result": "skipped",
+      "error": null
+    },
+    "thomsun-music": {
+      "site_key": "thomsun-music",
+      "name": "Thomsun Music",
+      "area": "asia",
+      "priority": 2,
+      "platform": "opencart",
+      "scraper_type": "structured",
       "data_quality": "heuristic",
       "expected": "offers",
       "blocked_reason": null,
@@ -3495,28 +3447,28 @@
       "offers_found": 5,
       "sample": [
         {
-          "name": "Pearl, Digital Drum, ERoadshow with Adaptor ERS1000 IN",
-          "price": 38250.0,
-          "currency": "INR",
-          "price_eur": 350.45,
-          "url": "https://www.furtadosonline.com/pearl-digital-drum-eroadshow-with-adaptor-ers1000-in.html"
+          "name": "Fender 0114960300 American Professional Classic Telecaster, Rosewood Fingerboard - 3-Color Sunburst",
+          "price": 5490.0,
+          "currency": "AED",
+          "price_eur": 1312.51,
+          "url": "https://www.thomsunmusic.com/fender-0114960300-american-professional-classic-telecaster-3color-sunburst?search=fender"
         },
         {
-          "name": "Flight, Ukulele, Story Ultra Travel, with Bag UTS-35",
-          "price": 4717.0,
-          "currency": "INR",
-          "price_eur": 43.22,
-          "url": "https://www.furtadosonline.com/flight-ukulele-story-ultra-travel-with-bag-uts-35.html"
+          "name": "Fender 0115010704 Limited Edition Cory Wong Stratocaster, Rosewood Fingerboard - Daphne Blue",
+          "price": 8685.0,
+          "currency": "AED",
+          "price_eur": 2076.35,
+          "url": "https://www.thomsunmusic.com/fender-0115010704-limited-edition-cory-wong-stratocaster-daphne-blue?search=fender"
         },
         {
-          "name": "Laney, Guitar Amp Combo, 10W LX10",
-          "price": 7740.0,
-          "currency": "INR",
-          "price_eur": 70.91,
-          "url": "https://www.furtadosonline.com/laney-guitar-amp-combo-10w-lx10.html"
+          "name": "Fender 0117700897 Eric Johnson Stratocaster - Tropical Turquoise",
+          "price": 8928.0,
+          "currency": "AED",
+          "price_eur": 2134.45,
+          "url": "https://www.thomsunmusic.com/fender-eric-johnson-stratocasterandreg-rosewood-0117700897?search=fender"
         }
       ],
-      "elapsed_s": 4.6,
+      "elapsed_s": 0.9,
       "result": "passed",
       "error": null
     },
@@ -3536,110 +3488,28 @@
       "offers_found": 5,
       "sample": [
         {
-          "name": "Used 1960 Heavy Relic Strat '09",
-          "price": 2995.0,
+          "name": "USED Limited Edition American Standard Stratocaster Rosewood, '16",
+          "price": 1195.0,
           "currency": "USD",
-          "price_eur": 2627.41,
-          "url": "https://www.davesguitar.com/products/used-1960"
+          "price_eur": 1049.63,
+          "url": "https://www.davesguitar.com/products/used-limited-edition-american-standard-stratocaster-rosewood-16"
         },
         {
-          "name": "Used Standard Strat HSS '05",
-          "price": 550.0,
+          "name": "American Ultra II Telecaster, '24",
+          "price": 1495.0,
           "currency": "USD",
-          "price_eur": 482.5,
-          "url": "https://www.davesguitar.com/products/used-standard-strat-hss-05"
+          "price_eur": 1313.14,
+          "url": "https://www.davesguitar.com/products/american-ultra-ii-telecaster-25"
         },
         {
-          "name": "Used Limited Edition 1965 Dual Mag Journeyman Relic Strat '25",
-          "price": 3250.0,
+          "name": "Used Starcaster Strat, Recent",
+          "price": 79.0,
           "currency": "USD",
-          "price_eur": 2851.11,
-          "url": "https://www.davesguitar.com/products/used-limited-edition-1965-dual-mag-journeyman-relic-strat-26"
+          "price_eur": 69.39,
+          "url": "https://www.davesguitar.com/products/starcaster-strat-recent-copy"
         }
       ],
-      "elapsed_s": 40.2,
-      "result": "passed",
-      "error": null
-    },
-    "melody-house": {
-      "site_key": "melody-house",
-      "name": "Melody House",
-      "area": "asia",
-      "priority": 2,
-      "platform": "custom",
-      "scraper_type": "structured",
-      "data_quality": "heuristic",
-      "expected": "offers",
-      "blocked_reason": null,
-      "queries_tried": [
-        "fender"
-      ],
-      "offers_found": 5,
-      "sample": [
-        {
-          "name": "FENDER '65 Twin Reverb 2 x 12\" 85-watt Tube Guitar Combo ...",
-          "price": 119.0,
-          "currency": "AED",
-          "price_eur": 28.43,
-          "url": "https://www.melodyhousemi.com/categories/Amps & Effects"
-        },
-        {
-          "name": "FENDER 65 Deluxe Reverb Combo Amp...",
-          "price": 999.0,
-          "currency": "AED",
-          "price_eur": 238.64,
-          "url": "https://www.melodyhousemi.com/categories/Amps & Effects"
-        },
-        {
-          "name": "FENDER Hot Rod DeVille ML 2X12. Mike Landau Signature Amp...",
-          "price": 541.0,
-          "currency": "AED",
-          "price_eur": 129.23,
-          "url": "https://www.melodyhousemi.com/categories/Amps & Effects"
-        }
-      ],
-      "elapsed_s": 2.0,
-      "result": "passed",
-      "error": null
-    },
-    "thomsun-music": {
-      "site_key": "thomsun-music",
-      "name": "Thomsun Music",
-      "area": "asia",
-      "priority": 2,
-      "platform": "custom",
-      "scraper_type": "structured",
-      "data_quality": "heuristic",
-      "expected": "offers",
-      "blocked_reason": null,
-      "queries_tried": [
-        "fender"
-      ],
-      "offers_found": 4,
-      "sample": [
-        {
-          "name": "RODE XLR Male to XLR Female Cable (3m, Blue)",
-          "price": 186.9,
-          "currency": "AED",
-          "price_eur": 44.65,
-          "url": "https://www.thomsunmusic.com/rode-xlr-male-to-xlr-female-cable-3m-blue"
-        },
-        {
-          "name": "Yamaha FC7 Expression/Volume pedal",
-          "price": 283.5,
-          "currency": "AED",
-          "price_eur": 67.72,
-          "url": "https://www.thomsunmusic.com/yamaha-fc7"
-        },
-        {
-          "name": "Fender 0239961000 Flash 2.0 Rechargeable Tuner",
-          "price": 80.85,
-          "currency": "AED",
-          "price_eur": 19.31,
-          "url": "https://www.thomsunmusic.com/fender-0239961000-flash-20-rechargeable-tuner"
-        }
-      ],
-      "elapsed_s": 0.9,
+      "elapsed_s": 40.1,
       "result": "passed",
       "error": null
     },
@@ -3659,25 +3529,25 @@
       "offers_found": 5,
       "sample": [
         {
-          "name": "[SN Z4169553] USED Fender USA / 50th Anniversary American Stratocaster with Maple Fingerboard, 2-Color Sunburst [3.55 kg / Manufactured in 2004] Fender [08]",
-          "price": 1266.95,
+          "name": "[SN MIJ E688570] USED Fender Japan / ST62-55 Revol Yellow [11]",
+          "price": 829.95,
           "currency": "EUR",
-          "price_eur": 1266.95,
-          "url": "https://intl.ishibashi.co.jp/products/08-2800005681062"
+          "price_eur": 829.95,
+          "url": "https://intl.ishibashi.co.jp/products/11-2800005677898"
         },
         {
-          "name": "[SN MXS24048081] USED FENDER MEXICO / Player II Stratocaster HSS  Maple Fingerboard Transparent Mochaburst [03]",
-          "price": 537.95,
+          "name": "[SN JD13021731] USED Fender Japan / JG66 Vintage White [11]",
+          "price": 1056.95,
           "currency": "EUR",
-          "price_eur": 537.95,
-          "url": "https://intl.ishibashi.co.jp/products/03-2800005695861"
+          "price_eur": 1056.95,
+          "url": "https://intl.ishibashi.co.jp/products/11-2800005685374"
         },
         {
-          "name": "[SN MZ7126278] USED Fender / Joe Strummer Telecaster Rosewood Fingerboard Custom Road Worn [3.32 kg / Manufactured in 2007] Fender Joe Strummer [08]",
-          "price": 1055.95,
+          "name": "[SN MX14480250] USED Fender Mexico / Classic Player Jazzmaster Special Refinish [11]",
+          "price": 710.95,
           "currency": "EUR",
-          "price_eur": 1055.95,
-          "url": "https://intl.ishibashi.co.jp/products/08-2800005660913"
+          "price_eur": 710.95,
+          "url": "https://intl.ishibashi.co.jp/products/11-2800005679427"
         }
       ],
       "elapsed_s": 40.1,
@@ -3703,25 +3573,25 @@
           "name": "Fender Mini Deluxe MD-20 Mini Pilli Siyah Gitar Amfisi",
           "price": 4272.0,
           "currency": "TRY",
-          "price_eur": 76.67,
+          "price_eur": 76.68,
           "url": "https://www.zuhalmuzik.com/fender-mini-deluxe-md-20-mini-pilli-siyah-gitar-amfisi-0234810000"
         },
         {
           "name": "Fender MUSTANG GTX50 Elektro Gitar Amfisi",
           "price": 40200.0,
           "currency": "TRY",
-          "price_eur": 721.43,
+          "price_eur": 721.53,
           "url": "https://www.zuhalmuzik.com/fender-mustang-gtx50-179812"
         },
         {
           "name": "FENDER BLUES DELUXE - 7'li Mızıka Seti (Çantalı)",
           "price": 5900.0,
           "currency": "TRY",
-          "price_eur": 105.88,
+          "price_eur": 105.9,
           "url": "https://www.zuhalmuzik.com/fender-harmonica-blues-deluxe-7-pack-77003"
         }
       ],
-      "elapsed_s": 14.4,
+      "elapsed_s": 15.6,
       "result": "passed",
       "error": null
     },
@@ -3741,24 +3611,24 @@
       "offers_found": 5,
       "sample": [
         {
-          "name": "Fender Vintera III Mid 60s Jaguar Electric Guitar, RW FB, Sherwood Green Metallic",
-          "price": 1999.0,
-          "currency": "SGD",
-          "price_eur": 1373.09,
-          "url": "https://www.sweelee.com.sg/products/fender-vintera-iii-mid-60s-jaguar-electric-guitar-rw-fb-sherwood-green-metallic"
-        },
-        {
           "name": "Fender CD-60 Dreadnought V3 DS Acoustic Guitar, Walnut FB, Natural",
           "price": 299.0,
           "currency": "SGD",
-          "price_eur": 205.38,
+          "price_eur": 205.45,
           "url": "https://www.sweelee.com.sg/products/fender-cd-60-dreadnought-v3-ds-acoustic-guitar-walnut-fb-natural"
+        },
+        {
+          "name": "Fender Vintera III Mid 60s Jaguar Electric Guitar, RW FB, Sherwood Green Metallic",
+          "price": 1999.0,
+          "currency": "SGD",
+          "price_eur": 1373.57,
+          "url": "https://www.sweelee.com.sg/products/fender-vintera-iii-mid-60s-jaguar-electric-guitar-rw-fb-sherwood-green-metallic"
         },
         {
           "name": "Fender Audio ELIE 12 Portable Bluetooth Speakers, Olympic White",
           "price": 588.0,
           "currency": "SGD",
-          "price_eur": 403.89,
+          "price_eur": 404.03,
           "url": "https://www.sweelee.com.sg/products/fender-audio-elie-12-portable-bluetooth-speakers-olympic-white"
         }
       ],
@@ -3785,21 +3655,21 @@
           "name": "Nord Stage 4 88 Stage Keyboard (Return)",
           "price": 5399.99,
           "currency": "USD",
-          "price_eur": 4737.22,
+          "price_eur": 4743.11,
           "url": "https://kraftmusic.com/products/nord-stage-4-88-stage-keyboard-return"
         },
         {
           "name": "Roland FP-10 Digital Piano - Black (Demo)",
           "price": 449.99,
           "currency": "USD",
-          "price_eur": 394.76,
+          "price_eur": 395.25,
           "url": "https://kraftmusic.com/products/roland-fp-10-digital-piano-black-demo"
         },
         {
           "name": "Korg PA5X 88-key Professional Arranger Workstation Keyboard (Demo)",
           "price": 4949.0,
           "currency": "USD",
-          "price_eur": 4341.58,
+          "price_eur": 4346.98,
           "url": "https://kraftmusic.com/products/korg-pa5x-88-key-professional-arranger-workstation-keyboard-demo"
         }
       ],
@@ -3820,31 +3690,17 @@
       "queries_tried": [
         "fender"
       ],
-      "offers_found": 5,
+      "offers_found": 1,
       "sample": [
         {
-          "name": "Fender American Vintage II 1961 Stratocaster®, Rosewood Fingerboard, Fiesta Red",
-          "price": 16125.0,
+          "name": "PRS Silver Sky Defender Limited Edition - 2026, Arles Blue (now accept order)",
+          "price": 25000.0,
           "currency": "HKD",
-          "price_eur": 1804.41,
-          "url": "https://www.tomleemusic.com.hk/products/fender-american-vintage-ii-1961-stratocaster%C2%AE-rosewood-fingerboard-fiesta-red"
-        },
-        {
-          "name": "Fender American Professional Classic Stratocaster® HSS, Maple Fingerboard, Faded Black",
-          "price": 12000.0,
-          "currency": "HKD",
-          "price_eur": 1342.82,
-          "url": "https://www.tomleemusic.com.hk/products/fender-american-professional-classic-stratocaster%C2%AE-hss-maple-fingerboard-faded-black"
-        },
-        {
-          "name": "Fender American Professional Classic Jazzmaster®, Rosewood Fingerboard, Faded Sherwood Green Metallic",
-          "price": 12375.0,
-          "currency": "HKD",
-          "price_eur": 1384.78,
-          "url": "https://www.tomleemusic.com.hk/products/fender-american-professional-classic-jazzmaster%C2%AE-rosewood-fingerboard-faded-sherwood-green-metallic"
+          "price_eur": 2799.55,
+          "url": "https://www.tomleemusic.com.hk/products/prs-silver-sky-defender-limited-edition-2026-sandglow-yellow-now-accept-order-copy"
         }
       ],
-      "elapsed_s": 60.1,
+      "elapsed_s": 60.2,
       "result": "passed",
       "error": null
     },
@@ -3867,28 +3723,28 @@
       "offers_found": 5,
       "sample": [
         {
-          "name": "Harmonium Double Reeds 32 English Keys &#8211; Teak Colour",
+          "name": "Harmonium Double Reeds 32 English Keys – Teak Colour",
           "price": 37500.0,
           "currency": "INR",
-          "price_eur": 343.58,
+          "price_eur": 343.63,
           "url": "https://www.haribhau.com/product/harmonium-double-reeds-32-english-keys-teak-colour/"
         },
         {
           "name": "Harmonium Triple Reeds Folding 41 Stick Keys Premier STAR Reeds",
           "price": 51000.0,
           "currency": "INR",
-          "price_eur": 467.26,
+          "price_eur": 467.33,
           "url": "https://www.haribhau.com/product/harmonium-triple-reeds-folding-41-stick-keys-premier-star-reeds/"
         },
         {
           "name": "Harmonium Double Reeds Folding 32 Stick Keys (C To G) Premier STAR Reeds",
           "price": 45000.0,
           "currency": "INR",
-          "price_eur": 412.29,
+          "price_eur": 412.35,
           "url": "https://www.haribhau.com/product/harmonium-double-reeds-folding-32-stick-keys-c-to-g-premier-star-reeds/"
         }
       ],
-      "elapsed_s": 46.7,
+      "elapsed_s": 46.6,
       "result": "passed",
       "error": null
     },
@@ -3908,28 +3764,28 @@
       "offers_found": 5,
       "sample": [
         {
-          "name": "Vault Junior Beginner Acoustic Guitar Learning Kit – Includes 3 Free Lessons & Accessories - Perfect for Kids (Age 5-8 Years) - Open Box",
-          "price": 2694.0,
+          "name": "Henrix 38C 38 Inch Cutaway Acoustic Guitar with Dual Action Truss Rod, Gigbag, Picks, String Set, Strap, Cloth & Ebook - Open Box",
+          "price": 1814.0,
           "currency": "INR",
-          "price_eur": 24.68,
-          "url": "https://www.bajaao.com/products/vault-junior-beginner-acoustic-guitar-learning-kit-includes-3-free-lessons-accessories-perfect-for-kids-age-5-8-years-open-box"
+          "price_eur": 16.62,
+          "url": "https://www.bajaao.com/products/henrix-38c-38-inch-cutaway-acoustic-guitar-with-dual-action-truss-rod-gigbag-picks-string-set-strap-cloth-ebook-open-box-13"
         },
         {
           "name": "Henrix 38C 38 Inch Cutaway Acoustic Guitar with Dual Action Truss Rod, Gigbag, Picks, String Set, Strap, Cloth & Ebook - Open Box",
           "price": 1814.0,
           "currency": "INR",
           "price_eur": 16.62,
-          "url": "https://www.bajaao.com/products/henrix-38c-38-inch-cutaway-acoustic-guitar-with-dual-action-truss-rod-gigbag-picks-string-set-strap-cloth-ebook-open-box-11"
+          "url": "https://www.bajaao.com/products/henrix-38c-38-inch-cutaway-acoustic-guitar-with-dual-action-truss-rod-gigbag-picks-string-set-strap-cloth-ebook-open-box-12"
         },
         {
-          "name": "Henrix PRO 40C 40-Inch Cutaway Acoustic Guitar with Dual Action Truss Rod, Gigbag, Picks, String Set, Strap, Cloth & Ebook - Open Box",
-          "price": 2419.0,
+          "name": "Fender California Debut Redondo CE Electro Acoustic Guitar - Open Box",
+          "price": 13110.0,
           "currency": "INR",
-          "price_eur": 22.16,
-          "url": "https://www.bajaao.com/products/henrix-pro-40c-40-inch-cutaway-acoustic-guitar-with-dual-action-truss-rod-gigbag-picks-string-set-strap-cloth-ebook-open-box-4"
+          "price_eur": 120.13,
+          "url": "https://www.bajaao.com/products/fender-california-debut-redondo-ce-electro-acoustic-guitar-open-box"
         }
       ],
-      "elapsed_s": 60.2,
+      "elapsed_s": 60.1,
       "result": "passed",
       "error": null
     }

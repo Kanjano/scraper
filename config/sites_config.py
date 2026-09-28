@@ -350,6 +350,18 @@ MANUAL_OVERRIDES: dict[str, dict] = {
         "impersonate": True,
         "data_quality": "heuristic",
     },
+    "carter-vintage-guitars": {
+        "platform": "custom",
+        "scraper_type": "structured",
+        "search_url": "https://cartervintage.com/shop?keywords={query}&sort=DEFAULT",
+        "impersonate": True,
+        "data_quality": "heuristic",
+    },
+    "stars-music": {"enabled": False, "blocked_reason": "search page ignores the query (same grid for any search); the shop builds its results in the browser"},
+    "bernunzio-uptown-music": {"enabled": False, "blocked_reason": "search page ignores the query (same grid for any search); the shop builds its results in the browser"},
+    "forks-drum-closet": {"enabled": False, "blocked_reason": "search page ignores the query (same grid for any search); the shop builds its results in the browser"},
+    "saxquest": {"enabled": False, "blocked_reason": "search page ignores the query (same grid for any search); the shop builds its results in the browser"},
+    "melody-house": {"enabled": False, "blocked_reason": "search page ignores the query (same grid for any search); the shop builds its results in the browser"},
     "musicians-friend": {
         "enabled": False,
         "blocked_reason": "Akamai bot challenge on search since 2026-09 (same group and "

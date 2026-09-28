@@ -5,7 +5,8 @@
 1. **Official or public search API** — no HTML, no bot wall. Reverb
    (`api.reverb.com`); Sweetwater and Perfect Circuit through the Algolia index
    their own search box queries (`AlgoliaScraper`, public search-only key);
-   Gear4music through its Doofinder search engine (`DoofinderScraper`).
+   Gear4music through its Doofinder search engine (`DoofinderScraper`);
+   Andertons through Constructor.io (`ConstructorScraper`).
 2. **Static HTML** — plain `requests` + parsing (Thomann, `StructuredScraper`).
 3. **Chrome TLS fingerprint** — `impersonate: true` in a store override makes
    `BaseScraper` use a `curl_cffi` session that reproduces Chrome's TLS/HTTP2
@@ -15,8 +16,9 @@
 4. **Real Chrome** — `stealth: true` on a `playwright` store renders through
    patchright (Playwright without the CDP automation leaks) driving the
    installed Google Chrome, with `HeadlessChrome` removed from the UA. Clears
-   Cloudflare's non-interactive JS challenge and PerimeterX. Used for B&H and
-   Strumenti Musicali .net. ~5–10 s per search. Needs Google Chrome on the host.
+   Cloudflare's non-interactive JS challenge and PerimeterX. Used for B&H,
+   Strumenti Musicali .net, Guitar Guitar, Musik Produktiv, Session and
+   Furtados. ~5–10 s per search. Needs Google Chrome on the host.
 5. **Residential proxies / commercial unlockers** — for interactive challenges
    (Cloudflare Turnstile checkbox, Akamai press-and-hold). Proxy rotation is
    built in; unlocker APIs (Zyte / ScrapingBee / Bright Data) are the paid fallback.
@@ -36,6 +38,9 @@ Captchas are not solved and robots.txt is still honoured.
 | Vintage Instruments | HTTP 403 to non-browser TLS | `impersonate` + WooCommerce Store API |
 | B&H | Cloudflare JS challenge | `stealth` Chrome + selectors |
 | Strumenti Musicali .net | HTTP 428 JS challenge | `stealth` Chrome + selectors |
+| Andertons | old search page gone (404); Constructor.io search | Constructor API (public client key) |
+| Musik Produktiv, Session | HTTP 403 to non-browser clients on search | `stealth` Chrome, `?search=` route |
+| Musician's Friend | Akamai bot challenge on search (since 2026-09) | blocked: proxy/unlocker |
 | Guitar Center | Akamai press-and-hold on search | blocked: proxy/unlocker |
 | The Ukulele Site, Full Compass | Cloudflare Turnstile (interactive) | blocked: proxy/unlocker |
 
